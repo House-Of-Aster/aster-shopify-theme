@@ -78,14 +78,14 @@
     (() => {
       const sectionId = {{ section.id | json }};
 
-      const mountBearLayer = () => {
-        const sectionRoot = document.getElementById(`shopify-section-${sectionId}`);
+      window.AsterMountBearLayer = window.AsterMountBearLayer || (async (targetSectionId) => {
+        const sectionRoot = document.getElementById(`shopify-section-${targetSectionId}`);
         const landing = document.querySelector('#AsterPasswordPage [data-aster-landing]');
-        const layer = sectionRoot?.querySelector(`[data-aster-bear-layer][data-aster-bear-section="${sectionId}"]`);
+        const layer = sectionRoot?.querySelector(`[data-aster-bear-layer][data-aster-bear-section="${targetSectionId}"]`);
         if (!landing || !layer) return;
 
         landing
-          .querySelectorAll(`[data-aster-bear-layer][data-aster-bear-section="${sectionId}"]`)
+          .querySelectorAll(`[data-aster-bear-layer][data-aster-bear-section="${targetSectionId}"]`)
           .forEach((existingLayer) => {
             if (existingLayer !== layer) existingLayer.remove();
           });
@@ -95,92 +95,90 @@
         const image = layer.querySelector('[data-aster-bear-image]');
         if (!image) return;
 
-        const detectVisibleBottom = async () => {
-          const sourceUrl = image.currentSrc || image.src;
-          if (!sourceUrl) return;
-
-          try {
-            const probe = new Image();
-            probe.crossOrigin = 'anonymous';
-            probe.decoding = 'async';
-            probe.src = sourceUrl;
-
-            if (typeof probe.decode === 'function') {
-              await probe.decode();
-            } else {
-              await new Promise((resolve, reject) => {
-                probe.addEventListener('load', resolve, { once: true });
-                probe.addEventListener('error', reject, { once: true });
-              });
-            }
-
-            if (!probe.naturalWidth || !probe.naturalHeight) return;
-
-            const maxScanDimension = 700;
-            const scanScale = Math.min(1, maxScanDimension / Math.max(probe.naturalWidth, probe.naturalHeight));
-            const scanWidth = Math.max(1, Math.round(probe.naturalWidth * scanScale));
-            const scanHeight = Math.max(1, Math.round(probe.naturalHeight * scanScale));
-            const canvas = document.createElement('canvas');
-            canvas.width = scanWidth;
-            canvas.height = scanHeight;
-
-            const context = canvas.getContext('2d', { willReadFrequently: true });
-            if (!context) return;
-
-            context.clearRect(0, 0, scanWidth, scanHeight);
-            context.drawImage(probe, 0, 0, scanWidth, scanHeight);
-
-            const pixels = context.getImageData(0, 0, scanWidth, scanHeight).data;
-            const alphaThreshold = 24;
-            const minimumRowPixels = Math.max(3, Math.round(scanWidth * 0.004));
-            let bottomRow = -1;
-
-            for (let y = scanHeight - 1; y >= 0; y -= 1) {
-              let visiblePixels = 0;
-              const rowStart = y * scanWidth * 4;
-
-              for (let x = 0; x < scanWidth; x += 1) {
-                if (pixels[rowStart + x * 4 + 3] >= alphaThreshold) {
-                  visiblePixels += 1;
-                  if (visiblePixels >= minimumRowPixels) {
-                    bottomRow = y;
-                    break;
-                  }
-                }
-              }
-
-              if (bottomRow >= 0) break;
-            }
-
-            if (bottomRow < 0) return;
-
-            const transparentBottomRatio = Math.max(0, Math.min(0.45, 1 - (bottomRow + 1) / scanHeight));
-            image.style.setProperty('--aster-bear-bottom-trim', `${(transparentBottomRatio * 100).toFixed(3)}%`);
-          } catch (error) {
-            /* The CSS fallback keeps the current Aster bear artwork bottom-compensated if alpha scanning is unavailable. */
-          }
+        const waitForVisibleImage = async () => {
+          if (image.complete && image.naturalWidth > 0) return;
+          await new Promise((resolve) => {
+            image.addEventListener('load', resolve, { once: true });
+            image.addEventListener('error', resolve, { once: true });
+          });
         };
 
-        if (image.complete && image.naturalWidth > 0) {
-          detectVisibleBottom();
-        } else {
-          image.addEventListener('load', detectVisibleBottom, { once: true });
-        }
-      };
+        await waitForVisibleImage();
 
-      mountBearLayer();
+        const sourceUrl = image.currentSrc || image.src;
+        if (!sourceUrl) return;
+
+        try {
+          const probe = new Image();
+          probe.crossOrigin = 'anonymous';
+          probe.decoding = 'async';
+          probe.src = sourceUrl;
+
+          if (typeof probe.decode === 'function') {
+            await probe.decode();
+          } else {
+            await new Promise((resolve, reject) => {
+              probe.addEventListener('load', resolve, { once: true });
+              probe.addEventListener('error', reject, { once: true });
+            });
+          }
+
+          if (!probe.naturalWidth || !probe.naturalHeight) return;
+
+          const maxScanDimension = 700;
+          const scanScale = Math.min(1, maxScanDimension / Math.max(probe.naturalWidth, probe.naturalHeight));
+          const scanWidth = Math.max(1, Math.round(probe.naturalWidth * scanScale));
+          const scanHeight = Math.max(1, Math.round(probe.naturalHeight * scanScale));
+          const canvas = document.createElement('canvas');
+          canvas.width = scanWidth;
+          canvas.height = scanHeight;
+
+          const context = canvas.getContext('2d', { willReadFrequently: true });
+          if (!context) return;
+
+          context.clearRect(0, 0, scanWidth, scanHeight);
+          context.drawImage(probe, 0, 0, scanWidth, scanHeight);
+
+          const pixels = context.getImageData(0, 0, scanWidth, scanHeight).data;
+          const alphaThreshold = 24;
+          const minimumRowPixels = Math.max(3, Math.round(scanWidth * 0.004));
+          let bottomRow = -1;
+
+          for (let y = scanHeight - 1; y >= 0; y -= 1) {
+            let visiblePixels = 0;
+            const rowStart = y * scanWidth * 4;
+
+            for (let x = 0; x < scanWidth; x += 1) {
+              if (pixels[rowStart + x * 4 + 3] >= alphaThreshold) {
+                visiblePixels += 1;
+                if (visiblePixels >= minimumRowPixels) {
+                  bottomRow = y;
+                  break;
+                }
+              }
+            }
+
+            if (bottomRow >= 0) break;
+          }
+
+          if (bottomRow < 0) return;
+
+          const transparentBottomRatio = Math.max(0, Math.min(0.45, 1 - (bottomRow + 1) / scanHeight));
+          image.style.setProperty('--aster-bear-bottom-trim', `${(transparentBottomRatio * 100).toFixed(3)}%`);
+        } catch (error) {
+          /* The 12% CSS fallback keeps the current Aster bear artwork bottom-compensated if alpha scanning is unavailable. */
+        }
+      });
+
+      window.AsterMountBearLayer(sectionId);
 
       if (!window.__asterBearThemeEditorListener) {
         window.__asterBearThemeEditorListener = true;
-        document.addEventListener('shopify:section:load', () => {
-          document.querySelectorAll('[data-aster-bear-layer]').forEach((bearLayer) => {
-            const bearSectionId = bearLayer.getAttribute('data-aster-bear-section');
-            const bearSectionRoot = document.getElementById(`shopify-section-${bearSectionId}`);
-            const bearLanding = document.querySelector('#AsterPasswordPage [data-aster-landing]');
-            if (bearSectionRoot && bearLanding && bearSectionRoot.contains(bearLayer)) {
-              bearLanding.appendChild(bearLayer);
-            }
-          });
+        document.addEventListener('shopify:section:load', (event) => {
+          const loadedSectionId = event?.detail?.sectionId;
+          if (loadedSectionId && typeof window.AsterMountBearLayer === 'function') {
+            window.AsterMountBearLayer(loadedSectionId);
+          }
         });
       }
     })();
