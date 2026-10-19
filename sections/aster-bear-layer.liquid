@@ -11,18 +11,18 @@
       content: "";
       position: absolute;
       inset: 0;
-      z-index: 3;
+      z-index: 15;
       pointer-events: none;
       opacity: {{ section.settings.bear_opacity | divided_by: 100.0 }};
       background-image: url('{{ section.settings.bear_image | image_url: width: 2000 }}');
       background-repeat: no-repeat;
-      background-position: {{ section.settings.bear_x_desktop }}% {{ section.settings.bear_y_desktop }}%;
+      background-position: {{ section.settings.bear_x_desktop }}% 100%;
       background-size: {{ section.settings.bear_width_desktop_px }}px auto;
     }
 
     @media screen and (max-width: 749px) {
       #AsterPasswordPage [data-aster-landing]::before {
-        background-position: {{ section.settings.bear_x_mobile }}% {{ section.settings.bear_y_mobile }}%;
+        background-position: {{ section.settings.bear_x_mobile }}% 100%;
         background-size: {{ section.settings.bear_width_mobile_px }}px auto;
       }
     }
@@ -39,7 +39,7 @@
       "type": "image_picker",
       "id": "bear_image",
       "label": "Bear silhouette image",
-      "info": "Upload a transparent PNG or WebP. It sits above the background shade and behind the canopy, ASTER logo and countdown."
+      "info": "Upload a transparent PNG or WebP. The bear is anchored to the bottom edge, above the mobile shadow layer and behind the ASTER logo, canopy and countdown."
     },
     {
       "type": "range",
@@ -68,16 +68,6 @@
     },
     {
       "type": "range",
-      "id": "bear_y_desktop",
-      "label": "Vertical position",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "default": 50
-    },
-    {
-      "type": "range",
       "id": "bear_width_desktop_px",
       "label": "Scale (fixed width)",
       "min": 100,
@@ -85,7 +75,7 @@
       "step": 5,
       "unit": "px",
       "default": 400,
-      "info": "Fixed image width in pixels. It will not shrink or grow when the browser window changes width."
+      "info": "Fixed image width in pixels. The bottom edge stays anchored while scale determines how high the bear reaches."
     },
     {
       "type": "header",
@@ -103,16 +93,6 @@
     },
     {
       "type": "range",
-      "id": "bear_y_mobile",
-      "label": "Vertical position",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "default": 50
-    },
-    {
-      "type": "range",
       "id": "bear_width_mobile_px",
       "label": "Scale (fixed width)",
       "min": 100,
@@ -120,7 +100,7 @@
       "step": 5,
       "unit": "px",
       "default": 390,
-      "info": "Fixed image width in pixels. It will not shrink or grow with the mobile viewport width."
+      "info": "Fixed image width in pixels. The bottom edge stays anchored while scale determines how high the bear reaches."
     }
   ],
   "presets": [
