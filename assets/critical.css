@@ -81,22 +81,14 @@ body {
 /** Block container layout utilities */
 
 /**
- * Setup a grid that enables both full-width and constrained layouts
- * depending on the class of the child elements.
- *
- * By default, a minimum content margin is set on the left and right
- * sides of the container and the content is centered in the viewport
- * to not exceed the maximum page width.
- *
- * When a child element is given the `full-width` class, it will span
- * the entire viewport.
+ * Aster uses a fixed 1400px maximum content column with permanent gutters.
+ * Normal content is centered and protected from the viewport edges.
+ * Explicit full-width children may still use the entire viewport for
+ * background treatments while their internal content can remain constrained.
  */
 .block-container {
-  --content-width: min(
-    calc(var(--page-width) - var(--page-margin) * 2),
-    calc(100% - var(--page-margin) * 2)
-  );
-  --content-margin: minmax(var(--page-margin), 1fr);
+  --content-width: min(1400px, calc(100% - 48px));
+  --content-margin: minmax(24px, 1fr);
   --content-grid: var(--content-margin) var(--content-width) var(--content-margin);
 
   /* This is required to make <img> elements work as background images */
@@ -115,4 +107,11 @@ body {
 /* Child elements that use the full-width utility class span the entire viewport. */
 .block-container > .full-width {
   grid-column: 1 / -1;
+}
+
+@media (max-width: 749px) {
+  .block-container {
+    --content-width: calc(100% - 32px);
+    --content-margin: 16px;
+  }
 }
