@@ -13,6 +13,7 @@
       inset: 0;
       z-index: 2;
       pointer-events: none;
+      opacity: {{ section.settings.bear_opacity | divided_by: 100.0 }};
       background-image: url('{{ section.settings.bear_image | image_url: width: 2000 }}');
       background-repeat: no-repeat;
       background-position: {{ section.settings.bear_x_desktop }}% {{ section.settings.bear_y_desktop }}%;
@@ -39,6 +40,17 @@
       "id": "bear_image",
       "label": "Bear silhouette image",
       "info": "Upload a transparent PNG or WebP. It sits immediately above the background and behind the canopy, ASTER logo and countdown."
+    },
+    {
+      "type": "range",
+      "id": "bear_opacity",
+      "label": "Master opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 100,
+      "info": "Controls the silhouette opacity on both desktop and mobile."
     },
     {
       "type": "header",
