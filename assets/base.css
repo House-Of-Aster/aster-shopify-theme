@@ -117,7 +117,7 @@
 /** Collections list page */
 .collections {
   display: grid;
-  gap: 2rem;
+  gap: var(--grid-gap);
   grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
 }
 .collections--compact {
