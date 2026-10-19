@@ -87,8 +87,8 @@ body {
  * background treatments while their internal content can remain constrained.
  */
 .block-container {
-  --content-width: min(1400px, calc(100% - 48px));
-  --content-margin: minmax(24px, 1fr);
+  --content-width: min(1400px, calc(100% - 40px));
+  --content-margin: minmax(20px, 1fr);
   --content-grid: var(--content-margin) var(--content-width) var(--content-margin);
 
   /* This is required to make <img> elements work as background images */
@@ -111,7 +111,7 @@ body {
 
 @media (max-width: 749px) {
   .block-container {
-    --content-width: calc(100% - 32px);
-    --content-margin: 16px;
+    --content-width: calc(100% - 30px);
+    --content-margin: 15px;
   }
 }
