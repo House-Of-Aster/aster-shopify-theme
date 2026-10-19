@@ -12,7 +12,7 @@
     "logo": "shopify://shop_images/Aster-Logo.svg",
     "logo_colour": "#6B2331",
     "logo_width": 300,
-    "logo_mobile_width": 130,
+    "logo_mobile_width": 155,
     "favicon": "shopify://shop_images/Aster-Favi.png",
     "max_page_width": "110rem",
     "content_for_index": []
