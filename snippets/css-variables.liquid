@@ -1,18 +1,238 @@
 {% style %}
-  {% # Loads all font variantions with display: swap %}
+  @font-face {
+    font-family: "British Poems";
+    src: url("{{ 'BritishPoems-Regular.woff2' | asset_url }}") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
   {{ settings.type_primary_font | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
 
+  {{ settings.type_heading_font | font_face: font_display: 'swap' }}
+  {{ settings.type_heading_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+  {{ settings.type_heading_font | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
+
   :root {
-    --font-primary--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
-    --font-primary--style: {{ settings.type_primary_font.style }};
-    --font-primary--weight: {{ settings.type_primary_font.weight }};
+    {% if settings.type_body_font_source == 'british_poems' %}
+      --font-body--family: "British Poems", serif;
+      --font-body--style: normal;
+      --font-body--weight: 400;
+    {% else %}
+      --font-body--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
+      --font-body--style: {{ settings.type_primary_font.style }};
+      --font-body--weight: {{ settings.type_primary_font.weight }};
+    {% endif %}
+
+    {% if settings.type_heading_font_source == 'british_poems' %}
+      --font-heading--family: "British Poems", serif;
+      --font-heading--style: normal;
+      --font-heading--weight: 400;
+    {% else %}
+      --font-heading--family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
+      --font-heading--style: {{ settings.type_heading_font.style }};
+      --font-heading--weight: {{ settings.type_heading_font.weight }};
+    {% endif %}
+
+    {% case settings.type_display_font_family %}
+      {% when 'heading' %}
+        --font-display--family: var(--font-heading--family);
+        --font-display--style: var(--font-heading--style);
+        --font-display--weight: var(--font-heading--weight);
+      {% when 'body' %}
+        --font-display--family: var(--font-body--family);
+        --font-display--style: var(--font-body--style);
+        --font-display--weight: var(--font-body--weight);
+      {% else %}
+        --font-display--family: "British Poems", serif;
+        --font-display--style: normal;
+        --font-display--weight: 400;
+    {% endcase %}
+
+    {% case settings.type_subheading_font_family %}
+      {% when 'heading' %}
+        --font-subheading--family: var(--font-heading--family);
+      {% when 'british_poems' %}
+        --font-subheading--family: "British Poems", serif;
+      {% else %}
+        --font-subheading--family: var(--font-body--family);
+    {% endcase %}
+
+    {% case settings.type_product_card_title_font_family %}
+      {% when 'heading' %}
+        --font-product-card-title--family: var(--font-heading--family);
+      {% when 'british_poems' %}
+        --font-product-card-title--family: "British Poems", serif;
+      {% else %}
+        --font-product-card-title--family: var(--font-body--family);
+    {% endcase %}
+
+    {% case settings.type_navigation_font_family %}
+      {% when 'heading' %}
+        --font-navigation--family: var(--font-heading--family);
+      {% when 'british_poems' %}
+        --font-navigation--family: "British Poems", serif;
+      {% else %}
+        --font-navigation--family: var(--font-body--family);
+    {% endcase %}
+
+    {% case settings.type_button_font_family %}
+      {% when 'heading' %}
+        --font-button--family: var(--font-heading--family);
+      {% when 'british_poems' %}
+        --font-button--family: "British Poems", serif;
+      {% else %}
+        --font-button--family: var(--font-body--family);
+    {% endcase %}
+
+    --font-primary--family: var(--font-body--family);
+    --font-primary--style: var(--font-body--style);
+    --font-primary--weight: var(--font-body--weight);
+
+    --font-body-size: {{ settings.type_body_base_size }}px;
+    --font-body-bolder-weight: {{ settings.type_body_bolder_weight }};
+    --font-heading-scale: {{ settings.type_heading_scale | times: 0.01 }};
+    --font-heading-mobile-scale: {{ settings.type_heading_mobile_scale | times: 0.01 }};
+    --font-heading-letter-spacing: {{ settings.type_heading_letter_spacing | times: 0.01 }}em;
+    --font-heading-transform: {% if settings.type_heading_uppercase %}uppercase{% else %}none{% endif %};
+    --font-display-size: {{ settings.type_display_base_size }}px;
+    --font-display-transform: {% if settings.type_display_uppercase %}uppercase{% else %}none{% endif %};
+    --font-subheading-scale: {{ settings.type_subheading_scale | times: 0.01 }};
+    --font-subheading-weight: {{ settings.type_subheading_weight }};
+    --font-subheading-letter-spacing: {{ settings.type_subheading_letter_spacing | times: 0.01 }}em;
+    --font-subheading-transform: {{ settings.type_subheading_transform }};
+    --font-product-card-title-scale: {{ settings.type_product_card_title_scale | times: 0.01 }};
+    --font-product-card-title-weight: {{ settings.type_product_card_title_weight }};
+    --font-product-card-title-transform: {% if settings.type_product_card_title_uppercase %}uppercase{% else %}none{% endif %};
+    --font-navigation-weight: {{ settings.type_navigation_weight }};
+    --font-navigation-transform: {% if settings.type_navigation_uppercase %}uppercase{% else %}none{% endif %};
+    --font-button-weight: {{ settings.type_button_weight }};
+    --font-button-letter-spacing: {{ settings.type_button_letter_spacing | times: 0.01 }}em;
+    --font-button-transform: {{ settings.type_button_transform }};
+
     --page-width: {{ settings.max_page_width }};
     --page-margin: {{ settings.min_page_margin }}px;
     --color-background: {{ settings.background_color }};
     --color-foreground: {{ settings.foreground_color }};
     --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+  }
+
+  body {
+    font-family: var(--font-body--family);
+    font-style: var(--font-body--style);
+    font-weight: var(--font-body--weight);
+    font-size: var(--font-body-size);
+  }
+
+  strong,
+  b {
+    font-weight: var(--font-body-bolder-weight);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  .h1,
+  .h2,
+  .h3,
+  .h4,
+  .h5,
+  .h6 {
+    font-family: var(--font-heading--family);
+    font-style: var(--font-heading--style);
+    font-weight: var(--font-heading--weight);
+    letter-spacing: var(--font-heading-letter-spacing);
+    text-transform: var(--font-heading-transform);
+  }
+
+  h1,
+  .h1 { font-size: calc(2.5rem * var(--font-heading-scale)); }
+  h2,
+  .h2 { font-size: calc(2rem * var(--font-heading-scale)); }
+  h3,
+  .h3 { font-size: calc(1.5rem * var(--font-heading-scale)); }
+  h4,
+  .h4 { font-size: calc(1.25rem * var(--font-heading-scale)); }
+  h5,
+  .h5 { font-size: calc(1.1rem * var(--font-heading-scale)); }
+  h6,
+  .h6 { font-size: calc(1rem * var(--font-heading-scale)); }
+
+  .display-heading,
+  .heading--display,
+  [data-display-heading] {
+    font-family: var(--font-display--family);
+    font-style: var(--font-display--style);
+    font-weight: var(--font-display--weight);
+    font-size: var(--font-display-size);
+    text-transform: var(--font-display-transform);
+  }
+
+  .aster-landing__heading {
+    font-family: var(--font-display--family) !important;
+    font-style: var(--font-display--style) !important;
+    font-weight: var(--font-display--weight) !important;
+    text-transform: var(--font-display-transform) !important;
+  }
+
+  .subheading,
+  .eyebrow,
+  [data-subheading],
+  .text--subtitle {
+    font-family: var(--font-subheading--family);
+    font-size: calc(1rem * var(--font-subheading-scale));
+    font-weight: var(--font-subheading-weight);
+    letter-spacing: var(--font-subheading-letter-spacing);
+    text-transform: var(--font-subheading-transform);
+  }
+
+  .product-card__title,
+  .card__heading,
+  [data-product-card-title] {
+    font-family: var(--font-product-card-title--family);
+    font-size: calc(1rem * var(--font-product-card-title-scale));
+    font-weight: var(--font-product-card-title-weight);
+    text-transform: var(--font-product-card-title-transform);
+  }
+
+  nav,
+  .navigation,
+  .header__menu,
+  [data-navigation] {
+    font-family: var(--font-navigation--family);
+    font-weight: var(--font-navigation-weight);
+    text-transform: var(--font-navigation-transform);
+  }
+
+  button,
+  .button,
+  input[type='button'],
+  input[type='submit'],
+  [role='button'] {
+    font-family: var(--font-button--family);
+    font-weight: var(--font-button-weight);
+    letter-spacing: var(--font-button-letter-spacing);
+    text-transform: var(--font-button-transform);
+  }
+
+  @media screen and (max-width: 749px) {
+    h1,
+    .h1 { font-size: calc(2.5rem * var(--font-heading-scale) * var(--font-heading-mobile-scale)); }
+    h2,
+    .h2 { font-size: calc(2rem * var(--font-heading-scale) * var(--font-heading-mobile-scale)); }
+    h3,
+    .h3 { font-size: calc(1.5rem * var(--font-heading-scale) * var(--font-heading-mobile-scale)); }
+    h4,
+    .h4 { font-size: calc(1.25rem * var(--font-heading-scale) * var(--font-heading-mobile-scale)); }
+    h5,
+    .h5 { font-size: calc(1.1rem * var(--font-heading-scale) * var(--font-heading-mobile-scale)); }
+    h6,
+    .h6 { font-size: calc(1rem * var(--font-heading-scale) * var(--font-heading-mobile-scale)); }
   }
 {% endstyle %}
