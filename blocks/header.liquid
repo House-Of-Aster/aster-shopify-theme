@@ -1,13 +1,37 @@
 {% doc %}
-  Renders the theme's storefront header: shop title, main menu,
-  customer account entry, and cart link. Composed directly in
-  layout/theme.liquid so it wraps every page.
+  Renders the theme's storefront header: global logo or shop title,
+  main menu, customer account entry, and cart link. Composed directly
+  in layout/theme.liquid so it wraps every page.
 {% enddoc %}
 
 <header {{ block.shopify_attributes }}>
-  <h2 class="header__title">
-    {{ shop.name | link_to: routes.root_url }}
-  </h2>
+  <div class="header__brand">
+    {% if settings.logo != blank %}
+      <a href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
+        <picture>
+          {% if settings.logo_mobile != blank %}
+            <source
+              media="(max-width: 749px)"
+              srcset="{{ settings.logo_mobile | image_url: width: 600 }}"
+            >
+          {% endif %}
+          <img
+            class="header__logo"
+            src="{{ settings.logo | image_url: width: 800 }}"
+            alt="{{ shop.name | escape }}"
+            width="{{ settings.logo.width }}"
+            height="{{ settings.logo.height }}"
+            loading="eager"
+            style="--aster-logo-width: {{ settings.logo_width }}px; --aster-logo-width-mobile: {{ settings.logo_mobile_width }}px;"
+          >
+        </picture>
+      </a>
+    {% else %}
+      <h2 class="header__title">
+        {{ shop.name | link_to: routes.root_url }}
+      </h2>
+    {% endif %}
+  </div>
 
   <div class="header__menu">
     {% for link in block.settings.menu.links %}

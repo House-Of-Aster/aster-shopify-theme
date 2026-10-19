@@ -117,8 +117,8 @@
 /** Collections list page */
 .collections {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
   gap: var(--grid-gap);
+  grid-template-columns: repeat(auto-fill, minmax(min(var(--collection-card-size), 100%), 1fr));
 }
 .collections--compact {
   --collection-card-size: 160px;
@@ -158,6 +158,11 @@ header a {
   align-items: center;
   justify-content: center;
 }
+.header__logo {
+  display: block;
+  width: var(--aster-logo-width);
+  height: auto;
+}
 header a sup {
   position: absolute;
   left: 100%;
@@ -171,6 +176,12 @@ header .header__menu,
 header .header__icons {
   display: flex;
   gap: 1rem;
+}
+
+@media (max-width: 749px) {
+  .header__logo {
+    width: var(--aster-logo-width-mobile);
+  }
 }
 
 /** Footer */
