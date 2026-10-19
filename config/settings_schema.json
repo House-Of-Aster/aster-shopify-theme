@@ -8,13 +8,48 @@
     "theme_support_url": "https://support.shopify.com/"
   },
   {
-    "name": "Branding",
+    "name": "Logo",
     "settings": [
       {
         "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 60,
+        "max": 300,
+        "step": 5,
+        "unit": "px",
+        "default": 170
+      },
+      {
+        "type": "header",
+        "content": "Mobile layout"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_mobile",
+        "label": "Logo",
+        "info": "Optional. Leave blank to use the desktop logo on mobile."
+      },
+      {
+        "type": "range",
+        "id": "logo_mobile_width",
+        "label": "Logo width",
+        "min": 60,
+        "max": 240,
+        "step": 5,
+        "unit": "px",
+        "default": 130
+      },
+      {
+        "type": "image_picker",
         "id": "favicon",
-        "label": "Favicon",
-        "info": "Upload a square image. PNG is recommended; 32 × 32 px or larger."
+        "label": "Favicon image",
+        "info": "Upload a square image. It will be rendered at standard browser favicon sizes."
       }
     ]
   },
