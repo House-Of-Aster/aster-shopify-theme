@@ -19,17 +19,321 @@
     ]
   },
   {
-    "name": "t:general.typography",
+    "name": "Typography",
     "settings": [
       {
         "type": "header",
-        "content": "t:general.fonts"
+        "content": "Body"
+      },
+      {
+        "type": "select",
+        "id": "type_body_font_source",
+        "label": "Font source",
+        "options": [
+          { "value": "shopify", "label": "Shopify font" },
+          { "value": "british_poems", "label": "British Poems" }
+        ],
+        "default": "shopify"
       },
       {
         "type": "font_picker",
         "id": "type_primary_font",
         "default": "work_sans_n4",
-        "label": "t:general.primary"
+        "label": "Font",
+        "info": "Used when Font source is set to Shopify font."
+      },
+      {
+        "type": "select",
+        "id": "type_body_bolder_weight",
+        "label": "Bolder font weight",
+        "options": [
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi bold" },
+          { "value": "700", "label": "Bold" }
+        ],
+        "default": "600"
+      },
+      {
+        "type": "range",
+        "id": "type_body_base_size",
+        "label": "Base size",
+        "min": 12,
+        "max": 22,
+        "step": 1,
+        "unit": "px",
+        "default": 14
+      },
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "select",
+        "id": "type_heading_font_source",
+        "label": "Font source",
+        "options": [
+          { "value": "shopify", "label": "Shopify font" },
+          { "value": "british_poems", "label": "British Poems" }
+        ],
+        "default": "shopify"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "default": "work_sans_n4",
+        "label": "Font",
+        "info": "Used when Font source is set to Shopify font."
+      },
+      {
+        "type": "range",
+        "id": "type_heading_scale",
+        "label": "Font size scale",
+        "min": 80,
+        "max": 140,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "type_heading_mobile_scale",
+        "label": "Mobile font size scale",
+        "min": 80,
+        "max": 140,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "type_heading_letter_spacing",
+        "label": "Letter spacing",
+        "min": -10,
+        "max": 20,
+        "step": 1,
+        "unit": "%",
+        "default": 0
+      },
+      {
+        "type": "checkbox",
+        "id": "type_heading_uppercase",
+        "label": "Uppercase headings",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Display headings"
+      },
+      {
+        "type": "select",
+        "id": "type_display_font_family",
+        "label": "Font family",
+        "options": [
+          { "value": "body", "label": "Body font" },
+          { "value": "heading", "label": "Heading font" },
+          { "value": "british_poems", "label": "British Poems" }
+        ],
+        "default": "british_poems"
+      },
+      {
+        "type": "range",
+        "id": "type_display_base_size",
+        "label": "Base size",
+        "min": 24,
+        "max": 72,
+        "step": 1,
+        "unit": "px",
+        "default": 40
+      },
+      {
+        "type": "checkbox",
+        "id": "type_display_uppercase",
+        "label": "Uppercase display headings",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Subheadings"
+      },
+      {
+        "type": "range",
+        "id": "type_subheading_scale",
+        "label": "Font size scale",
+        "min": 80,
+        "max": 160,
+        "step": 5,
+        "unit": "%",
+        "default": 120
+      },
+      {
+        "type": "select",
+        "id": "type_subheading_font_family",
+        "label": "Font family",
+        "options": [
+          { "value": "body", "label": "Body font" },
+          { "value": "heading", "label": "Heading font" },
+          { "value": "british_poems", "label": "British Poems" }
+        ],
+        "default": "body"
+      },
+      {
+        "type": "select",
+        "id": "type_subheading_weight",
+        "label": "Font weight",
+        "options": [
+          { "value": "400", "label": "Regular" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi bold" },
+          { "value": "700", "label": "Bold" }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "range",
+        "id": "type_subheading_letter_spacing",
+        "label": "Letter spacing",
+        "min": -5,
+        "max": 30,
+        "step": 1,
+        "unit": "%",
+        "default": 10
+      },
+      {
+        "type": "select",
+        "id": "type_subheading_transform",
+        "label": "Text transform",
+        "options": [
+          { "value": "none", "label": "Normal" },
+          { "value": "uppercase", "label": "Uppercase" },
+          { "value": "lowercase", "label": "Lowercase" },
+          { "value": "capitalize", "label": "Capitalize" }
+        ],
+        "default": "none"
+      },
+      {
+        "type": "header",
+        "content": "Product card titles"
+      },
+      {
+        "type": "range",
+        "id": "type_product_card_title_scale",
+        "label": "Font size scale",
+        "min": 80,
+        "max": 150,
+        "step": 5,
+        "unit": "%",
+        "default": 110
+      },
+      {
+        "type": "select",
+        "id": "type_product_card_title_font_family",
+        "label": "Font family",
+        "options": [
+          { "value": "body", "label": "Body font" },
+          { "value": "heading", "label": "Heading font" },
+          { "value": "british_poems", "label": "British Poems" }
+        ],
+        "default": "body"
+      },
+      {
+        "type": "select",
+        "id": "type_product_card_title_weight",
+        "label": "Font weight",
+        "options": [
+          { "value": "400", "label": "Regular" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi bold" },
+          { "value": "700", "label": "Bold" }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "checkbox",
+        "id": "type_product_card_title_uppercase",
+        "label": "Uppercase product titles",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Navigation"
+      },
+      {
+        "type": "select",
+        "id": "type_navigation_font_family",
+        "label": "Font family",
+        "options": [
+          { "value": "body", "label": "Body font" },
+          { "value": "heading", "label": "Heading font" },
+          { "value": "british_poems", "label": "British Poems" }
+        ],
+        "default": "body"
+      },
+      {
+        "type": "select",
+        "id": "type_navigation_weight",
+        "label": "Font weight",
+        "options": [
+          { "value": "400", "label": "Regular" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi bold" },
+          { "value": "700", "label": "Bold" }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "checkbox",
+        "id": "type_navigation_uppercase",
+        "label": "Uppercase navigation",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Buttons"
+      },
+      {
+        "type": "select",
+        "id": "type_button_font_family",
+        "label": "Font family",
+        "options": [
+          { "value": "body", "label": "Body font" },
+          { "value": "heading", "label": "Heading font" },
+          { "value": "british_poems", "label": "British Poems" }
+        ],
+        "default": "body"
+      },
+      {
+        "type": "select",
+        "id": "type_button_weight",
+        "label": "Font weight",
+        "options": [
+          { "value": "400", "label": "Regular" },
+          { "value": "500", "label": "Medium" },
+          { "value": "600", "label": "Semi bold" },
+          { "value": "700", "label": "Bold" }
+        ],
+        "default": "400"
+      },
+      {
+        "type": "range",
+        "id": "type_button_letter_spacing",
+        "label": "Letter spacing",
+        "min": -5,
+        "max": 30,
+        "step": 1,
+        "unit": "%",
+        "default": 10
+      },
+      {
+        "type": "select",
+        "id": "type_button_transform",
+        "label": "Text transform",
+        "options": [
+          { "value": "none", "label": "Normal" },
+          { "value": "uppercase", "label": "Uppercase" },
+          { "value": "lowercase", "label": "Lowercase" },
+          { "value": "capitalize", "label": "Capitalize" }
+        ],
+        "default": "none"
       }
     ]
   },
