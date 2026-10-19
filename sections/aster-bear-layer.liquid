@@ -1,0 +1,120 @@
+{% if section.settings.bear_image != blank %}
+  <style>
+    #shopify-section-{{ section.id }} {
+      height: 0;
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    #AsterPasswordPage [data-aster-landing]::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      background-image: url('{{ section.settings.bear_image | image_url: width: 2000 }}');
+      background-repeat: no-repeat;
+      background-position: {{ section.settings.bear_x_desktop }}% {{ section.settings.bear_y_desktop }}%;
+      background-size: {{ section.settings.bear_scale_desktop }}vw auto;
+    }
+
+    @media screen and (max-width: 749px) {
+      #AsterPasswordPage [data-aster-landing]::before {
+        background-position: {{ section.settings.bear_x_mobile }}% {{ section.settings.bear_y_mobile }}%;
+        background-size: {{ section.settings.bear_scale_mobile }}vw auto;
+      }
+    }
+  </style>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Bear silhouette",
+  "tag": "section",
+  "class": "section-aster-bear-layer",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bear_image",
+      "label": "Bear silhouette image",
+      "info": "Upload a transparent PNG or WebP. It sits immediately above the background and behind the canopy, ASTER logo and countdown."
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "bear_x_desktop",
+      "label": "Horizontal position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "bear_y_desktop",
+      "label": "Vertical position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "bear_scale_desktop",
+      "label": "Scale",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 30,
+      "info": "Width as a percentage of the viewport."
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "bear_x_mobile",
+      "label": "Horizontal position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "bear_y_mobile",
+      "label": "Vertical position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "bear_scale_mobile",
+      "label": "Scale",
+      "min": 10,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 60,
+      "info": "Width as a percentage of the viewport."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bear silhouette"
+    }
+  ]
+}
+{% endschema %}
