@@ -134,19 +134,12 @@
 
           const imageData = scanContext.getImageData(0, 0, processWidth, processHeight);
           const pixels = imageData.data;
-
-          /*
-            Deliberately binary alpha. Any source opacity/fade is discarded:
-            qualifying bear pixels become fully opaque before Master opacity is
-            applied uniformly to the finished silhouette.
-          */
           const alphaCutoff = 20;
 
           let minX = processWidth;
           let minY = processHeight;
           let maxX = -1;
           let maxY = -1;
-
           let colourR = 0;
           let colourG = 0;
           let colourB = 0;
@@ -187,7 +180,6 @@
           const solidR = Math.round(colourR / colourWeight);
           const solidG = Math.round(colourG / colourWeight);
           const solidB = Math.round(colourB / colourWeight);
-
           const cropWidth = maxX - minX + 1;
           const cropHeight = maxY - minY + 1;
 
@@ -251,8 +243,7 @@
     {
       "type": "image_picker",
       "id": "bear_image",
-      "label": "Bear silhouette image",
-      "info": "The source is converted into a solid silhouette, cropped to the visible artwork and anchored by its visible feet to the bottom edge."
+      "label": "Bear silhouette image"
     },
     {
       "type": "range",
@@ -262,7 +253,7 @@
       "max": 100,
       "step": 1,
       "unit": "%",
-      "default": 20
+      "default": 100
     },
     {
       "type": "header",
@@ -284,10 +275,9 @@
       "label": "Scale (fixed width)",
       "min": 100,
       "max": 1000,
-      "step": 5,
+      "step": 10,
       "unit": "px",
-      "default": 290,
-      "info": "Fixed width in pixels. The bear grows upwards from the bottom anchor."
+      "default": 420
     },
     {
       "type": "header",
@@ -309,10 +299,9 @@
       "label": "Scale (fixed width)",
       "min": 100,
       "max": 800,
-      "step": 5,
+      "step": 10,
       "unit": "px",
-      "default": 390,
-      "info": "Fixed width in pixels. The bear grows upwards from the bottom anchor."
+      "default": 390
     }
   ],
   "presets": [
