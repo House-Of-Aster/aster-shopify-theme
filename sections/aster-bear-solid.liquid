@@ -1,7 +1,6 @@
 {% comment %}
   ASTER solid bear silhouette
-  Fresh implementation: no legacy vertical positioning, no viewport-based scale,
-  no CSS opacity gradient and no reuse of the previous bear renderer.
+  Bottom-anchored, horizontally centred, fixed-pixel scale.
 {% endcomment %}
 
 {% if section.settings.bear_image != blank %}
@@ -13,9 +12,8 @@
     data-section-id="{{ section.id }}"
     data-image-src="{{ bear_src }}"
     data-opacity="{{ section.settings.bear_opacity | divided_by: 100.0 }}"
-    data-x-desktop="{{ section.settings.bear_x_desktop }}"
+    data-blur="{{ section.settings.bear_blur }}"
     data-width-desktop="{{ section.settings.bear_width_desktop_px }}"
-    data-x-mobile="{{ section.settings.bear_x_mobile }}"
     data-width-mobile="{{ section.settings.bear_width_mobile_px }}"
     hidden
   ></div>
@@ -38,14 +36,15 @@
 
     #AsterPasswordPage [data-aster-bear-solid-canvas] {
       position: absolute;
-      left: var(--aster-bear-x-desktop, 50%);
+      left: 50%;
       bottom: 0;
       display: block;
-      width: var(--aster-bear-width-desktop, 290px);
+      width: var(--aster-bear-width-desktop, 300px);
       max-width: none;
       height: auto;
       margin: 0;
-      opacity: var(--aster-bear-opacity, .2);
+      opacity: var(--aster-bear-opacity, .25);
+      filter: blur(var(--aster-bear-blur, 0px));
       transform: translateX(-50%);
       transform-origin: 50% 100%;
       pointer-events: none;
@@ -53,8 +52,7 @@
 
     @media screen and (max-width: 749px) {
       #AsterPasswordPage [data-aster-bear-solid-canvas] {
-        left: var(--aster-bear-x-mobile, 50%);
-        width: var(--aster-bear-width-mobile, 390px);
+        width: var(--aster-bear-width-mobile, 250px);
       }
     }
   </style>
@@ -84,11 +82,10 @@
         const layer = document.createElement('div');
         layer.setAttribute('data-aster-bear-solid-layer', '');
         layer.setAttribute('data-aster-bear-owner', sectionId);
-        layer.style.setProperty('--aster-bear-opacity', controller.dataset.opacity || '1');
-        layer.style.setProperty('--aster-bear-x-desktop', `${controller.dataset.xDesktop || 50}%`);
-        layer.style.setProperty('--aster-bear-width-desktop', `${controller.dataset.widthDesktop || 290}px`);
-        layer.style.setProperty('--aster-bear-x-mobile', `${controller.dataset.xMobile || 50}%`);
-        layer.style.setProperty('--aster-bear-width-mobile', `${controller.dataset.widthMobile || 390}px`);
+        layer.style.setProperty('--aster-bear-opacity', controller.dataset.opacity || '.25');
+        layer.style.setProperty('--aster-bear-blur', `${controller.dataset.blur || 0}px`);
+        layer.style.setProperty('--aster-bear-width-desktop', `${controller.dataset.widthDesktop || 300}px`);
+        layer.style.setProperty('--aster-bear-width-mobile', `${controller.dataset.widthMobile || 250}px`);
 
         const outputCanvas = document.createElement('canvas');
         outputCanvas.setAttribute('data-aster-bear-solid-canvas', '');
@@ -253,21 +250,21 @@
       "max": 100,
       "step": 1,
       "unit": "%",
-      "default": 100
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "bear_blur",
+      "label": "Blur",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 0
     },
     {
       "type": "header",
       "content": "Desktop"
-    },
-    {
-      "type": "range",
-      "id": "bear_x_desktop",
-      "label": "Horizontal position",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "default": 50
     },
     {
       "type": "range",
@@ -277,21 +274,11 @@
       "max": 1000,
       "step": 10,
       "unit": "px",
-      "default": 420
+      "default": 300
     },
     {
       "type": "header",
       "content": "Mobile"
-    },
-    {
-      "type": "range",
-      "id": "bear_x_mobile",
-      "label": "Horizontal position",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "unit": "%",
-      "default": 50
     },
     {
       "type": "range",
@@ -301,7 +288,7 @@
       "max": 800,
       "step": 10,
       "unit": "px",
-      "default": 390
+      "default": 250
     }
   ],
   "presets": [
