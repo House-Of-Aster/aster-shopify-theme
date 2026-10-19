@@ -8,23 +8,11 @@
   <div class="header__brand">
     {% if settings.logo != blank %}
       <a href="{{ routes.root_url }}" aria-label="{{ shop.name | escape }}">
-        <picture>
-          {% if settings.logo_mobile != blank %}
-            <source
-              media="(max-width: 749px)"
-              srcset="{{ settings.logo_mobile | image_url: width: 600 }}"
-            >
-          {% endif %}
-          <img
-            class="header__logo"
-            src="{{ settings.logo | image_url: width: 800 }}"
-            alt="{{ shop.name | escape }}"
-            width="{{ settings.logo.width }}"
-            height="{{ settings.logo.height }}"
-            loading="eager"
-            style="--aster-logo-width: {{ settings.logo_width }}px; --aster-logo-width-mobile: {{ settings.logo_mobile_width }}px;"
-          >
-        </picture>
+        <span
+          class="header__logo"
+          aria-hidden="true"
+          style="--aster-logo-width: {{ settings.logo_width }}px; --aster-logo-width-mobile: {{ settings.logo_mobile_width }}px; --aster-logo-aspect-ratio: {{ settings.logo.aspect_ratio | default: 3 }}; --aster-logo-colour: {{ settings.logo_colour }}; --aster-logo-mask: url('{{ settings.logo | image_url: width: 1200 }}');"
+        ></span>
       </a>
     {% else %}
       <h2 class="header__title">
