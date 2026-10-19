@@ -1,25 +1,4 @@
 {% if section.settings.bear_image != blank %}
-  <div
-    id="AsterBearLayer-{{ section.id }}"
-    class="aster-bear-layer"
-    data-aster-bear-layer
-    data-aster-bear-section="{{ section.id }}"
-    aria-hidden="true"
-  >
-    <img
-      class="aster-bear-layer__source"
-      data-aster-bear-source
-      src="{{ section.settings.bear_image | image_url: width: 2000 }}"
-      alt=""
-      width="{{ section.settings.bear_image.width }}"
-      height="{{ section.settings.bear_image.height }}"
-      crossorigin="anonymous"
-      loading="eager"
-      decoding="async"
-    >
-    <canvas class="aster-bear-layer__canvas" data-aster-bear-canvas></canvas>
-  </div>
-
   <style>
     #shopify-section-{{ section.id }} {
       height: 0;
@@ -28,200 +7,26 @@
       padding: 0;
     }
 
-    #AsterBearLayer-{{ section.id }} {
+    #AsterPasswordPage [data-aster-landing]::before {
+      content: "";
       position: absolute;
       inset: 0;
-      z-index: 19;
-      overflow: hidden;
+      z-index: 15;
       pointer-events: none;
       opacity: {{ section.settings.bear_opacity | divided_by: 100.0 }};
-    }
-
-    #AsterBearLayer-{{ section.id }} .aster-bear-layer__source {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      left: -99999px;
-      top: 0;
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    #AsterBearLayer-{{ section.id }} .aster-bear-layer__canvas {
-      position: absolute;
-      left: {{ section.settings.bear_x_desktop }}%;
-      bottom: 0;
-      display: none;
-      width: {{ section.settings.bear_width_desktop_px }}px;
-      max-width: none;
-      height: auto;
-      margin: 0;
-      transform: translateX(-50%);
-      transform-origin: 50% 100%;
-      pointer-events: none;
-    }
-
-    #AsterBearLayer-{{ section.id }}.is-ready .aster-bear-layer__canvas {
-      display: block;
+      background-image: url('{{ section.settings.bear_image | image_url: width: 2000 }}');
+      background-repeat: no-repeat;
+      background-position: {{ section.settings.bear_x_desktop }}% 100%;
+      background-size: {{ section.settings.bear_width_desktop_px }}px auto;
     }
 
     @media screen and (max-width: 749px) {
-      #AsterBearLayer-{{ section.id }} .aster-bear-layer__canvas {
-        left: {{ section.settings.bear_x_mobile }}%;
-        bottom: 0;
-        width: {{ section.settings.bear_width_mobile_px }}px;
+      #AsterPasswordPage [data-aster-landing]::before {
+        background-position: {{ section.settings.bear_x_mobile }}% 100%;
+        background-size: {{ section.settings.bear_width_mobile_px }}px auto;
       }
     }
   </style>
-
-  <script>
-    (() => {
-      const sectionId = {{ section.id | json }};
-
-      window.AsterMountBearLayer = async (targetSectionId) => {
-        const sectionRoot = document.getElementById(`shopify-section-${targetSectionId}`);
-        const landing = document.querySelector('#AsterPasswordPage [data-aster-landing]');
-        const layer = sectionRoot?.querySelector(`[data-aster-bear-layer][data-aster-bear-section="${targetSectionId}"]`);
-        if (!landing || !layer) return;
-
-        landing
-          .querySelectorAll(`[data-aster-bear-layer][data-aster-bear-section="${targetSectionId}"]`)
-          .forEach((existingLayer) => {
-            if (existingLayer !== layer) existingLayer.remove();
-          });
-
-        landing.appendChild(layer);
-
-        const source = layer.querySelector('[data-aster-bear-source]');
-        const outputCanvas = layer.querySelector('[data-aster-bear-canvas]');
-        if (!source || !outputCanvas) return;
-
-        const waitForImage = async () => {
-          if (source.complete && source.naturalWidth > 0) return true;
-          return new Promise((resolve) => {
-            source.addEventListener('load', () => resolve(true), { once: true });
-            source.addEventListener('error', () => resolve(false), { once: true });
-          });
-        };
-
-        if (!(await waitForImage())) return;
-
-        try {
-          const maxProcessDimension = 1600;
-          const processScale = Math.min(1, maxProcessDimension / Math.max(source.naturalWidth, source.naturalHeight));
-          const processWidth = Math.max(1, Math.round(source.naturalWidth * processScale));
-          const processHeight = Math.max(1, Math.round(source.naturalHeight * processScale));
-
-          const scanCanvas = document.createElement('canvas');
-          scanCanvas.width = processWidth;
-          scanCanvas.height = processHeight;
-
-          const scanContext = scanCanvas.getContext('2d', { willReadFrequently: true });
-          if (!scanContext) return;
-
-          scanContext.clearRect(0, 0, processWidth, processHeight);
-          scanContext.drawImage(source, 0, 0, processWidth, processHeight);
-
-          const sourceImageData = scanContext.getImageData(0, 0, processWidth, processHeight);
-          const sourcePixels = sourceImageData.data;
-          const alphaThreshold = 12;
-
-          let minX = processWidth;
-          let minY = processHeight;
-          let maxX = -1;
-          let maxY = -1;
-          let colourR = 0;
-          let colourG = 0;
-          let colourB = 0;
-          let colourCount = 0;
-
-          for (let y = 0; y < processHeight; y += 1) {
-            for (let x = 0; x < processWidth; x += 1) {
-              const pixelIndex = (y * processWidth + x) * 4;
-              const alpha = sourcePixels[pixelIndex + 3];
-              if (alpha < alphaThreshold) continue;
-
-              if (x < minX) minX = x;
-              if (x > maxX) maxX = x;
-              if (y < minY) minY = y;
-              if (y > maxY) maxY = y;
-
-              if (alpha >= 128) {
-                colourR += sourcePixels[pixelIndex];
-                colourG += sourcePixels[pixelIndex + 1];
-                colourB += sourcePixels[pixelIndex + 2];
-                colourCount += 1;
-              }
-            }
-          }
-
-          if (maxX < minX || maxY < minY) return;
-
-          if (colourCount === 0) {
-            for (let y = minY; y <= maxY; y += 1) {
-              for (let x = minX; x <= maxX; x += 1) {
-                const pixelIndex = (y * processWidth + x) * 4;
-                if (sourcePixels[pixelIndex + 3] < alphaThreshold) continue;
-                colourR += sourcePixels[pixelIndex];
-                colourG += sourcePixels[pixelIndex + 1];
-                colourB += sourcePixels[pixelIndex + 2];
-                colourCount += 1;
-              }
-            }
-          }
-
-          const solidR = colourCount ? Math.round(colourR / colourCount) : 0;
-          const solidG = colourCount ? Math.round(colourG / colourCount) : 0;
-          const solidB = colourCount ? Math.round(colourB / colourCount) : 0;
-          const cropWidth = maxX - minX + 1;
-          const cropHeight = maxY - minY + 1;
-
-          outputCanvas.width = cropWidth;
-          outputCanvas.height = cropHeight;
-
-          const outputContext = outputCanvas.getContext('2d');
-          if (!outputContext) return;
-
-          const outputImageData = outputContext.createImageData(cropWidth, cropHeight);
-          const outputPixels = outputImageData.data;
-
-          for (let y = 0; y < cropHeight; y += 1) {
-            for (let x = 0; x < cropWidth; x += 1) {
-              const sourceX = minX + x;
-              const sourceY = minY + y;
-              const sourceIndex = (sourceY * processWidth + sourceX) * 4;
-              const outputIndex = (y * cropWidth + x) * 4;
-              const alpha = sourcePixels[sourceIndex + 3];
-
-              if (alpha < alphaThreshold) continue;
-
-              outputPixels[outputIndex] = solidR;
-              outputPixels[outputIndex + 1] = solidG;
-              outputPixels[outputIndex + 2] = solidB;
-              outputPixels[outputIndex + 3] = 255;
-            }
-          }
-
-          outputContext.putImageData(outputImageData, 0, 0);
-          layer.classList.add('is-ready');
-        } catch (error) {
-          console.warn('ASTER bear layer could not be processed.', error);
-        }
-      };
-
-      window.AsterMountBearLayer(sectionId);
-
-      if (!window.__asterBearThemeEditorListener) {
-        window.__asterBearThemeEditorListener = true;
-        document.addEventListener('shopify:section:load', (event) => {
-          const loadedSectionId = event?.detail?.sectionId;
-          if (loadedSectionId && typeof window.AsterMountBearLayer === 'function') {
-            window.AsterMountBearLayer(loadedSectionId);
-          }
-        });
-      }
-    })();
-  </script>
 {% endif %}
 
 {% schema %}
@@ -234,7 +39,7 @@
       "type": "image_picker",
       "id": "bear_image",
       "label": "Bear silhouette image",
-      "info": "Upload a transparent PNG or WebP. Transparent canvas is automatically cropped and the visible feet are pinned to the bottom edge."
+      "info": "Upload a transparent PNG or WebP. The bear is anchored to the bottom edge, above the mobile shadow layer and behind the ASTER logo, canopy and countdown."
     },
     {
       "type": "range",
@@ -245,7 +50,7 @@
       "step": 1,
       "unit": "%",
       "default": 100,
-      "info": "Controls the whole silhouette equally on desktop and mobile."
+      "info": "Controls the silhouette opacity on both desktop and mobile."
     },
     {
       "type": "header",
@@ -270,7 +75,7 @@
       "step": 5,
       "unit": "px",
       "default": 400,
-      "info": "Fixed width in pixels. Scaling grows upwards from the bottom anchor."
+      "info": "Fixed image width in pixels. The bottom edge stays anchored while scale determines how high the bear reaches."
     },
     {
       "type": "header",
@@ -295,7 +100,7 @@
       "step": 5,
       "unit": "px",
       "default": 390,
-      "info": "Fixed width in pixels. Scaling grows upwards from the bottom anchor."
+      "info": "Fixed image width in pixels. The bottom edge stays anchored while scale determines how high the bear reaches."
     }
   ],
   "presets": [
