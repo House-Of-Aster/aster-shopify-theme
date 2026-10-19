@@ -34,7 +34,11 @@
 
         <p>
           {% if settings.logo %}
-            {{ settings.logo | image_url: width: 300 | image_tag: alt: shop.name }}
+            <span
+              role="img"
+              aria-label="{{ shop.name | escape }}"
+              style="display:inline-block;width:{{ settings.logo_width }}px;aspect-ratio:{{ settings.logo.aspect_ratio | default: 3 }};background:{{ settings.logo_colour }};-webkit-mask:url('{{ settings.logo | image_url: width: 1200 }}') center/contain no-repeat;mask:url('{{ settings.logo | image_url: width: 1200 }}') center/contain no-repeat;"
+            ></span>
           {% else %}
             <img
               src="{{ 'gift-card/card.svg' | shopify_asset_url }}"

@@ -16,9 +16,15 @@
         "label": "Logo"
       },
       {
+        "type": "color",
+        "id": "logo_colour",
+        "label": "Logo colour",
+        "default": "#6B2331"
+      },
+      {
         "type": "range",
         "id": "logo_width",
-        "label": "Logo width",
+        "label": "Desktop width",
         "min": 60,
         "max": 300,
         "step": 5,
@@ -26,19 +32,9 @@
         "default": 170
       },
       {
-        "type": "header",
-        "content": "Mobile layout"
-      },
-      {
-        "type": "image_picker",
-        "id": "logo_mobile",
-        "label": "Logo",
-        "info": "Optional. Leave blank to use the desktop logo on mobile."
-      },
-      {
         "type": "range",
         "id": "logo_mobile_width",
-        "label": "Logo width",
+        "label": "Mobile width",
         "min": 60,
         "max": 240,
         "step": 5,

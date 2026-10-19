@@ -161,7 +161,16 @@ header a {
 .header__logo {
   display: block;
   width: var(--aster-logo-width);
-  height: auto;
+  aspect-ratio: var(--aster-logo-aspect-ratio);
+  background: var(--aster-logo-colour);
+  -webkit-mask-image: var(--aster-logo-mask);
+  mask-image: var(--aster-logo-mask);
+  -webkit-mask-position: center;
+  mask-position: center;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
+  mask-size: contain;
 }
 header a sup {
   position: absolute;
