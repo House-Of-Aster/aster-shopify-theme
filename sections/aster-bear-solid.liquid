@@ -1,1 +1,324 @@
-placeholder
+{% comment %}
+  ASTER solid bear silhouette
+  Fresh implementation: no legacy vertical positioning, no viewport-based scale,
+  no CSS opacity gradient and no reuse of the previous bear renderer.
+{% endcomment %}
+
+{% if section.settings.bear_image != blank %}
+  {% assign bear_src = section.settings.bear_image | image_url: width: 2400 %}
+
+  <div
+    id="AsterBearSolidController-{{ section.id }}"
+    data-aster-bear-solid-controller
+    data-section-id="{{ section.id }}"
+    data-image-src="{{ bear_src }}"
+    data-opacity="{{ section.settings.bear_opacity | divided_by: 100.0 }}"
+    data-x-desktop="{{ section.settings.bear_x_desktop }}"
+    data-width-desktop="{{ section.settings.bear_width_desktop_px }}"
+    data-x-mobile="{{ section.settings.bear_x_mobile }}"
+    data-width-mobile="{{ section.settings.bear_width_mobile_px }}"
+    hidden
+  ></div>
+
+  <style>
+    #shopify-section-{{ section.id }} {
+      height: 0;
+      min-height: 0;
+      margin: 0;
+      padding: 0;
+    }
+
+    #AsterPasswordPage [data-aster-bear-solid-layer] {
+      position: absolute;
+      inset: 0;
+      z-index: 15;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    #AsterPasswordPage [data-aster-bear-solid-canvas] {
+      position: absolute;
+      left: var(--aster-bear-x-desktop, 50%);
+      bottom: 0;
+      display: block;
+      width: var(--aster-bear-width-desktop, 290px);
+      max-width: none;
+      height: auto;
+      margin: 0;
+      opacity: var(--aster-bear-opacity, .2);
+      transform: translateX(-50%);
+      transform-origin: 50% 100%;
+      pointer-events: none;
+    }
+
+    @media screen and (max-width: 749px) {
+      #AsterPasswordPage [data-aster-bear-solid-canvas] {
+        left: var(--aster-bear-x-mobile, 50%);
+        width: var(--aster-bear-width-mobile, 390px);
+      }
+    }
+  </style>
+
+  <script>
+    (() => {
+      const controller = document.getElementById('AsterBearSolidController-{{ section.id }}');
+      if (!controller) return;
+
+      const sectionId = controller.dataset.sectionId;
+
+      const removeExistingLayers = () => {
+        document
+          .querySelectorAll('#AsterPasswordPage [data-aster-bear-solid-layer]')
+          .forEach((layer) => layer.remove());
+      };
+
+      const mountBear = async () => {
+        const landing = document.querySelector('#AsterPasswordPage [data-aster-landing]');
+        if (!landing) return;
+
+        removeExistingLayers();
+
+        const sourceUrl = controller.dataset.imageSrc;
+        if (!sourceUrl) return;
+
+        const layer = document.createElement('div');
+        layer.setAttribute('data-aster-bear-solid-layer', '');
+        layer.setAttribute('data-aster-bear-owner', sectionId);
+        layer.style.setProperty('--aster-bear-opacity', controller.dataset.opacity || '1');
+        layer.style.setProperty('--aster-bear-x-desktop', `${controller.dataset.xDesktop || 50}%`);
+        layer.style.setProperty('--aster-bear-width-desktop', `${controller.dataset.widthDesktop || 290}px`);
+        layer.style.setProperty('--aster-bear-x-mobile', `${controller.dataset.xMobile || 50}%`);
+        layer.style.setProperty('--aster-bear-width-mobile', `${controller.dataset.widthMobile || 390}px`);
+
+        const outputCanvas = document.createElement('canvas');
+        outputCanvas.setAttribute('data-aster-bear-solid-canvas', '');
+        outputCanvas.setAttribute('aria-hidden', 'true');
+        layer.appendChild(outputCanvas);
+        landing.appendChild(layer);
+
+        try {
+          const source = new Image();
+          source.crossOrigin = 'anonymous';
+          source.decoding = 'async';
+          source.src = sourceUrl;
+
+          if (typeof source.decode === 'function') {
+            await source.decode();
+          } else {
+            await new Promise((resolve, reject) => {
+              source.addEventListener('load', resolve, { once: true });
+              source.addEventListener('error', reject, { once: true });
+            });
+          }
+
+          if (!source.naturalWidth || !source.naturalHeight) return;
+
+          const maxProcessDimension = 1800;
+          const processScale = Math.min(
+            1,
+            maxProcessDimension / Math.max(source.naturalWidth, source.naturalHeight)
+          );
+
+          const processWidth = Math.max(1, Math.round(source.naturalWidth * processScale));
+          const processHeight = Math.max(1, Math.round(source.naturalHeight * processScale));
+
+          const scanCanvas = document.createElement('canvas');
+          scanCanvas.width = processWidth;
+          scanCanvas.height = processHeight;
+
+          const scanContext = scanCanvas.getContext('2d', { willReadFrequently: true });
+          if (!scanContext) return;
+
+          scanContext.clearRect(0, 0, processWidth, processHeight);
+          scanContext.drawImage(source, 0, 0, processWidth, processHeight);
+
+          const imageData = scanContext.getImageData(0, 0, processWidth, processHeight);
+          const pixels = imageData.data;
+
+          /*
+            Deliberately binary alpha. Any source opacity/fade is discarded:
+            qualifying bear pixels become fully opaque before Master opacity is
+            applied uniformly to the finished silhouette.
+          */
+          const alphaCutoff = 20;
+
+          let minX = processWidth;
+          let minY = processHeight;
+          let maxX = -1;
+          let maxY = -1;
+
+          let colourR = 0;
+          let colourG = 0;
+          let colourB = 0;
+          let colourWeight = 0;
+
+          for (let y = 0; y < processHeight; y += 1) {
+            for (let x = 0; x < processWidth; x += 1) {
+              const index = (y * processWidth + x) * 4;
+              const alpha = pixels[index + 3];
+              if (alpha < alphaCutoff) continue;
+
+              if (x < minX) minX = x;
+              if (x > maxX) maxX = x;
+              if (y < minY) minY = y;
+              if (y > maxY) maxY = y;
+
+              if (alpha >= 96) {
+                colourR += pixels[index] * alpha;
+                colourG += pixels[index + 1] * alpha;
+                colourB += pixels[index + 2] * alpha;
+                colourWeight += alpha;
+              }
+            }
+          }
+
+          if (maxX < minX || maxY < minY) {
+            layer.remove();
+            return;
+          }
+
+          if (!colourWeight) {
+            colourR = 20;
+            colourG = 11;
+            colourB = 12;
+            colourWeight = 1;
+          }
+
+          const solidR = Math.round(colourR / colourWeight);
+          const solidG = Math.round(colourG / colourWeight);
+          const solidB = Math.round(colourB / colourWeight);
+
+          const cropWidth = maxX - minX + 1;
+          const cropHeight = maxY - minY + 1;
+
+          outputCanvas.width = cropWidth;
+          outputCanvas.height = cropHeight;
+
+          const outputContext = outputCanvas.getContext('2d');
+          if (!outputContext) {
+            layer.remove();
+            return;
+          }
+
+          const outputImageData = outputContext.createImageData(cropWidth, cropHeight);
+          const outputPixels = outputImageData.data;
+
+          for (let y = 0; y < cropHeight; y += 1) {
+            for (let x = 0; x < cropWidth; x += 1) {
+              const sourceX = minX + x;
+              const sourceY = minY + y;
+              const sourceIndex = (sourceY * processWidth + sourceX) * 4;
+              const alpha = pixels[sourceIndex + 3];
+              if (alpha < alphaCutoff) continue;
+
+              const outputIndex = (y * cropWidth + x) * 4;
+              outputPixels[outputIndex] = solidR;
+              outputPixels[outputIndex + 1] = solidG;
+              outputPixels[outputIndex + 2] = solidB;
+              outputPixels[outputIndex + 3] = 255;
+            }
+          }
+
+          outputContext.putImageData(outputImageData, 0, 0);
+        } catch (error) {
+          layer.remove();
+          console.warn('ASTER solid bear could not be rendered.', error);
+        }
+      };
+
+      mountBear();
+
+      if (!window.__asterSolidBearUnloadListener) {
+        window.__asterSolidBearUnloadListener = true;
+
+        document.addEventListener('shopify:section:unload', (event) => {
+          const unloadedId = event?.detail?.sectionId;
+          document
+            .querySelectorAll(`#AsterPasswordPage [data-aster-bear-owner="${unloadedId}"]`)
+            .forEach((layer) => layer.remove());
+        });
+      }
+    })();
+  </script>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Bear silhouette V2",
+  "tag": "section",
+  "class": "section-aster-bear-solid",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "bear_image",
+      "label": "Bear silhouette image",
+      "info": "The source is converted into a solid silhouette, cropped to the visible artwork and anchored by its visible feet to the bottom edge."
+    },
+    {
+      "type": "range",
+      "id": "bear_opacity",
+      "label": "Master opacity",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Desktop"
+    },
+    {
+      "type": "range",
+      "id": "bear_x_desktop",
+      "label": "Horizontal position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "bear_width_desktop_px",
+      "label": "Scale (fixed width)",
+      "min": 100,
+      "max": 1000,
+      "step": 5,
+      "unit": "px",
+      "default": 290,
+      "info": "Fixed width in pixels. The bear grows upwards from the bottom anchor."
+    },
+    {
+      "type": "header",
+      "content": "Mobile"
+    },
+    {
+      "type": "range",
+      "id": "bear_x_mobile",
+      "label": "Horizontal position",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "bear_width_mobile_px",
+      "label": "Scale (fixed width)",
+      "min": 100,
+      "max": 800,
+      "step": 5,
+      "unit": "px",
+      "default": 390,
+      "info": "Fixed width in pixels. The bear grows upwards from the bottom anchor."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bear silhouette V2"
+    }
+  ]
+}
+{% endschema %}
