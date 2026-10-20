@@ -48,7 +48,7 @@ Permanent architecture:
 
 ---
 
-# PHASE 1 — DESIGN SYSTEM PRIMITIVES
+# PHASE 1 — DESIGN SYSTEM PRIMITIVES — COMPLETE
 
 ## 1.1 Buttons — COMPLETE
 - [x] Primary filled action
@@ -88,21 +88,27 @@ Permanent architecture:
 - [x] Narrow editorial measure: 48ch
 - [x] No Surface/Layout Theme Settings added
 
-## 1.4 Motion foundation — NEXT
-- [ ] Define Aster easing/timing/stagger tokens
-- [ ] Reusable text reveal
-- [ ] Reusable image/mask reveal
-- [ ] Reusable stagger utility
-- [ ] Reduced-motion fallback
-- [ ] Verify no CLS from motion
-- [ ] Add GSAP only where the first approved component actually needs it
-- [ ] Add ScrollTrigger only where approved concepts require it
+## 1.4 Motion foundation — COMPLETE
+- [x] Aster timing, easing, distance and stagger tokens
+- [x] Reusable text/up reveal via `data-aster-reveal`
+- [x] Reusable fade reveal
+- [x] Reusable media/mask reveal
+- [x] Reusable stagger groups via `data-aster-stagger`
+- [x] Native `IntersectionObserver` controller
+- [x] Reveal-once behaviour
+- [x] Shopify Theme Editor section-load support
+- [x] Reduced-motion fallback
+- [x] Transform/opacity/clip-path only: no layout-shifting motion
+- [x] Progressive enhancement: unhooked content remains static
+- [x] GSAP deliberately not loaded globally
+- [x] ScrollTrigger deliberately not loaded globally
+- [x] GSAP/ScrollTrigger will be introduced only where an approved component requires them
 
 ---
 
 # PHASE 2 — GLOBAL CHROME
 
-## 2.1 Announcement bar
+## 2.1 Announcement bar — NEXT
 - [ ] Lean architecture
 - [ ] Colour-scheme selector
 - [ ] Link support
@@ -303,6 +309,6 @@ Only after operational/catalogue need is proven.
 
 # CURRENT POSITION
 
-**Completed:** Phase 0, Phase 1.1, Phase 1.2 and Phase 1.3.
+**Completed:** Phase 0 and Phase 1 in full.
 
-**Next:** Phase 1.4 — Motion foundation.
+**Next:** Phase 2.1 — Announcement bar.

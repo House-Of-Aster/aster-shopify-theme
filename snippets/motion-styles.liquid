@@ -1,0 +1,65 @@
+{% style %}
+  :root {
+    --motion-duration-fast: 180ms;
+    --motion-duration-standard: 620ms;
+    --motion-duration-slow: 900ms;
+    --motion-stagger: 80ms;
+    --motion-distance: 18px;
+    --motion-ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+    --motion-ease-soft: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .aster-motion-ready [data-aster-reveal] {
+    opacity: 0;
+    transform: translate3d(0, var(--motion-distance), 0);
+    transition:
+      opacity var(--motion-duration-standard) ease,
+      transform var(--motion-duration-standard) var(--motion-ease-standard);
+  }
+
+  .aster-motion-ready [data-aster-reveal='fade'] {
+    transform: none;
+  }
+
+  .aster-motion-ready [data-aster-reveal='media'] {
+    clip-path: inset(8% 0 8% 0);
+    transform: scale(1.015);
+    transition:
+      opacity var(--motion-duration-slow) ease,
+      transform var(--motion-duration-slow) var(--motion-ease-soft),
+      clip-path var(--motion-duration-slow) var(--motion-ease-soft);
+  }
+
+  .aster-motion-ready [data-aster-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .aster-motion-ready [data-aster-reveal='media'].is-visible {
+    clip-path: inset(0);
+  }
+
+  .aster-motion-ready [data-aster-stagger] > * {
+    opacity: 0;
+    transform: translate3d(0, var(--motion-distance), 0);
+    transition:
+      opacity var(--motion-duration-standard) ease,
+      transform var(--motion-duration-standard) var(--motion-ease-standard);
+    transition-delay: calc(var(--aster-stagger-index, 0) * var(--motion-stagger));
+  }
+
+  .aster-motion-ready [data-aster-stagger].is-visible > * {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aster-motion-ready [data-aster-reveal],
+    .aster-motion-ready [data-aster-stagger] > * {
+      opacity: 1;
+      clip-path: none;
+      transform: none;
+      transition: none;
+    }
+  }
+{% endstyle %}

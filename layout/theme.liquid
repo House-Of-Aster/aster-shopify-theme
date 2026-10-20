@@ -4,6 +4,7 @@
     {% # Inlined CSS Variables %}
     {% render 'css-variables' %}
     {% render 'color-schemes' %}
+    {% render 'motion-styles' %}
 
     {% comment %}
       Font preloading:
@@ -21,6 +22,8 @@
     {% # Load and preload the critical CSS %}
     {{ 'critical.css' | asset_url | stylesheet_tag: preload: true }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <script src="{{ 'aster-motion.js' | asset_url }}" defer></script>
 
     {% # Social, title, etc. %}
     {% render 'meta-tags' %}
