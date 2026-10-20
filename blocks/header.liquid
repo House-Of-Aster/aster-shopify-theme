@@ -319,6 +319,12 @@
     </div>
   </dialog>
 
+  <script type="application/json" data-aster-menu-config>
+    {
+      "affirmations": {{ block.settings.search_affirmations | json }},
+      "popularSearches": {{ block.settings.popular_searches | json }}
+    }
+  </script>
   <script src="{{ 'aster-header-menu.js' | asset_url }}" defer></script>
 </header>
 
@@ -967,7 +973,25 @@
     },
     {
       "type": "header",
-      "content": "Menu feature 1"
+      "content": "Menu search"
+    },
+    {
+      "type": "textarea",
+      "id": "search_affirmations",
+      "label": "Search bar affirmations",
+      "info": "One affirmation per line",
+      "default": "Find what feels right\nSearch for what you need today\nSearch with intention\nFind what belongs in your routine\nFind something worth slowing down for\nSearch for what feels like you\nChoose what matters\nFind what works\nFind your rhythm\nFind your pace"
+    },
+    {
+      "type": "textarea",
+      "id": "popular_searches",
+      "label": "Popular search terms",
+      "info": "One search term per line",
+      "default": "Planner\nDaily planning\nMorning ritual\nEvening ritual\nWeekly reset"
+    },
+    {
+      "type": "header",
+      "content": "Mega menu item 1"
     },
     {
       "type": "image_picker",
@@ -983,20 +1007,20 @@
     {
       "type": "text",
       "id": "menu_feature_1_heading",
-      "label": "Heading",
-      "default": "More energy for brighter days"
+      "label": "Header",
+      "default": "Start clear. Stay steady."
     },
     {
       "type": "textarea",
       "id": "menu_feature_1_text",
-      "label": "Text",
-      "default": "Thoughtful formulations to help you move through your day with clarity, focus and balance."
+      "label": "Body",
+      "default": "A morning ritual for clearer focus, steady energy and an intentional start."
     },
     {
       "type": "text",
       "id": "menu_feature_1_link_label",
-      "label": "Link label",
-      "default": "Explore Rise"
+      "label": "Link text",
+      "default": "Discover Rise"
     },
     {
       "type": "url",
@@ -1005,7 +1029,7 @@
     },
     {
       "type": "header",
-      "content": "Menu feature 2"
+      "content": "Mega menu item 2"
     },
     {
       "type": "image_picker",
@@ -1021,20 +1045,20 @@
     {
       "type": "text",
       "id": "menu_feature_2_heading",
-      "label": "Heading",
-      "default": "Deeper rest for brighter tomorrows"
+      "label": "Header",
+      "default": "Slow down. Rest deeper."
     },
     {
       "type": "textarea",
       "id": "menu_feature_2_text",
-      "label": "Text",
-      "default": "Evening rituals to help you unwind, replenish and restore."
+      "label": "Body",
+      "default": "An evening ritual for deeper rest, gentle recovery and an intentional finish."
     },
     {
       "type": "text",
       "id": "menu_feature_2_link_label",
-      "label": "Link label",
-      "default": "Explore Set"
+      "label": "Link text",
+      "default": "Discover Set"
     },
     {
       "type": "url",
