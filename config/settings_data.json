@@ -19,14 +19,14 @@
       "aster-announcement-bar": {
         "type": "aster-announcement-bar",
         "settings": {
-          "enable_bar": false,
+          "enable_bar": true,
           "message": "",
           "link": "",
           "color_scheme": "",
-          "show_countdown": false,
+          "show_countdown": true,
           "countdown_label": "Ends in",
-          "countdown_date": "",
-          "countdown_time": "",
+          "countdown_date": "2026-12-31",
+          "countdown_time": "09:00",
           "hide_when_complete": true
         }
       }
