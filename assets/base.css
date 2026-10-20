@@ -539,3 +539,175 @@ input[type='radio'] {
     padding-top: 20px;
   }
 }
+
+/** Aster mobile mega menu refinement */
+@media (max-width: 749px) {
+  .aster-header[data-aster-menu-root] .aster-header__menu-content {
+    width: calc(100% - 30px);
+    padding-block: 18px 32px;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    row-gap: 0;
+    align-items: start;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-primary {
+    grid-column: 1 / -1;
+    min-width: 0;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-tools {
+    gap: 10px;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-search-input {
+    min-height: 52px;
+    font-size: 13px;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-account {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--aster-radius);
+    background: color-mix(in srgb, var(--color-foreground) 8%, var(--color-background));
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-popular {
+    max-width: 100%;
+    margin-top: 12px;
+    padding-bottom: 0;
+    gap: 6px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    font-size: 11px;
+    line-height: 1;
+    scrollbar-width: none;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-popular::-webkit-scrollbar {
+    display: none;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-popular > span {
+    flex: 0 0 auto;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-popular > span:not(.aster-header__menu-popular-label) {
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-foreground) 7%, var(--color-background));
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-popular > span:nth-child(n + 5) {
+    display: none;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-popular-label {
+    align-self: center;
+    opacity: 0.78;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-nav {
+    width: 100%;
+    max-width: none;
+    margin-top: 30px;
+    gap: 22px;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-group {
+    position: relative;
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 7px;
+    padding-right: 30px;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-group::after {
+    content: '›';
+    position: absolute;
+    top: -2px;
+    right: 2px;
+    font-family: var(--font-body--family);
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 1;
+    opacity: 0.9;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-link {
+    width: fit-content;
+    font-family: var(--font-navigation--family);
+    font-style: normal;
+    font-weight: var(--font-navigation-weight);
+    font-size: clamp(25px, 7.2vw, 30px);
+    line-height: 1.04;
+    letter-spacing: 0;
+    text-transform: var(--font-navigation-transform);
+    opacity: 1;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-children {
+    width: 100%;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 5px 16px;
+    padding-top: 0;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-child {
+    font-size: 11.5px;
+    line-height: 1.4;
+    opacity: 0.88;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature {
+    display: block;
+    min-width: 0;
+    margin-top: 30px;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-media {
+    width: 100%;
+    aspect-ratio: 1.04 / 1;
+    border-radius: var(--aster-radius);
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-copy {
+    min-height: 0;
+    padding-top: 10px;
+    display: block;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-eyebrow {
+    margin: 0 0 6px;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-heading {
+    min-height: 0;
+    max-width: 16ch;
+    font-size: clamp(18px, 5.2vw, 21px);
+    line-height: 1.08;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-text {
+    min-height: 0;
+    margin-top: 8px;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-link {
+    margin-top: 12px;
+    padding-top: 0;
+    gap: 8px;
+    font-size: 9px;
+    letter-spacing: 0.16em;
+  }
+}
