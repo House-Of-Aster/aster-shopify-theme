@@ -283,6 +283,174 @@ input[type='button'].button--primary {
   pointer-events: none;
 }
 
+/** Aster form controls */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.form-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.form-row {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
+}
+
+.field__label {
+  font-size: 0.9em;
+  line-height: 1.2;
+}
+
+.field__help,
+.field__message,
+.form-message {
+  font-size: 0.85em;
+  line-height: 1.4;
+  color: var(--color-accent);
+}
+
+.form-control,
+input[type='text'],
+input[type='email'],
+input[type='search'],
+input[type='password'],
+input[type='tel'],
+input[type='url'],
+input[type='number'],
+input[type='date'],
+textarea,
+select {
+  width: 100%;
+  min-height: 52px;
+  margin: 0;
+  border: 0;
+  border-radius: 12px;
+  outline: none;
+  padding: 0 18px;
+  background: var(--color-background);
+  background: color-mix(in srgb, var(--color-foreground) 8%, var(--color-background));
+  color: var(--color-foreground);
+  caret-color: var(--color-accent);
+  box-shadow: none;
+  transition: background-color 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+textarea {
+  min-height: 140px;
+  padding-block: 15px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+select {
+  padding-right: 44px;
+  background-image:
+    linear-gradient(45deg, transparent 50%, currentColor 50%),
+    linear-gradient(135deg, currentColor 50%, transparent 50%);
+  background-position:
+    calc(100% - 21px) 50%,
+    calc(100% - 16px) 50%;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--color-foreground);
+  opacity: 0.55;
+}
+
+.form-control:focus-visible,
+input[type='text']:focus-visible,
+input[type='email']:focus-visible,
+input[type='search']:focus-visible,
+input[type='password']:focus-visible,
+input[type='tel']:focus-visible,
+input[type='url']:focus-visible,
+input[type='number']:focus-visible,
+input[type='date']:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  background: color-mix(in srgb, var(--color-foreground) 11%, var(--color-background));
+  box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.form-control[aria-invalid='true'],
+input[aria-invalid='true'],
+textarea[aria-invalid='true'],
+select[aria-invalid='true'],
+.form-control.is-invalid {
+  box-shadow: inset 0 -2px 0 var(--color-accent);
+}
+
+.form-control.is-valid {
+  box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--color-accent) 58%, transparent);
+}
+
+.form-control:disabled,
+input:disabled,
+textarea:disabled,
+select:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+  flex: 0 0 auto;
+  width: 18px;
+  height: 18px;
+  margin: 0.1em 0 0;
+  accent-color: var(--color-accent);
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+.form-message[role='alert'],
+.field__message[role='alert'] {
+  font-weight: var(--font-body-bolder-weight);
+}
+
+@media (max-width: 749px) {
+  .form-row {
+    flex-direction: column;
+  }
+}
+
 /** Image snippet */
 .image {
   display: block;
