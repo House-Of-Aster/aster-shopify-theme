@@ -229,7 +229,7 @@ input[type='button'].button {
   text-decoration: none;
   text-transform: var(--font-button-transform);
   cursor: pointer;
-  transition: opacity 180ms ease;
+  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), opacity 180ms ease;
   -webkit-appearance: none;
   appearance: none;
 }
@@ -249,7 +249,23 @@ input[type='button'].button--primary {
 
 @media (hover: hover) and (pointer: fine) {
   .button:hover {
-    opacity: 0.78;
+    transform: translateY(-2px);
+    opacity: 0.86;
+  }
+
+  .button:active {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button {
+    transition: none;
+  }
+
+  .button:hover,
+  .button:active {
+    transform: none;
   }
 }
 
