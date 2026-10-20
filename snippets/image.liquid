@@ -1,36 +1,46 @@
 {% doc %}
   Renders a responsive image that might be wrapped in a link.
 
+  Performance rule: images are lazy by default. Pass `priority: true` only for
+  media that is genuinely expected to be above the fold / an LCP candidate.
+
   When `width`, `height` and `crop` are provided, the image will be rendered
   with a fixed aspect ratio.
 
-  Serves as an example of how to use the `image_url` filter and `image_tag` filter
-  as well as how you can use LiquidDoc to document your code.
-
   @param {image} image - The image to be rendered
-  @param {string} [url] - An optional destination URL for the image
-  @param {string} [class] - Optional class to be added to the image wrapper
-  @param {number} [width] - The highest resolution width of the image to be rendered
-  @param {number} [height] - The highest resolution height of the image to be rendered
-  @param {string} [crop] - The crop position of the image
+  @param {string} [url] - Optional destination URL
+  @param {string} [class] - Optional class added to the image wrapper
+  @param {number} [width] - Highest resolution width requested from Shopify
+  @param {number} [height] - Optional fixed height
+  @param {string} [crop] - Optional crop position
+  @param {string} [alt] - Optional alt override. Defaults to the image alt text
+  @param {string} [sizes] - Responsive sizes attribute. Defaults to 100vw
+  @param {string} [widths] - Responsive widths list
+  @param {boolean} [priority] - Eager/high-priority loading for genuine above-fold/LCP media
+  @param {string} [loading] - Optional explicit loading override
+  @param {string} [fetchpriority] - Optional explicit fetch-priority override
 
   @example
   {% render 'image', image: product.featured_image %}
-  {% render 'image', image: product.featured_image, url: product.url %}
-  {% render 'image',
-    class: 'product__image',
-    image: product.featured_image,
-    url: product.url,
-    width: 1200,
-    height: 800,
-    crop: 'center',
-  %}
+  {% render 'image', image: product.featured_image, url: product.url, sizes: '(min-width: 990px) 25vw, 50vw' %}
+  {% render 'image', image: section.settings.image, priority: true, width: 2200, sizes: '100vw' %}
 {% enddoc %}
 
 {% liquid
   unless height
     assign width = width | default: image.width
   endunless
+
+  assign responsive_widths = widths | default: '320, 480, 640, 800, 960, 1200, 1440, 1800, 2200'
+  assign responsive_sizes = sizes | default: '100vw'
+  assign image_alt = alt | default: image.alt
+  assign image_loading = loading | default: 'lazy'
+  assign image_fetchpriority = fetchpriority | default: 'auto'
+
+  if priority
+    assign image_loading = 'eager'
+    assign image_fetchpriority = 'high'
+  endif
 
   if url
     assign wrapper = 'a'
@@ -45,5 +55,14 @@
     href="{{ url }}"
   {% endif %}
 >
-  {{ image | image_url: width: width, height: height, crop: crop | image_tag }}
+  {{ image
+    | image_url: width: width, height: height, crop: crop
+    | image_tag:
+      loading: image_loading,
+      fetchpriority: image_fetchpriority,
+      decoding: 'async',
+      widths: responsive_widths,
+      sizes: responsive_sizes,
+      alt: image_alt
+  }}
 </{{ wrapper }}>
