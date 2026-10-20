@@ -91,19 +91,27 @@ Permanent architecture:
 - [x] Accessible mobile touch height
 - [x] Existing skeleton product/search actions use the primitive
 
-## 1.2 Form controls — NEXT
-- [ ] Text/email/search input
-- [ ] Textarea
-- [ ] Select
-- [ ] Checkbox
-- [ ] Radio
-- [ ] Quantity selector
-- [ ] Error state
-- [ ] Success state
-- [ ] Focus state
-- [ ] Decide whether any global form settings are genuinely needed
+## 1.2 Form controls — COMPLETE
+- [x] Password-page signup form adopted as visual reference
+- [x] Text/email/search/password/tel/url inputs
+- [x] Textarea
+- [x] Select
+- [x] Checkbox
+- [x] Radio
+- [x] Native quantity/date affordances retained for usability
+- [x] Bespoke quantity stepper deferred until product/cart architecture proves it useful
+- [x] Error state
+- [x] Success state hook
+- [x] Focus state
+- [x] Disabled state
+- [x] Labels/help/message primitives
+- [x] Responsive row/stack utilities
+- [x] Form colours derive from active colour scheme
+- [x] No decorative field borders
+- [x] No Forms Theme Settings group added
+- [x] Existing skeleton search/product forms use the primitives
 
-## 1.3 Surface + spacing language
+## 1.3 Surface + spacing language — NEXT
 - [ ] Define card geometry without boxed/bordered treatment
 - [ ] Define panel behaviour where panels are unavoidable
 - [ ] Define shadow rule, preferably none/minimal
@@ -504,6 +512,6 @@ Final question for every surface: does it look like the same artist designed it?
 
 # CURRENT POSITION
 
-**Completed:** Phase 0 and Phase 1.1.
+**Completed:** Phase 0, Phase 1.1 and Phase 1.2.
 
-**Next:** Phase 1.2 — Form controls.
+**Next:** Phase 1.3 — Surface + spacing language.
