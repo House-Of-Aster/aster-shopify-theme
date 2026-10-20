@@ -15,6 +15,22 @@
     font-display: swap;
   }
 
+  @font-face {
+    font-family: "Garet";
+    src: url("{{ 'Garet-Book.woff2' | asset_url }}") format("woff2");
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+  }
+
+  @font-face {
+    font-family: "Garet";
+    src: url("{{ 'Garet-Heavy.woff2' | asset_url }}") format("woff2");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+  }
+
   {{ settings.type_primary_font | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
@@ -33,6 +49,10 @@
       --font-body--family: "Rufina", serif;
       --font-body--style: normal;
       --font-body--weight: 700;
+    {% elsif settings.type_body_font_source == 'garet' %}
+      --font-body--family: "Garet", sans-serif;
+      --font-body--style: normal;
+      --font-body--weight: 400;
     {% else %}
       --font-body--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
       --font-body--style: {{ settings.type_primary_font.style }};
@@ -47,6 +67,10 @@
       --font-heading--family: "Rufina", serif;
       --font-heading--style: normal;
       --font-heading--weight: 700;
+    {% elsif settings.type_heading_font_source == 'garet' %}
+      --font-heading--family: "Garet", sans-serif;
+      --font-heading--style: normal;
+      --font-heading--weight: 400;
     {% else %}
       --font-heading--family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
       --font-heading--style: {{ settings.type_heading_font.style }};
@@ -66,6 +90,10 @@
         --font-display--family: "Rufina", serif;
         --font-display--style: normal;
         --font-display--weight: 700;
+      {% when 'garet' %}
+        --font-display--family: "Garet", sans-serif;
+        --font-display--style: normal;
+        --font-display--weight: 400;
       {% else %}
         --font-display--family: "British Poems", serif;
         --font-display--style: normal;
@@ -79,6 +107,8 @@
         --font-subheading--family: "British Poems", serif;
       {% when 'rufina_bold' %}
         --font-subheading--family: "Rufina", serif;
+      {% when 'garet' %}
+        --font-subheading--family: "Garet", sans-serif;
       {% else %}
         --font-subheading--family: var(--font-body--family);
     {% endcase %}
@@ -90,6 +120,8 @@
         --font-product-card-title--family: "British Poems", serif;
       {% when 'rufina_bold' %}
         --font-product-card-title--family: "Rufina", serif;
+      {% when 'garet' %}
+        --font-product-card-title--family: "Garet", sans-serif;
       {% else %}
         --font-product-card-title--family: var(--font-body--family);
     {% endcase %}
@@ -101,6 +133,8 @@
         --font-navigation--family: "British Poems", serif;
       {% when 'rufina_bold' %}
         --font-navigation--family: "Rufina", serif;
+      {% when 'garet' %}
+        --font-navigation--family: "Garet", sans-serif;
       {% else %}
         --font-navigation--family: var(--font-body--family);
     {% endcase %}
@@ -112,6 +146,8 @@
         --font-button--family: "British Poems", serif;
       {% when 'rufina_bold' %}
         --font-button--family: "Rufina", serif;
+      {% when 'garet' %}
+        --font-button--family: "Garet", sans-serif;
       {% else %}
         --font-button--family: var(--font-body--family);
     {% endcase %}
@@ -121,7 +157,7 @@
     --font-primary--weight: var(--font-body--weight);
 
     --font-body-size: {{ settings.type_body_base_size }}px;
-    --font-body-bolder-weight: {{ settings.type_body_bolder_weight }};
+    --font-body-bolder-weight: {% if settings.type_body_font_source == 'garet' %}700{% else %}{{ settings.type_body_bolder_weight }}{% endif %};
     --font-h1-size: {{ settings.type_heading_scale | times: 0.025 }}rem;
     --font-h2-size: {{ settings.type_heading_scale | times: 0.02 }}rem;
     --font-h3-size: {{ settings.type_heading_scale | times: 0.015 }}rem;
@@ -153,10 +189,14 @@
     --button-height: {{ settings.button_height | default: 48 }}px;
   }
 
-  body {
+  body,
+  [data-typography-role='body'] {
     font-family: var(--font-body--family);
     font-style: var(--font-body--style);
     font-weight: var(--font-body--weight);
+  }
+
+  body {
     font-size: var(--font-body-size);
   }
 
@@ -176,7 +216,8 @@
   .h3,
   .h4,
   .h5,
-  .h6 {
+  .h6,
+  [data-typography-role='heading'] {
     font-family: var(--font-heading--family);
     font-style: var(--font-heading--style);
     font-weight: var(--font-heading--weight);
@@ -199,7 +240,8 @@
 
   .display-heading,
   .heading--display,
-  [data-display-heading] {
+  [data-display-heading],
+  [data-typography-role='display'] {
     font-family: var(--font-display--family);
     font-style: var(--font-display--style);
     font-weight: var(--font-display--weight);
@@ -217,7 +259,8 @@
   .subheading,
   .eyebrow,
   [data-subheading],
-  .text--subtitle {
+  .text--subtitle,
+  [data-typography-role='subheading'] {
     font-family: var(--font-subheading--family);
     font-size: var(--font-subheading-size);
     font-weight: var(--font-subheading-weight);
@@ -227,23 +270,23 @@
 
   .product-card__title,
   .card__heading,
-  [data-product-card-title] {
+  [data-product-card-title],
+  [data-typography-role='product-title'] {
     font-family: var(--font-product-card-title--family);
     font-size: var(--font-product-card-title-size);
     font-weight: var(--font-product-card-title-weight);
     text-transform: var(--font-product-card-title-transform);
   }
 
-  nav,
-  .navigation,
-  .header__menu,
-  [data-navigation] {
+  .navigation-link,
+  [data-navigation-link],
+  [data-typography-role='navigation'] {
     font-family: var(--font-navigation--family);
     font-weight: var(--font-navigation-weight);
     text-transform: var(--font-navigation-transform);
   }
 
-  /* Aster mega menu typography roles: only primary labels are navigation. */
+  /* Primary mega-menu labels are Navigation. Supporting menu copy is Body. */
   .aster-header .aster-header__menu-link {
     font-family: var(--font-navigation--family);
     font-weight: var(--font-navigation-weight);
@@ -267,7 +310,8 @@
   .button,
   input[type='button'],
   input[type='submit'],
-  [role='button'] {
+  [role='button'],
+  [data-typography-role='button'] {
     font-family: var(--font-button--family);
     font-weight: var(--font-button-weight);
     letter-spacing: var(--font-button-letter-spacing);

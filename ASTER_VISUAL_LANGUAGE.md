@@ -108,12 +108,28 @@ The page should feel spacious and intentional, not padded for the sake of paddin
 
 ## Typography
 
-Typography should carry a significant share of the art direction.
+Typography should carry a significant share of the art direction, but every component must consume the correct global role rather than borrowing a convenient font token.
 
-- British Poems is the display voice.
-- Body/navigation/UI typography stays restrained and highly readable.
-- Use large editorial headings selectively.
-- Allow generous negative space around important statements.
+Global role contract:
+
+- **Body** is the default storefront voice for paragraphs, supporting links, microcopy, form copy, announcements, popular searches, secondary navigation links and supporting UI text.
+- **Headings** are for semantic content headings and component titles.
+- **Display headings** are an explicit editorial treatment only; never inherit them accidentally from a container.
+- **Subheadings** are for deliberately styled subheads/eyebrows where the component genuinely calls for that role.
+- **Navigation** is reserved for primary navigation labels. Never apply Navigation typography to a `<nav>` container because that leaks the role into child/supporting links.
+- **Buttons** are for interactive CTA/button labels.
+- **Product card titles** are isolated to that commerce role.
+
+Additional rules:
+
+- Components should inherit Body by default and opt into another typography role explicitly.
+- Do not hard-code British Poems, Rufina, Garet or a Shopify font into normal reusable components; consume the appropriate role token instead.
+- The header mega-menu primary labels use Navigation. Its child links, popular searches and feature eyebrows use Body. Feature headings use Heading; feature CTAs use Button.
+- The announcement bar uses Body.
+- British Poems remains available as an editorial/display voice rather than a transactional default.
+- Garet is registered as one paired family: `Garet-Book.woff2` at weight 400 and `Garet-Heavy.woff2` at weight 700. When Garet text is bold, the real Heavy face must be used; do not faux-bold Book.
+- Rufina Bold is a true 700-weight custom option.
+- Use large editorial headings selectively and allow generous negative space around important statements.
 - Avoid overusing display typography in transactional UI.
 
 ## Buttons

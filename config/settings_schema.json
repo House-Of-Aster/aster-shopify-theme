@@ -146,9 +146,11 @@
         "options": [
           { "value": "shopify", "label": "Shopify font" },
           { "value": "british_poems", "label": "British Poems" },
-          { "value": "rufina_bold", "label": "Rufina Bold" }
+          { "value": "rufina_bold", "label": "Rufina Bold" },
+          { "value": "garet", "label": "Garet (Book + Heavy)" }
         ],
-        "default": "shopify"
+        "default": "shopify",
+        "info": "Garet uses Book for regular text and the uploaded Heavy face for true bold text."
       },
       {
         "type": "font_picker",
@@ -166,7 +168,8 @@
           { "value": "600", "label": "Semi bold" },
           { "value": "700", "label": "Bold" }
         ],
-        "default": "600"
+        "default": "600",
+        "info": "When Body uses Garet, bold text always uses Garet Heavy."
       },
       {
         "type": "range",
@@ -189,9 +192,11 @@
         "options": [
           { "value": "shopify", "label": "Shopify font" },
           { "value": "british_poems", "label": "British Poems" },
-          { "value": "rufina_bold", "label": "Rufina Bold" }
+          { "value": "rufina_bold", "label": "Rufina Bold" },
+          { "value": "garet", "label": "Garet (Book + Heavy)" }
         ],
-        "default": "shopify"
+        "default": "shopify",
+        "info": "Garet uses Book at regular weight and Heavy whenever a heading is explicitly bold."
       },
       {
         "type": "font_picker",
@@ -248,7 +253,8 @@
           { "value": "body", "label": "Body font" },
           { "value": "heading", "label": "Heading font" },
           { "value": "british_poems", "label": "British Poems" },
-          { "value": "rufina_bold", "label": "Rufina Bold" }
+          { "value": "rufina_bold", "label": "Rufina Bold" },
+          { "value": "garet", "label": "Garet (Book + Heavy)" }
         ],
         "default": "british_poems"
       },
@@ -290,7 +296,8 @@
           { "value": "body", "label": "Body font" },
           { "value": "heading", "label": "Heading font" },
           { "value": "british_poems", "label": "British Poems" },
-          { "value": "rufina_bold", "label": "Rufina Bold" }
+          { "value": "rufina_bold", "label": "Rufina Bold" },
+          { "value": "garet", "label": "Garet (Book + Heavy)" }
         ],
         "default": "body"
       },
@@ -350,7 +357,8 @@
           { "value": "body", "label": "Body font" },
           { "value": "heading", "label": "Heading font" },
           { "value": "british_poems", "label": "British Poems" },
-          { "value": "rufina_bold", "label": "Rufina Bold" }
+          { "value": "rufina_bold", "label": "Rufina Bold" },
+          { "value": "garet", "label": "Garet (Book + Heavy)" }
         ],
         "default": "body"
       },
@@ -384,9 +392,11 @@
           { "value": "body", "label": "Body font" },
           { "value": "heading", "label": "Heading font" },
           { "value": "british_poems", "label": "British Poems" },
-          { "value": "rufina_bold", "label": "Rufina Bold" }
+          { "value": "rufina_bold", "label": "Rufina Bold" },
+          { "value": "garet", "label": "Garet (Book + Heavy)" }
         ],
-        "default": "body"
+        "default": "body",
+        "info": "Applies only to primary navigation labels. Supporting menu copy stays on Body typography."
       },
       {
         "type": "select",
@@ -418,7 +428,8 @@
           { "value": "body", "label": "Body font" },
           { "value": "heading", "label": "Heading font" },
           { "value": "british_poems", "label": "British Poems" },
-          { "value": "rufina_bold", "label": "Rufina Bold" }
+          { "value": "rufina_bold", "label": "Rufina Bold" },
+          { "value": "garet", "label": "Garet (Book + Heavy)" }
         ],
         "default": "body"
       },
