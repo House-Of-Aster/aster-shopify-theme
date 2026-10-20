@@ -139,24 +139,25 @@ Permanent architecture:
 - [x] Countdown JavaScript loads only when a configured countdown is present
 - [x] No rotating-slider machinery
 
-## 2.2 Header — NEXT
-- [ ] Desktop and mobile architecture
-- [ ] Global logo integration
-- [ ] Navigation
-- [ ] Search trigger
-- [ ] Account trigger if enabled
-- [ ] Cart trigger/count
-- [ ] Sticky behaviour decision
-- [ ] Transparent/overlay mode only if homepage art direction requires it
-- [ ] Keyboard accessibility
-- [ ] Mobile navigation drawer
-- [ ] Colour-scheme support
+## 2.2 Header — COMPLETE
+- [x] Existing Skeleton header block retained and refactored rather than duplicated
+- [x] True-centred logo with desktop navigation and utility actions
+- [x] Header logo inherits active colour-scheme foreground colour
+- [x] Search route, account trigger when enabled, and cart count
+- [x] Sticky behaviour implemented with CSS only; announcement bar scrolls away above it
+- [x] Native-details mobile navigation drawer with existing scroll-lock architecture
+- [x] Mobile account/search routes remain available when utility icons are reduced
+- [x] Keyboard focus states and minimum 44px utility targets
+- [x] Colour-scheme support with no local colour pickers
+- [x] No header JavaScript added
+- [x] Transparent/overlay mode deliberately deferred until homepage hero art direction is approved
+- [x] Predictive/overlay search deliberately deferred to Phase 8
 
-## 2.3 Navigation / mega menu
-- [ ] Standard dropdown
+## 2.3 Navigation / mega menu — NEXT
+- [ ] Standard desktop dropdown
 - [ ] Mega-menu option if useful
 - [ ] Optional editorial imagery
-- [ ] Mobile equivalent
+- [ ] Mobile hierarchy refinement where useful
 - [ ] Active/focus states
 
 ## 2.4 Footer
@@ -339,6 +340,6 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 # CURRENT POSITION
 
-**Completed:** Phase 0, Phase 1 and Phase 2.1 Announcement bar.
+**Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header.
 
-**Next:** Phase 2.2 — Header.
+**Next:** Phase 2.3 — Navigation / mega menu.
