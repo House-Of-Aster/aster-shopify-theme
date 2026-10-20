@@ -8,63 +8,105 @@
 
     const opener = root.querySelector('[data-aster-menu-open]');
     const dialog = root.querySelector('[data-aster-menu-dialog]');
-    const closer = dialog?.querySelector('[data-aster-menu-close]');
     const label = dialog?.querySelector('[data-aster-menu-label]');
+    const shell = root.closest('.aster-header-shell');
 
-    if (!opener || !dialog || !closer) return;
+    if (!opener || !dialog) return;
 
     root.dataset.asterMenuBound = 'true';
     let closeTimer;
 
+    const setCoveredContentInert = (isInert) => {
+      if (!shell) return;
+
+      let sibling = shell.nextElementSibling;
+
+      while (sibling) {
+        if (!['SCRIPT', 'STYLE'].includes(sibling.tagName)) {
+          sibling.inert = isInert;
+        }
+        sibling = sibling.nextElementSibling;
+      }
+    };
+
+    const syncMenuPosition = () => {
+      const bottom = root.getBoundingClientRect().bottom;
+      dialog.style.setProperty('--aster-menu-top', `${Math.max(0, Math.round(bottom))}px`);
+    };
+
     const openMenu = () => {
       window.clearTimeout(closeTimer);
-      opener.setAttribute('aria-expanded', 'true');
-      opener.classList.add('is-active');
-      closer.classList.remove('is-active');
+      syncMenuPosition();
 
-      if (!dialog.open) dialog.showModal();
+      opener.setAttribute('aria-expanded', 'true');
+      opener.setAttribute('aria-label', 'Close navigation');
+      opener.classList.add('is-active');
+      setCoveredContentInert(true);
+
+      if (!dialog.open) dialog.show();
 
       window.requestAnimationFrame(() => {
+        syncMenuPosition();
         dialog.classList.add('is-visible');
-        closer.classList.add('is-active');
         (label || dialog).focus({ preventScroll: true });
       });
+    };
+
+    const finishClose = () => {
+      if (dialog.open) dialog.close();
     };
 
     const closeMenu = () => {
       if (!dialog.open) return;
 
-      closer.classList.remove('is-active');
-      opener.classList.remove('is-active');
       dialog.classList.remove('is-visible');
+      opener.classList.remove('is-active');
       opener.setAttribute('aria-expanded', 'false');
+      opener.setAttribute('aria-label', 'Open navigation');
+      setCoveredContentInert(false);
 
       if (reducedMotion.matches) {
-        dialog.close();
+        finishClose();
         return;
       }
 
       window.clearTimeout(closeTimer);
-      closeTimer = window.setTimeout(() => {
-        if (dialog.open) dialog.close();
-      }, closeDuration);
+      closeTimer = window.setTimeout(finishClose, closeDuration);
     };
 
-    opener.addEventListener('click', openMenu);
-    closer.addEventListener('click', closeMenu);
+    const toggleMenu = () => {
+      if (dialog.open) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    };
 
-    dialog.addEventListener('cancel', (event) => {
-      event.preventDefault();
-      closeMenu();
+    opener.addEventListener('click', toggleMenu);
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && dialog.open) {
+        event.preventDefault();
+        closeMenu();
+      }
     });
 
     dialog.addEventListener('close', () => {
       window.clearTimeout(closeTimer);
       dialog.classList.remove('is-visible');
       opener.classList.remove('is-active');
-      closer.classList.remove('is-active');
       opener.setAttribute('aria-expanded', 'false');
+      opener.setAttribute('aria-label', 'Open navigation');
+      setCoveredContentInert(false);
       opener.focus({ preventScroll: true });
+    });
+
+    window.addEventListener('resize', () => {
+      if (dialog.open) syncMenuPosition();
+    });
+
+    window.visualViewport?.addEventListener('resize', () => {
+      if (dialog.open) syncMenuPosition();
     });
   };
 

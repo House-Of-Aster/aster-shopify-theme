@@ -1,9 +1,10 @@
 {% doc %}
   Renders the global Aster storefront header.
 
-  Navigation is intentionally unified across desktop and mobile: a single
-  burger control opens one native dialog-based full-screen navigation layer.
-  This keeps the chrome visually clean and avoids duplicated menu markup.
+  Navigation is intentionally unified across desktop and mobile. The real
+  header remains completely stationary while one non-modal dialog panel opens
+  beneath its measured bottom edge. This keeps announcement/header geometry
+  unchanged and avoids duplicated header markup inside the navigation layer.
 {% enddoc %}
 
 <header
@@ -79,33 +80,6 @@
     data-aster-menu-dialog
   >
     <div class="aster-header__menu-overlay">
-      <div class="aster-header__menu-topbar">
-        <button
-          class="aster-header__icon-button aster-header__menu-close"
-          type="button"
-          aria-label="Close navigation"
-          data-aster-menu-close
-        >
-          <span class="aster-header__hamburger-box" aria-hidden="true">
-            <span class="aster-header__hamburger-inner"></span>
-          </span>
-        </button>
-
-        <div class="aster-header__brand">
-          {% if settings.logo != blank %}
-            <span
-              class="aster-header__logo"
-              aria-hidden="true"
-              style="--aster-logo-width: {{ settings.logo_width }}px; --aster-logo-width-mobile: {{ settings.logo_mobile_width }}px; --aster-logo-aspect-ratio: {{ settings.logo.aspect_ratio | default: 3 }}; --aster-logo-mask: url('{{ settings.logo | image_url: width: 1200 }}');"
-            ></span>
-          {% else %}
-            <span class="aster-header__title">{{ shop.name | escape }}</span>
-          {% endif %}
-        </div>
-
-        <span class="aster-header__menu-topbar-spacer" aria-hidden="true"></span>
-      </div>
-
       <div class="aster-header__menu-content">
         <h2
           id="AsterHeaderMenuLabel-{{ block.id }}"
@@ -115,6 +89,35 @@
         >
           Navigation
         </h2>
+
+        <div class="aster-header__menu-tools">
+          <form class="aster-header__menu-search" action="{{ routes.search_url }}" method="get" role="search">
+            <label class="visually-hidden" for="AsterMenuSearch-{{ block.id }}">Search Aster</label>
+            <div class="aster-header__menu-search-field">
+              <input
+                id="AsterMenuSearch-{{ block.id }}"
+                class="form-control aster-header__menu-search-input"
+                type="search"
+                name="q"
+                value="{{ search.terms | escape }}"
+                placeholder="Search Aster"
+                autocomplete="off"
+              >
+              <button class="aster-header__menu-search-submit" type="submit" aria-label="Search">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                  <circle cx="11" cy="11" r="6.5" stroke="currentColor" stroke-width="1.4"></circle>
+                  <path d="m16 16 4.25 4.25" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"></path>
+                </svg>
+              </button>
+            </div>
+          </form>
+
+          {% if shop.customer_accounts_enabled %}
+            <a class="aster-header__menu-account" href="{{ routes.account_url }}" aria-label="Account">
+              {{ 'icon-account.svg' | inline_asset_content }}
+            </a>
+          {% endif %}
+        </div>
 
         <nav class="aster-header__menu-nav" aria-label="Main navigation">
           {% for link in block.settings.menu.links %}
@@ -148,13 +151,6 @@
           {% endif %}
         </nav>
       </div>
-
-      <div class="aster-header__menu-footer">
-        <a href="{{ routes.search_url }}">Search</a>
-        {% if shop.customer_accounts_enabled %}
-          <a href="{{ routes.account_url }}">Account</a>
-        {% endif %}
-      </div>
     </div>
   </dialog>
 
@@ -176,8 +172,7 @@
     color: var(--color-foreground);
   }
 
-  .aster-header__inner,
-  .aster-header__menu-topbar {
+  .aster-header__inner {
     width: min(1400px, calc(100% - 40px));
     min-height: 84px;
     margin: 0 auto;
@@ -237,8 +232,7 @@
   }
 
   .aster-header__icon-button,
-  .aster-header__account,
-  .aster-header__menu-topbar-spacer {
+  .aster-header__account {
     position: relative;
     width: 44px;
     height: 44px;
@@ -256,8 +250,7 @@
     transition: opacity var(--aster-duration-interaction, 180ms) ease;
   }
 
-  .aster-header__menu-toggle,
-  .aster-header__menu-close {
+  .aster-header__menu-toggle {
     justify-self: start;
   }
 
@@ -343,15 +336,13 @@
       transform 75ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
   }
 
-  .aster-header__menu-toggle.is-active .aster-header__hamburger-inner,
-  .aster-header__menu-close.is-active .aster-header__hamburger-inner {
+  .aster-header__menu-toggle.is-active .aster-header__hamburger-inner {
     transform: rotate(45deg);
     transition-delay: 120ms;
     transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
-  .aster-header__menu-toggle.is-active .aster-header__hamburger-inner::before,
-  .aster-header__menu-close.is-active .aster-header__hamburger-inner::before {
+  .aster-header__menu-toggle.is-active .aster-header__hamburger-inner::before {
     top: 0;
     opacity: 0;
     transition:
@@ -359,8 +350,7 @@
       opacity 75ms 120ms ease;
   }
 
-  .aster-header__menu-toggle.is-active .aster-header__hamburger-inner::after,
-  .aster-header__menu-close.is-active .aster-header__hamburger-inner::after {
+  .aster-header__menu-toggle.is-active .aster-header__hamburger-inner::after {
     bottom: 0;
     transform: rotate(-90deg);
     transition:
@@ -369,17 +359,23 @@
   }
 
   .aster-header__menu-dialog {
+    --aster-menu-top: 84px;
+    position: fixed;
+    inset: var(--aster-menu-top) 0 0;
     width: 100vw;
     max-width: none;
-    height: 100dvh;
+    height: auto;
     max-height: none;
     margin: 0;
     padding: 0;
     border: 0;
+    overflow: auto;
+    overscroll-behavior: contain;
     background: var(--color-background);
     color: var(--color-foreground);
     opacity: 0;
     transform: translateY(-8px);
+    z-index: 1;
     transition:
       opacity 220ms ease,
       transform 260ms var(--aster-ease-out, cubic-bezier(0.22, 1, 0.36, 1));
@@ -399,27 +395,73 @@
   }
 
   .aster-header__menu-overlay {
-    min-height: 100dvh;
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    min-height: 100%;
     background: var(--color-background);
     color: var(--color-foreground);
   }
 
-  .aster-header__menu-topbar-spacer {
-    justify-self: end;
-  }
-
   .aster-header__menu-content {
     width: min(1400px, calc(100% - 40px));
+    min-height: 100%;
     margin: 0 auto;
-    padding-block: clamp(64px, 9vh, 124px) 56px;
+    padding-block: clamp(28px, 5vh, 64px) 48px;
+  }
+
+  .aster-header__menu-tools {
+    width: min(100%, 760px);
     display: flex;
-    align-items: flex-start;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .aster-header__menu-search {
+    width: min(100%, 620px);
+  }
+
+  .aster-header__menu-search-field {
+    position: relative;
+  }
+
+  .aster-header__menu-search-input {
+    width: 100%;
+    padding-right: 56px;
+  }
+
+  .aster-header__menu-search-submit,
+  .aster-header__menu-account {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .aster-header__menu-search-submit {
+    position: absolute;
+    top: 50%;
+    right: 4px;
+    transform: translateY(-50%);
+  }
+
+  .aster-header__menu-search-submit svg,
+  .aster-header__menu-account svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .aster-header__menu-account {
+    display: none;
+    flex: 0 0 auto;
   }
 
   .aster-header__menu-nav {
     width: min(100%, 760px);
+    margin-top: clamp(48px, 7vh, 96px);
     display: grid;
     gap: clamp(24px, 3vw, 42px);
   }
@@ -450,8 +492,7 @@
     gap: 10px 24px;
   }
 
-  .aster-header__menu-child,
-  .aster-header__menu-footer a {
+  .aster-header__menu-child {
     width: fit-content;
     font-family: var(--font-navigation--family);
     font-weight: var(--font-navigation-weight);
@@ -472,19 +513,11 @@
     opacity: 0.55;
   }
 
-  .aster-header__menu-footer {
-    width: min(1400px, calc(100% - 40px));
-    margin: 0 auto;
-    padding-bottom: 36px;
-    display: flex;
-    align-items: center;
-    gap: 24px;
-  }
-
   @media (hover: hover) and (pointer: fine) {
     .aster-header__icon-button:hover,
-    .aster-header__menu-child:hover,
-    .aster-header__menu-footer a:hover {
+    .aster-header__menu-search-submit:hover,
+    .aster-header__menu-account:hover,
+    .aster-header__menu-child:hover {
       opacity: 1;
     }
 
@@ -507,8 +540,7 @@
       min-height: 68px;
     }
 
-    .aster-header__inner,
-    .aster-header__menu-topbar {
+    .aster-header__inner {
       width: calc(100% - 30px);
       min-height: 68px;
       gap: 8px;
@@ -526,25 +558,34 @@
       display: none;
     }
 
-    .aster-header__menu-content,
-    .aster-header__menu-footer {
+    .aster-header__menu-content {
       width: calc(100% - 30px);
+      padding-block: 24px 36px;
     }
 
-    .aster-header__menu-content {
-      padding-block: clamp(46px, 8vh, 76px) 42px;
+    .aster-header__menu-tools {
+      width: 100%;
+    }
+
+    .aster-header__menu-search {
+      flex: 1 1 auto;
+      width: auto;
+    }
+
+    .aster-header__menu-account {
+      width: 52px;
+      height: 52px;
+      display: inline-flex;
     }
 
     .aster-header__menu-nav {
+      width: 100%;
+      margin-top: clamp(42px, 7vh, 72px);
       gap: 24px;
     }
 
     .aster-header__menu-link {
       font-size: clamp(40px, 13vw, 62px);
-    }
-
-    .aster-header__menu-footer {
-      padding-bottom: 28px;
     }
   }
 
@@ -561,8 +602,7 @@
     .aster-header__hamburger-inner::after,
     .aster-header__menu-dialog,
     .aster-header__menu-link,
-    .aster-header__menu-child,
-    .aster-header__menu-footer a {
+    .aster-header__menu-child {
       transition: none;
     }
 

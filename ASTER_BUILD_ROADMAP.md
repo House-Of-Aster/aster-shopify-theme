@@ -146,18 +146,25 @@ Permanent architecture:
 - [x] Search route, account trigger when enabled, and cart count
 - [x] Sticky behaviour implemented with CSS only; announcement bar scrolls away above it
 - [x] Burger navigation is the same desktop/mobile interaction rather than separate header systems
+- [x] Header remains completely stationary when navigation opens; no duplicate menu topbar/logo
+- [x] Navigation measures the real header bottom edge so announcement-present and announcement-absent states are both respected
 - [x] Keyboard focus states and minimum 44px utility/menu targets
 - [x] Colour-scheme support with no local colour pickers
-- [x] Header JavaScript limited to the native-dialog menu lifecycle; no scroll listeners or navigation framework
+- [x] Header JavaScript limited to menu lifecycle/geometry; no scroll listeners or navigation framework
 - [x] Transparent/overlay mode deliberately deferred until homepage hero art direction is approved
 - [x] Predictive/overlay search deliberately deferred to Phase 8
 
 ## 2.3 Navigation / mega menu — IN PROGRESS
 - [x] One navigation tree rendered for desktop and mobile; no duplicated menu DOM
-- [x] Native `<dialog>` full-screen navigation layer
-- [x] Three-line burger morphs into a close cross and reverses on close
-- [x] Escape close, modal focus containment and focus return
+- [x] Non-modal `<dialog>` navigation panel begins beneath the real header rather than replacing it
+- [x] Popular `jonsuh/hamburgers` Squeeze motion adapted locally under MIT licence; no package dependency
+- [x] Same header burger morphs into the close cross in place and reverses on close
+- [x] Escape close and focus return
+- [x] Covered page content becomes inert while the panel is open; visible header remains interactive
 - [x] Existing scroll-lock architecture reused
+- [x] Direct search form sits at the top of the menu; predictive search remains deferred to Phase 8
+- [x] Mobile menu account action uses the existing account SVG instead of a text footer link
+- [x] Redundant menu-level Search / Account text footer removed
 - [x] Current-page semantics and visible focus states
 - [x] First-level child links already supported
 - [x] Reduced-motion fallback
@@ -347,6 +354,6 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 **Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header.
 
-**In progress:** Phase 2.3 navigation foundation is built. Final information architecture and any richer editorial/mega-menu treatment wait until the actual menu content exists.
+**In progress:** Phase 2.3 navigation foundation is built, including stationary-header geometry, in-menu search and mobile account access. Final information architecture and any richer editorial/mega-menu treatment wait until the actual menu content exists.
 
 **Next:** Finalise Phase 2.3 navigation IA, then Phase 2.4 Footer.
