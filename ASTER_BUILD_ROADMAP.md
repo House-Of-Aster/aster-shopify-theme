@@ -173,9 +173,12 @@ Permanent architecture:
 - [x] Current-page semantics and visible focus states
 - [x] First-level child links already supported
 - [x] Primary mega-menu labels consume Navigation typography; child links/popular searches/eyebrows consume Body
+- [x] Desktop mega-menu composition signed off
+- [~] Mobile composition implemented as search/account → first three popular searches → compact navigation → two editorial feature cards; pending device visual QA/sign-off
+- [x] Mobile search reuses the same configurable affirmation typewriter and reduced-motion behaviour as desktop
+- [x] Mobile navigation dialog remains vertically scrollable so the editorial cards naturally reward continued scrolling
 - [x] Reduced-motion fallback
 - [ ] Define final navigation information architecture once the actual menu exists
-- [ ] Decide whether editorial imagery or richer mega-menu content genuinely adds value
 - [ ] Refine deeper hierarchy/submenu behaviour only if the catalogue requires it
 
 ## 2.4 Footer
@@ -360,6 +363,6 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 **Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header. Typography role ownership has also been re-audited and locked before further component work.
 
-**In progress:** Phase 2.3 navigation foundation is built, including stationary-header geometry, in-menu search and mobile account access. Desktop mega-menu composition is signed off; mobile composition is the current refinement target. Final information architecture waits until the actual menu content exists.
+**In progress:** Phase 2.3 desktop mega-menu composition is signed off. The mobile composition has now been implemented from the approved mockup direction and is awaiting device visual QA/sign-off. Final information architecture waits until the actual menu content exists.
 
-**Next:** Finalise Phase 2.3 mobile navigation treatment and IA, then Phase 2.4 Footer.
+**Next:** Visual-QA and sign off the Phase 2.3 mobile navigation treatment, then finalise navigation IA when content exists and move to Phase 2.4 Footer.
