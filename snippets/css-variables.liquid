@@ -7,6 +7,14 @@
     font-display: swap;
   }
 
+  @font-face {
+    font-family: "Rufina";
+    src: url("{{ 'Rufina-Bold.woff2' | asset_url }}") format("woff2");
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+  }
+
   {{ settings.type_primary_font | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
   {{ settings.type_primary_font | font_modify: 'weight', 'bold' | font_modify: 'style', 'italic' | font_face: font_display: 'swap' }}
@@ -21,6 +29,10 @@
       --font-body--family: "British Poems", serif;
       --font-body--style: normal;
       --font-body--weight: 400;
+    {% elsif settings.type_body_font_source == 'rufina_bold' %}
+      --font-body--family: "Rufina", serif;
+      --font-body--style: normal;
+      --font-body--weight: 700;
     {% else %}
       --font-body--family: {{ settings.type_primary_font.family }}, {{ settings.type_primary_font.fallback_families }};
       --font-body--style: {{ settings.type_primary_font.style }};
@@ -31,6 +43,10 @@
       --font-heading--family: "British Poems", serif;
       --font-heading--style: normal;
       --font-heading--weight: 400;
+    {% elsif settings.type_heading_font_source == 'rufina_bold' %}
+      --font-heading--family: "Rufina", serif;
+      --font-heading--style: normal;
+      --font-heading--weight: 700;
     {% else %}
       --font-heading--family: {{ settings.type_heading_font.family }}, {{ settings.type_heading_font.fallback_families }};
       --font-heading--style: {{ settings.type_heading_font.style }};
@@ -46,6 +62,10 @@
         --font-display--family: var(--font-body--family);
         --font-display--style: var(--font-body--style);
         --font-display--weight: var(--font-body--weight);
+      {% when 'rufina_bold' %}
+        --font-display--family: "Rufina", serif;
+        --font-display--style: normal;
+        --font-display--weight: 700;
       {% else %}
         --font-display--family: "British Poems", serif;
         --font-display--style: normal;
@@ -57,6 +77,8 @@
         --font-subheading--family: var(--font-heading--family);
       {% when 'british_poems' %}
         --font-subheading--family: "British Poems", serif;
+      {% when 'rufina_bold' %}
+        --font-subheading--family: "Rufina", serif;
       {% else %}
         --font-subheading--family: var(--font-body--family);
     {% endcase %}
@@ -66,6 +88,8 @@
         --font-product-card-title--family: var(--font-heading--family);
       {% when 'british_poems' %}
         --font-product-card-title--family: "British Poems", serif;
+      {% when 'rufina_bold' %}
+        --font-product-card-title--family: "Rufina", serif;
       {% else %}
         --font-product-card-title--family: var(--font-body--family);
     {% endcase %}
@@ -75,6 +99,8 @@
         --font-navigation--family: var(--font-heading--family);
       {% when 'british_poems' %}
         --font-navigation--family: "British Poems", serif;
+      {% when 'rufina_bold' %}
+        --font-navigation--family: "Rufina", serif;
       {% else %}
         --font-navigation--family: var(--font-body--family);
     {% endcase %}
@@ -84,6 +110,8 @@
         --font-button--family: var(--font-heading--family);
       {% when 'british_poems' %}
         --font-button--family: "British Poems", serif;
+      {% when 'rufina_bold' %}
+        --font-button--family: "Rufina", serif;
       {% else %}
         --font-button--family: var(--font-body--family);
     {% endcase %}
@@ -111,15 +139,15 @@
     --font-display-size: {{ settings.type_display_base_size }}px;
     --font-display-transform: {% if settings.type_display_uppercase %}uppercase{% else %}none{% endif %};
     --font-subheading-size: {{ settings.type_subheading_scale | times: 0.01 }}rem;
-    --font-subheading-weight: {{ settings.type_subheading_weight }};
+    --font-subheading-weight: {% if settings.type_subheading_font_family == 'rufina_bold' %}700{% else %}{{ settings.type_subheading_weight }}{% endif %};
     --font-subheading-letter-spacing: {{ settings.type_subheading_letter_spacing | times: 0.01 }}em;
     --font-subheading-transform: {{ settings.type_subheading_transform }};
     --font-product-card-title-size: {{ settings.type_product_card_title_scale | times: 0.01 }}rem;
-    --font-product-card-title-weight: {{ settings.type_product_card_title_weight }};
+    --font-product-card-title-weight: {% if settings.type_product_card_title_font_family == 'rufina_bold' %}700{% else %}{{ settings.type_product_card_title_weight }}{% endif %};
     --font-product-card-title-transform: {% if settings.type_product_card_title_uppercase %}uppercase{% else %}none{% endif %};
-    --font-navigation-weight: {{ settings.type_navigation_weight }};
+    --font-navigation-weight: {% if settings.type_navigation_font_family == 'rufina_bold' %}700{% else %}{{ settings.type_navigation_weight }}{% endif %};
     --font-navigation-transform: {% if settings.type_navigation_uppercase %}uppercase{% else %}none{% endif %};
-    --font-button-weight: {{ settings.type_button_weight }};
+    --font-button-weight: {% if settings.type_button_font_family == 'rufina_bold' %}700{% else %}{{ settings.type_button_weight }}{% endif %};
     --font-button-letter-spacing: {{ settings.type_button_letter_spacing | times: 0.01 }}em;
     --font-button-transform: {{ settings.type_button_transform }};
     --button-height: {{ settings.button_height | default: 48 }}px;
