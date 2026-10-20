@@ -14,7 +14,11 @@
     "logo_width": 300,
     "logo_mobile_width": 155,
     "favicon": "shopify://shop_images/Aster-Favi.png",
+    "type_heading_font_source": "shopify",
     "type_display_font_family": "heading",
+    "type_subheading_font_family": "body",
+    "type_product_card_title_font_family": "body",
+    "type_navigation_font_family": "rufina_bold",
     "sections": {
       "aster-announcement-bar": {
         "type": "aster-announcement-bar",
@@ -24,7 +28,7 @@
           "link": "",
           "color_scheme": "",
           "show_countdown": true,
-          "countdown_label": "Ends in",
+          "countdown_label": "Hurry! Launch sale ends in",
           "countdown_date": "2026-12-31",
           "countdown_time": "09:00",
           "hide_when_complete": true

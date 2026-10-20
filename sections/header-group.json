@@ -19,7 +19,7 @@
         "link": "",
         "color_scheme": "",
         "show_countdown": true,
-        "countdown_label": "Ends in",
+        "countdown_label": "Hurry! Launch sale ends in",
         "countdown_date": "2026-12-31",
         "countdown_time": "09:00",
         "hide_when_complete": true
