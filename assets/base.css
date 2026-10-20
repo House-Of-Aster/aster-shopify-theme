@@ -209,6 +209,64 @@ footer .footer__payment {
   gap: 1rem;
 }
 
+/** Aster buttons */
+.button,
+input[type='submit'].button,
+input[type='button'].button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--button-height);
+  padding: 0 28px;
+  border: 0;
+  border-radius: 0;
+  font: inherit;
+  font-family: var(--font-button--family);
+  font-weight: var(--font-button-weight);
+  letter-spacing: var(--font-button-letter-spacing);
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  text-transform: var(--font-button-transform);
+  cursor: pointer;
+  transition: opacity 180ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.button--primary,
+input[type='submit'].button--primary,
+input[type='button'].button--primary {
+  background: var(--color-button-background);
+  color: var(--color-button-text);
+}
+
+.button--secondary {
+  padding-inline: 0;
+  background: transparent;
+  color: var(--color-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .button:hover {
+    opacity: 0.78;
+  }
+}
+
+.button:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.button:disabled,
+.button[disabled],
+.button[aria-disabled='true'],
+.button[aria-busy='true'] {
+  opacity: 0.42;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
 /** Image snippet */
 .image {
   display: block;

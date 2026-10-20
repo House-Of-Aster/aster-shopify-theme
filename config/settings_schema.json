@@ -450,5 +450,20 @@
         "default": "none"
       }
     ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "range",
+        "id": "button_height",
+        "label": "Height",
+        "min": 44,
+        "max": 64,
+        "step": 2,
+        "unit": "px",
+        "default": 48
+      }
+    ]
   }
 ]

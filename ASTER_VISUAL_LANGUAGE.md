@@ -39,6 +39,21 @@ Wine and cream should dominate.
 
 Use colour blocks and contrast between schemes to create structure rather than decorative UI chrome.
 
+### Colour governance
+
+The global **Theme settings → Colours** scheme system is the single source of truth for storefront colour.
+
+Rules:
+
+- New sections and components must consume the active colour-scheme variables.
+- A section may expose a colour-scheme picker where a different scheme is useful.
+- Do not add individual background, text, button or accent colour pickers to normal sections.
+- Do not hard-code brand colours into reusable storefront components.
+- Component states should derive from the scheme wherever practical.
+- Add a new colour token to the global scheme only when the whole design system genuinely needs it.
+
+The objective is that a palette change can be made centrally and propagate across the storefront without hunting through individual sections.
+
 ## Borders
 
 Aster does **not** use borders as a decorative design language.

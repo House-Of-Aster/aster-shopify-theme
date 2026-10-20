@@ -122,10 +122,7 @@
     --font-button-weight: {{ settings.type_button_weight }};
     --font-button-letter-spacing: {{ settings.type_button_letter_spacing | times: 0.01 }}em;
     --font-button-transform: {{ settings.type_button_transform }};
-
-    --color-background: {{ settings.background_color }};
-    --color-foreground: {{ settings.foreground_color }};
-    --style-border-radius-inputs: {{ settings.input_corner_radius }}px;
+    --button-height: {{ settings.button_height | default: 48 }}px;
   }
 
   body {
