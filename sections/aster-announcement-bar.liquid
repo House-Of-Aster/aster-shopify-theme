@@ -1,0 +1,214 @@
+{% liquid
+  assign countdown_ready = false
+  if section.settings.show_countdown and section.settings.countdown_date != blank and section.settings.countdown_time != blank
+    assign countdown_ready = true
+  endif
+
+  assign has_content = false
+  if section.settings.message != blank or countdown_ready
+    assign has_content = true
+  endif
+%}
+
+{% if section.settings.enable_bar and has_content %}
+  <div
+    class="aster-announcement color-{{ section.settings.color_scheme }}"
+    data-aster-announcement
+    {{ section.shopify_attributes }}
+  >
+    {% if section.settings.link != blank %}
+      <a class="aster-announcement__inner" href="{{ section.settings.link }}">
+    {% else %}
+      <div class="aster-announcement__inner">
+    {% endif %}
+
+      {% if section.settings.message != blank %}
+        <span class="aster-announcement__message">{{ section.settings.message | escape }}</span>
+      {% endif %}
+
+      {% if countdown_ready %}
+        <span
+          class="aster-announcement__countdown"
+          data-aster-countdown
+          data-date="{{ section.settings.countdown_date | escape }}"
+          data-time="{{ section.settings.countdown_time | escape }}"
+          data-time-zone="Europe/London"
+          data-hide-on-complete="{{ section.settings.hide_when_complete }}"
+        >
+          {% if section.settings.countdown_label != blank %}
+            <span class="aster-announcement__countdown-label">{{ section.settings.countdown_label | escape }}</span>
+          {% endif %}
+
+          <span class="aster-announcement__timer" aria-hidden="true">
+            <span><strong data-countdown-days>00</strong>d</span>
+            <span><strong data-countdown-hours>00</strong>h</span>
+            <span><strong data-countdown-minutes>00</strong>m</span>
+            <span><strong data-countdown-seconds>00</strong>s</span>
+          </span>
+
+          <span class="visually-hidden">
+            Countdown to {{ section.settings.countdown_date | escape }} at {{ section.settings.countdown_time | escape }} UK time.
+          </span>
+        </span>
+      {% endif %}
+
+    {% if section.settings.link != blank %}
+      </a>
+    {% else %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% if countdown_ready %}
+    <script src="{{ 'aster-announcement-countdown.js' | asset_url }}" defer></script>
+  {% endif %}
+{% endif %}
+
+{% stylesheet %}
+  .aster-announcement {
+    width: 100%;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-navigation--family);
+    font-weight: var(--font-navigation-weight);
+    text-transform: var(--font-navigation-transform);
+  }
+
+  .aster-announcement__inner {
+    min-height: 38px;
+    padding: 8px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: inherit;
+    font-size: 12px;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  a.aster-announcement__inner {
+    transition: opacity var(--aster-duration-interaction, 180ms) ease;
+  }
+
+  .aster-announcement__countdown,
+  .aster-announcement__timer {
+    display: inline-flex;
+    align-items: baseline;
+  }
+
+  .aster-announcement__countdown {
+    gap: 7px;
+    white-space: nowrap;
+  }
+
+  .aster-announcement__timer {
+    gap: 5px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .aster-announcement__timer strong {
+    font: inherit;
+    font-weight: var(--font-body-bolder-weight);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    a.aster-announcement__inner:hover {
+      opacity: 0.78;
+    }
+  }
+
+  a.aster-announcement__inner:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -3px;
+  }
+
+  @media (max-width: 749px) {
+    .aster-announcement__inner {
+      min-height: 40px;
+      padding-inline: 15px;
+      flex-wrap: wrap;
+      column-gap: 10px;
+      row-gap: 3px;
+      font-size: 11px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    a.aster-announcement__inner {
+      transition: none;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "tag": "section",
+  "class": "aster-announcement-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "enable_bar",
+      "label": "Show announcement bar",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "message",
+      "label": "Message"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Colour scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Countdown"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_countdown",
+      "label": "Show countdown",
+      "default": false
+    },
+    {
+      "type": "text",
+      "id": "countdown_label",
+      "label": "Countdown label",
+      "default": "Ends in",
+      "visible_if": "{{ section.settings.show_countdown }}"
+    },
+    {
+      "type": "text",
+      "id": "countdown_date",
+      "label": "Date",
+      "info": "Use YYYY-MM-DD, for example 2026-12-01. Interpreted as UK time.",
+      "visible_if": "{{ section.settings.show_countdown }}"
+    },
+    {
+      "type": "text",
+      "id": "countdown_time",
+      "label": "Time",
+      "info": "Use 24-hour HH:MM, for example 09:00. UK daylight-saving time is handled automatically.",
+      "visible_if": "{{ section.settings.show_countdown }}"
+    },
+    {
+      "type": "checkbox",
+      "id": "hide_when_complete",
+      "label": "Hide bar when countdown ends",
+      "default": true,
+      "visible_if": "{{ section.settings.show_countdown }}"
+    }
+  ]
+}
+{% endschema %}
