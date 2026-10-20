@@ -1,0 +1,17 @@
+/* Aster desktop mega-menu spacing refinement */
+@media (min-width: 990px) {
+  .aster-header[data-aster-menu-root] .aster-header__menu-nav {
+    gap: 0;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-group {
+    min-height: 76px;
+    align-items: center;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-children {
+    align-self: center;
+    justify-self: center;
+    padding-top: 0;
+  }
+}
