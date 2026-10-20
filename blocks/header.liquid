@@ -1,78 +1,33 @@
 {% doc %}
   Renders the global Aster storefront header.
 
-  The existing Skeleton header block is retained as the architectural base,
-  but the presentation is Aster-specific: centred logo, restrained desktop
-  navigation, utility actions, and a native-details mobile menu with no
-  JavaScript dependency.
+  Navigation is intentionally unified across desktop and mobile: a single
+  burger control opens one native dialog-based full-screen navigation layer.
+  This keeps the chrome visually clean and avoids duplicated menu markup.
 {% enddoc %}
 
 <header
   class="aster-header full-width color-{{ block.settings.color_scheme }}"
   data-aster-header
+  data-aster-menu-root
   {{ block.shopify_attributes }}
 >
   <div class="aster-header__inner">
-    <div class="aster-header__mobile-menu">
-      <details class="aster-header__drawer" scroll-lock>
-        <summary class="aster-header__icon-button" aria-label="Menu">
-          <span class="aster-header__menu-icon" aria-hidden="true">
-            <span></span>
-            <span></span>
-          </span>
-          <span class="visually-hidden">Menu</span>
-        </summary>
-
-        <div class="aster-header__drawer-panel color-{{ block.settings.color_scheme }}">
-          <nav class="aster-header__drawer-nav" aria-label="Mobile navigation">
-            {% for link in block.settings.menu.links %}
-              <div class="aster-header__drawer-group">
-                <a
-                  class="aster-header__drawer-link{% if link.current %} is-active{% endif %}"
-                  href="{{ link.url }}"
-                  {% if link.current %}aria-current="page"{% endif %}
-                >
-                  {{ link.title | escape }}
-                </a>
-
-                {% if link.links != blank %}
-                  <div class="aster-header__drawer-children">
-                    {% for child_link in link.links %}
-                      <a
-                        class="aster-header__drawer-child{% if child_link.current %} is-active{% endif %}"
-                        href="{{ child_link.url }}"
-                        {% if child_link.current %}aria-current="page"{% endif %}
-                      >
-                        {{ child_link.title | escape }}
-                      </a>
-                    {% endfor %}
-                  </div>
-                {% endif %}
-              </div>
-            {% endfor %}
-          </nav>
-
-          <div class="aster-header__drawer-utilities">
-            <a href="{{ routes.search_url }}">Search</a>
-            {% if shop.customer_accounts_enabled %}
-              <a href="{{ routes.account_url }}">Account</a>
-            {% endif %}
-          </div>
-        </div>
-      </details>
-    </div>
-
-    <nav class="aster-header__nav" aria-label="Main navigation">
-      {% for link in block.settings.menu.links %}
-        <a
-          class="aster-header__nav-link{% if link.current %} is-active{% endif %}"
-          href="{{ link.url }}"
-          {% if link.current %}aria-current="page"{% endif %}
-        >
-          {{ link.title | escape }}
-        </a>
-      {% endfor %}
-    </nav>
+    <button
+      class="aster-header__icon-button aster-header__menu-toggle"
+      type="button"
+      aria-label="Open navigation"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+      aria-controls="AsterHeaderMenu-{{ block.id }}"
+      data-aster-menu-open
+    >
+      <span class="aster-header__menu-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
 
     <div class="aster-header__brand">
       {% if settings.logo != blank %}
@@ -104,7 +59,11 @@
         </span>
       {% endif %}
 
-      <a class="aster-header__icon-button aster-header__cart" href="{{ routes.cart_url }}" aria-label="Cart{% if cart.item_count > 0 %}, {{ cart.item_count }} items{% endif %}">
+      <a
+        class="aster-header__icon-button aster-header__cart"
+        href="{{ routes.cart_url }}"
+        aria-label="Cart{% if cart.item_count > 0 %}, {{ cart.item_count }} items{% endif %}"
+      >
         {{ 'icon-cart.svg' | inline_asset_content }}
         {% if cart.item_count > 0 %}
           <span class="aster-header__cart-count" aria-hidden="true">{{ cart.item_count }}</span>
@@ -112,6 +71,98 @@
       </a>
     </div>
   </div>
+
+  <dialog
+    id="AsterHeaderMenu-{{ block.id }}"
+    class="aster-header__menu-dialog color-{{ block.settings.color_scheme }}"
+    aria-labelledby="AsterHeaderMenuLabel-{{ block.id }}"
+    tabindex="-1"
+    scroll-lock
+    data-aster-menu-dialog
+  >
+    <div class="aster-header__menu-overlay">
+      <div class="aster-header__menu-topbar">
+        <button
+          class="aster-header__icon-button aster-header__menu-close"
+          type="button"
+          aria-label="Close navigation"
+          data-aster-menu-close
+        >
+          <span class="aster-header__menu-icon" aria-hidden="true">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </button>
+
+        <div class="aster-header__brand">
+          {% if settings.logo != blank %}
+            <span
+              class="aster-header__logo"
+              aria-hidden="true"
+              style="--aster-logo-width: {{ settings.logo_width }}px; --aster-logo-width-mobile: {{ settings.logo_mobile_width }}px; --aster-logo-aspect-ratio: {{ settings.logo.aspect_ratio | default: 3 }}; --aster-logo-mask: url('{{ settings.logo | image_url: width: 1200 }}');"
+            ></span>
+          {% else %}
+            <span class="aster-header__title">{{ shop.name | escape }}</span>
+          {% endif %}
+        </div>
+
+        <span class="aster-header__menu-topbar-spacer" aria-hidden="true"></span>
+      </div>
+
+      <div class="aster-header__menu-content">
+        <h2
+          id="AsterHeaderMenuLabel-{{ block.id }}"
+          class="visually-hidden"
+          tabindex="-1"
+          data-aster-menu-label
+        >
+          Navigation
+        </h2>
+
+        <nav class="aster-header__menu-nav" aria-label="Main navigation">
+          {% for link in block.settings.menu.links %}
+            <div class="aster-header__menu-group">
+              <a
+                class="aster-header__menu-link{% if link.current %} is-active{% endif %}"
+                href="{{ link.url }}"
+                {% if link.current %}aria-current="page"{% endif %}
+              >
+                {{ link.title | escape }}
+              </a>
+
+              {% if link.links != blank %}
+                <div class="aster-header__menu-children">
+                  {% for child_link in link.links %}
+                    <a
+                      class="aster-header__menu-child{% if child_link.current %} is-active{% endif %}"
+                      href="{{ child_link.url }}"
+                      {% if child_link.current %}aria-current="page"{% endif %}
+                    >
+                      {{ child_link.title | escape }}
+                    </a>
+                  {% endfor %}
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+          {% if block.settings.menu == blank and request.design_mode %}
+            <p class="aster-header__menu-empty">Choose a navigation menu in the Header settings.</p>
+          {% endif %}
+        </nav>
+      </div>
+
+      <div class="aster-header__menu-footer">
+        <a href="{{ routes.search_url }}">Search</a>
+        {% if shop.customer_accounts_enabled %}
+          <a href="{{ routes.account_url }}">Account</a>
+        {% endif %}
+      </div>
+    </div>
+  </dialog>
+
+  <script src="{{ 'aster-header-menu.js' | asset_url }}" defer></script>
 </header>
 
 {% stylesheet %}
@@ -124,13 +175,13 @@
   .aster-header {
     --icon-stroke-width: 1.35;
     width: 100%;
-    height: auto;
     min-height: 84px;
     background: var(--color-background);
     color: var(--color-foreground);
   }
 
-  .aster-header__inner {
+  .aster-header__inner,
+  .aster-header__menu-topbar {
     width: min(1400px, calc(100% - 40px));
     min-height: 84px;
     margin: 0 auto;
@@ -141,38 +192,12 @@
   }
 
   .aster-header a,
-  .aster-header summary {
+  .aster-header button {
     color: inherit;
   }
 
   .aster-header a {
     text-decoration: none;
-  }
-
-  .aster-header__nav {
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    gap: clamp(18px, 2vw, 34px);
-    font-family: var(--font-navigation--family);
-    font-weight: var(--font-navigation-weight);
-    text-transform: var(--font-navigation-transform);
-  }
-
-  .aster-header__nav-link {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    white-space: nowrap;
-    font-size: 13px;
-    line-height: 1;
-    opacity: 0.82;
-    transition: opacity var(--aster-duration-interaction, 180ms) ease;
-  }
-
-  .aster-header__nav-link.is-active {
-    opacity: 1;
   }
 
   .aster-header__brand {
@@ -216,7 +241,8 @@
   }
 
   .aster-header__icon-button,
-  .aster-header__account {
+  .aster-header__account,
+  .aster-header__menu-topbar-spacer {
     position: relative;
     width: 44px;
     height: 44px;
@@ -228,9 +254,15 @@
 
   .aster-header__icon-button {
     border: 0;
+    padding: 0;
     background: transparent;
     cursor: pointer;
     transition: opacity var(--aster-duration-interaction, 180ms) ease;
+  }
+
+  .aster-header__menu-toggle,
+  .aster-header__menu-close {
+    justify-self: start;
   }
 
   .aster-header__icon-button svg,
@@ -264,164 +296,192 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .aster-header__mobile-menu {
-    display: none;
-  }
-
-  .aster-header__drawer > summary {
-    list-style: none;
-  }
-
-  .aster-header__drawer > summary::-webkit-details-marker {
-    display: none;
-  }
-
   .aster-header__menu-icon {
     position: relative;
-    width: 20px;
-    height: 14px;
+    width: 22px;
+    height: 16px;
     display: block;
   }
 
   .aster-header__menu-icon span {
     position: absolute;
     left: 0;
-    width: 20px;
+    width: 22px;
     height: 1.5px;
     background: currentColor;
     transform-origin: center;
-    transition: transform var(--aster-duration-interaction, 180ms) var(--aster-ease-out, ease), top var(--aster-duration-interaction, 180ms) var(--aster-ease-out, ease);
+    transition:
+      transform 240ms var(--aster-ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+      top 240ms var(--aster-ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
+      opacity 150ms ease;
   }
 
-  .aster-header__menu-icon span:first-child {
-    top: 3px;
-  }
+  .aster-header__menu-icon span:nth-child(1) { top: 1px; }
+  .aster-header__menu-icon span:nth-child(2) { top: 7px; }
+  .aster-header__menu-icon span:nth-child(3) { top: 13px; }
 
-  .aster-header__menu-icon span:last-child {
-    top: 10px;
-  }
-
-  .aster-header__drawer[open] .aster-header__menu-icon span:first-child {
-    top: 6px;
+  .aster-header__menu-toggle[aria-expanded='true'] .aster-header__menu-icon span:nth-child(1),
+  .aster-header__menu-dialog.is-visible .aster-header__menu-close .aster-header__menu-icon span:nth-child(1) {
+    top: 7px;
     transform: rotate(45deg);
   }
 
-  .aster-header__drawer[open] .aster-header__menu-icon span:last-child {
-    top: 6px;
+  .aster-header__menu-toggle[aria-expanded='true'] .aster-header__menu-icon span:nth-child(2),
+  .aster-header__menu-dialog.is-visible .aster-header__menu-close .aster-header__menu-icon span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0.25);
+  }
+
+  .aster-header__menu-toggle[aria-expanded='true'] .aster-header__menu-icon span:nth-child(3),
+  .aster-header__menu-dialog.is-visible .aster-header__menu-close .aster-header__menu-icon span:nth-child(3) {
+    top: 7px;
     transform: rotate(-45deg);
   }
 
-  .aster-header__drawer-panel {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    max-height: calc(100dvh - 68px);
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    padding: 36px 15px 44px;
+  .aster-header__menu-dialog {
+    width: 100vw;
+    max-width: none;
+    height: 100dvh;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
     background: var(--color-background);
     color: var(--color-foreground);
-    animation: aster-header-drawer-in var(--aster-duration-reveal, 520ms) var(--aster-ease-out, ease) both;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity 220ms ease,
+      transform 260ms var(--aster-ease-out, cubic-bezier(0.22, 1, 0.36, 1));
   }
 
-  .aster-header__drawer-nav {
-    width: min(100%, 680px);
+  .aster-header__menu-dialog[open] {
+    display: block;
+  }
+
+  .aster-header__menu-dialog.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .aster-header__menu-dialog::backdrop {
+    background: transparent;
+  }
+
+  .aster-header__menu-overlay {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  .aster-header__menu-topbar-spacer {
+    justify-self: end;
+  }
+
+  .aster-header__menu-content {
+    width: min(1400px, calc(100% - 40px));
     margin: 0 auto;
-    display: grid;
-    gap: 24px;
+    padding-block: clamp(64px, 9vh, 124px) 56px;
+    display: flex;
+    align-items: flex-start;
   }
 
-  .aster-header__drawer-group {
+  .aster-header__menu-nav {
+    width: min(100%, 760px);
     display: grid;
-    gap: 11px;
+    gap: clamp(24px, 3vw, 42px);
   }
 
-  .aster-header__drawer-link {
+  .aster-header__menu-group {
+    display: grid;
+    gap: 14px;
+  }
+
+  .aster-header__menu-link {
     width: fit-content;
     font-family: var(--font-heading--family);
-    font-size: clamp(30px, 9vw, 44px);
-    line-height: 1;
-    opacity: 0.82;
+    font-style: var(--font-heading--style);
+    font-weight: var(--font-heading--weight);
+    font-size: clamp(46px, 6vw, 82px);
+    line-height: 0.96;
+    letter-spacing: var(--font-heading-letter-spacing);
+    text-transform: var(--font-heading-transform);
+    opacity: 0.78;
+    transition:
+      opacity var(--aster-duration-interaction, 180ms) ease,
+      transform 220ms var(--aster-ease-out, cubic-bezier(0.22, 1, 0.36, 1));
   }
 
-  .aster-header__drawer-link.is-active,
-  .aster-header__drawer-child.is-active {
-    opacity: 1;
+  .aster-header__menu-children {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
   }
 
-  .aster-header__drawer-children {
-    display: grid;
-    gap: 8px;
-    padding-left: 2px;
-  }
-
-  .aster-header__drawer-child,
-  .aster-header__drawer-utilities a {
+  .aster-header__menu-child,
+  .aster-header__menu-footer a {
     width: fit-content;
     font-family: var(--font-navigation--family);
     font-weight: var(--font-navigation-weight);
     text-transform: var(--font-navigation-transform);
-    opacity: 0.68;
+    font-size: 13px;
+    line-height: 1.3;
+    opacity: 0.62;
+    transition: opacity var(--aster-duration-interaction, 180ms) ease;
   }
 
-  .aster-header__drawer-utilities {
-    width: min(100%, 680px);
-    margin: 42px auto 0;
+  .aster-header__menu-link.is-active,
+  .aster-header__menu-child.is-active {
+    opacity: 1;
+  }
+
+  .aster-header__menu-empty {
+    font-family: var(--font-navigation--family);
+    opacity: 0.55;
+  }
+
+  .aster-header__menu-footer {
+    width: min(1400px, calc(100% - 40px));
+    margin: 0 auto;
+    padding-bottom: 36px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 22px;
-  }
-
-  @keyframes aster-header-drawer-in {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    align-items: center;
+    gap: 24px;
   }
 
   @media (hover: hover) and (pointer: fine) {
-    .aster-header__nav-link:hover,
     .aster-header__icon-button:hover,
-    .aster-header__drawer a:hover {
+    .aster-header__menu-child:hover,
+    .aster-header__menu-footer a:hover {
       opacity: 1;
+    }
+
+    .aster-header__menu-link:hover {
+      opacity: 1;
+      transform: translateX(4px);
     }
   }
 
   .aster-header a:focus-visible,
-  .aster-header summary:focus-visible,
-  .aster-header shopify-account:focus-visible {
+  .aster-header button:focus-visible,
+  .aster-header shopify-account:focus-visible,
+  .aster-header__menu-dialog:focus-visible {
     outline: 2px solid currentColor;
     outline-offset: 3px;
   }
 
-  @media (max-width: 989px) {
+  @media (max-width: 749px) {
     .aster-header {
       min-height: 68px;
     }
 
-    .aster-header__inner {
+    .aster-header__inner,
+    .aster-header__menu-topbar {
       width: calc(100% - 30px);
       min-height: 68px;
-      grid-template-columns: 1fr auto 1fr;
       gap: 8px;
-    }
-
-    .aster-header__nav {
-      display: none;
-    }
-
-    .aster-header__mobile-menu {
-      display: block;
-      justify-self: start;
-    }
-
-    .aster-header__brand {
-      grid-column: 2;
     }
 
     .aster-header__logo {
@@ -429,13 +489,32 @@
     }
 
     .aster-header__utilities {
-      grid-column: 3;
-      justify-self: end;
       gap: 0;
     }
 
     .aster-header__account {
       display: none;
+    }
+
+    .aster-header__menu-content,
+    .aster-header__menu-footer {
+      width: calc(100% - 30px);
+    }
+
+    .aster-header__menu-content {
+      padding-block: clamp(46px, 8vh, 76px) 42px;
+    }
+
+    .aster-header__menu-nav {
+      gap: 24px;
+    }
+
+    .aster-header__menu-link {
+      font-size: clamp(40px, 13vw, 62px);
+    }
+
+    .aster-header__menu-footer {
+      padding-bottom: 28px;
     }
   }
 
@@ -446,14 +525,17 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .aster-header__nav-link,
     .aster-header__icon-button,
-    .aster-header__menu-icon span {
+    .aster-header__menu-icon span,
+    .aster-header__menu-dialog,
+    .aster-header__menu-link,
+    .aster-header__menu-child,
+    .aster-header__menu-footer a {
       transition: none;
     }
 
-    .aster-header__drawer-panel {
-      animation: none;
+    .aster-header__menu-link:hover {
+      transform: none;
     }
   }
 {% endstylesheet %}
