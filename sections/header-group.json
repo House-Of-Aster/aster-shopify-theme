@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "type": "header",
   "name": "Header",
@@ -28,22 +37,27 @@
             "color_scheme": "scheme-2",
             "search_affirmations": "Find what feels right\nSearch for what you need today\nSearch with intention\nFind what belongs in your routine\nFind something worth slowing down for\nSearch for what feels like you\nChoose what matters\nFind what works\nFind your rhythm\nFind your pace",
             "popular_searches": "Planner\nDaily planning\nMorning ritual\nEvening ritual\nWeekly reset",
+            "menu_feature_1_image": "shopify://shop_images/Aster-BOS.webp",
             "menu_feature_1_eyebrow": "RISE",
             "menu_feature_1_heading": "Start clear. Stay steady.",
             "menu_feature_1_text": "A morning ritual for clearer focus, steady energy and an intentional start.",
             "menu_feature_1_link_label": "Discover Rise",
             "menu_feature_1_link": "",
+            "menu_feature_2_image": "shopify://shop_images/Aster-CHL.webp",
             "menu_feature_2_eyebrow": "SET",
             "menu_feature_2_heading": "Slow down. Rest deeper.",
             "menu_feature_2_text": "An evening ritual for deeper rest, gentle recovery and an intentional finish.",
             "menu_feature_2_link_label": "Discover Set",
             "menu_feature_2_link": ""
-          }
+          },
+          "blocks": {}
         }
       },
-      "block_order": [],
       "settings": {}
     }
   },
-  "order": ["announcement", "header"]
+  "order": [
+    "announcement",
+    "header"
+  ]
 }
