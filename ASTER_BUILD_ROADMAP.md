@@ -141,24 +141,29 @@ Permanent architecture:
 
 ## 2.2 Header — COMPLETE
 - [x] Existing Skeleton header block retained and refactored rather than duplicated
-- [x] True-centred logo with desktop navigation and utility actions
+- [x] True-centred logo with permanent burger launcher left and utility actions right
 - [x] Header logo inherits active colour-scheme foreground colour
 - [x] Search route, account trigger when enabled, and cart count
 - [x] Sticky behaviour implemented with CSS only; announcement bar scrolls away above it
-- [x] Native-details mobile navigation drawer with existing scroll-lock architecture
-- [x] Mobile account/search routes remain available when utility icons are reduced
-- [x] Keyboard focus states and minimum 44px utility targets
+- [x] Burger navigation is the same desktop/mobile interaction rather than separate header systems
+- [x] Keyboard focus states and minimum 44px utility/menu targets
 - [x] Colour-scheme support with no local colour pickers
-- [x] No header JavaScript added
+- [x] Header JavaScript limited to the native-dialog menu lifecycle; no scroll listeners or navigation framework
 - [x] Transparent/overlay mode deliberately deferred until homepage hero art direction is approved
 - [x] Predictive/overlay search deliberately deferred to Phase 8
 
-## 2.3 Navigation / mega menu — NEXT
-- [ ] Standard desktop dropdown
-- [ ] Mega-menu option if useful
-- [ ] Optional editorial imagery
-- [ ] Mobile hierarchy refinement where useful
-- [ ] Active/focus states
+## 2.3 Navigation / mega menu — IN PROGRESS
+- [x] One navigation tree rendered for desktop and mobile; no duplicated menu DOM
+- [x] Native `<dialog>` full-screen navigation layer
+- [x] Three-line burger morphs into a close cross and reverses on close
+- [x] Escape close, modal focus containment and focus return
+- [x] Existing scroll-lock architecture reused
+- [x] Current-page semantics and visible focus states
+- [x] First-level child links already supported
+- [x] Reduced-motion fallback
+- [ ] Define final navigation information architecture once the actual menu exists
+- [ ] Decide whether editorial imagery or richer mega-menu content genuinely adds value
+- [ ] Refine deeper hierarchy/submenu behaviour only if the catalogue requires it
 
 ## 2.4 Footer
 - [ ] Newsletter
@@ -342,4 +347,6 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 **Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header.
 
-**Next:** Phase 2.3 — Navigation / mega menu.
+**In progress:** Phase 2.3 navigation foundation is built. Final information architecture and any richer editorial/mega-menu treatment wait until the actual menu content exists.
+
+**Next:** Finalise Phase 2.3 navigation IA, then Phase 2.4 Footer.
