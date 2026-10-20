@@ -487,10 +487,6 @@ input[type='radio'] {
     opacity: 1;
   }
 
-  .aster-header[data-aster-menu-root] .aster-header__menu-popular > span:last-child {
-    display: none;
-  }
-
   .aster-header[data-aster-menu-root] .aster-header__menu-children {
     gap: 3px;
     padding-top: 1px;
