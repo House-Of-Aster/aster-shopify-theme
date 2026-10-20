@@ -19,11 +19,14 @@
     const openMenu = () => {
       window.clearTimeout(closeTimer);
       opener.setAttribute('aria-expanded', 'true');
+      opener.classList.add('is-active');
+      closer.classList.remove('is-active');
 
       if (!dialog.open) dialog.showModal();
 
       window.requestAnimationFrame(() => {
         dialog.classList.add('is-visible');
+        closer.classList.add('is-active');
         (label || dialog).focus({ preventScroll: true });
       });
     };
@@ -31,6 +34,8 @@
     const closeMenu = () => {
       if (!dialog.open) return;
 
+      closer.classList.remove('is-active');
+      opener.classList.remove('is-active');
       dialog.classList.remove('is-visible');
       opener.setAttribute('aria-expanded', 'false');
 
@@ -56,6 +61,8 @@
     dialog.addEventListener('close', () => {
       window.clearTimeout(closeTimer);
       dialog.classList.remove('is-visible');
+      opener.classList.remove('is-active');
+      closer.classList.remove('is-active');
       opener.setAttribute('aria-expanded', 'false');
       opener.focus({ preventScroll: true });
     });
