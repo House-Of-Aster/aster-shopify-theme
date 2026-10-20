@@ -477,13 +477,13 @@ input[type='radio'] {
   }
 
   .aster-header[data-aster-menu-root] .aster-header__menu-link {
-    font-family: "British Poems", serif;
+    font-family: var(--font-navigation--family);
     font-style: normal;
-    font-weight: 400;
+    font-weight: var(--font-navigation-weight);
     font-size: clamp(26px, 2vw, 32px);
     line-height: 1.02;
     letter-spacing: 0;
-    text-transform: none;
+    text-transform: var(--font-navigation-transform);
     opacity: 1;
   }
 

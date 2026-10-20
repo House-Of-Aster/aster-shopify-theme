@@ -40,7 +40,7 @@
       links: ['Why Aster', 'Vivere Bene', 'Our philosophy'],
     },
   ];
-  const popularSearches = ['Planner', 'Daily planning', 'Morning ritual', 'Evening ritual', 'Weekly reset', 'Journal'];
+  const popularSearches = ['Planner', 'Daily planning', 'Morning ritual', 'Evening ritual', 'Weekly reset'];
   const previewFeatures = [
     {
       heading: 'Start clear. Stay steady.',
