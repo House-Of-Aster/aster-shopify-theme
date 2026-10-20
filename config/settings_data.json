@@ -14,9 +14,32 @@
     "logo_width": 300,
     "logo_mobile_width": 155,
     "favicon": "shopify://shop_images/Aster-Favi.png",
-    "background_color": "#E6D3BD",
-    "foreground_color": "#6C2330",
-    "max_page_width": "110rem",
+    "color_schemes": {
+      "scheme-1": {
+        "settings": {
+          "background": "#E6D3BD",
+          "text": "#6B2331",
+          "accent": "#6B2331",
+          "border": "#6B2331",
+          "button": "#6B2331",
+          "button_label": "#E6D3BD",
+          "secondary_button": "#E6D3BD",
+          "secondary_button_label": "#6B2331"
+        }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#6B2331",
+          "text": "#E6D3BD",
+          "accent": "#E6D3BD",
+          "border": "#E6D3BD",
+          "button": "#E6D3BD",
+          "button_label": "#6B2331",
+          "secondary_button": "#6B2331",
+          "secondary_button_label": "#E6D3BD"
+        }
+      }
+    },
     "content_for_index": []
   }
 }

@@ -1,0 +1,29 @@
+{% comment %}
+  Global Aster colour schemes.
+  The first scheme becomes the store default via :root.
+  Any section can opt into another scheme with class="color-{{ section.settings.color_scheme }}".
+{% endcomment %}
+
+{% style %}
+  {% for scheme in settings.color_schemes %}
+    {% if forloop.first %}
+      :root,
+    {% endif %}
+    .color-{{ scheme.id }} {
+      --color-background: {{ scheme.settings.background }};
+      --color-foreground: {{ scheme.settings.text }};
+      --color-accent: {{ scheme.settings.accent }};
+      --color-border: {{ scheme.settings.border }};
+      --color-button-background: {{ scheme.settings.button }};
+      --color-button-text: {{ scheme.settings.button_label }};
+      --color-secondary-button-background: {{ scheme.settings.secondary_button }};
+      --color-secondary-button-text: {{ scheme.settings.secondary_button_label }};
+      --style-border-radius-inputs: 4px;
+    }
+
+    .color-{{ scheme.id }} {
+      background-color: var(--color-background);
+      color: var(--color-foreground);
+    }
+  {% endfor %}
+{% endstyle %}
