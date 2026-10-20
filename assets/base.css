@@ -350,8 +350,6 @@ select {
   caret-color: var(--color-accent);
   box-shadow: none;
   transition: background-color 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
-  -webkit-appearance: none;
-  appearance: none;
 }
 
 textarea {
@@ -372,6 +370,8 @@ select {
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
   cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 input::placeholder,
@@ -428,16 +428,6 @@ input[type='radio'] {
   height: 18px;
   margin: 0.1em 0 0;
   accent-color: var(--color-accent);
-}
-
-input[type='number'] {
-  -moz-appearance: textfield;
-}
-
-input[type='number']::-webkit-inner-spin-button,
-input[type='number']::-webkit-outer-spin-button {
-  margin: 0;
-  -webkit-appearance: none;
 }
 
 .form-message[role='alert'],
