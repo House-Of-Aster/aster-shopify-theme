@@ -4,6 +4,7 @@
   layout element and renders the composed body via {{ content }}.
 
   @param {string} [tag] - HTML element for the wrapper. Default: 'section'.
+  @param {string} [class] - Optional additional wrapper class.
 
   @example Default section wrapper
   {% block 'container' %}
@@ -19,7 +20,7 @@
 
 {%- assign tag = tag | default: 'section' -%}
 
-<{{ tag }} class="block-container" style="--text-align: {{ block.settings.alignment }};" {{ block.shopify_attributes }}>
+<{{ tag }} class="block-container{% if class != blank %} {{ class }}{% endif %}" style="--text-align: {{ block.settings.alignment }};" {{ block.shopify_attributes }}>
   {{ content }}
 </{{ tag }}>
 
