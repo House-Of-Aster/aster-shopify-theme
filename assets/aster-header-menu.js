@@ -14,10 +14,112 @@
     'Find your rhythm',
     'Find your pace',
   ];
+  const previewNavigation = [
+    {
+      title: 'Planner',
+      links: ['The Aster Planner', 'Inside the pages', 'How it works', 'FAQs'],
+    },
+    {
+      title: 'Rituals',
+      links: ['Morning ritual', 'Evening ritual', 'Weekly reset'],
+    },
+    {
+      title: 'Rise',
+      links: ['The morning ritual', 'Energy & focus', 'Coming soon'],
+    },
+    {
+      title: 'Set',
+      links: ['The evening ritual', 'Rest & recovery', 'Coming soon'],
+    },
+    {
+      title: 'Journal',
+      links: ['Planning', 'Routines', 'Better mornings', 'Better evenings'],
+    },
+    {
+      title: 'Our World',
+      links: ['Why Aster', 'Vivere Bene', 'Our philosophy'],
+    },
+  ];
+  const popularSearches = ['Planner', 'Daily planning', 'Morning ritual', 'Evening ritual', 'Weekly reset', 'Journal'];
+  const previewFeatures = [
+    {
+      heading: 'Start clear. Stay steady.',
+      text: 'A morning ritual for clearer focus, steady energy and an intentional start.',
+      linkLabel: 'Discover Rise',
+    },
+    {
+      heading: 'Slow down. Rest deeper.',
+      text: 'An evening ritual for deeper rest, gentle recovery and an intentional finish.',
+      linkLabel: 'Discover Set',
+    },
+  ];
   const typingDelay = 44;
   const erasingDelay = 26;
   const affirmationHold = 1500;
   const affirmationGap = 180;
+
+  const createPreviewChild = (text) => {
+    const item = document.createElement('span');
+    item.className = 'aster-header__menu-child';
+    item.textContent = text;
+    return item;
+  };
+
+  const preparePreviewContent = (root) => {
+    const previewGroups = [...root.querySelectorAll('.aster-header__menu-group--preview')];
+
+    previewGroups.forEach((group, index) => {
+      const content = previewNavigation[index];
+      if (!content) {
+        group.remove();
+        return;
+      }
+
+      const title = group.querySelector('.aster-header__menu-link');
+      const children = group.querySelector('.aster-header__menu-children');
+
+      if (title) title.textContent = content.title;
+      if (children) children.replaceChildren(...content.links.map(createPreviewChild));
+    });
+
+    const popular = root.querySelector('.aster-header__menu-popular');
+    if (popular) {
+      const label = document.createElement('span');
+      label.className = 'aster-header__menu-popular-label';
+      label.textContent = 'Popular searches:';
+
+      const terms = popularSearches.map((term) => {
+        const item = document.createElement('span');
+        item.textContent = term;
+        return item;
+      });
+
+      popular.setAttribute('aria-label', 'Popular searches');
+      popular.replaceChildren(label, ...terms);
+    }
+
+    if (!previewGroups.length) return;
+
+    const featureCards = [...root.querySelectorAll('.aster-header__menu-feature')];
+    previewFeatures.forEach((feature, index) => {
+      const card = featureCards[index];
+      if (!card) return;
+
+      const heading = card.querySelector('.aster-header__menu-feature-heading');
+      const text = card.querySelector('.aster-header__menu-feature-text');
+      const link = card.querySelector('.aster-header__menu-feature-link');
+
+      if (heading) heading.textContent = feature.heading;
+      if (text) text.textContent = feature.text;
+      if (link) {
+        link.replaceChildren(document.createTextNode(`${feature.linkLabel} `));
+        const arrow = document.createElement('span');
+        arrow.setAttribute('aria-hidden', 'true');
+        arrow.textContent = '→';
+        link.append(arrow);
+      }
+    });
+  };
 
   const bind = (root) => {
     if (root.dataset.asterMenuBound === 'true') return;
@@ -30,6 +132,7 @@
 
     if (!opener || !dialog) return;
 
+    preparePreviewContent(root);
     root.dataset.asterMenuBound = 'true';
     let closeTimer;
     let affirmationTimer;
