@@ -39,11 +39,7 @@
   </head>
 
   <body>
-    {% section 'aster-announcement-bar' %}
-
-    {% block 'container', tag: 'div', class: 'aster-header-shell' %}
-      {% block 'header' -%}{%- endblock %}
-    {% endblock %}
+    {% sections 'header-group' %}
 
     <main>
       {{ content_for_layout }}
