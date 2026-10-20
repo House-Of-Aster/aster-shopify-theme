@@ -1,7 +1,13 @@
 {% block 'container' %}
   <div class="product-images">
     {% for image in product.images %}
-      {% render 'image', class: 'product-image', image: image %}
+      {% render 'image',
+        class: 'product-image',
+        image: image,
+        width: 1600,
+        sizes: '(min-width: 750px) 50vw, 100vw',
+        priority: forloop.first
+      %}
     {% endfor %}
   </div>
 
