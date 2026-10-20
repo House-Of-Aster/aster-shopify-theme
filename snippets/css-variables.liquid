@@ -243,6 +243,26 @@
     text-transform: var(--font-navigation-transform);
   }
 
+  /* Aster mega menu typography roles: only primary labels are navigation. */
+  .aster-header .aster-header__menu-link {
+    font-family: var(--font-navigation--family);
+    font-weight: var(--font-navigation-weight);
+    text-transform: var(--font-navigation-transform);
+  }
+
+  .aster-header .aster-header__menu-child,
+  .aster-header .aster-header__menu-popular,
+  .aster-header .aster-header__menu-feature-eyebrow {
+    font-family: var(--font-body--family);
+    font-style: var(--font-body--style);
+    font-weight: var(--font-body--weight);
+  }
+
+  .aster-header .aster-header__menu-child,
+  .aster-header .aster-header__menu-popular {
+    text-transform: none;
+  }
+
   button,
   .button,
   input[type='button'],
