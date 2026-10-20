@@ -1,658 +1,509 @@
 # ASTER Store Build Roadmap
 
-Canonical build tracker for the House of Aster Shopify theme.
+Canonical project tracker for the House of Aster Shopify theme.
 
-Status key:
-- [x] Complete
-- [ ] Not started
-- [~] In progress / partially complete
+Read this before substantial Aster work. Update it when a milestone is completed or the agreed sequence changes.
+
+Status:
+- `[x]` Complete
+- `[~]` In progress / partial
+- `[ ]` Not started
+
+Art direction is governed by `ASTER_VISUAL_LANGUAGE.md`.
 
 ## North star
 
-Build Aster as one coherent visual system from homepage through product, collection, search, cart and content pages.
+Build Aster as one coherent visual system from homepage through product, collection, cart, search and content pages.
 
-The homepage should use GSAP with restraint: polished motion, strong reveals, elegant transitions and a few memorable interactions rather than constant animation. Every other template should feel designed by the same artist through shared typography, colour, spacing, surfaces, buttons, card geometry, image treatment and motion language.
+The homepage gets the strongest GSAP choreography, but every template must feel like it came from the same artist.
 
-Core principles:
-- Premium, editorial, warm and distinctive.
-- Wide 1400px content architecture.
-- Permanent gutters: 20px desktop/tablet, 15px mobile.
-- Wine red #6B2331 and cream #E6D3BD are the core Aster palette.
-- Motion should support hierarchy and storytelling, not distract from shopping.
-- Use shared primitives before one-off section styling.
-- Build the component first, then add only the Theme Settings that genuinely help control it.
-- Keep the theme lean: no unused options, duplicate assets or decorative code with no storefront purpose.
-- Respect prefers-reduced-motion and avoid CLS-inducing animation.
+Permanent architecture:
+- 1400px maximum content width
+- 20px desktop/tablet gutters
+- 15px mobile gutters
+- Wine `#6B2331` and cream `#E6D3BD` as core palette
+- Theme settings stay lean
+- Global colour schemes are the single source of truth for storefront colour
+- No routine per-section colour pickers
+- No decorative border language
+- Motion is calm, editorial and purposeful
+- Respect `prefers-reduced-motion`
+- Build components first, then expose only settings proven useful
 
 ---
 
-# PHASE 0 — PRE-LAUNCH / FOUNDATION ALREADY COMPLETED
+# PHASE 0 — FOUNDATION
 
-## Password / waiting-list experience
-- [x] Bespoke ASTER waiting-list landing page.
-- [x] Launch countdown.
-- [x] Bear silhouette V2.
-- [x] Bear fixed-width desktop/mobile scaling.
-- [x] Bear bottom anchoring.
-- [x] Bear opacity control.
-- [x] Bear blur control.
-- [x] Mobile ASTER logo clipping fix.
-- [x] British Poems custom WOFF2 added.
-- [x] British Poems applied to display heading role.
+## Password / pre-launch
+- [x] Bespoke Aster waiting-list page
+- [x] Launch countdown
+- [x] Bear silhouette V2
+- [x] Bear fixed desktop/mobile scale
+- [x] Bear bottom anchor
+- [x] Bear opacity + blur controls
+- [x] Mobile logo clipping fix
+- [x] British Poems WOFF2
+- [x] Display-heading integration
 
-## Global theme foundations
-- [x] Global Logo settings.
-- [x] Single SVG logo asset.
-- [x] Theme-controlled SVG logo colour.
-- [x] Desktop logo width.
-- [x] Mobile logo width.
-- [x] Favicon support.
-- [x] Global Typography system.
-- [x] Body typography role.
-- [x] Heading typography role.
-- [x] Display heading typography role.
-- [x] Subheading typography role.
-- [x] Navigation typography role.
-- [x] Button typography role.
-- [x] Product-card title typography role.
-- [x] Global Colours scheme system.
-- [x] Cream / wine starter colour scheme.
-- [x] Wine / cream starter colour scheme.
-- [x] Reusable colour-scheme CSS variables.
-- [x] Fixed global content architecture.
-- [x] 1400px maximum content width.
-- [x] 20px desktop/tablet gutters.
-- [x] 15px mobile gutters.
-- [x] Removed redundant Layout Theme Settings.
+## Global design foundations
+- [x] Logo theme settings
+- [x] One SVG logo asset
+- [x] Theme-controlled SVG logo colour
+- [x] Desktop/mobile logo width
+- [x] Favicon
+- [x] Typography system
+- [x] Body role
+- [x] Heading role
+- [x] Display-heading role
+- [x] Subheading role
+- [x] Navigation role
+- [x] Button typography role
+- [x] Product-card-title role
+- [x] Global colour-scheme system
+- [x] Cream/wine starter scheme
+- [x] Wine/cream starter scheme
+- [x] Reusable colour variables
+- [x] 1400px content architecture
+- [x] Fixed desktop/mobile gutters
+- [x] Removed Layout theme controls
+- [x] Aster visual-language document
+- [x] Global colour-governance rule
 
 ---
 
 # PHASE 1 — DESIGN SYSTEM PRIMITIVES
 
-These must come before major storefront sections so every later component inherits the same visual language.
+## 1.1 Buttons — COMPLETE
+- [x] Primary button primitive
+- [x] Secondary text-action primitive
+- [x] Theme Settings → Buttons
+- [x] Only global control is button height
+- [x] Default height 48px
+- [x] Colours inherit from active colour scheme
+- [x] Typography inherits from Typography → Buttons
+- [x] No decorative borders
+- [x] No radius/colour/padding settings
+- [x] Subtle CSS hover state
+- [x] Disabled state
+- [x] `aria-disabled` state
+- [x] `aria-busy` state
+- [x] Keyboard focus state
+- [x] Accessible mobile touch height
+- [x] Existing skeleton product/search actions use the primitive
 
-## 1.1 Buttons — NEXT
-- [ ] Build primary button primitive.
-- [ ] Build secondary button primitive.
-- [ ] Add global Buttons Theme Settings only for structural properties:
-  - corner radius
-  - border thickness
-  - horizontal padding
-  - vertical padding
-  - hover treatment
-- [ ] Colours inherit from selected colour scheme.
-- [ ] Typography inherits from Typography > Buttons.
-- [ ] Loading / disabled state.
-- [ ] Keyboard focus state.
-- [ ] Mobile touch-target compliance.
+## 1.2 Form controls — NEXT
+- [ ] Text/email/search input
+- [ ] Textarea
+- [ ] Select
+- [ ] Checkbox
+- [ ] Radio
+- [ ] Quantity selector
+- [ ] Error state
+- [ ] Success state
+- [ ] Focus state
+- [ ] Decide whether any global form settings are genuinely needed
 
-## 1.2 Form controls
-- [ ] Text input.
-- [ ] Email input.
-- [ ] Textarea.
-- [ ] Select/dropdown.
-- [ ] Checkbox.
-- [ ] Radio button.
-- [ ] Quantity selector.
-- [ ] Error / success states.
-- [ ] Consistent focus treatment.
-- [ ] Decide whether any global form settings are actually needed after components exist.
+## 1.3 Surface + spacing language
+- [ ] Define card geometry without boxed/bordered treatment
+- [ ] Define panel behaviour where panels are unavoidable
+- [ ] Define shadow rule, preferably none/minimal
+- [ ] Define image corner treatment
+- [ ] Define desktop/mobile section-spacing rhythm
+- [ ] Define editorial text measure
 
-## 1.3 Surface / container language
-- [ ] Define card radius.
-- [ ] Define panel radius.
-- [ ] Define border treatment.
-- [ ] Define shadow philosophy, ideally minimal.
-- [ ] Define image corner treatment.
-- [ ] Define section spacing rhythm desktop/mobile.
-- [ ] Define narrow text measure for editorial copy.
-
-## 1.4 Motion language
-- [ ] Add GSAP foundation only where needed.
-- [ ] Add ScrollTrigger if homepage concepts require it.
-- [ ] Define Aster motion tokens:
-  - quick interaction duration
-  - standard reveal duration
-  - hero / editorial reveal duration
-  - standard easing
-  - stagger rhythm
-- [ ] Build reusable reveal utility.
-- [ ] Build reusable image reveal utility.
-- [ ] Build reusable stagger utility.
-- [ ] Build reduced-motion fallback.
-- [ ] Confirm no animation causes layout shift.
-
-Design rule: most pages use subtle motion. The homepage gets the strongest choreography.
+## 1.4 Motion foundation
+- [ ] Add GSAP only when first required
+- [ ] Add ScrollTrigger only if approved homepage concepts require it
+- [ ] Define Aster easing/timing/stagger tokens
+- [ ] Reusable text reveal
+- [ ] Reusable image/mask reveal
+- [ ] Reusable stagger utility
+- [ ] Reduced-motion fallback
+- [ ] Verify no CLS caused by motion
 
 ---
 
 # PHASE 2 — GLOBAL CHROME
 
 ## 2.1 Announcement bar
-- [ ] Build announcement bar section/block.
-- [ ] Scheme selector.
-- [ ] Message/link support.
-- [ ] Optional rotation only if genuinely needed.
-- [ ] Mobile behaviour.
+- [ ] Single/stacked announcement architecture
+- [ ] Colour scheme selector
+- [ ] Link support
+- [ ] Mobile behaviour
+- [ ] Rotation only if commercially required
 
 ## 2.2 Header
-- [ ] Desktop header architecture.
-- [ ] Mobile header architecture.
-- [ ] Global logo integration.
-- [ ] Navigation.
-- [ ] Search trigger.
-- [ ] Account trigger if accounts are enabled.
-- [ ] Cart trigger/count.
-- [ ] Sticky behaviour decision.
-- [ ] Transparent/overlay behaviour only if homepage design actually needs it.
-- [ ] Keyboard-accessible desktop navigation.
-- [ ] Mobile drawer navigation.
-- [ ] Header colour-scheme support.
-- [ ] Add Theme Settings only after behaviour is final.
+- [ ] Desktop architecture
+- [ ] Mobile architecture
+- [ ] Global logo integration
+- [ ] Navigation
+- [ ] Search trigger
+- [ ] Account trigger if enabled
+- [ ] Cart trigger/count
+- [ ] Sticky behaviour decision
+- [ ] Overlay/transparent mode only if homepage art direction needs it
+- [ ] Keyboard accessibility
+- [ ] Mobile navigation drawer
+- [ ] Colour-scheme support
 
-## 2.3 Mega menu / navigation system
-- [ ] Standard dropdown menu.
-- [ ] Mega-menu layout.
-- [ ] Optional editorial imagery/cards.
-- [ ] Mobile drill-down or accordion equivalent.
-- [ ] Active states.
-- [ ] Focus states.
+## 2.3 Navigation / mega menu
+- [ ] Standard dropdown
+- [ ] Mega-menu option
+- [ ] Optional editorial imagery
+- [ ] Mobile accordion/drill-down equivalent
+- [ ] Active + focus states
 
 ## 2.4 Footer
-- [ ] Newsletter/signup area.
-- [ ] Link columns.
-- [ ] Contact/legal links.
-- [ ] Social links.
-- [ ] Payment icons only if useful.
-- [ ] Copyright.
-- [ ] Footer colour scheme.
-- [ ] Add Social media Theme Settings here if required.
+- [ ] Newsletter area
+- [ ] Link columns
+- [ ] Contact/legal links
+- [ ] Social links
+- [ ] Payment icons only if useful
+- [ ] Copyright
+- [ ] Colour-scheme support
 
 ---
 
 # PHASE 3 — COMMERCE COMPONENT LIBRARY
 
-Build these before the templates that consume them.
-
 ## 3.1 Product card
-- [ ] Product image.
-- [ ] Secondary image hover where available.
-- [ ] Product title.
-- [ ] Price.
-- [ ] Compare-at price.
-- [ ] Sale state.
-- [ ] Sold-out state.
-- [ ] Optional badge architecture.
-- [ ] Variant swatches if Aster catalogue needs them.
-- [ ] Quick add decision.
-- [ ] Card hover motion.
-- [ ] Mobile behaviour.
-- [ ] Accessible links/actions.
-- [ ] THEN add Product cards Theme Settings based on the final component.
+- [ ] Product image
+- [ ] Secondary-image hover decision
+- [ ] Title
+- [ ] Price + compare-at price
+- [ ] Sale/sold-out state
+- [ ] Badge architecture only if required
+- [ ] Variant swatches only if catalogue requires them
+- [ ] Quick-add decision
+- [ ] Restrained hover motion
+- [ ] Mobile behaviour
+- [ ] Accessibility
+- [ ] Add Product cards Theme Settings only after component is signed off
 
 ## 3.2 Collection card
-- [ ] Image.
-- [ ] Title.
-- [ ] Optional supporting copy.
-- [ ] Hover treatment.
-- [ ] Mobile behaviour.
-- [ ] THEN add Collection cards Theme Settings.
+- [ ] Image
+- [ ] Title
+- [ ] Optional supporting copy
+- [ ] Hover treatment
+- [ ] Mobile behaviour
+- [ ] Add Collection cards settings only after sign-off
 
-## 3.3 Article / blog card
-- [ ] Hero image.
-- [ ] Title.
-- [ ] Excerpt/date/author decision.
-- [ ] Hover treatment.
-- [ ] THEN add Blog cards Theme Settings.
+## 3.3 Article card
+- [ ] Image
+- [ ] Title
+- [ ] Metadata decision
+- [ ] Hover treatment
+- [ ] Add Blog cards settings only after sign-off
 
-## 3.4 Generic editorial card
-- [ ] Reusable image + heading + copy + CTA component.
-- [ ] Supports colour schemes.
-- [ ] Used across homepage, pages and editorial content.
+## 3.4 Editorial card
+- [ ] Reusable image + heading + copy + CTA composition
+- [ ] Colour-scheme support
+- [ ] Reusable across homepage and content pages
 
 ---
 
-# PHASE 4 — HOMEPAGE VISUAL CONCEPT + GSAP SYSTEM
+# PHASE 4 — HOMEPAGE + GSAP ART DIRECTION
 
-The homepage should establish the artistic language the rest of the store follows.
-
-## 4.1 Homepage storyboard
-- [ ] Agree full page narrative before coding sections.
-- [ ] Define opening hero concept.
-- [ ] Define section order.
-- [ ] Define which moments deserve motion and which stay calm.
-- [ ] Establish visual rhythm between cream/wine/imagery.
+## 4.1 Storyboard first
+- [ ] Agree full page narrative
+- [ ] Hero concept
+- [ ] Section sequence
+- [ ] Motion moments vs calm moments
+- [ ] Cream/wine/image rhythm
 
 ## 4.2 Hero
-- [ ] Build premium hero section.
-- [ ] Desktop and mobile art direction independently.
-- [ ] Strong display typography.
-- [ ] Primary CTA.
-- [ ] Optional secondary CTA.
-- [ ] GSAP entrance sequence.
-- [ ] Potential subtle depth/parallax treatment.
-- [ ] Avoid carousel unless there is a strong commercial reason.
+- [ ] Desktop/mobile art direction
+- [ ] Strong display typography
+- [ ] Primary CTA
+- [ ] Secondary CTA only if useful
+- [ ] Restrained GSAP entrance
+- [ ] Optional subtle depth/parallax
+- [ ] No carousel without a strong commercial reason
 
-## 4.3 Signature homepage motion moments
-Choose a small number, not all of them.
-- [ ] Masked image reveal.
-- [ ] Editorial text reveal/stagger.
-- [ ] Subtle pinned storytelling section if content warrants it.
-- [ ] Controlled image scale/parallax.
-- [ ] Horizontal product/editorial movement only if useful.
-- [ ] Section-to-section colour transition.
-- [ ] Micro-interactions on cards and CTAs.
+## 4.3 Signature motion
+Select a small number only.
+- [ ] Masked image reveal
+- [ ] Editorial text reveal
+- [ ] Controlled image scale/parallax
+- [ ] Optional pinned story moment
+- [ ] Optional section colour transition
+- [ ] Card/CTA micro-interactions
 
-## 4.4 Core homepage sections
-Likely set, subject to final storyboard:
-- [ ] Hero.
-- [ ] Brand statement / manifesto.
-- [ ] Featured products.
-- [ ] Shop by category / need / collection.
-- [ ] Editorial image-text split.
-- [ ] Brand proof / ingredients / philosophy.
-- [ ] Featured collection or product story.
-- [ ] Social proof / reviews if available.
-- [ ] Journal/editorial teaser.
-- [ ] Newsletter/footer handoff.
+## 4.4 Core homepage content
+Final list decided during storyboard.
+- [ ] Hero
+- [ ] Brand statement / manifesto
+- [ ] Featured products
+- [ ] Shop by category / ritual / moment
+- [ ] Editorial image-text section
+- [ ] Product/ingredient/philosophy proof
+- [ ] Featured product/collection story
+- [ ] Reviews/social proof if available
+- [ ] Journal teaser
+- [ ] Newsletter/footer handoff
 
 ## 4.5 Homepage QA
-- [ ] Desktop large-screen choreography.
-- [ ] Standard laptop.
-- [ ] Tablet.
-- [ ] Mobile.
-- [ ] Reduced-motion mode.
-- [ ] Performance audit.
-- [ ] No CLS.
-- [ ] No scroll-jank.
+- [ ] Large desktop
+- [ ] Laptop
+- [ ] Tablet
+- [ ] Mobile
+- [ ] Reduced motion
+- [ ] Performance
+- [ ] CLS
+- [ ] Scroll-jank
 
 ---
 
 # PHASE 5 — COLLECTION EXPERIENCE
 
-## 5.1 Collection template
-- [ ] Collection hero/header.
-- [ ] Collection title and description.
-- [ ] Optional collection image.
-- [ ] Product grid using shared product card.
-- [ ] Responsive column system.
-- [ ] Sort.
-- [ ] Filters.
-- [ ] Active-filter display.
-- [ ] Empty state.
-- [ ] Pagination or progressive loading decision.
-- [ ] Collection colour-scheme support.
-- [ ] Subtle reveal motion consistent with homepage.
-
-## 5.2 Collection supporting sections
-- [ ] Editorial banner.
-- [ ] Image/text content block.
-- [ ] Featured collection navigation.
-- [ ] Recently viewed if justified later.
+- [ ] Collection hero/header
+- [ ] Title + description
+- [ ] Optional collection imagery
+- [ ] Product grid using shared product card
+- [ ] Responsive columns
+- [ ] Sort
+- [ ] Filters
+- [ ] Active filters
+- [ ] Empty state
+- [ ] Pagination/loading strategy
+- [ ] Colour-scheme support
+- [ ] Quiet motion consistent with homepage
+- [ ] Supporting editorial sections
 
 ---
 
 # PHASE 6 — PRODUCT EXPERIENCE
 
-## 6.1 Product media gallery
-- [ ] Desktop gallery design.
-- [ ] Mobile gallery/swipe design.
-- [ ] Image zoom/lightbox decision.
-- [ ] Video support.
-- [ ] Variant-media support.
+## Media
+- [ ] Desktop gallery
+- [ ] Mobile gallery/swipe
+- [ ] Zoom/lightbox decision
+- [ ] Video
+- [ ] Variant media
 
-## 6.2 Product information panel
-- [ ] Vendor/eyebrow only if desired.
-- [ ] Product title.
-- [ ] Price / compare-at price.
-- [ ] Variant picker.
-- [ ] Colour swatches only if catalogue requires them.
-- [ ] Quantity selector.
-- [ ] Add to cart.
-- [ ] Dynamic checkout decision.
-- [ ] Inventory messaging.
-- [ ] Delivery/returns messaging.
-- [ ] Subscription/app compatibility if later required.
+## Product information
+- [ ] Title
+- [ ] Price/compare-at
+- [ ] Variant picker
+- [ ] Swatches only if needed
+- [ ] Quantity
+- [ ] Add to cart
+- [ ] Dynamic checkout decision
+- [ ] Inventory messaging
+- [ ] Delivery/returns messaging
+- [ ] App/subscription compatibility where required
 
-## 6.3 Product content
-- [ ] Description treatment.
-- [ ] Accordions.
-- [ ] Ingredients/details blocks where relevant.
-- [ ] Product-specific rich content sections.
-- [ ] Reviews integration.
-- [ ] Related/recommended products.
-- [ ] Complementary products.
-- [ ] Recently viewed decision.
-
-## 6.4 Product motion
-- [ ] Restrained gallery transitions.
-- [ ] Add-to-cart feedback.
-- [ ] Section reveals consistent with homepage.
-- [ ] No excessive scroll effects on transactional content.
-
-## 6.5 Product template QA
-- [ ] Variant edge cases.
-- [ ] Sold out.
-- [ ] Sale pricing.
-- [ ] Long titles.
-- [ ] Long descriptions.
-- [ ] Single/multiple media.
-- [ ] Mobile sticky ATC decision.
+## Product storytelling
+- [ ] Description treatment
+- [ ] Accordions where useful
+- [ ] Ingredients/details
+- [ ] Rich product sections
+- [ ] Reviews
+- [ ] Related/complementary products
+- [ ] Recently viewed decision
+- [ ] Restrained product-page motion
+- [ ] Full edge-case QA
 
 ---
 
-# PHASE 7 — CART + CHECKOUT HANDOFF
+# PHASE 7 — CART
 
-## 7.1 Cart drawer
-- [ ] Cart drawer shell.
-- [ ] Product lines.
-- [ ] Variant details.
-- [ ] Quantity controls.
-- [ ] Remove item.
-- [ ] Price/savings display.
-- [ ] Empty state.
-- [ ] Subtotal.
-- [ ] Checkout CTA.
-- [ ] Continue-shopping behaviour.
-- [ ] Upsell/cross-sell decision.
-- [ ] Free-delivery progress only if commercially useful.
-- [ ] Drawer transitions and focus trap.
-
-## 7.2 Cart page
-- [ ] Full cart template as fallback/alternative.
-- [ ] Match drawer design language.
-- [ ] Notes if required.
-- [ ] Discount messaging where Shopify permits.
-
-## 7.3 Global Cart Theme Settings
-- [ ] Add only controls proven necessary after drawer/page are complete.
+- [ ] Cart drawer shell
+- [ ] Product lines
+- [ ] Variant details
+- [ ] Quantity controls
+- [ ] Remove
+- [ ] Price/savings
+- [ ] Empty state
+- [ ] Subtotal
+- [ ] Checkout CTA
+- [ ] Continue shopping
+- [ ] Upsell decision
+- [ ] Delivery-progress decision
+- [ ] Drawer transition + focus trap
+- [ ] Full cart page
+- [ ] Add Cart Theme Settings only if proven necessary
 
 ---
 
 # PHASE 8 — SEARCH + DISCOVERY
 
-## 8.1 Search overlay/drawer
-- [ ] Search trigger in header.
-- [ ] Predictive search.
-- [ ] Product results using product cards or compact variant.
-- [ ] Collection/page/article results if useful.
-- [ ] Empty/no-results state.
-- [ ] Keyboard controls.
-
-## 8.2 Search results template
-- [ ] Search heading/query.
-- [ ] Filtering/sorting where appropriate.
-- [ ] Product and content results.
-- [ ] Consistent card system.
-- [ ] Pagination.
-
-## 8.3 Search behaviour settings
-- [ ] Only now decide which global Search behaviour settings are warranted.
+- [ ] Search overlay/drawer
+- [ ] Predictive search
+- [ ] Product/content results
+- [ ] No-results state
+- [ ] Keyboard controls
+- [ ] Search results template
+- [ ] Filtering/sorting where useful
+- [ ] Pagination
+- [ ] Add Search settings only after implementation
 
 ---
 
 # PHASE 9 — CONTENT TEMPLATES
 
-## 9.1 Standard page
-- [ ] Page hero/title.
-- [ ] Rich text width and typography.
-- [ ] Flexible sections above/below page body.
+- [ ] Standard page
+- [ ] About/brand storytelling
+- [ ] Contact
+- [ ] FAQ
+- [ ] Blog index
+- [ ] Article template
+- [ ] Related editorial/product links
+- [ ] Branded 404
 
-## 9.2 About / brand storytelling page
-- [ ] Editorial image/text system.
-- [ ] Motion restrained but expressive.
-- [ ] Reuse homepage visual grammar.
-
-## 9.3 Contact page
-- [ ] Contact form.
-- [ ] Contact details.
-- [ ] Success/error states.
-
-## 9.4 FAQ page
-- [ ] Accessible accordion component.
-- [ ] Search/filter only if content volume warrants it.
-
-## 9.5 Blog index
-- [ ] Blog header.
-- [ ] Article grid.
-- [ ] Featured article option.
-- [ ] Pagination.
-
-## 9.6 Article template
-- [ ] Editorial article header.
-- [ ] Hero image.
-- [ ] Article typography.
-- [ ] Rich media.
-- [ ] Share controls if useful.
-- [ ] Related articles.
-- [ ] Product/editorial cross-links.
-
-## 9.7 404
-- [ ] Branded 404.
-- [ ] Useful navigation/CTA.
+All content templates must use the same art direction, colour schemes, typography, spacing and quiet motion language.
 
 ---
 
-# PHASE 10 — CUSTOMER / UTILITY TEMPLATES
+# PHASE 10 — CUSTOMER + UTILITY
 
-Only build what Aster actually uses.
+Build only what Aster actually uses.
 
-- [ ] Customer account entry/linking if enabled.
-- [ ] Customer account visual treatment where theme-controlled.
-- [ ] Gift card visual pass.
-- [ ] Password page final launch-state behaviour.
-- [ ] Policy page typography.
-- [ ] Challenge/captcha page compatibility.
+- [ ] Customer account entry/links if enabled
+- [ ] Theme-controlled customer treatment where possible
+- [ ] Gift card visual pass
+- [ ] Password page launch-state transition
+- [ ] Policy page typography
+- [ ] Challenge/captcha compatibility
 
 ---
 
 # PHASE 11 — OPTIONAL COMMERCE FEATURES
 
-Decide based on the real catalogue rather than pre-building them.
+Only add after catalogue/operational need is proven.
 
-- [ ] Colour swatches.
-- [ ] Size guide modal.
-- [ ] Back-in-stock integration.
-- [ ] Wishlist.
-- [ ] Quick view.
-- [ ] Quick add.
-- [ ] Product compare.
-- [ ] Bundles.
-- [ ] Subscriptions.
-- [ ] Personalisation.
-- [ ] Cross-sells/upsells.
+- [ ] Colour swatches
+- [ ] Size guide
+- [ ] Back in stock
+- [ ] Wishlist
+- [ ] Quick view
+- [ ] Quick add
+- [ ] Compare
+- [ ] Bundles
+- [ ] Subscriptions
+- [ ] Personalisation
+- [ ] Cross-sells/upsells
 
-Rule: no feature gets added merely because another theme has it.
+Rule: no feature gets added because another theme happens to have it.
 
 ---
 
-# PHASE 12 — GLOBAL SETTINGS CLEAN-UP
+# PHASE 12 — THEME SETTINGS CLEAN-UP
 
-Once real components exist, review Theme Settings as a whole.
-
-Current intended high-level order:
+Intended settings hierarchy as components mature:
 1. Logo
 2. Colours
 3. Typography
 4. Buttons
-5. Product cards, only once built
-6. Collection cards, only once built
-7. Blog cards, only once built
-8. Cart, only once built
-9. Social media, only once needed
-10. Search behaviour, only once search is built
-11. Custom CSS, native Shopify facility only if retained
+5. Product cards, only if needed
+6. Collection cards, only if needed
+7. Blog cards, only if needed
+8. Cart, only if needed
+9. Social media, once footer/header requires it
+10. Search behaviour, once search exists
+11. Native Custom CSS only if retained
 
-- [ ] Remove unused Skeleton defaults/settings.
-- [ ] Remove settings that duplicate section controls.
-- [ ] Remove dead CSS variables.
-- [ ] Remove unused JS/assets.
-- [ ] Confirm every Theme Setting visibly does something.
+- [ ] Remove remaining Skeleton/demo settings
+- [ ] Remove duplicate controls
+- [ ] Remove dead CSS variables
+- [ ] Remove unused JS/assets
+- [ ] Confirm every Theme Setting has a visible purpose
 
 ---
 
 # PHASE 13 — ACCESSIBILITY
 
-Accessibility is checked during every component build, then audited globally.
+- [ ] Heading hierarchy
+- [ ] Keyboard navigation
+- [ ] Focus states
+- [ ] Accessible drawers/modals
+- [ ] Focus trapping/restoration
+- [ ] Colour contrast
+- [ ] Form labels/errors
+- [ ] Alt-text behaviour
+- [ ] Reduced motion
+- [ ] Touch targets
 
-- [ ] Semantic heading hierarchy.
-- [ ] Keyboard navigation.
-- [ ] Visible focus states.
-- [ ] Accessible modals/drawers.
-- [ ] Focus trapping/restoration.
-- [ ] ARIA only where semantic HTML is insufficient.
-- [ ] Colour contrast across every scheme.
-- [ ] Form labels/errors.
-- [ ] Alt-text behaviour.
-- [ ] Reduced-motion support.
-- [ ] Touch target sizing.
-- [ ] Screen-reader cart updates.
+Accessibility is also checked during every component build.
 
 ---
 
 # PHASE 14 — PERFORMANCE
 
-Performance is a build constraint, not an end-of-project rescue job.
-
-- [ ] Audit GSAP payload and load only where required.
-- [ ] Lazy-load non-critical media.
-- [ ] Preload only genuinely critical assets.
-- [ ] Responsive image sizing/srcset.
-- [ ] Prevent CLS from images/fonts/animation.
-- [ ] Remove unused Skeleton CSS/JS as components are replaced.
-- [ ] Audit third-party apps before launch.
-- [ ] Lighthouse/PageSpeed pass.
-- [ ] Real-device mobile scroll performance.
-
----
-
-# PHASE 15 — SEO / STRUCTURED DATA
-
-- [ ] Title/meta architecture.
-- [ ] Canonicals.
-- [ ] Product structured data.
-- [ ] Breadcrumb structured data.
-- [ ] Article structured data.
-- [ ] Organisation/site identity markup where appropriate.
-- [ ] Heading hierarchy.
-- [ ] Collection crawlability.
-- [ ] Internal-link architecture.
-- [ ] Image alt strategy.
-- [ ] Search/filtered URL behaviour.
-- [ ] 404/redirect review before launch.
+- [ ] Establish performance budget
+- [ ] Audit JS payload
+- [ ] Audit CSS payload
+- [ ] Lazy-load non-critical media
+- [ ] Responsive images
+- [ ] Font loading review
+- [ ] GSAP loaded only where required
+- [ ] Prevent CLS
+- [ ] Core Web Vitals pass
+- [ ] Remove dead Skeleton assets/code
 
 ---
 
-# PHASE 16 — ANALYTICS / CONSENT / MARKETING INTEGRATIONS
+# PHASE 15 — SEO + STRUCTURED DATA
 
-- [ ] Shopify analytics baseline.
-- [ ] GA4 decision/setup.
-- [ ] Meta/advertising pixels as required.
-- [ ] Consent/cookie architecture.
-- [ ] Klaviyo/newsletter integration.
-- [ ] Conversion-event QA.
-- [ ] Ensure integrations do not damage Core Web Vitals unnecessarily.
-
----
-
-# PHASE 17 — CROSS-TEMPLATE ART DIRECTION PASS
-
-This phase is specifically to enforce the “same artist” requirement.
-
-Review together:
-- [ ] Homepage.
-- [ ] Collection page.
-- [ ] Product page.
-- [ ] Search.
-- [ ] Cart.
-- [ ] Standard page.
-- [ ] Blog index.
-- [ ] Article.
-- [ ] 404.
-
-Check consistency of:
-- [ ] typography hierarchy
-- [ ] wine/cream colour usage
-- [ ] image cropping and corner treatment
-- [ ] card geometry
-- [ ] buttons
-- [ ] borders
-- [ ] spacing rhythm
-- [ ] display typography moments
-- [ ] motion easing/timing
-- [ ] hover behaviour
-- [ ] empty/error states
-
-Goal: homepage has more theatre, but no page looks like a generic Shopify template sitting underneath it.
+- [ ] Semantic templates
+- [ ] Product structured data
+- [ ] Organisation/site structured data
+- [ ] Article structured data
+- [ ] Breadcrumb strategy
+- [ ] Canonicals
+- [ ] Pagination/indexing behaviour
+- [ ] Social/meta output
+- [ ] Heading and internal-linking review
 
 ---
 
-# PHASE 18 — FINAL QA + LAUNCH
+# PHASE 16 — ANALYTICS + CONSENT
 
-## Functional
-- [ ] Add to cart.
-- [ ] Variant selection.
-- [ ] Discounts.
-- [ ] Cart quantities/removal.
-- [ ] Checkout handoff.
-- [ ] Search.
-- [ ] Filters/sort.
-- [ ] Forms.
-- [ ] Navigation.
-- [ ] Links.
-- [ ] Customer flows if enabled.
+- [ ] Shopify analytics baseline
+- [ ] GA/GTM decision
+- [ ] Meta/advertising integrations if required
+- [ ] Consent compatibility
+- [ ] Ecommerce events
+- [ ] Validate no duplicate tracking
 
-## Responsive/browser
-- [ ] iPhone narrow viewport.
-- [ ] iPhone large viewport.
-- [ ] Android representative viewport.
-- [ ] iPad/tablet.
-- [ ] Laptop.
-- [ ] 1440p desktop.
-- [ ] Large/wide desktop.
-- [ ] Safari.
-- [ ] Chrome.
-- [ ] Edge.
-- [ ] Firefox sanity check.
+---
 
-## Final quality
-- [ ] Accessibility audit.
-- [ ] Performance audit.
-- [ ] SEO audit.
-- [ ] Broken-link audit.
-- [ ] Console-error audit.
-- [ ] Theme Editor control audit.
-- [ ] Remove dead development code/comments/assets.
-- [ ] Backup/release tag.
-- [ ] Launch checklist.
+# PHASE 17 — CROSS-TEMPLATE ART-DIRECTION PASS
+
+- [ ] Homepage
+- [ ] Product
+- [ ] Collection
+- [ ] Search
+- [ ] Cart
+- [ ] Pages
+- [ ] Blog/article
+- [ ] Utility templates
+
+Final question for every surface: does it look like the same artist designed it?
+
+---
+
+# PHASE 18 — LAUNCH QA
+
+- [ ] Device/browser matrix
+- [ ] Navigation links
+- [ ] Forms
+- [ ] Product variants
+- [ ] Cart
+- [ ] Checkout handoff
+- [ ] Search
+- [ ] Empty/error states
+- [ ] Accessibility audit
+- [ ] Performance audit
+- [ ] SEO audit
+- [ ] Analytics validation
+- [ ] Password removal / launch procedure
+- [ ] Post-launch monitoring plan
 
 ---
 
 # CURRENT POSITION
 
-Completed foundation:
-- Password/waiting-list experience
-- Logo system
-- Favicon
-- Typography system
-- British Poems webfont
-- Colour schemes
-- Fixed 1400px content architecture and gutters
+**Completed:** Phase 0 and Phase 1.1.
 
-## NEXT TASK
-
-**Phase 1.1 — Global Buttons primitive and Theme Settings.**
-
-After Buttons:
-1. Form controls
-2. Surface/spacing language
-3. Motion/GSAP foundation
-4. Announcement bar
-5. Header/navigation
-6. Footer
-7. Product card
-8. Collection card
-9. Article card
-10. Homepage storyboard and build
-
-This file should be updated after each meaningful milestone so it remains the canonical Aster build sequence.
+**Next:** Phase 1.2 — Form controls.
