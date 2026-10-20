@@ -84,9 +84,25 @@ Cards should feel editorial rather than boxed-in.
 
 - Prefer open layouts.
 - Avoid visible containers unless the composition truly requires one.
-- Keep shadows minimal or absent.
+- Keep shadows absent by default.
+- Tonal panels are exceptional, not the default structure.
 - Let imagery, whitespace and typography define the component.
 - Product cards should not resemble generic Shopify tiles.
+
+## Spacing, measure and media
+
+Use a fixed design rhythm rather than exposing spacing controls throughout Theme Settings.
+
+- Standard section spacing: `clamp(72px, 8vw, 120px)`.
+- Compact spacing: `clamp(48px, 5.5vw, 80px)`.
+- Generous/editorial spacing: `clamp(96px, 10vw, 160px)`.
+- Standard editorial copy measure: 62ch.
+- Narrow editorial copy measure: 48ch.
+- Use 12px image/media corners when a framed crop is wanted.
+- Do not round every image automatically; full-bleed and art-directed imagery may remain square.
+- Do not add spacing, radius or shadow Theme Settings unless a real component later proves a genuine need.
+
+The page should feel spacious and intentional, not padded for the sake of padding.
 
 ## Typography
 
