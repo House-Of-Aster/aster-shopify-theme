@@ -127,14 +127,19 @@ Permanent architecture:
 
 # PHASE 2 — GLOBAL CHROME
 
-## 2.1 Announcement bar — NEXT
-- [ ] Lean architecture
-- [ ] Colour-scheme selector
-- [ ] Link support
-- [ ] Mobile behaviour
-- [ ] Rotation only if commercially required
+## 2.1 Announcement bar — COMPLETE
+- [x] Single-message static architecture
+- [x] Optional whole-bar link
+- [x] Global colour-scheme selector only; no local colour controls
+- [x] Responsive/mobile treatment
+- [x] Optional countdown timer
+- [x] Countdown date and time settings grouped in Theme Editor
+- [x] UK-time / daylight-saving-aware countdown logic
+- [x] Optional hide-on-complete behaviour
+- [x] Countdown JavaScript loads only when a configured countdown is present
+- [x] No rotating-slider machinery
 
-## 2.2 Header
+## 2.2 Header — NEXT
 - [ ] Desktop and mobile architecture
 - [ ] Global logo integration
 - [ ] Navigation
@@ -334,6 +339,6 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 # CURRENT POSITION
 
-**Completed:** Phase 0 and Phase 1 in full, including the pre-content performance foundation.
+**Completed:** Phase 0, Phase 1 and Phase 2.1 Announcement bar.
 
-**Next:** Phase 2.1 — Announcement bar.
+**Next:** Phase 2.2 — Header.
