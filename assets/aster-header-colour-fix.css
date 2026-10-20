@@ -1,0 +1,19 @@
+.aster-header__menu-search-input::placeholder {
+  color: var(--color-foreground);
+  opacity: 1;
+}
+
+.aster-header__menu-empty {
+  color: var(--color-foreground);
+  opacity: 1;
+}
+
+.aster-header__menu-search-submit svg {
+  stroke-width: 1.7;
+}
+
+.aster-header__hamburger-inner,
+.aster-header__hamburger-inner::before,
+.aster-header__hamburger-inner::after {
+  height: 1.75px;
+}
