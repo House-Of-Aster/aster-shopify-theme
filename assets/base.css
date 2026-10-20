@@ -480,11 +480,13 @@ input[type='radio'] {
 @media (min-width: 990px) {
   .aster-header[data-aster-menu-root] .aster-header__menu-nav {
     margin-top: clamp(28px, 3.5vh, 40px);
-    gap: clamp(14px, 1.7vh, 20px);
+    gap: 0;
   }
 
   .aster-header[data-aster-menu-root] .aster-header__menu-group {
     grid-template-columns: minmax(132px, 0.62fr) minmax(0, 1.38fr);
+    min-height: 76px;
+    align-items: center;
     gap: 22px;
   }
 
@@ -500,13 +502,15 @@ input[type='radio'] {
   }
 
   .aster-header[data-aster-menu-root] .aster-header__menu-children {
+    align-self: center;
+    justify-self: center;
     gap: 3px;
-    padding-top: 1px;
+    padding-top: 0;
   }
 
   .aster-header[data-aster-menu-root] .aster-header__menu-child {
     font-size: 12px;
-    line-height: 1.4;
+    line-height: 1.35;
     opacity: 0.86;
   }
 
