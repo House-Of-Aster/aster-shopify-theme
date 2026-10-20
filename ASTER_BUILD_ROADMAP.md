@@ -18,6 +18,8 @@ Permanent architecture:
 - 15px mobile gutters
 - Wine `#6B2331` and cream `#E6D3BD` as the core palette
 - Global colour schemes are the single source of truth for storefront colour
+- Typography roles are explicit: Body is the default supporting/UI voice; Heading, Display, Subheading, Navigation, Button and Product-title roles are opt-in and must not leak through containers
+- Custom fonts are registered centrally; Garet is one paired family with Book at 400 and Heavy at 700 so bold uses the real Heavy face
 - Theme settings stay deliberately lean
 - No routine per-section colour pickers
 - No decorative border language
@@ -43,6 +45,8 @@ Permanent architecture:
 ## Global design foundations
 - [x] Logo settings: one SVG, colour control, desktop/mobile width, favicon
 - [x] Typography roles: body, heading, display, subheading, navigation, buttons, product-card title
+- [x] Typography role ownership contract: supporting/microcopy defaults to Body; specialist roles are explicitly scoped
+- [x] Garet Book/Heavy integrated as one real-weight family; no faux bold when Garet is used
 - [x] Global reusable colour schemes
 - [x] Cream/wine and wine/cream starter schemes
 - [x] 1400px content architecture with fixed gutters
@@ -137,6 +141,7 @@ Permanent architecture:
 - [x] UK-time / daylight-saving-aware countdown logic
 - [x] Optional hide-on-complete behaviour
 - [x] Countdown JavaScript loads only when a configured countdown is present
+- [x] Announcement typography explicitly consumes Body rather than Navigation
 - [x] No rotating-slider machinery
 
 ## 2.2 Header — COMPLETE
@@ -167,6 +172,7 @@ Permanent architecture:
 - [x] Redundant menu-level Search / Account text footer removed
 - [x] Current-page semantics and visible focus states
 - [x] First-level child links already supported
+- [x] Primary mega-menu labels consume Navigation typography; child links/popular searches/eyebrows consume Body
 - [x] Reduced-motion fallback
 - [ ] Define final navigation information architecture once the actual menu exists
 - [ ] Decide whether editorial imagery or richer mega-menu content genuinely adds value
@@ -352,8 +358,8 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 # CURRENT POSITION
 
-**Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header.
+**Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header. Typography role ownership has also been re-audited and locked before further component work.
 
-**In progress:** Phase 2.3 navigation foundation is built, including stationary-header geometry, in-menu search and mobile account access. Final information architecture and any richer editorial/mega-menu treatment wait until the actual menu content exists.
+**In progress:** Phase 2.3 navigation foundation is built, including stationary-header geometry, in-menu search and mobile account access. Desktop mega-menu composition is signed off; mobile composition is the current refinement target. Final information architecture waits until the actual menu content exists.
 
-**Next:** Finalise Phase 2.3 navigation IA, then Phase 2.4 Footer.
+**Next:** Finalise Phase 2.3 mobile navigation treatment and IA, then Phase 2.4 Footer.
