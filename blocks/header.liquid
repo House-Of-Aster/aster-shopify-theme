@@ -22,10 +22,8 @@
       aria-controls="AsterHeaderMenu-{{ block.id }}"
       data-aster-menu-open
     >
-      <span class="aster-header__menu-icon" aria-hidden="true">
-        <span></span>
-        <span></span>
-        <span></span>
+      <span class="aster-header__hamburger-box" aria-hidden="true">
+        <span class="aster-header__hamburger-inner"></span>
       </span>
     </button>
 
@@ -88,10 +86,8 @@
           aria-label="Close navigation"
           data-aster-menu-close
         >
-          <span class="aster-header__menu-icon" aria-hidden="true">
-            <span></span>
-            <span></span>
-            <span></span>
+          <span class="aster-header__hamburger-box" aria-hidden="true">
+            <span class="aster-header__hamburger-inner"></span>
           </span>
         </button>
 
@@ -296,46 +292,80 @@
     font-variant-numeric: tabular-nums;
   }
 
-  .aster-header__menu-icon {
+  /*
+    Squeeze motion adapted from jonsuh/hamburgers (MIT),
+    Copyright (c) 2016 Jonathan Suh. See THIRD_PARTY_NOTICES.md.
+  */
+  .aster-header__hamburger-box {
     position: relative;
-    width: 22px;
+    width: 24px;
     height: 16px;
     display: block;
   }
 
-  .aster-header__menu-icon span {
+  .aster-header__hamburger-inner,
+  .aster-header__hamburger-inner::before,
+  .aster-header__hamburger-inner::after {
     position: absolute;
     left: 0;
-    width: 22px;
+    width: 24px;
     height: 1.5px;
+    border-radius: 999px;
     background: currentColor;
-    transform-origin: center;
+  }
+
+  .aster-header__hamburger-inner {
+    top: 50%;
+    display: block;
+    margin-top: -0.75px;
+    transition-duration: 75ms;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
+
+  .aster-header__hamburger-inner::before,
+  .aster-header__hamburger-inner::after {
+    content: '';
+    display: block;
+  }
+
+  .aster-header__hamburger-inner::before {
+    top: -6px;
     transition:
-      transform 240ms var(--aster-ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
-      top 240ms var(--aster-ease-out, cubic-bezier(0.22, 1, 0.36, 1)),
-      opacity 150ms ease;
+      top 75ms 120ms ease,
+      opacity 75ms ease;
   }
 
-  .aster-header__menu-icon span:nth-child(1) { top: 1px; }
-  .aster-header__menu-icon span:nth-child(2) { top: 7px; }
-  .aster-header__menu-icon span:nth-child(3) { top: 13px; }
+  .aster-header__hamburger-inner::after {
+    bottom: -6px;
+    transition:
+      bottom 75ms 120ms ease,
+      transform 75ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
+  }
 
-  .aster-header__menu-toggle[aria-expanded='true'] .aster-header__menu-icon span:nth-child(1),
-  .aster-header__menu-dialog.is-visible .aster-header__menu-close .aster-header__menu-icon span:nth-child(1) {
-    top: 7px;
+  .aster-header__menu-toggle.is-active .aster-header__hamburger-inner,
+  .aster-header__menu-close.is-active .aster-header__hamburger-inner {
     transform: rotate(45deg);
+    transition-delay: 120ms;
+    transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
-  .aster-header__menu-toggle[aria-expanded='true'] .aster-header__menu-icon span:nth-child(2),
-  .aster-header__menu-dialog.is-visible .aster-header__menu-close .aster-header__menu-icon span:nth-child(2) {
+  .aster-header__menu-toggle.is-active .aster-header__hamburger-inner::before,
+  .aster-header__menu-close.is-active .aster-header__hamburger-inner::before {
+    top: 0;
     opacity: 0;
-    transform: scaleX(0.25);
+    transition:
+      top 75ms ease,
+      opacity 75ms 120ms ease;
   }
 
-  .aster-header__menu-toggle[aria-expanded='true'] .aster-header__menu-icon span:nth-child(3),
-  .aster-header__menu-dialog.is-visible .aster-header__menu-close .aster-header__menu-icon span:nth-child(3) {
-    top: 7px;
-    transform: rotate(-45deg);
+  .aster-header__menu-toggle.is-active .aster-header__hamburger-inner::after,
+  .aster-header__menu-close.is-active .aster-header__hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(-90deg);
+    transition:
+      bottom 75ms ease,
+      transform 75ms 120ms cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 
   .aster-header__menu-dialog {
@@ -526,7 +556,9 @@
 
   @media (prefers-reduced-motion: reduce) {
     .aster-header__icon-button,
-    .aster-header__menu-icon span,
+    .aster-header__hamburger-inner,
+    .aster-header__hamburger-inner::before,
+    .aster-header__hamburger-inner::after,
     .aster-header__menu-dialog,
     .aster-header__menu-link,
     .aster-header__menu-child,
