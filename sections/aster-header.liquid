@@ -1,0 +1,37 @@
+{% doc %}
+  Global Aster header section used inside the Header section group.
+  The header itself remains a static theme block so its existing markup,
+  behaviour and block-level settings stay together and cannot be removed
+  or reordered independently of the global header.
+{% enddoc %}
+
+{% content_for 'block', type: 'header', id: 'header' %}
+
+{% schema %}
+{
+  "name": "Header",
+  "tag": "div",
+  "class": "aster-header-shell",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "blocks": [
+    {
+      "type": "header"
+    }
+  ],
+  "settings": [],
+  "presets": [
+    {
+      "name": "Header",
+      "blocks": [
+        {
+          "type": "header",
+          "id": "header",
+          "static": true
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
