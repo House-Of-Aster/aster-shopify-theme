@@ -10,36 +10,39 @@
 {
   "current": {
     "logo": "shopify://shop_images/Aster-Logo.svg",
-    "logo_colour": "#6B2331",
+    "logo_colour": "#E6D3BD",
     "logo_width": 300,
     "logo_mobile_width": 155,
     "favicon": "shopify://shop_images/Aster-Favi.png",
+    "type_heading_font_source": "british_poems",
+    "type_heading_scale": 125,
+    "type_product_card_title_font_family": "british_poems",
+    "content_for_index": [],
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#E6D3BD",
-          "text": "#6B2331",
-          "accent": "#6B2331",
-          "border": "#6B2331",
-          "button": "#6B2331",
-          "button_label": "#E6D3BD",
-          "secondary_button": "#E6D3BD",
-          "secondary_button_label": "#6B2331"
-        }
-      },
-      "scheme-2": {
-        "settings": {
-          "background": "#6B2331",
+          "background": "#6C2330",
           "text": "#E6D3BD",
           "accent": "#E6D3BD",
           "border": "#E6D3BD",
           "button": "#E6D3BD",
-          "button_label": "#6B2331",
-          "secondary_button": "#6B2331",
+          "button_label": "#6C2330",
+          "secondary_button": "#6C2330",
           "secondary_button_label": "#E6D3BD"
         }
+      },
+      "scheme-2": {
+        "settings": {
+          "background": "#E6D3BD",
+          "text": "#6C2330",
+          "accent": "#6C2330",
+          "border": "#6C2330",
+          "button": "#6C2330",
+          "button_label": "#E6D3BD",
+          "secondary_button": "#E6D3BD",
+          "secondary_button_label": "#6C2330"
+        }
       }
-    },
-    "content_for_index": []
+    }
   }
 }
