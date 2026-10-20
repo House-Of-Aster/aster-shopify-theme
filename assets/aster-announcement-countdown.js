@@ -2,7 +2,6 @@
   const globalKey = 'AsterAnnouncementCountdown';
 
   const pad = (value) => String(Math.max(0, value)).padStart(2, '0');
-
   const formatterCache = new Map();
 
   const getFormatter = (timeZone) => {
@@ -55,12 +54,13 @@
     const day = Number(dateMatch[3]);
     const hour = Number(timeMatch[1]);
     const minute = Number(timeMatch[2]);
+    const maxDay = month >= 1 && month <= 12 ? new Date(Date.UTC(year, month, 0)).getUTCDate() : 0;
 
     if (
       month < 1 ||
       month > 12 ||
       day < 1 ||
-      day > 31 ||
+      day > maxDay ||
       hour > 23 ||
       minute > 59
     ) {
@@ -103,7 +103,7 @@
     let timer;
 
     const finish = () => {
-      window.clearInterval(timer);
+      if (timer) window.clearInterval(timer);
 
       const bar = countdown.closest('[data-aster-announcement]');
       const hideBar = countdown.dataset.hideOnComplete === 'true';
@@ -124,7 +124,7 @@
         minutes.textContent = '00';
         seconds.textContent = '00';
         finish();
-        return;
+        return false;
       }
 
       const totalSeconds = Math.floor(remaining / 1000);
@@ -137,10 +137,12 @@
       hours.textContent = pad(hourValue);
       minutes.textContent = pad(minuteValue);
       seconds.textContent = pad(secondValue);
+      return true;
     };
 
-    tick();
-    timer = window.setInterval(tick, 1000);
+    if (tick()) {
+      timer = window.setInterval(tick, 1000);
+    }
   };
 
   const init = (scope = document) => {
