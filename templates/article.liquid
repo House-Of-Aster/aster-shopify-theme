@@ -1,6 +1,11 @@
 {% block 'container' %}
   {% if article.image %}
-    {{ article.image | image_url: width: 1000 | image_tag }}
+    {% render 'image',
+      image: article.image,
+      width: 1600,
+      sizes: '(min-width: 990px) 1200px, 100vw',
+      priority: true
+    %}
   {% endif %}
 
   <h1>{{ article.title }}</h1>
