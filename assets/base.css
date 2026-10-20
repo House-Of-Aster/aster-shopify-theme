@@ -503,7 +503,7 @@ input[type='radio'] {
 
   .aster-header[data-aster-menu-root] .aster-header__menu-children {
     align-self: center;
-    justify-self: center;
+    justify-self: stretch;
     gap: 3px;
     padding-top: 0;
   }
