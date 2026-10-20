@@ -13,7 +13,7 @@
   @param {number} [width] - Highest resolution width requested from Shopify
   @param {number} [height] - Optional fixed height
   @param {string} [crop] - Optional crop position
-  @param {string} [alt] - Optional alt override. Defaults to the image alt text
+  @param {string} [alt] - Optional alt override. An explicit blank value is preserved for decorative imagery
   @param {string} [sizes] - Responsive sizes attribute. Defaults to 100vw
   @param {string} [widths] - Responsive widths list
   @param {boolean} [priority] - Eager/high-priority loading for genuine above-fold/LCP media
@@ -33,9 +33,14 @@
 
   assign responsive_widths = widths | default: '320, 480, 640, 800, 960, 1200, 1440, 1800, 2200'
   assign responsive_sizes = sizes | default: '100vw'
-  assign image_alt = alt | default: image.alt
   assign image_loading = loading | default: 'lazy'
   assign image_fetchpriority = fetchpriority | default: 'auto'
+
+  if alt != nil
+    assign image_alt = alt
+  else
+    assign image_alt = image.alt
+  endif
 
   if priority
     assign image_loading = 'eager'
