@@ -110,6 +110,24 @@ Buttons should be designed by Aster rather than exposed as a large configurable 
 - Hover motion should be subtle and polished.
 - Mobile touch targets remain accessible.
 
+## Forms
+
+The password-page waiting-list form is the visual reference for the global Aster form language, but storefront forms should be simplified into reusable primitives rather than copying its section-specific treatment.
+
+Rules:
+
+- Use soft tonal fields derived from the active colour scheme.
+- Standard text controls use a 52px minimum height and 12px radius.
+- Use generous internal padding and restrained placeholder contrast.
+- Do not use decorative field borders.
+- Functional focus/error indicators are allowed where required for usability and accessibility.
+- Checkbox/radio accents inherit from the active colour scheme.
+- Form feedback uses scheme colours rather than hard-coded semantic colours.
+- Do not add a global Forms Theme Settings group unless a genuinely useful control emerges later.
+- Keep native browser affordances where they improve usability, especially quantity/date inputs, unless a later component provides a better accessible replacement.
+
+The result should feel related to the signed-off password signup panel: calm, soft, minimal and unmistakably Aster.
+
 ## Photography
 
 Photography should feel aspirational but natural, grounded in café culture, daily ritual, travel and ordinary life.
