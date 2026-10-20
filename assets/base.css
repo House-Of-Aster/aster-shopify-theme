@@ -441,6 +441,33 @@ input[type='radio'] {
   }
 }
 
+/** Aster surface + spacing primitives */
+.section-space {
+  padding-block: clamp(72px, 8vw, 120px);
+}
+
+.section-space--compact {
+  padding-block: clamp(48px, 5.5vw, 80px);
+}
+
+.section-space--generous {
+  padding-block: clamp(96px, 10vw, 160px);
+}
+
+.editorial-measure {
+  width: 100%;
+  max-width: 62ch;
+}
+
+.editorial-measure--narrow {
+  max-width: 48ch;
+}
+
+.media-frame {
+  overflow: clip;
+  border-radius: 12px;
+}
+
 /** Image snippet */
 .image {
   display: block;
