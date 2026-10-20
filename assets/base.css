@@ -1,3 +1,8 @@
+/** Aster global design tokens */
+:root {
+  --aster-radius: 12px;
+}
+
 /** Hello world block */
 .welcome {
   display: grid;
@@ -219,7 +224,7 @@ input[type='button'].button {
   min-height: var(--button-height);
   padding: 0 28px;
   border: 0;
-  border-radius: 0;
+  border-radius: var(--aster-radius);
   font: inherit;
   font-family: var(--font-button--family);
   font-weight: var(--font-button-weight);
@@ -341,7 +346,7 @@ select {
   min-height: 52px;
   margin: 0;
   border: 0;
-  border-radius: 12px;
+  border-radius: var(--aster-radius);
   outline: none;
   padding: 0 18px;
   background: var(--color-background);
@@ -439,6 +444,13 @@ input[type='radio'] {
   .form-row {
     flex-direction: column;
   }
+}
+
+/** Shared framed-media treatment */
+.media-frame,
+.aster-header__menu-feature-media {
+  overflow: hidden;
+  border-radius: var(--aster-radius);
 }
 
 /** Image snippet */

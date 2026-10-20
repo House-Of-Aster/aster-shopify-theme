@@ -98,8 +98,10 @@ Use a fixed design rhythm rather than exposing spacing controls throughout Theme
 - Generous/editorial spacing: `clamp(96px, 10vw, 160px)`.
 - Standard editorial copy measure: 62ch.
 - Narrow editorial copy measure: 48ch.
-- Use 12px image/media corners when a framed crop is wanted.
-- Do not round every image automatically; full-bleed and art-directed imagery may remain square.
+- Global Aster corner radius: `--aster-radius: 12px`.
+- Form controls, buttons, cards/tonal surfaces and framed media should use the global radius rather than one-off corner values.
+- Full-bleed or deliberately art-directed imagery may remain square where the composition clearly calls for it.
+- Circular/pill-shaped functional UI may use an intentional radius override.
 - Do not add spacing, radius or shadow Theme Settings unless a real component later proves a genuine need.
 
 The page should feel spacious and intentional, not padded for the sake of padding.
@@ -121,6 +123,7 @@ Buttons should be designed by Aster rather than exposed as a large configurable 
 - Keep the global Theme Setting lean.
 - Button colours inherit from the active colour scheme.
 - Button typography inherits from Typography > Buttons.
+- Standard buttons use the global Aster radius.
 - Avoid outlined secondary buttons as the default visual treatment.
 - Prefer clean filled actions and quieter secondary/text actions.
 - Hover motion should be subtle and polished.
@@ -133,7 +136,7 @@ The password-page waiting-list form is the visual reference for the global Aster
 Rules:
 
 - Use soft tonal fields derived from the active colour scheme.
-- Standard text controls use a 52px minimum height and 12px radius.
+- Standard text controls use a 52px minimum height and the global Aster radius.
 - Use generous internal padding and restrained placeholder contrast.
 - Do not use decorative field borders.
 - Functional focus/error indicators are allowed where required for usability and accessibility.
@@ -225,6 +228,7 @@ Shared across the store:
 - typography
 - colour schemes
 - spacing rhythm
+- global 12px corner-radius token where rounded treatment is used
 - image treatment
 - clean surfaces
 - button language
