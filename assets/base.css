@@ -463,3 +463,62 @@ input[type='radio'] {
 .template-gift-card main img {
   display: unset;
 }
+
+/** Aster desktop mega menu refinement */
+@media (min-width: 990px) {
+  .aster-header[data-aster-menu-root] .aster-header__menu-nav {
+    margin-top: clamp(28px, 3.5vh, 40px);
+    gap: clamp(14px, 1.7vh, 20px);
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-group {
+    grid-template-columns: minmax(132px, 0.62fr) minmax(0, 1.38fr);
+    gap: 22px;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-link {
+    font-family: "British Poems", serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: clamp(26px, 2vw, 32px);
+    line-height: 1.02;
+    letter-spacing: 0;
+    text-transform: none;
+    opacity: 1;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-children {
+    gap: 3px;
+    padding-top: 1px;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-child {
+    font-size: 12px;
+    line-height: 1.4;
+    opacity: 0.86;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-copy {
+    min-height: 184px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-heading {
+    max-width: 18ch;
+    min-height: 2.1em;
+    font-size: clamp(26px, 2vw, 32px);
+    line-height: 1.05;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-text {
+    max-width: 36ch;
+    min-height: 3em;
+    margin-top: 12px;
+  }
+
+  .aster-header[data-aster-menu-root] .aster-header__menu-feature-link {
+    margin-top: auto;
+    padding-top: 20px;
+  }
+}
