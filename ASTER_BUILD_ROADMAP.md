@@ -25,6 +25,10 @@ Permanent architecture:
 - Motion is calm, editorial and purposeful
 - Respect `prefers-reduced-motion`
 - Build components first, then expose only settings proven useful
+- Non-critical media is lazy by default
+- Genuine above-fold/LCP media is explicitly prioritised rather than inferred globally
+- Responsive image sources and intrinsic dimensions are mandatory
+- Section/component JavaScript should load only where it is actually required
 
 ---
 
@@ -48,7 +52,7 @@ Permanent architecture:
 
 ---
 
-# PHASE 1 — DESIGN SYSTEM PRIMITIVES — COMPLETE
+# PHASE 1 — DESIGN SYSTEM + PRE-CONTENT PERFORMANCE — COMPLETE
 
 ## 1.1 Buttons — COMPLETE
 - [x] Primary filled action
@@ -103,6 +107,21 @@ Permanent architecture:
 - [x] GSAP deliberately not loaded globally
 - [x] ScrollTrigger deliberately not loaded globally
 - [x] GSAP/ScrollTrigger will be introduced only where an approved component requires them
+
+## 1.5 Pre-content performance foundation — COMPLETE
+- [x] Reusable image primitive is lazy by default
+- [x] Explicit `priority: true` path sets eager loading + high fetch priority for genuine LCP media
+- [x] Responsive `srcset`/`sizes` support through Shopify image rendering
+- [x] Intrinsic image dimensions retained to protect CLS
+- [x] Async image decoding
+- [x] Product template prioritises only the first product image; later gallery media stays lazy
+- [x] Article hero imagery uses the priority path
+- [x] Blog listing imagery stays lazy
+- [x] Future iframes are lazy by default
+- [x] Future video uses poster-first/conservative preload by default; autoplay only when art direction justifies it
+- [x] Future section/component scripts should be conditional rather than added to a monolithic global bundle
+- [x] GSAP/ScrollTrigger remain conditional, not global
+- [x] `content-visibility`/render deferral will be assessed once real section wrappers exist; do not apply blindly to sticky, measurement-driven or GSAP sections
 
 ---
 
@@ -199,6 +218,8 @@ Select only a small number:
 - [ ] Desktop/laptop/tablet/mobile
 - [ ] Reduced motion
 - [ ] Performance, CLS and scroll-jank
+- [ ] Verify only true LCP/above-fold media is eager
+- [ ] Verify below-fold media does not compete for initial bandwidth
 
 ---
 
@@ -272,14 +293,18 @@ Only after operational/catalogue need is proven.
 - [ ] Contrast, labels/errors, alt behaviour
 - [ ] Reduced motion and touch targets
 
-# PHASE 14 — PERFORMANCE
-- [ ] Performance budget
-- [ ] JS/CSS audit
-- [ ] Responsive/lazy media
+# PHASE 14 — PERFORMANCE VALIDATION
+The architecture starts now; this phase is the final real-world audit once the store exists.
+- [ ] Set/validate performance budget against built templates
+- [ ] JS/CSS payload audit
+- [ ] Validate eager/lazy/fetch-priority decisions against real LCP candidates
+- [ ] Responsive media and `sizes` audit across breakpoints
+- [ ] Assess safe `content-visibility` candidates for static below-fold sections
+- [ ] Iframe/video loading audit
 - [ ] Font loading review
-- [ ] GSAP only where required
-- [ ] Core Web Vitals / CLS pass
-- [ ] Remove dead Skeleton code
+- [ ] Confirm GSAP/ScrollTrigger only ship where required
+- [ ] Core Web Vitals / CLS / INP pass
+- [ ] Remove dead Skeleton code and unused assets
 
 # PHASE 15 — SEO + STRUCTURED DATA
 - [ ] Semantic templates and headings
@@ -309,6 +334,6 @@ Only after operational/catalogue need is proven.
 
 # CURRENT POSITION
 
-**Completed:** Phase 0 and Phase 1 in full.
+**Completed:** Phase 0 and Phase 1 in full, including the pre-content performance foundation.
 
 **Next:** Phase 2.1 — Announcement bar.
