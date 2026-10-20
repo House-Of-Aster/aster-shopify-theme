@@ -2,7 +2,7 @@
   const rootSelector = '[data-aster-menu-root]';
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const closeDuration = 260;
-  const searchAffirmations = [
+  const defaultSearchAffirmations = [
     'Find what feels right',
     'Search for what you need today',
     'Search with intention',
@@ -40,23 +40,46 @@
       links: ['Why Aster', 'Vivere Bene', 'Our philosophy'],
     },
   ];
-  const popularSearches = ['Planner', 'Daily planning', 'Morning ritual', 'Evening ritual', 'Weekly reset'];
-  const previewFeatures = [
-    {
-      heading: 'Start clear. Stay steady.',
-      text: 'A morning ritual for clearer focus, steady energy and an intentional start.',
-      linkLabel: 'Discover Rise',
-    },
-    {
-      heading: 'Slow down. Rest deeper.',
-      text: 'An evening ritual for deeper rest, gentle recovery and an intentional finish.',
-      linkLabel: 'Discover Set',
-    },
-  ];
+  const defaultPopularSearches = ['Planner', 'Daily planning', 'Morning ritual', 'Evening ritual', 'Weekly reset'];
   const typingDelay = 44;
   const erasingDelay = 26;
   const affirmationHold = 1500;
   const affirmationGap = 180;
+
+  const parseLines = (value, fallback) => {
+    if (typeof value !== 'string') return [...fallback];
+
+    const items = value
+      .split(/\r?\n/)
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    return items.length ? items : [...fallback];
+  };
+
+  const readMenuConfig = (root) => {
+    const configElement = root.querySelector('[data-aster-menu-config]');
+
+    if (!configElement) {
+      return {
+        searchAffirmations: [...defaultSearchAffirmations],
+        popularSearches: [...defaultPopularSearches],
+      };
+    }
+
+    try {
+      const config = JSON.parse(configElement.textContent || '{}');
+      return {
+        searchAffirmations: parseLines(config.affirmations, defaultSearchAffirmations),
+        popularSearches: parseLines(config.popularSearches, defaultPopularSearches),
+      };
+    } catch (_error) {
+      return {
+        searchAffirmations: [...defaultSearchAffirmations],
+        popularSearches: [...defaultPopularSearches],
+      };
+    }
+  };
 
   const createPreviewChild = (text) => {
     const item = document.createElement('span');
@@ -65,7 +88,7 @@
     return item;
   };
 
-  const preparePreviewContent = (root) => {
+  const preparePreviewContent = (root, popularSearches) => {
     const previewGroups = [...root.querySelectorAll('.aster-header__menu-group--preview')];
 
     previewGroups.forEach((group, index) => {
@@ -97,28 +120,6 @@
       popular.setAttribute('aria-label', 'Popular searches');
       popular.replaceChildren(label, ...terms);
     }
-
-    if (!previewGroups.length) return;
-
-    const featureCards = [...root.querySelectorAll('.aster-header__menu-feature')];
-    previewFeatures.forEach((feature, index) => {
-      const card = featureCards[index];
-      if (!card) return;
-
-      const heading = card.querySelector('.aster-header__menu-feature-heading');
-      const text = card.querySelector('.aster-header__menu-feature-text');
-      const link = card.querySelector('.aster-header__menu-feature-link');
-
-      if (heading) heading.textContent = feature.heading;
-      if (text) text.textContent = feature.text;
-      if (link) {
-        link.replaceChildren(document.createTextNode(`${feature.linkLabel} `));
-        const arrow = document.createElement('span');
-        arrow.setAttribute('aria-hidden', 'true');
-        arrow.textContent = '→';
-        link.append(arrow);
-      }
-    });
   };
 
   const bind = (root) => {
@@ -129,10 +130,12 @@
     const label = dialog?.querySelector('[data-aster-menu-label]');
     const searchInput = dialog?.querySelector('.aster-header__menu-search-input');
     const shell = root.closest('.aster-header-shell');
+    const menuConfig = readMenuConfig(root);
+    const { searchAffirmations, popularSearches } = menuConfig;
 
     if (!opener || !dialog) return;
 
-    preparePreviewContent(root);
+    preparePreviewContent(root, popularSearches);
     root.dataset.asterMenuBound = 'true';
     let closeTimer;
     let affirmationTimer;
@@ -167,7 +170,7 @@
     };
 
     const startAffirmations = (randomStart = false) => {
-      if (!searchInput || !dialog.open || searchInput.value) return;
+      if (!searchInput || !dialog.open || searchInput.value || !searchAffirmations.length) return;
 
       stopAffirmations();
       const run = affirmationRun;
