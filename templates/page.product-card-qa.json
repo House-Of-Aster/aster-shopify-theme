@@ -1,0 +1,53 @@
+{
+  "sections": {
+    "main": {
+      "type": "aster-product-card-qa",
+      "blocks": {
+        "planner": {
+          "type": "product",
+          "settings": {
+            "product": "the-aster-planner"
+          }
+        },
+        "pouch": {
+          "type": "product",
+          "settings": {
+            "product": "the-aster-pouch"
+          }
+        },
+        "refill": {
+          "type": "product",
+          "settings": {
+            "product": "daily-planning-refill"
+          }
+        },
+        "rise": {
+          "type": "product",
+          "settings": {
+            "product": "rise"
+          }
+        },
+        "set": {
+          "type": "product",
+          "settings": {
+            "product": "set"
+          }
+        }
+      },
+      "block_order": [
+        "planner",
+        "pouch",
+        "refill",
+        "rise",
+        "set"
+      ],
+      "settings": {
+        "heading": "Product card QA",
+        "intro": "Internal preview surface for Phase 3.1. This is not the final collection-page design."
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
