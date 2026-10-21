@@ -176,7 +176,7 @@
 }
 
 .aster-product-card__price-current--sale {
-  color: #A52D34;
+  color: var(--color-accent);
 }
 
 .aster-product-card__price-compare {
