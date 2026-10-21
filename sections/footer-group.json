@@ -18,7 +18,7 @@
           "type": "link_group",
           "settings": {
             "heading": "Planner",
-            "menu": ""
+            "menu": "planner-footer"
           }
         },
         "rituals": {
