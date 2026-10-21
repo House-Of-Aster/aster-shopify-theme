@@ -1,0 +1,1 @@
+Temporary sync trigger for the connected Shopify theme. Remove after verification.
