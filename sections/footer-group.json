@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "type": "footer",
+  "name": "Footer",
+  "sections": {
+    "footer": {
+      "type": "aster-footer",
+      "blocks": {
+        "planner": {
+          "type": "link_group",
+          "settings": {
+            "heading": "Planner"
+          }
+        },
+        "rituals": {
+          "type": "link_group",
+          "settings": {
+            "heading": "Rituals"
+          }
+        },
+        "journal": {
+          "type": "link_group",
+          "settings": {
+            "heading": "Journal"
+          }
+        },
+        "our_world": {
+          "type": "link_group",
+          "settings": {
+            "heading": "Our World"
+          }
+        },
+        "support": {
+          "type": "link_group",
+          "settings": {
+            "heading": "Support"
+          }
+        }
+      },
+      "block_order": [
+        "planner",
+        "rituals",
+        "journal",
+        "our_world",
+        "support"
+      ],
+      "settings": {
+        "color_scheme": "scheme-1",
+        "brand_tagline": "A calmer way forward",
+        "brand_text": "Tools, rituals and reflections for a more intentional everyday.",
+        "newsletter_eyebrow": "Newsletter",
+        "newsletter_heading": "A slower inbox",
+        "newsletter_text": "Thoughtful notes, gentle rituals and exclusive updates — for a more intentional everyday.",
+        "newsletter_button_label": "Join the ritual",
+        "instagram_url": "",
+        "pinterest_url": "",
+        "tiktok_url": "",
+        "youtube_url": "",
+        "contact_email": "",
+        "show_payment_icons": true,
+        "show_policy_links": true,
+        "cookie_label": "Cookies",
+        "cookie_url": ""
+      }
+    }
+  },
+  "order": [
+    "footer"
+  ]
+}

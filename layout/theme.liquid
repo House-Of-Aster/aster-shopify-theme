@@ -46,8 +46,6 @@
       {{ content_for_layout }}
     </main>
 
-    {% block 'container', tag: 'div' %}
-      {% block 'footer' -%}{%- endblock %}
-    {% endblock %}
+    {% sections 'footer-group' %}
   </body>
 </html>
