@@ -1,0 +1,212 @@
+.aster-collection {
+  width: 100%;
+  padding-block: clamp(48px, 6vw, 88px) clamp(72px, 8vw, 120px);
+}
+
+.aster-collection__header {
+  display: grid;
+  align-items: end;
+  gap: clamp(28px, 4vw, 56px);
+  margin-bottom: clamp(44px, 5.5vw, 76px);
+}
+
+.aster-collection__header--with-image {
+  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1.1fr);
+}
+
+.aster-collection__copy {
+  max-width: 62ch;
+}
+
+.aster-collection__title {
+  max-width: 12ch;
+  margin: 0;
+  font-family: var(--font-heading--family);
+  font-style: var(--font-heading--style);
+  font-weight: var(--font-heading--weight);
+  font-size: clamp(44px, 6vw, 84px);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.aster-collection__description {
+  max-width: 62ch;
+  margin-top: clamp(18px, 2vw, 26px);
+  color: color-mix(in srgb, var(--color-foreground) 76%, transparent);
+  font-size: clamp(15px, 1.15vw, 18px);
+  line-height: 1.6;
+}
+
+.aster-collection__description > * + * {
+  margin-top: 0.9em;
+}
+
+.aster-collection__count {
+  margin-top: clamp(18px, 2vw, 24px);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  line-height: 1.2;
+  text-transform: uppercase;
+  opacity: 0.64;
+}
+
+.aster-collection__hero-media {
+  overflow: hidden;
+  min-height: 320px;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--aster-radius);
+  background: color-mix(in srgb, var(--color-background) 90%, var(--color-foreground) 10%);
+}
+
+.aster-collection__hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.aster-collection__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(16px, 2vw, 26px);
+  width: 100%;
+}
+
+.aster-collection__grid > .aster-product-card {
+  min-width: 0;
+}
+
+.aster-collection__empty {
+  max-width: 48ch;
+  padding-block: clamp(52px, 7vw, 96px);
+}
+
+.aster-collection__empty-title {
+  margin: 0;
+  font-family: var(--font-heading--family);
+  font-style: var(--font-heading--style);
+  font-weight: var(--font-heading--weight);
+  font-size: clamp(30px, 4vw, 46px);
+  line-height: 1.08;
+}
+
+.aster-collection__empty-copy {
+  margin-top: 14px;
+  color: color-mix(in srgb, var(--color-foreground) 72%, transparent);
+  line-height: 1.55;
+}
+
+.aster-collection__pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(48px, 6vw, 80px);
+  font-size: 14px;
+}
+
+.aster-collection__pagination > * {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.aster-collection__pagination a,
+.aster-collection__pagination .page,
+.aster-collection__pagination .current,
+.aster-collection__pagination .deco {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  padding-inline: 10px;
+  border-radius: 999px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.aster-collection__pagination .current {
+  background: color-mix(in srgb, var(--color-foreground) 10%, transparent);
+  font-weight: 700;
+}
+
+.aster-collection__pagination a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .aster-collection__pagination a {
+    transition: background-color 180ms ease, transform 180ms ease;
+  }
+
+  .aster-collection__pagination a:hover {
+    background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
+    transform: translateY(-1px);
+  }
+}
+
+@media (max-width: 1099px) {
+  .aster-collection__header--with-image {
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 0.9fr);
+  }
+
+  .aster-collection__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 849px) {
+  .aster-collection__header--with-image {
+    grid-template-columns: 1fr;
+  }
+
+  .aster-collection__hero-media {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 749px) {
+  .aster-collection {
+    padding-block: 42px 72px;
+  }
+
+  .aster-collection__header {
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+
+  .aster-collection__title {
+    max-width: 14ch;
+    font-size: clamp(38px, 13vw, 58px);
+  }
+
+  .aster-collection__description {
+    margin-top: 16px;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+
+  .aster-collection__count {
+    margin-top: 16px;
+    font-size: 10px;
+  }
+
+  .aster-collection__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .aster-collection__pagination {
+    margin-top: 44px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aster-collection__pagination a {
+    transition: none;
+  }
+}
