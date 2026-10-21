@@ -17,31 +17,36 @@
         "planner": {
           "type": "link_group",
           "settings": {
-            "heading": "Planner"
+            "heading": "Planner",
+            "menu": ""
           }
         },
         "rituals": {
           "type": "link_group",
           "settings": {
-            "heading": "Rituals"
+            "heading": "Rituals",
+            "menu": ""
           }
         },
         "journal": {
           "type": "link_group",
           "settings": {
-            "heading": "Journal"
+            "heading": "Journal",
+            "menu": ""
           }
         },
         "our_world": {
           "type": "link_group",
           "settings": {
-            "heading": "Our World"
+            "heading": "Our World",
+            "menu": ""
           }
         },
         "support": {
           "type": "link_group",
           "settings": {
-            "heading": "Support"
+            "heading": "Support",
+            "menu": ""
           }
         }
       },
@@ -60,15 +65,15 @@
         "newsletter_heading": "A slower inbox",
         "newsletter_text": "Thoughtful notes, gentle rituals and exclusive updates — for a more intentional everyday.",
         "newsletter_button_label": "Join the ritual",
-        "instagram_url": "",
-        "pinterest_url": "",
-        "tiktok_url": "",
-        "youtube_url": "",
-        "contact_email": "",
+        "instagram_url": "/",
+        "pinterest_url": "/",
+        "tiktok_url": "/",
+        "youtube_url": "/",
+        "contact_email": "talktous@houseofaster.co.uk",
         "show_payment_icons": true,
         "show_policy_links": true,
         "cookie_label": "Cookies",
-        "cookie_url": ""
+        "cookie_url": "/"
       }
     }
   },
