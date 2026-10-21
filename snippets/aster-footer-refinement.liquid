@@ -1,5 +1,5 @@
 {% style %}
-  /* Phase 2.4 visual QA refinement: compress the newsletter handoff and keep the field fill continuous beneath the CTA. */
+  /* Phase 2.4 visual QA refinements: compact newsletter handoff, continuous field fill, and balanced utility/footer rows. */
   .aster-footer__eyebrow {
     display: none;
   }
@@ -42,6 +42,42 @@
     position: relative;
     z-index: 1;
     white-space: nowrap;
+  }
+
+  .aster-footer__navigation + .aster-footer__rule {
+    margin: clamp(30px, 3vw, 42px) 0 18px;
+  }
+
+  .aster-footer__utility {
+    min-height: 0;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .aster-footer__utility + .aster-footer__rule {
+    margin: 18px 0 22px;
+  }
+
+  .aster-footer__bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 24px;
+  }
+
+  .aster-footer__copyright {
+    justify-self: start;
+  }
+
+  .aster-footer__legal {
+    justify-self: center;
+    justify-content: center;
+  }
+
+  .aster-footer__bottom .aster-footer__payments {
+    justify-self: end;
+    justify-content: flex-end;
+    max-width: 100%;
   }
 
   @media (max-width: 749px) {
@@ -88,6 +124,33 @@
     .aster-footer__newsletter-arrow {
       font-size: 16px;
     }
+
+    .aster-footer__utility {
+      padding: 18px 0 0;
+      gap: 0;
+    }
+
+    .aster-footer__utility + .aster-footer__rule {
+      margin: 18px 0 0;
+    }
+
+    .aster-footer__bottom {
+      padding-top: 22px;
+      grid-template-columns: minmax(0, 1fr);
+      justify-items: center;
+      gap: 14px;
+    }
+
+    .aster-footer__copyright,
+    .aster-footer__legal,
+    .aster-footer__bottom .aster-footer__payments {
+      justify-self: center;
+    }
+
+    .aster-footer__bottom .aster-footer__payments {
+      justify-content: center;
+      margin-top: 2px;
+    }
   }
 
   @media (max-width: 390px) {
@@ -101,3 +164,36 @@
     }
   }
 {% endstyle %}
+
+<script>
+  (() => {
+    const placeFooterPayments = (root = document) => {
+      const footers = [];
+
+      if (root instanceof Element && root.matches('[data-aster-footer]')) {
+        footers.push(root);
+      }
+
+      if (root.querySelectorAll) {
+        footers.push(...root.querySelectorAll('[data-aster-footer]'));
+      }
+
+      footers.forEach((footer) => {
+        const payments = footer.querySelector('.aster-footer__payments');
+        const bottom = footer.querySelector('.aster-footer__bottom');
+
+        if (payments && bottom && payments.parentElement !== bottom) {
+          bottom.appendChild(payments);
+        }
+      });
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => placeFooterPayments(), { once: true });
+    } else {
+      placeFooterPayments();
+    }
+
+    document.addEventListener('shopify:section:load', (event) => placeFooterPayments(event.target));
+  })();
+</script>
