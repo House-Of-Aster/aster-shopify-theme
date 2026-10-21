@@ -79,6 +79,7 @@ Permanent architecture:
 - [x] Error, success-hook, focus and disabled states
 - [x] Responsive form rows/stacks
 - [x] Colours derive from active colour scheme
+- [x] No decorative field borders
 - [x] No Forms Theme Settings group
 - [x] Bespoke quantity stepper deferred until PDP/cart design
 
