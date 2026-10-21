@@ -1,0 +1,154 @@
+{% doc %}
+  Theme-editor controls for the four centred links in the Aster footer bottom bar.
+  The visible links are injected into the existing Aster footer bottom row so the
+  established copyright / centred links / payment-method layout remains intact.
+{% enddoc %}
+
+<div id="AsterFooterBottomLinks-{{ section.id }}" hidden data-aster-footer-bottom-links {{ section.shopify_attributes }}>
+  <span
+    data-footer-bottom-link
+    data-label="{{ section.settings.link_1_label | escape }}"
+    data-url="{{ section.settings.link_1_url | escape }}"
+  ></span>
+  <span
+    data-footer-bottom-link
+    data-label="{{ section.settings.link_2_label | escape }}"
+    data-url="{{ section.settings.link_2_url | escape }}"
+  ></span>
+  <span
+    data-footer-bottom-link
+    data-label="{{ section.settings.link_3_label | escape }}"
+    data-url="{{ section.settings.link_3_url | escape }}"
+  ></span>
+  <span
+    data-footer-bottom-link
+    data-label="{{ section.settings.link_4_label | escape }}"
+    data-url="{{ section.settings.link_4_url | escape }}"
+  ></span>
+</div>
+
+<script>
+  (() => {
+    const sourceId = 'AsterFooterBottomLinks-{{ section.id }}';
+
+    const applyBottomLinks = () => {
+      const source = document.getElementById(sourceId);
+      const footer = document.querySelector('[data-aster-footer]');
+      const bottom = footer?.querySelector('.aster-footer__bottom');
+      if (!source || !bottom) return;
+
+      let legal = bottom.querySelector('.aster-footer__legal');
+      const existingLinks = legal ? Array.from(legal.querySelectorAll('a')) : [];
+      const existingByLabel = new Map(
+        existingLinks.map((link) => [link.textContent.trim().toLowerCase(), link.getAttribute('href') || ''])
+      );
+
+      if (!legal) {
+        legal = document.createElement('div');
+        legal.className = 'aster-footer__legal';
+        legal.setAttribute('aria-label', 'Footer links');
+        const payments = bottom.querySelector('.aster-footer__payments');
+        if (payments) bottom.insertBefore(legal, payments);
+        else bottom.appendChild(legal);
+      }
+
+      const links = [];
+      source.querySelectorAll('[data-footer-bottom-link]').forEach((item) => {
+        const label = (item.dataset.label || '').trim();
+        let url = (item.dataset.url || '').trim();
+        if (!label) return;
+
+        if (!url) {
+          url = existingByLabel.get(label.toLowerCase()) || '';
+        }
+        if (!url) return;
+
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.textContent = label;
+        links.push(anchor);
+      });
+
+      legal.replaceChildren(...links);
+      legal.hidden = links.length === 0;
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', applyBottomLinks, { once: true });
+    } else {
+      applyBottomLinks();
+    }
+
+    document.addEventListener('shopify:section:load', () => requestAnimationFrame(applyBottomLinks));
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Footer bottom links",
+  "tag": "section",
+  "class": "aster-footer-bottom-links-section",
+  "enabled_on": {
+    "groups": ["footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Bottom links"
+    },
+    {
+      "type": "paragraph",
+      "content": "Four links shown in the centred bottom row between the copyright and payment icons. Leave a URL blank to hide that link, except Privacy, Terms or Cookies can inherit an existing footer policy link with the same label."
+    },
+    {
+      "type": "text",
+      "id": "link_1_label",
+      "label": "Link 1 label",
+      "default": "Press"
+    },
+    {
+      "type": "url",
+      "id": "link_1_url",
+      "label": "Link 1 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_2_label",
+      "label": "Link 2 label",
+      "default": "Privacy"
+    },
+    {
+      "type": "url",
+      "id": "link_2_url",
+      "label": "Link 2 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_3_label",
+      "label": "Link 3 label",
+      "default": "Terms"
+    },
+    {
+      "type": "url",
+      "id": "link_3_url",
+      "label": "Link 3 URL"
+    },
+    {
+      "type": "text",
+      "id": "link_4_label",
+      "label": "Link 4 label",
+      "default": "Cookies"
+    },
+    {
+      "type": "url",
+      "id": "link_4_url",
+      "label": "Link 4 URL"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer bottom links"
+    }
+  ]
+}
+{% endschema %}
