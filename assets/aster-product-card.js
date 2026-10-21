@@ -56,7 +56,10 @@
     if (!media) return;
     media.classList.remove('is-hovering');
     const secondary = media.querySelector('[data-card-secondary-image]');
-    if (secondary) secondary.removeAttribute('src');
+    if (secondary) {
+      secondary.onload = null;
+      secondary.removeAttribute('src');
+    }
   }
 
   function selectSwatch(swatch) {
@@ -105,28 +108,32 @@
     selectSwatch(swatch);
   });
 
-  document.addEventListener('pointerenter', (event) => {
+  document.addEventListener('pointerover', (event) => {
     if (!hoverQuery.matches) return;
+
     const media = event.target.closest?.('[data-card-media]');
-    if (!media || !media.dataset.hoverSrc) return;
+    if (!media || media.contains(event.relatedTarget) || !media.dataset.hoverSrc) return;
 
     const secondary = media.querySelector('[data-card-secondary-image]');
     if (!secondary) return;
 
-    const reveal = () => media.classList.add('is-hovering');
+    const hoverSrc = media.dataset.hoverSrc;
+    const reveal = () => {
+      if (media.dataset.hoverSrc === hoverSrc) media.classList.add('is-hovering');
+    };
 
-    if (secondary.getAttribute('src') === media.dataset.hoverSrc && secondary.complete) {
+    if (secondary.getAttribute('src') === hoverSrc && secondary.complete) {
       reveal();
       return;
     }
 
     secondary.onload = reveal;
-    secondary.src = media.dataset.hoverSrc;
-  }, true);
+    secondary.src = hoverSrc;
+  });
 
-  document.addEventListener('pointerleave', (event) => {
+  document.addEventListener('pointerout', (event) => {
     const media = event.target.closest?.('[data-card-media]');
-    if (!media) return;
+    if (!media || media.contains(event.relatedTarget)) return;
     media.classList.remove('is-hovering');
-  }, true);
+  });
 })();
