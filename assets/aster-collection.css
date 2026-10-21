@@ -20,14 +20,14 @@
 }
 
 .aster-collection__title {
-  max-width: 12ch;
+  max-width: 14ch;
   margin: 0;
   font-family: var(--font-heading--family);
   font-style: var(--font-heading--style);
   font-weight: var(--font-heading--weight);
-  font-size: clamp(44px, 6vw, 84px);
-  line-height: 0.98;
-  letter-spacing: -0.025em;
+  font-size: clamp(36px, 4vw, 58px);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
@@ -63,7 +63,7 @@
   align-items: center;
   min-height: 62px;
   margin-bottom: clamp(22px, 2.5vw, 32px);
-  padding: 8px 12px;
+  padding: 8px 10px 8px 12px;
   border-radius: var(--aster-radius);
   background: color-mix(in srgb, var(--color-foreground) 4%, var(--color-background));
 }
@@ -106,7 +106,7 @@
   justify-self: center;
   margin: 0;
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.1em;
   line-height: 1.2;
   text-transform: uppercase;
@@ -117,18 +117,21 @@
 .aster-collection__sort {
   display: flex;
   align-items: center;
-  gap: 9px;
+  gap: 10px;
   justify-self: end;
   min-width: 0;
+  padding: 5px 6px 5px 12px;
+  border-radius: calc(var(--aster-radius) - 2px);
+  background: color-mix(in srgb, var(--color-foreground) 9%, var(--color-background));
 }
 
 .aster-collection__sort-label {
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0.1em;
   line-height: 1.2;
   text-transform: uppercase;
-  opacity: 0.62;
+  opacity: 0.72;
   white-space: nowrap;
 }
 
@@ -140,19 +143,27 @@
 }
 
 .aster-collection__sort select {
-  min-width: 154px;
-  min-height: 42px;
+  min-width: 166px;
+  min-height: 40px;
   margin: 0;
-  padding: 0 30px 0 10px;
-  border: 0;
-  border-radius: 0;
+  padding: 0 34px 0 12px;
+  border: 1px solid color-mix(in srgb, var(--color-foreground) 12%, transparent);
+  border-radius: 8px;
   outline: 0;
   appearance: none;
-  background: transparent;
-  color: inherit;
+  background: var(--color-background);
+  color: var(--color-foreground);
   font-size: 13px;
+  font-weight: 400;
   line-height: 1.2;
   cursor: pointer;
+  transition: border-color 180ms ease, background-color 180ms ease;
+}
+
+.aster-collection__sort select option {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-weight: 400;
 }
 
 .aster-collection__sort select:focus-visible,
@@ -164,7 +175,7 @@
 .aster-collection__sort-chevron {
   position: absolute;
   top: 50%;
-  right: 9px;
+  right: 12px;
   width: 7px;
   height: 7px;
   border-right: 1px solid currentColor;
@@ -269,6 +280,10 @@
     opacity: 1;
   }
 
+  .aster-collection__sort select:hover {
+    border-color: color-mix(in srgb, var(--color-foreground) 24%, transparent);
+  }
+
   .aster-collection__pagination a {
     transition: background-color 180ms ease, transform 180ms ease;
   }
@@ -318,8 +333,8 @@
   }
 
   .aster-collection__title {
-    max-width: 14ch;
-    font-size: clamp(38px, 13vw, 58px);
+    max-width: 16ch;
+    font-size: clamp(32px, 9vw, 44px);
   }
 
   .aster-collection__description {
@@ -332,7 +347,7 @@
     grid-template-columns: 1fr auto;
     min-height: 54px;
     margin-bottom: 18px;
-    padding: 6px 8px 6px 12px;
+    padding: 6px 7px 6px 12px;
   }
 
   .aster-collection__view-controls {
@@ -347,12 +362,13 @@
   .aster-collection__sort {
     grid-column: 2;
     justify-self: end;
+    padding: 4px;
   }
 
   .aster-collection__sort select {
-    min-width: 138px;
-    min-height: 40px;
-    padding-left: 8px;
+    min-width: 146px;
+    min-height: 38px;
+    padding-left: 10px;
     font-size: 12px;
   }
 
@@ -372,6 +388,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .aster-collection__view-button,
+  .aster-collection__sort select,
   .aster-collection__pagination a {
     transition: none;
   }
