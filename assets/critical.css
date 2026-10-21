@@ -13,6 +13,14 @@ body {
   min-height: 100svh;
 }
 
+/*
+ * Keep the classic scrollbar gutter reserved when scroll-lock hides overflow.
+ * This prevents the viewport content width changing when dialogs/drawers open.
+ */
+html {
+  scrollbar-gutter: stable;
+}
+
 html:has(dialog[scroll-lock][open], details[scroll-lock][open]) {
   overflow: hidden;
 }
