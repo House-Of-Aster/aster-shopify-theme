@@ -13,50 +13,6 @@
   "sections": {
     "footer": {
       "type": "aster-footer",
-      "blocks": {
-        "planner": {
-          "type": "link_group",
-          "settings": {
-            "heading": "Planner",
-            "menu": "planner-footer"
-          }
-        },
-        "rituals": {
-          "type": "link_group",
-          "settings": {
-            "heading": "Rituals",
-            "menu": ""
-          }
-        },
-        "journal": {
-          "type": "link_group",
-          "settings": {
-            "heading": "Journal",
-            "menu": ""
-          }
-        },
-        "our_world": {
-          "type": "link_group",
-          "settings": {
-            "heading": "Our World",
-            "menu": ""
-          }
-        },
-        "support": {
-          "type": "link_group",
-          "settings": {
-            "heading": "Support",
-            "menu": ""
-          }
-        }
-      },
-      "block_order": [
-        "planner",
-        "rituals",
-        "journal",
-        "our_world",
-        "support"
-      ],
       "settings": {
         "color_scheme": "scheme-2",
         "brand_tagline": "A calmer way forward",
@@ -65,6 +21,7 @@
         "newsletter_heading": "A slower inbox",
         "newsletter_text": "Thoughtful notes, gentle rituals and exclusive updates - for a more intentional everyday.",
         "newsletter_button_label": "Join the ritual",
+        "footer_menu": "planner-footer",
         "instagram_url": "/",
         "pinterest_url": "/",
         "tiktok_url": "/",
