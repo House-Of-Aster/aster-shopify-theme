@@ -2,7 +2,7 @@
 
 Canonical project tracker for the House of Aster Shopify theme.
 
-Read this before substantial Aster work. Update it after each completed milestone or agreed sequence change.
+Read this before substantial Aster work. Update it after each completed milestone, verified sign-off, or agreed sequence change. Do not mark work complete without verification/sign-off, and do not build a speculative reusable component merely because it is numerically next if there is no proven storefront use case yet.
 
 Status: `[x]` complete · `[~]` in progress/partial · `[ ]` not started
 
@@ -26,7 +26,7 @@ Permanent architecture:
 - No default shadows
 - Motion is calm, editorial and purposeful
 - Respect `prefers-reduced-motion`
-- Build components first, then expose only settings proven useful
+- Build proven shared components first; defer speculative components until a real template/section needs them
 - Non-critical media is lazy by default
 - Genuine above-fold/LCP media is explicitly prioritised rather than inferred globally
 - Responsive image sources and intrinsic dimensions are mandatory
@@ -159,7 +159,7 @@ Permanent architecture:
 - [x] Transparent/overlay mode deliberately deferred until homepage hero art direction is approved
 - [x] Predictive/overlay search deliberately deferred to Phase 8
 
-## 2.3 Navigation / mega menu — IN PROGRESS
+## 2.3 Navigation / mega menu — VISUAL TREATMENT COMPLETE / IA DEFERRED
 - [x] One navigation tree rendered for desktop and mobile; no duplicated menu DOM
 - [x] Non-modal `<dialog>` navigation panel begins beneath the real header rather than replacing it
 - [x] Popular `jonsuh/hamburgers` Squeeze motion adapted locally under MIT licence; no package dependency
@@ -179,45 +179,67 @@ Permanent architecture:
 - [x] Mobile navigation dialog remains vertically scrollable so the editorial cards naturally reward continued scrolling
 - [x] Restrained hover motion: textual menu links shift right and editorial feature media lifts; hover motion is disabled for reduced-motion users
 - [x] Reduced-motion fallback
-- [ ] Define final navigation information architecture once the actual menu exists
+- [ ] Define final navigation information architecture once the actual menu/catalogue structure is locked
 - [ ] Refine deeper hierarchy/submenu behaviour only if the catalogue requires it
 
-## 2.4 Footer
-- [ ] Newsletter
-- [ ] Link columns
-- [ ] Contact/legal/social
-- [ ] Payment icons only if useful
-- [ ] Copyright
-- [ ] Colour-scheme support
+## 2.4 Footer — BUILT / FINAL EXPLICIT SIGN-OFF PENDING
+- [x] Scheme-aware footer architecture
+- [x] Brand mark/wordmark, “A calmer way forward” statement and supporting copy
+- [x] Newsletter / “A slower inbox” treatment
+- [x] Nested Shopify footer menu with clickable top-level headings
+- [x] Desktop link-group treatment and mobile accordion behaviour
+- [x] Contact and social links
+- [x] Legal/policy links and configurable Cookies link
+- [x] Payment icons integrated into the lower utility row
+- [x] Copyright
+- [x] 1400px alignment and shared page gutters
+- [x] Colour-scheme support
+- [ ] Final explicit visual sign-off before marking Phase 2.4 complete
 
 ---
 
 # PHASE 3 — COMMERCE COMPONENT LIBRARY
 
-## 3.1 Product card
-- [ ] Image, title, price/compare-at, sale/sold-out state
-- [ ] Secondary-image hover decision
-- [ ] Badge/swatches/quick-add only if catalogue proves need
-- [ ] Restrained hover motion
-- [ ] Mobile + accessibility
-- [ ] Add Theme Settings only after sign-off
+## 3.1 Product card — COMPLETE FOR CURRENT SCOPE
+- [x] Image, title, supporting copy and product type/eyebrow
+- [x] Price/compare-at handling
+- [x] Sale/sold-out architecture plus pre-order / coming-soon merchandising states
+- [x] Desktop secondary-image hover for non-swatch products using the next product image
+- [x] Variant-aware A/B secondary-image hover for products with Colour/Color swatches
+- [x] Swatch selection updates variant, primary image, price/link and matching hover image
+- [x] Selected-swatch secondary image preloads stealthily on hover-capable devices
+- [x] Badge support
+- [x] Restrained hover treatment
+- [x] Mobile + accessibility treatment
+- [x] Product-card background and product-image background exposed as independent Theme Settings after visual QA proved useful
+- [x] Current styling/swatches signed off
+- [ ] Judge.me rating/review integration — deliberately deferred until close to launch; do not hold Phase 3.1 open for this
+- [ ] Quick-add only if a later real storefront use case proves it valuable
 
-## 3.2 Collection card
+## 3.2 Collection card — DEFERRED UNTIL PROVEN USE CASE
+A collection card is a navigational category tile, not a featured collection/product grid. Do not build it merely because it is next numerically. Build it when the homepage, a shop landing page or another real template actually needs category-level navigation.
 - [ ] Image, title, optional supporting copy
 - [ ] Hover + mobile treatment
 - [ ] Add settings only after sign-off
 
-## 3.3 Article card
+## 3.3 Article card — DEFERRED UNTIL PROVEN USE CASE
+Build when the Journal/blog index or another real content surface establishes the actual metadata and hierarchy required.
 - [ ] Image, title, metadata decision, hover
 - [ ] Add settings only after sign-off
 
-## 3.4 Editorial card
+## 3.4 Editorial card — DEFERRED UNTIL PROVEN USE CASE
+Build when a homepage/content composition genuinely needs a reusable image + heading + copy + CTA card rather than designing it in isolation.
 - [ ] Reusable image + heading + copy + CTA composition
 - [ ] Colour-scheme support
+
+### Phase 3 execution rule
+The product card was worth building early because it underpins collections, featured products, related products and search. Collection/article/editorial cards are not treated the same way: they remain recorded here so they are not forgotten, but they should be implemented at the moment a real template proves their need.
 
 ---
 
 # PHASE 4 — HOMEPAGE + GSAP ART DIRECTION
+
+This phase remains important, but it now follows the core commerce/content journey rather than preceding it. Build the destination templates first so the homepage can link into real, finished experiences instead of speculative placeholders.
 
 ## 4.1 Storyboard first
 - [ ] Agree narrative, hero, section order and motion/calm rhythm
@@ -226,11 +248,11 @@ Permanent architecture:
 - [ ] Hero
 - [ ] Brand statement / manifesto
 - [ ] Featured products
-- [ ] Shop by ritual/moment/category
+- [ ] Shop by ritual/moment/category — build a collection-card pattern here only if the actual IA needs it
 - [ ] Editorial image-text section
 - [ ] Product/ingredient/philosophy proof
 - [ ] Reviews/social proof if available
-- [ ] Journal teaser
+- [ ] Journal teaser — build/reuse article cards here only after Journal requirements are known
 - [ ] Newsletter/footer handoff
 
 ## 4.3 Signature motion
@@ -251,14 +273,15 @@ Select only a small number:
 
 ---
 
-# PHASE 5 — COLLECTION EXPERIENCE
+# PHASE 5 — COLLECTION EXPERIENCE — NEXT
 - [ ] Collection hero/header
-- [ ] Product grid using shared product card
+- [ ] Product grid using the signed-off shared product card
 - [ ] Responsive columns
 - [ ] Sort, filters, active filters
 - [ ] Empty state and pagination/loading
 - [ ] Colour-scheme support
 - [ ] Quiet motion and optional editorial support sections
+- [ ] Use Shopify’s default/all-products collection as the immediate visual QA surface; no dedicated product-card QA page is required
 
 # PHASE 6 — PRODUCT EXPERIENCE
 - [ ] Desktop/mobile media gallery
@@ -268,6 +291,7 @@ Select only a small number:
 - [ ] App/subscription compatibility if required
 - [ ] Description, ingredients/details, accordions where useful
 - [ ] Reviews, related products and rich storytelling sections
+- [ ] Judge.me integration when the account/app is actually introduced close to launch
 - [ ] Full edge-case QA
 
 # PHASE 7 — CART
@@ -287,10 +311,11 @@ Select only a small number:
 - [ ] Filtering/sorting/pagination where useful
 
 # PHASE 9 — CONTENT TEMPLATES
-- [ ] Standard page
+- [ ] Standard page foundation
 - [ ] About/brand story
 - [ ] Contact and FAQ
 - [ ] Blog index and article
+- [ ] Build/sign off article-card component here when real Journal metadata/layout requirements are known
 - [ ] Related editorial/product links
 - [ ] Branded 404
 
@@ -304,7 +329,7 @@ Build only what Aster actually uses.
 
 # PHASE 11 — OPTIONAL COMMERCE FEATURES
 Only after operational/catalogue need is proven.
-- [ ] Swatches, size guide, back in stock, wishlist
+- [ ] PDP-level swatch refinements, size guide, back in stock, wishlist
 - [ ] Quick view/add, compare, bundles
 - [ ] Subscriptions, personalisation, cross-sells/upsells
 
@@ -361,10 +386,29 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 ---
 
+# AGREED IMPLEMENTATION ORDER FROM CURRENT POSITION
+
+The phase numbers remain stable so earlier references do not become confusing, but the execution order is now explicitly:
+
+1. **Phase 5 — Collection experience**
+2. **Phase 6 — Product experience**
+3. **Phase 7 — Cart**
+4. **Phase 8 — Search + discovery**
+5. **Phase 9 — Core page/content templates**
+6. **Phase 4 — Homepage + GSAP art direction**, once its destination pages/components are real
+7. Build **Phase 3.2 / 3.3 / 3.4** components on demand when one of those real surfaces proves the requirement
+8. Continue through utility, clean-up, accessibility, performance, SEO, analytics, cross-template art direction and launch QA
+
+This ordering deliberately prioritises the core customer journey — **Browse → Product → Cart → Checkout**, plus search and baseline content — before speculative navigational/editorial components.
+
+---
+
 # CURRENT POSITION
 
-**Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header. Typography role ownership has also been re-audited and locked before further component work.
+**Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar, Phase 2.2 Header and Phase 3.1 Product Card for its current launch scope. The product card includes variant swatches, paired variant hover imagery, non-swatch second-image hover, preloading of the newly selected swatch’s hover image, badges/state handling and independently configurable card/media backgrounds. Judge.me remains a deliberate pre-launch integration rather than unfinished Phase 3.1 work.
 
-**In progress:** Phase 2.3 visual treatment is signed off on desktop and mobile, including restrained hover motion. Final information architecture and any deeper submenu behaviour remain deliberately pending until real menu/catalogue content proves the need.
+**Built but not formally closed:** Phase 2.4 Footer is implemented and visually refined, but remains open until explicit final sign-off. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred until catalogue/menu structure proves the need.
 
-**Next:** Move to Phase 2.4 Footer. Revisit final navigation IA when the actual menu content exists. The branded page-transition concept is recorded for the Phase 17 cross-template art-direction pass rather than being introduced before the main storefront templates exist.
+**Deferred, not forgotten:** Phase 3.2 Collection Card, Phase 3.3 Article Card and Phase 3.4 Editorial Card are intentionally postponed until their first real use case establishes the correct requirements.
+
+**Next:** Phase 5 — Collection Experience. Use the real/default collection surface and the signed-off shared product card. After that proceed through Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.
