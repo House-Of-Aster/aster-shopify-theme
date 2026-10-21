@@ -1,16 +1,64 @@
 {{ 'aster-product-card.css' | asset_url | stylesheet_tag }}
+{{ 'aster-collection.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'aster-product-card.js' | asset_url }}" defer></script>
 
 {% block 'container' %}
-  <h1>{{ collection.title }}</h1>
+  {% liquid
+    assign product_count = collection.all_products_count
+    assign collection_image = collection.image
+  %}
 
-  {% paginate collection.products by 20 %}
-    <div class="collection-products" data-aster-product-grid>
-      {% for product in collection.products %}
-        {% render 'aster-product-card', product: product %}
-      {% endfor %}
-    </div>
+  <main class="aster-collection">
+    <header
+      class="aster-collection__header{% if collection_image %} aster-collection__header--with-image{% endif %}"
+      data-aster-reveal="up"
+    >
+      <div class="aster-collection__copy">
+        <h1 class="aster-collection__title">{{ collection.title }}</h1>
 
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
+        {% if collection.description != blank %}
+          <div class="aster-collection__description rte">
+            {{ collection.description }}
+          </div>
+        {% endif %}
+
+        <p class="aster-collection__count">
+          {{ product_count }} {% if product_count == 1 %}product{% else %}products{% endif %}
+        </p>
+      </div>
+
+      {% if collection_image %}
+        <div class="aster-collection__hero-media">
+          {% render 'image',
+            class: 'aster-collection__hero-image',
+            image: collection_image,
+            width: 1600,
+            sizes: '(min-width: 1100px) 52vw, (min-width: 850px) 44vw, calc(100vw - 30px)',
+            priority: true
+          %}
+        </div>
+      {% endif %}
+    </header>
+
+    {% paginate collection.products by 20 %}
+      {% if collection.products.size > 0 %}
+        <div class="aster-collection__grid" data-aster-product-grid>
+          {% for product in collection.products %}
+            {% render 'aster-product-card', product: product %}
+          {% endfor %}
+        </div>
+      {% else %}
+        <div class="aster-collection__empty" role="status">
+          <h2 class="aster-collection__empty-title">Nothing here yet.</h2>
+          <p class="aster-collection__empty-copy">This collection does not currently contain any products.</p>
+        </div>
+      {% endif %}
+
+      {% if paginate.pages > 1 %}
+        <nav class="aster-collection__pagination" aria-label="Collection pagination">
+          {{ paginate | default_pagination }}
+        </nav>
+      {% endif %}
+    {% endpaginate %}
+  </main>
 {% endblock %}
