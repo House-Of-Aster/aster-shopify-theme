@@ -17,9 +17,18 @@
 
   const cancelRunning = (panel) => {
     const animation = running.get(panel);
-    if (!animation) return;
+    if (!animation) return null;
+
+    const computed = getComputedStyle(panel);
+    const snapshot = {
+      height: panel.getBoundingClientRect().height,
+      opacity: computed.opacity,
+      transform: computed.transform === 'none' ? 'translateY(0)' : computed.transform,
+    };
+
     animation.cancel();
-    cleanup(panel);
+    running.delete(panel);
+    return snapshot;
   };
 
   const setImmediate = (toggle, panel, expanded) => {
@@ -30,7 +39,7 @@
   };
 
   const expand = (toggle, panel) => {
-    cancelRunning(panel);
+    const interrupted = cancelRunning(panel);
     toggle.setAttribute('aria-expanded', 'true');
     panel.hidden = false;
 
@@ -40,15 +49,19 @@
     }
 
     const targetHeight = panel.scrollHeight;
+    const startHeight = interrupted?.height ?? 0;
+    const startOpacity = interrupted?.opacity ?? 0;
+    const startTransform = interrupted?.transform ?? 'translateY(-6px)';
+
     panel.style.overflow = 'hidden';
-    panel.style.height = '0px';
-    panel.style.opacity = '0';
-    panel.style.transform = 'translateY(-6px)';
+    panel.style.height = `${startHeight}px`;
+    panel.style.opacity = `${startOpacity}`;
+    panel.style.transform = startTransform;
     panel.style.willChange = 'height, opacity, transform';
 
     const animation = panel.animate(
       [
-        { height: '0px', opacity: 0, transform: 'translateY(-6px)' },
+        { height: `${startHeight}px`, opacity: startOpacity, transform: startTransform },
         { height: `${targetHeight}px`, opacity: 1, transform: 'translateY(0)' },
       ],
       {
@@ -60,11 +73,10 @@
 
     running.set(panel, animation);
     animation.addEventListener('finish', () => cleanup(panel), { once: true });
-    animation.addEventListener('cancel', () => cleanup(panel), { once: true });
   };
 
   const collapse = (toggle, panel) => {
-    cancelRunning(panel);
+    const interrupted = cancelRunning(panel);
     toggle.setAttribute('aria-expanded', 'false');
 
     if (reduceMotion.matches) {
@@ -73,16 +85,20 @@
       return;
     }
 
-    const startHeight = panel.getBoundingClientRect().height || panel.scrollHeight;
+    const computed = getComputedStyle(panel);
+    const startHeight = interrupted?.height ?? panel.getBoundingClientRect().height ?? panel.scrollHeight;
+    const startOpacity = interrupted?.opacity ?? computed.opacity;
+    const startTransform = interrupted?.transform ?? (computed.transform === 'none' ? 'translateY(0)' : computed.transform);
+
     panel.style.overflow = 'hidden';
     panel.style.height = `${startHeight}px`;
-    panel.style.opacity = '1';
-    panel.style.transform = 'translateY(0)';
+    panel.style.opacity = `${startOpacity}`;
+    panel.style.transform = startTransform;
     panel.style.willChange = 'height, opacity, transform';
 
     const animation = panel.animate(
       [
-        { height: `${startHeight}px`, opacity: 1, transform: 'translateY(0)' },
+        { height: `${startHeight}px`, opacity: startOpacity, transform: startTransform },
         { height: '0px', opacity: 0, transform: 'translateY(-4px)' },
       ],
       {
@@ -101,7 +117,6 @@
       },
       { once: true }
     );
-    animation.addEventListener('cancel', () => cleanup(panel), { once: true });
   };
 
   document.addEventListener(
