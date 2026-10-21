@@ -669,6 +669,13 @@
     "settings": [
       {
         "type": "color",
+        "id": "product_card_background",
+        "label": "Product card background",
+        "default": "#F2E9DE",
+        "info": "Background colour for the full product card behind the image and product details."
+      },
+      {
+        "type": "color",
         "id": "product_card_media_background",
         "label": "Product image background",
         "default": "#E8DAD2",
