@@ -1,0 +1,20 @@
+{% style %}
+  /*
+    Desktop optical edge alignment.
+
+    The header and page/footer containers already share Aster's 1400px maximum
+    width and 20px gutters. The apparent mismatch came from the 44px accessible
+    header controls: their visible glyphs are centred inside those hit areas,
+    so the artwork sat inside the true container edge. Keep the hit areas and
+    container architecture intact, and optically align only the visible controls.
+  */
+  @media (min-width: 750px) {
+    .aster-header__menu-toggle {
+      transform: translateX(-10px);
+    }
+
+    .aster-header__utilities {
+      transform: translateX(15px);
+    }
+  }
+{% endstyle %}
