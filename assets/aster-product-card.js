@@ -62,6 +62,15 @@
     }
   }
 
+  function preloadSecondary(media, src) {
+    if (!media || !src || !hoverQuery.matches) return;
+    const secondary = media.querySelector('[data-card-secondary-image]');
+    if (!secondary) return;
+
+    secondary.onload = null;
+    secondary.src = src;
+  }
+
   function selectSwatch(swatch) {
     const card = swatch.closest('[data-aster-product-card]');
     if (!card) return;
@@ -85,6 +94,7 @@
     if (media) {
       if (swatch.dataset.hoverSrc) {
         media.dataset.hoverSrc = swatch.dataset.hoverSrc;
+        preloadSecondary(media, swatch.dataset.hoverSrc);
       } else {
         delete media.dataset.hoverSrc;
       }
