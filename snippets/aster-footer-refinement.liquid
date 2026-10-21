@@ -1,0 +1,103 @@
+{% style %}
+  /* Phase 2.4 visual QA refinement: compress the newsletter handoff and keep the field fill continuous beneath the CTA. */
+  .aster-footer__eyebrow {
+    display: none;
+  }
+
+  .aster-footer__newsletter-heading {
+    font-size: clamp(34px, 3vw, 46px);
+    line-height: 1.02;
+  }
+
+  .aster-footer__newsletter-text {
+    max-width: 54ch;
+    margin-top: 10px;
+    font-family: var(--font-body--family);
+    font-size: clamp(14px, 1.15vw, 17px);
+    line-height: 1.45;
+  }
+
+  .aster-footer__newsletter-form {
+    margin-top: 18px;
+  }
+
+  .aster-footer__newsletter-control {
+    min-height: 52px;
+    background: color-mix(in srgb, var(--color-foreground) 6%, var(--color-background));
+  }
+
+  .aster-footer__newsletter-input {
+    min-height: 50px;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .aster-footer__newsletter-button {
+    min-height: 50px;
+    min-width: clamp(190px, 18vw, 250px);
+    position: relative;
+    z-index: 1;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 749px) {
+    .aster-footer__newsletter {
+      margin-top: 38px;
+    }
+
+    .aster-footer__newsletter-heading {
+      font-size: clamp(30px, 9vw, 36px);
+      line-height: 1.04;
+    }
+
+    .aster-footer__newsletter-text {
+      max-width: 32ch;
+      margin-top: 10px;
+      font-size: 15px;
+      line-height: 1.42;
+    }
+
+    .aster-footer__newsletter-form {
+      margin-top: 20px;
+    }
+
+    .aster-footer__newsletter-control {
+      min-height: 52px;
+      grid-template-columns: minmax(0, 1fr) minmax(138px, 46%);
+    }
+
+    .aster-footer__newsletter-input {
+      min-height: 50px;
+      padding-inline: 14px;
+      font-size: 13px;
+    }
+
+    .aster-footer__newsletter-button {
+      min-width: 0;
+      min-height: 50px;
+      padding-inline: 13px;
+      gap: 8px;
+      font-size: 8px;
+      letter-spacing: 0.1em;
+    }
+
+    .aster-footer__newsletter-arrow {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 390px) {
+    .aster-footer__newsletter-control {
+      grid-template-columns: minmax(0, 1fr) 138px;
+    }
+
+    .aster-footer__newsletter-button {
+      padding-inline: 11px;
+      letter-spacing: 0.08em;
+    }
+  }
+{% endstyle %}
