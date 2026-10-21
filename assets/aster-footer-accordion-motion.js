@@ -5,6 +5,7 @@
   const mobile = window.matchMedia('(max-width: 749px)');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const running = new WeakMap();
+  const paddingState = new WeakMap();
 
   const cleanup = (panel) => {
     panel.style.removeProperty('height');
@@ -13,6 +14,45 @@
     panel.style.removeProperty('transform');
     panel.style.removeProperty('will-change');
     running.delete(panel);
+  };
+
+  const preparePanel = (panel) => {
+    if (paddingState.has(panel)) return;
+
+    const content = panel.firstElementChild;
+    if (!content) return;
+
+    const panelStyle = getComputedStyle(panel);
+    const panelPaddingBottom = parseFloat(panelStyle.paddingBottom) || 0;
+    if (panelPaddingBottom <= 0) return;
+
+    const contentStyle = getComputedStyle(content);
+    const contentPaddingBottom = parseFloat(contentStyle.paddingBottom) || 0;
+
+    paddingState.set(panel, {
+      content,
+      panelPaddingBottom: panel.style.paddingBottom,
+      contentPaddingBottom: content.style.paddingBottom,
+    });
+
+    // Keep the visual spacing, but move it inside the animated content. This lets
+    // the panel genuinely reach 0px instead of leaving its mobile bottom padding
+    // behind for one frame before hidden is applied.
+    panel.style.paddingBottom = '0px';
+    content.style.paddingBottom = `${contentPaddingBottom + panelPaddingBottom}px`;
+  };
+
+  const restorePanel = (panel) => {
+    const state = paddingState.get(panel);
+    if (!state) return;
+
+    if (state.panelPaddingBottom) panel.style.paddingBottom = state.panelPaddingBottom;
+    else panel.style.removeProperty('padding-bottom');
+
+    if (state.contentPaddingBottom) state.content.style.paddingBottom = state.contentPaddingBottom;
+    else state.content.style.removeProperty('padding-bottom');
+
+    paddingState.delete(panel);
   };
 
   const cancelRunning = (panel) => {
@@ -39,6 +79,7 @@
   };
 
   const expand = (toggle, panel) => {
+    preparePanel(panel);
     const interrupted = cancelRunning(panel);
     toggle.setAttribute('aria-expanded', 'true');
     panel.hidden = false;
@@ -76,6 +117,7 @@
   };
 
   const collapse = (toggle, panel) => {
+    preparePanel(panel);
     const interrupted = cancelRunning(panel);
     toggle.setAttribute('aria-expanded', 'false');
 
@@ -102,7 +144,7 @@
         { height: '0px', opacity: 0, transform: 'translateY(-4px)' },
       ],
       {
-        duration: 280,
+        duration: 300,
         easing: 'cubic-bezier(0.4, 0, 0.2, 1)',
         fill: 'forwards',
       }
@@ -149,12 +191,21 @@
         const panel = group.querySelector('[data-aster-footer-panel]');
         if (!toggle || !panel) return;
 
-        if (mobile.matches) setImmediate(toggle, panel, false);
-        else setImmediate(toggle, panel, true);
+        if (mobile.matches) {
+          preparePanel(panel);
+          setImmediate(toggle, panel, false);
+        } else {
+          restorePanel(panel);
+          setImmediate(toggle, panel, true);
+        }
       });
     });
   };
 
+  syncBreakpoint();
+
   if (mobile.addEventListener) mobile.addEventListener('change', syncBreakpoint);
   else mobile.addListener(syncBreakpoint);
+
+  document.addEventListener('shopify:section:load', () => requestAnimationFrame(syncBreakpoint));
 })();
