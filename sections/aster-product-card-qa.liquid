@@ -1,0 +1,177 @@
+{{ 'aster-product-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'aster-product-card.js' | asset_url }}" defer></script>
+
+<section class="aster-product-card-qa" data-aster-product-card-qa>
+  <div class="aster-product-card-qa__inner">
+    <header class="aster-product-card-qa__header">
+      <p class="aster-product-card-qa__eyebrow">Phase 3.1 · Internal QA</p>
+      <h1 class="aster-product-card-qa__heading">{{ section.settings.heading | escape }}</h1>
+      {% if section.settings.intro != blank %}
+        <p class="aster-product-card-qa__intro">{{ section.settings.intro | escape }}</p>
+      {% endif %}
+    </header>
+
+    <div class="aster-product-card-qa__grid">
+      {% for block in section.blocks %}
+        {% assign qa_product = block.settings.product %}
+        <div class="aster-product-card-qa__item" {{ block.shopify_attributes }}>
+          {% if qa_product != blank %}
+            {% render 'aster-product-card', product: qa_product %}
+          {% else %}
+            <div class="aster-product-card-qa__empty">
+              Select a product for this QA slot in the Theme Editor.
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .aster-product-card-qa {
+    min-height: 60vh;
+    padding: clamp(36px, 5vw, 72px) 0 clamp(56px, 7vw, 96px);
+    background: var(--color-background);
+    color: var(--color-foreground);
+  }
+
+  .aster-product-card-qa__inner {
+    width: min(1400px, calc(100% - 40px));
+    margin-inline: auto;
+  }
+
+  .aster-product-card-qa__header {
+    max-width: 720px;
+    margin-bottom: clamp(28px, 4vw, 48px);
+  }
+
+  .aster-product-card-qa__eyebrow,
+  .aster-product-card-qa__heading,
+  .aster-product-card-qa__intro {
+    margin: 0;
+  }
+
+  .aster-product-card-qa__eyebrow {
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    line-height: 1.2;
+    text-transform: uppercase;
+    opacity: 0.68;
+  }
+
+  .aster-product-card-qa__heading {
+    font-family: var(--font-heading--family);
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: var(--font-heading--weight);
+    line-height: 1.05;
+  }
+
+  .aster-product-card-qa__intro {
+    max-width: 620px;
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.55;
+    opacity: 0.72;
+  }
+
+  .aster-product-card-qa__grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(16px, 2vw, 26px);
+    align-items: stretch;
+  }
+
+  .aster-product-card-qa__item {
+    min-width: 0;
+  }
+
+  .aster-product-card-qa__empty {
+    display: grid;
+    min-height: 320px;
+    place-items: center;
+    padding: 24px;
+    border-radius: var(--aster-radius);
+    background: color-mix(in srgb, var(--color-background) 84%, white 16%);
+    text-align: center;
+    opacity: 0.6;
+  }
+
+  @media (max-width: 1099px) {
+    .aster-product-card-qa__grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 749px) {
+    .aster-product-card-qa {
+      padding-top: 28px;
+    }
+
+    .aster-product-card-qa__inner {
+      width: calc(100% - 30px);
+    }
+
+    .aster-product-card-qa__header {
+      margin-bottom: 24px;
+    }
+
+    .aster-product-card-qa__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Product card QA",
+  "tag": "section",
+  "class": "aster-product-card-qa-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Product card QA"
+    },
+    {
+      "type": "text",
+      "id": "intro",
+      "label": "Intro",
+      "default": "Internal preview surface for Phase 3.1. This is not the final collection-page design."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Product card QA",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}
