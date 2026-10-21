@@ -19,7 +19,7 @@
   };
 
   const allowed = {
-    mobile: [1, 2],
+    mobile: [2],
     tablet: [2, 3],
     desktop: [2, 3, 4]
   };
@@ -72,9 +72,13 @@
   });
 
   Object.values(modeQueries).forEach((query) => {
-    query.addEventListener('change', () => {
-      applyColumns(readStoredColumns(currentMode()));
-    });
+    const handleChange = () => applyColumns(readStoredColumns(currentMode()));
+
+    if (typeof query.addEventListener === 'function') {
+      query.addEventListener('change', handleChange);
+    } else {
+      query.addListener(handleChange);
+    }
   });
 
   if (sortSelect) {

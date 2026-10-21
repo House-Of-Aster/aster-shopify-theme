@@ -274,10 +274,11 @@ Select only a small number:
 ---
 
 # PHASE 5 — COLLECTION EXPERIENCE — IN PROGRESS
-- [~] Collection hero/header — first implementation uses the collection title, optional Shopify collection description, product count and optional collection image; visual QA pending
+- [~] Collection hero/header — first implementation uses the collection title, optional Shopify collection description and optional collection image; visual QA pending
 - [~] Product grid using the signed-off shared product card — integrated into the real/default collection template; visual QA pending
-- [~] Responsive columns — 4 desktop / 3 tablet / 2 mobile implemented; visual QA pending
-- [ ] Sort, filters, active filters
+- [~] Responsive columns — shopper-selectable 2 / 3 / 4-column desktop grid implemented, with 2 / 3 options on tablet and a fixed 2-column mobile treatment; each breakpoint remembers the shopper’s last compatible density; visual QA pending
+- [~] Sort, filters, active filters — Shopify-native sort options are now wired into a dedicated collection toolbar; filters and active-filter treatment remain next
+- [~] Collection toolbar — view-density controls left, live product count centred and Sort by right, inspired by the Agende interaction but restyled to Aster’s scheme/typography; visual QA pending
 - [~] Empty state and pagination/loading — empty state and styled native pagination implemented; loading treatment remains to be assessed when filtering/pagination behaviour is finalised
 - [~] Colour-scheme support — first pass consumes the active global colour scheme with no local colour controls; verify during visual QA
 - [~] Quiet motion and optional editorial support sections — collection header uses the existing restrained reveal foundation; further motion/editorial treatment remains deliberately minimal until visual QA
@@ -411,6 +412,6 @@ This ordering deliberately prioritises the core customer journey — **Browse �
 
 **Deferred, not forgotten:** Phase 3.2 Collection Card, Phase 3.3 Article Card and Phase 3.4 Editorial Card are intentionally postponed until their first real use case establishes the correct requirements.
 
-**In progress:** Phase 5 — Collection Experience. The first real-template pass now includes an editorial collection header, optional collection description/image handling, product count, the signed-off shared product-card grid, responsive 4/3/2 columns, empty-state treatment and styled native pagination. These are implemented but remain deliberately marked partial until visual QA on the default/all-products collection.
+**In progress:** Phase 5 — Collection Experience. The real collection template now has the collection header, signed-off product-card grid, persistent shopper-selectable grid density on desktop/tablet, centred product count, Shopify-native sorting, empty-state treatment and styled native pagination. These remain partial until visual QA; filtering and active-filter treatment are still outstanding.
 
-**Next verification:** Review the real/default collection on desktop and mobile, refine the header/grid composition from screenshots, then move into sort, filters and active-filter behaviour. After Phase 5 is signed off, proceed to Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.
+**Next verification:** Review the new collection toolbar and 2 / 3 / 4-column behaviour on desktop, then confirm the mobile/tablet treatment. After that implement filters and active-filter behaviour, finish loading/pagination decisions and close Phase 5 only after visual sign-off. Then proceed to Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.
