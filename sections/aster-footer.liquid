@@ -1,7 +1,7 @@
 {% doc %}
   Global Aster storefront footer used inside the Footer section group.
-  The composition follows the signed-off cream-and-wine footer direction:
-  brand + newsletter, five link groups, social/payment utility row and legal copy.
+  Navigation is driven by one nested Shopify menu: top-level links are the
+  clickable column headings and their children are the supporting links.
   No decorative imagery is used.
 {% enddoc %}
 
@@ -82,80 +82,55 @@
     <div class="aster-footer__rule" aria-hidden="true"></div>
 
     <nav class="aster-footer__navigation" aria-label="Footer navigation">
-      {% for block in section.blocks %}
-        {% if block.type == 'link_group' %}
-          <div class="aster-footer__group" data-aster-footer-group {{ block.shopify_attributes }}>
-            <button
-              class="aster-footer__group-toggle"
-              type="button"
-              aria-expanded="true"
-              aria-controls="AsterFooterGroup-{{ section.id }}-{{ block.id }}"
-              data-aster-footer-toggle
-            >
-              <span>{{ block.settings.heading | escape }}</span>
-              <svg class="aster-footer__group-chevron" aria-hidden="true" viewBox="0 0 18 10" fill="none">
-                <path d="M1 1l8 8 8-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
-              </svg>
-            </button>
+      {% if section.settings.footer_menu != blank %}
+        {% for link in section.settings.footer_menu.links %}
+          <div class="aster-footer__group" data-aster-footer-group>
+            <div class="aster-footer__group-header">
+              <a class="aster-footer__group-heading-link" href="{{ link.url }}">
+                <span>{{ link.title | escape }}</span>
+              </a>
 
-            <div
-              id="AsterFooterGroup-{{ section.id }}-{{ block.id }}"
-              class="aster-footer__group-panel"
-              data-aster-footer-panel
-            >
-              <ul class="aster-footer__group-links" role="list">
-                {% if block.settings.menu != blank %}
-                  {% for link in block.settings.menu.links %}
-                    <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+              {% if link.links != blank %}
+                <button
+                  class="aster-footer__group-toggle"
+                  type="button"
+                  aria-expanded="true"
+                  aria-label="Toggle {{ link.title | escape }} links"
+                  aria-controls="AsterFooterGroup-{{ section.id }}-{{ forloop.index }}"
+                  data-aster-footer-toggle
+                >
+                  <svg class="aster-footer__group-chevron" aria-hidden="true" viewBox="0 0 18 10" fill="none">
+                    <path d="M1 1l8 8 8-8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"></path>
+                  </svg>
+                </button>
+              {% endif %}
+            </div>
+
+            {% if link.links != blank %}
+              <div
+                id="AsterFooterGroup-{{ section.id }}-{{ forloop.index }}"
+                class="aster-footer__group-panel"
+                data-aster-footer-panel
+              >
+                <ul class="aster-footer__group-links" role="list">
+                  {% for child_link in link.links %}
+                    <li><a href="{{ child_link.url }}">{{ child_link.title | escape }}</a></li>
                   {% endfor %}
-                {% else %}
-                  {% case block.settings.heading %}
-                    {% when 'Planner' %}
-                      <li><a href="{{ routes.root_url }}">The Aster Planner</a></li>
-                      <li><a href="{{ routes.root_url }}">Daily planning</a></li>
-                      <li><a href="{{ routes.root_url }}">Weekly reset</a></li>
-                      <li><a href="{{ routes.root_url }}">Productivity rituals</a></li>
-                      <li><a href="{{ routes.root_url }}">Shop all</a></li>
-                    {% when 'Rituals' %}
-                      <li><a href="{{ routes.root_url }}">Morning ritual</a></li>
-                      <li><a href="{{ routes.root_url }}">Evening ritual</a></li>
-                      <li><a href="{{ routes.root_url }}">Mindful living</a></li>
-                      <li><a href="{{ routes.root_url }}">Self-care</a></li>
-                      <li><a href="{{ routes.root_url }}">All rituals</a></li>
-                    {% when 'Journal' %}
-                      <li><a href="{{ routes.root_url }}">The Journal</a></li>
-                      <li><a href="{{ routes.root_url }}">Wellness</a></li>
-                      <li><a href="{{ routes.root_url }}">Intentional living</a></li>
-                      <li><a href="{{ routes.root_url }}">Behind the scenes</a></li>
-                      <li><a href="{{ routes.root_url }}">Read all</a></li>
-                    {% when 'Our World' %}
-                      <li><a href="{{ routes.root_url }}">Why Aster</a></li>
-                      <li><a href="{{ routes.root_url }}">Our philosophy</a></li>
-                      <li><a href="{{ routes.root_url }}">Sustainability</a></li>
-                      <li><a href="{{ routes.root_url }}">Our story</a></li>
-                      <li><a href="{{ routes.root_url }}">Press</a></li>
-                    {% when 'Support' %}
-                      <li><a href="{{ routes.root_url }}">Contact</a></li>
-                      <li><a href="{{ routes.root_url }}">FAQs</a></li>
-                      <li><a href="{{ routes.root_url }}">Shipping</a></li>
-                      <li><a href="{{ routes.root_url }}">Returns</a></li>
-                      {% if shop.privacy_policy != blank %}
-                        <li><a href="{{ shop.privacy_policy.url }}">Privacy</a></li>
-                      {% else %}
-                        <li><a href="{{ routes.root_url }}">Privacy</a></li>
-                      {% endif %}
-                      {% if shop.terms_of_service != blank %}
-                        <li><a href="{{ shop.terms_of_service.url }}">Terms</a></li>
-                      {% else %}
-                        <li><a href="{{ routes.root_url }}">Terms</a></li>
-                      {% endif %}
-                  {% endcase %}
-                {% endif %}
-              </ul>
+                </ul>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
+      {% else %}
+        {% assign fallback_groups = 'Planner|Rituals|Journal|Our World|Support' | split: '|' %}
+        {% for fallback_group in fallback_groups %}
+          <div class="aster-footer__group" data-aster-footer-group>
+            <div class="aster-footer__group-header">
+              <a class="aster-footer__group-heading-link" href="{{ routes.root_url }}"><span>{{ fallback_group }}</span></a>
             </div>
           </div>
-        {% endif %}
-      {% endfor %}
+        {% endfor %}
+      {% endif %}
     </nav>
 
     <div class="aster-footer__rule" aria-hidden="true"></div>
@@ -482,35 +457,65 @@
     min-width: 0;
   }
 
-  .aster-footer__group-toggle {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
+  .aster-footer__group-header {
+    min-width: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 16px;
+    gap: 14px;
+  }
+
+  .aster-footer__group-heading-link {
+    position: relative;
+    width: fit-content;
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-heading--family);
+    font-style: var(--font-heading--style);
+    font-weight: var(--font-heading--weight);
+    font-size: clamp(21px, 1.8vw, 27px);
+    line-height: 1.08;
+    letter-spacing: var(--font-heading-letter-spacing);
+    text-transform: var(--font-heading-transform);
+    transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .aster-footer__group-heading-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 280ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .aster-footer__group-toggle {
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
     background: transparent;
     color: inherit;
-    font-family: var(--font-subheading--family);
-    font-size: 11px;
-    line-height: 1.2;
-    letter-spacing: 0.26em;
-    text-align: left;
-    text-transform: uppercase;
   }
 
   .aster-footer__group-chevron {
-    display: none;
     width: 18px;
     height: 10px;
-    flex: 0 0 auto;
     transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .aster-footer__group-panel {
-    margin-top: 24px;
+    margin-top: 18px;
   }
 
   .aster-footer__group-links {
@@ -622,6 +627,14 @@
   @media (hover: hover) and (pointer: fine) {
     .aster-footer__newsletter-button:hover .aster-footer__newsletter-arrow {
       transform: translateX(4px);
+    }
+
+    .aster-footer__group-heading-link:hover {
+      transform: translateX(4px);
+    }
+
+    .aster-footer__group-heading-link:hover::after {
+      transform: scaleX(1);
     }
 
     .aster-footer__group-links a:hover {
@@ -740,15 +753,18 @@
       border-bottom: 1px solid color-mix(in srgb, var(--color-foreground) 18%, transparent);
     }
 
-    .aster-footer__group-toggle {
-      min-height: 76px;
+    .aster-footer__group-header {
+      min-height: 72px;
       padding: 0 2px;
-      font-size: 11px;
-      cursor: pointer;
     }
 
-    .aster-footer__group-chevron {
-      display: block;
+    .aster-footer__group-heading-link {
+      font-size: clamp(22px, 7vw, 28px);
+    }
+
+    .aster-footer__group-toggle {
+      display: inline-flex;
+      cursor: pointer;
     }
 
     .aster-footer__group-toggle[aria-expanded='true'] .aster-footer__group-chevron {
@@ -844,6 +860,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     .aster-footer__newsletter-arrow,
+    .aster-footer__group-heading-link,
+    .aster-footer__group-heading-link::after,
     .aster-footer__group-chevron,
     .aster-footer__group-links a,
     .aster-footer__socials a {
@@ -851,9 +869,14 @@
     }
 
     .aster-footer__newsletter-button:hover .aster-footer__newsletter-arrow,
+    .aster-footer__group-heading-link:hover,
     .aster-footer__group-links a:hover,
     .aster-footer__socials a:hover {
       transform: none;
+    }
+
+    .aster-footer__group-heading-link:hover::after {
+      transform: scaleX(1);
     }
   }
 {% endstylesheet %}
@@ -866,7 +889,6 @@
   "enabled_on": {
     "groups": ["footer"]
   },
-  "max_blocks": 5,
   "settings": [
     {
       "type": "color_scheme",
@@ -917,6 +939,16 @@
       "id": "newsletter_button_label",
       "label": "Button label",
       "default": "Join the ritual"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "footer_menu",
+      "label": "Footer menu",
+      "info": "Use one nested menu. Top-level items become clickable headings; their child items appear underneath."
     },
     {
       "type": "header",
@@ -975,35 +1007,9 @@
       "label": "Cookie link"
     }
   ],
-  "blocks": [
-    {
-      "type": "link_group",
-      "name": "Link group",
-      "settings": [
-        {
-          "type": "text",
-          "id": "heading",
-          "label": "Heading",
-          "default": "Links"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "label": "Menu"
-        }
-      ]
-    }
-  ],
   "presets": [
     {
-      "name": "Aster footer",
-      "blocks": [
-        { "type": "link_group", "settings": { "heading": "Planner" } },
-        { "type": "link_group", "settings": { "heading": "Rituals" } },
-        { "type": "link_group", "settings": { "heading": "Journal" } },
-        { "type": "link_group", "settings": { "heading": "Our World" } },
-        { "type": "link_group", "settings": { "heading": "Support" } }
-      ]
+      "name": "Aster footer"
     }
   ]
 }
