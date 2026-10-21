@@ -91,14 +91,16 @@
     assign rating_value = rating_metafield.value.rating | default: rating_metafield.value
   endif
 
-  assign selected_url = selected_variant.url | default: product.url
+  assign selected_url = product.url | append: '?variant=' | append: selected_variant.id
 %}
 
 <article
   class="aster-product-card"
   data-aster-product-card
   data-product-id="{{ product.id }}"
-  style="--aster-product-media-bg: {{ settings.product_card_media_background | default: '#E8DAD2' }};"
+  data-default-badge="{{ badge_text | escape }}"
+  data-default-badge-tone="{{ badge_tone }}"
+  style="--aster-product-media-bg: var(--aster-product-card-media-background, #E8DAD2);"
 >
   <div
     class="aster-product-card__media"
@@ -253,6 +255,8 @@
                     assign is_selected = true
                   endif
               endcase
+
+              assign swatch_variant_url = product.url | append: '?variant=' | append: swatch_variant.id
             %}
 
             {% if swatch_variant %}
@@ -262,8 +266,9 @@
                 aria-label="Select {{ option_value_name | escape }}"
                 aria-pressed="{% if is_selected %}true{% else %}false{% endif %}"
                 data-card-swatch
+                data-swatch-name="{{ option_value_name | handleize }}"
                 data-variant-id="{{ swatch_variant.id }}"
-                data-variant-url="{{ swatch_variant.url | escape }}"
+                data-variant-url="{{ swatch_variant_url | escape }}"
                 data-price="{{ swatch_variant.price | money | escape }}"
                 data-compare-price="{% if swatch_variant.compare_at_price > swatch_variant.price %}{{ swatch_variant.compare_at_price | money | escape }}{% endif %}"
                 data-available="{{ swatch_variant.available }}"
