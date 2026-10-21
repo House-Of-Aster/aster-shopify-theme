@@ -1,0 +1,22 @@
+{% comment %}
+  Global product-card presentation settings.
+  Native Shopify swatch colours are applied inline by the card and therefore take precedence.
+  These rules provide exact merchant-controlled fallback colours by variant option name.
+{% endcomment %}
+
+{% style %}
+  :root {
+    --aster-product-card-media-background: {{ settings.product_card_media_background | default: '#E8DAD2' }};
+  }
+
+  {% for index in (1..8) %}
+    {% assign name_key = 'product_card_swatch_' | append: index | append: '_name' %}
+    {% assign colour_key = 'product_card_swatch_' | append: index | append: '_colour' %}
+    {% assign swatch_name = settings[name_key] | strip %}
+    {% if swatch_name != blank %}
+      .aster-product-card__swatch[data-swatch-name='{{ swatch_name | handleize }}'] {
+        --aster-swatch-colour: {{ settings[colour_key] }};
+      }
+    {% endif %}
+  {% endfor %}
+{% endstyle %}
