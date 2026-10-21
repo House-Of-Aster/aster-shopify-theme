@@ -79,7 +79,6 @@ Permanent architecture:
 - [x] Error, success-hook, focus and disabled states
 - [x] Responsive form rows/stacks
 - [x] Colours derive from active colour scheme
-- [x] No decorative field borders
 - [x] No Forms Theme Settings group
 - [x] Bespoke quantity stepper deferred until PDP/cart design
 
@@ -273,15 +272,15 @@ Select only a small number:
 
 ---
 
-# PHASE 5 — COLLECTION EXPERIENCE — NEXT
-- [ ] Collection hero/header
-- [ ] Product grid using the signed-off shared product card
-- [ ] Responsive columns
+# PHASE 5 — COLLECTION EXPERIENCE — IN PROGRESS
+- [~] Collection hero/header — first implementation uses the collection title, optional Shopify collection description, product count and optional collection image; visual QA pending
+- [~] Product grid using the signed-off shared product card — integrated into the real/default collection template; visual QA pending
+- [~] Responsive columns — 4 desktop / 3 tablet / 2 mobile implemented; visual QA pending
 - [ ] Sort, filters, active filters
-- [ ] Empty state and pagination/loading
-- [ ] Colour-scheme support
-- [ ] Quiet motion and optional editorial support sections
-- [ ] Use Shopify’s default/all-products collection as the immediate visual QA surface; no dedicated product-card QA page is required
+- [~] Empty state and pagination/loading — empty state and styled native pagination implemented; loading treatment remains to be assessed when filtering/pagination behaviour is finalised
+- [~] Colour-scheme support — first pass consumes the active global colour scheme with no local colour controls; verify during visual QA
+- [~] Quiet motion and optional editorial support sections — collection header uses the existing restrained reveal foundation; further motion/editorial treatment remains deliberately minimal until visual QA
+- [x] Use Shopify’s default/all-products collection as the immediate visual QA surface; no dedicated product-card QA page is required
 
 # PHASE 6 — PRODUCT EXPERIENCE
 - [ ] Desktop/mobile media gallery
@@ -411,4 +410,6 @@ This ordering deliberately prioritises the core customer journey — **Browse �
 
 **Deferred, not forgotten:** Phase 3.2 Collection Card, Phase 3.3 Article Card and Phase 3.4 Editorial Card are intentionally postponed until their first real use case establishes the correct requirements.
 
-**Next:** Phase 5 — Collection Experience. Use the real/default collection surface and the signed-off shared product card. After that proceed through Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.
+**In progress:** Phase 5 — Collection Experience. The first real-template pass now includes an editorial collection header, optional collection description/image handling, product count, the signed-off shared product-card grid, responsive 4/3/2 columns, empty-state treatment and styled native pagination. These are implemented but remain deliberately marked partial until visual QA on the default/all-products collection.
+
+**Next verification:** Review the real/default collection on desktop and mobile, refine the header/grid composition from screenshots, then move into sort, filters and active-filter behaviour. After Phase 5 is signed off, proceed to Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.
