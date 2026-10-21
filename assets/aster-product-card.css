@@ -5,8 +5,7 @@
   height: 100%;
   overflow: hidden;
   border-radius: var(--aster-radius);
-  background: var(--color-background);
-  background: color-mix(in srgb, var(--color-background) 84%, white 16%);
+  background: var(--aster-product-card-background, #F2E9DE);
   color: var(--color-foreground);
 }
 
