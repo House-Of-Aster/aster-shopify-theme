@@ -2,11 +2,12 @@
   Aster shared product card.
 
   Colour-media convention:
-  - a colour variant's featured image is its primary card image, e.g. planner-black-a.webp
-  - a matching product media filename ending -b.webp is its desktop hover image
+  - products with a multi-value Colour/Color option use the selected variant image as the primary card image
+  - colour variants use paired filenames, e.g. planner-black-a.webp -> planner-black-b.webp, for desktop hover
   - Shopify can preserve an uploaded extension inside the filename (e.g. -a_webp.webp),
     so both -a. / -b. and -a_ / -b_ filename pairs are supported
   - changing swatches changes the selected variant, primary image and paired hover image
+  - products without colour swatches use the first additional product image as their desktop hover image
 
   Optional product metafields:
   - aster.card_eyebrow
@@ -19,31 +20,6 @@
   assign selected_variant = product.selected_or_first_available_variant
   assign selected_image = selected_variant.featured_image | default: product.featured_image
   assign selected_hover_image = nil
-
-  if selected_image
-    assign selected_src_clean = selected_image.src | split: '?' | first
-    assign selected_filename = selected_src_clean | split: '/' | last | downcase
-    assign selected_hover_filename = blank
-
-    if selected_filename contains '-a.'
-      assign selected_hover_filename = selected_filename | replace: '-a.', '-b.'
-    elsif selected_filename contains '-a_'
-      assign selected_hover_filename = selected_filename | replace: '-a_', '-b_'
-    endif
-
-    if selected_hover_filename != blank
-      for media in product.media
-        if media.media_type == 'image'
-          assign media_src_clean = media.preview_image.src | split: '?' | first
-          assign media_filename = media_src_clean | split: '/' | last | downcase
-          if media_filename == selected_hover_filename
-            assign selected_hover_image = media.preview_image
-            break
-          endif
-        endif
-      endfor
-    endif
-  endif
 
   assign eyebrow = product.metafields.aster.card_eyebrow.value | default: product.type
   assign card_description = product.metafields.aster.card_description.value
@@ -89,6 +65,49 @@
       break
     endif
   endfor
+
+  assign has_colour_swatches = false
+  if colour_option and colour_option.values.size > 1
+    assign has_colour_swatches = true
+  endif
+
+  if selected_image
+    assign selected_src_clean = selected_image.src | split: '?' | first
+
+    if has_colour_swatches
+      assign selected_filename = selected_src_clean | split: '/' | last | downcase
+      assign selected_hover_filename = blank
+
+      if selected_filename contains '-a.'
+        assign selected_hover_filename = selected_filename | replace: '-a.', '-b.'
+      elsif selected_filename contains '-a_'
+        assign selected_hover_filename = selected_filename | replace: '-a_', '-b_'
+      endif
+
+      if selected_hover_filename != blank
+        for media in product.media
+          if media.media_type == 'image'
+            assign media_src_clean = media.preview_image.src | split: '?' | first
+            assign media_filename = media_src_clean | split: '/' | last | downcase
+            if media_filename == selected_hover_filename
+              assign selected_hover_image = media.preview_image
+              break
+            endif
+          endif
+        endfor
+      endif
+    else
+      for media in product.media
+        if media.media_type == 'image'
+          assign media_src_clean = media.preview_image.src | split: '?' | first
+          if media_src_clean != selected_src_clean
+            assign selected_hover_image = media.preview_image
+            break
+          endif
+        endif
+      endfor
+    endif
+  endif
 
   assign rating_metafield = product.metafields.reviews.rating
   assign rating_count_metafield = product.metafields.reviews.rating_count
@@ -192,7 +211,7 @@
         {% endif %}
       </div>
 
-      {% if colour_option and colour_option.values.size > 1 %}
+      {% if has_colour_swatches %}
         <fieldset class="aster-product-card__swatches" aria-label="Choose {{ colour_option.name | escape }}">
           <legend class="visually-hidden">{{ colour_option.name | escape }}</legend>
 
