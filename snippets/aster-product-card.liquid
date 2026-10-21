@@ -4,6 +4,8 @@
   Colour-media convention:
   - a colour variant's featured image is its primary card image, e.g. planner-black-a.webp
   - a matching product media filename ending -b.webp is its desktop hover image
+  - Shopify can preserve an uploaded extension inside the filename (e.g. -a_webp.webp),
+    so both -a. / -b. and -a_ / -b_ filename pairs are supported
   - changing swatches changes the selected variant, primary image and paired hover image
 
   Optional product metafields:
@@ -21,10 +23,15 @@
   if selected_image
     assign selected_src_clean = selected_image.src | split: '?' | first
     assign selected_filename = selected_src_clean | split: '/' | last | downcase
+    assign selected_hover_filename = blank
+
     if selected_filename contains '-a.'
-      assign selected_parts = selected_filename | split: '-a.'
-      assign selected_extension = selected_filename | split: '.' | last
-      assign selected_hover_filename = selected_parts.first | append: '-b.' | append: selected_extension
+      assign selected_hover_filename = selected_filename | replace: '-a.', '-b.'
+    elsif selected_filename contains '-a_'
+      assign selected_hover_filename = selected_filename | replace: '-a_', '-b_'
+    endif
+
+    if selected_hover_filename != blank
       for media in product.media
         if media.media_type == 'image'
           assign media_src_clean = media.preview_image.src | split: '?' | first
@@ -221,11 +228,15 @@
               if swatch_image
                 assign primary_src_clean = swatch_image.src | split: '?' | first
                 assign primary_filename = primary_src_clean | split: '/' | last | downcase
-                if primary_filename contains '-a.'
-                  assign primary_parts = primary_filename | split: '-a.'
-                  assign primary_extension = primary_filename | split: '.' | last
-                  assign hover_filename = primary_parts.first | append: '-b.' | append: primary_extension
+                assign hover_filename = blank
 
+                if primary_filename contains '-a.'
+                  assign hover_filename = primary_filename | replace: '-a.', '-b.'
+                elsif primary_filename contains '-a_'
+                  assign hover_filename = primary_filename | replace: '-a_', '-b_'
+                endif
+
+                if hover_filename != blank
                   for media in product.media
                     if media.media_type == 'image'
                       assign candidate_src_clean = media.preview_image.src | split: '?' | first
