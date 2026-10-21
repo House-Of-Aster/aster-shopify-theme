@@ -1,28 +1,16 @@
+{{ 'aster-product-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'aster-product-card.js' | asset_url }}" defer></script>
+
 {% block 'container' %}
   <h1>{{ collection.title }}</h1>
 
-  <div class="collection-products">
-    {% paginate collection.products by 20 %}
+  {% paginate collection.products by 20 %}
+    <div class="collection-products" data-aster-product-grid>
       {% for product in collection.products %}
-        <div class="collection-product">
-          {% if product.featured_image %}
-            {% render 'image',
-              class: 'collection-product__image',
-              image: product.featured_image,
-              url: product.url,
-              width: 400,
-              height: 400,
-              crop: 'center'
-            %}
-          {% endif %}
-          <div class="collection-product__content">
-            <p>{{ product.title | escape | link_to: product.url }}</p>
-            <p>{{ product.price | money }}</p>
-          </div>
-        </div>
+        {% render 'aster-product-card', product: product %}
       {% endfor %}
+    </div>
 
-      {{ paginate | default_pagination }}
-    {% endpaginate %}
-  </div>
+    {{ paginate | default_pagination }}
+  {% endpaginate %}
 {% endblock %}
