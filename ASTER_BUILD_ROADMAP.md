@@ -174,9 +174,10 @@ Permanent architecture:
 - [x] First-level child links already supported
 - [x] Primary mega-menu labels consume Navigation typography; child links/popular searches/eyebrows consume Body
 - [x] Desktop mega-menu composition signed off
-- [~] Mobile composition implemented as search/account → first three popular searches → compact navigation → two editorial feature cards; pending device visual QA/sign-off
+- [x] Mobile composition signed off after device visual QA: search/account → first three popular searches → compact navigation → two editorial feature cards, with section separators and single-line child navigation
 - [x] Mobile search reuses the same configurable affirmation typewriter and reduced-motion behaviour as desktop
 - [x] Mobile navigation dialog remains vertically scrollable so the editorial cards naturally reward continued scrolling
+- [x] Restrained hover motion: textual menu links shift right and editorial feature media lifts; hover motion is disabled for reduced-motion users
 - [x] Reduced-motion fallback
 - [ ] Define final navigation information architecture once the actual menu exists
 - [ ] Refine deeper hierarchy/submenu behaviour only if the catalogue requires it
@@ -347,6 +348,7 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 # PHASE 17 — CROSS-TEMPLATE ART-DIRECTION PASS
 - [ ] Homepage, product, collection, search, cart, content and utility templates
+- [ ] Optional branded internal-page transition: scheme-aware full-screen veil with centred Aster mark; progressive enhancement only, preserve native back/forward navigation and respect reduced motion
 - [ ] Final test: does every surface look like the same artist designed it?
 
 # PHASE 18 — LAUNCH QA
@@ -363,6 +365,6 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 **Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header. Typography role ownership has also been re-audited and locked before further component work.
 
-**In progress:** Phase 2.3 desktop mega-menu composition is signed off. The mobile composition has now been implemented from the approved mockup direction and is awaiting device visual QA/sign-off. Final information architecture waits until the actual menu content exists.
+**In progress:** Phase 2.3 visual treatment is signed off on desktop and mobile, including restrained hover motion. Final information architecture and any deeper submenu behaviour remain deliberately pending until real menu/catalogue content proves the need.
 
-**Next:** Visual-QA and sign off the Phase 2.3 mobile navigation treatment, then finalise navigation IA when content exists and move to Phase 2.4 Footer.
+**Next:** Move to Phase 2.4 Footer. Revisit final navigation IA when the actual menu content exists. The branded page-transition concept is recorded for the Phase 17 cross-template art-direction pass rather than being introduced before the main storefront templates exist.
