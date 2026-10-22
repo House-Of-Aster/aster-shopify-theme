@@ -171,7 +171,7 @@
     --font-h5-mobile-size: {{ settings.type_heading_scale | times: settings.type_heading_mobile_scale | times: 0.00011 }}rem;
     --font-h6-mobile-size: {{ settings.type_heading_scale | times: settings.type_heading_mobile_scale | times: 0.0001 }}rem;
     --font-heading-letter-spacing: {{ settings.type_heading_letter_spacing | times: 0.01 }}em;
-    --font-heading-transform: {% if settings.type_heading_uppercase %}uppercase{% else %}none{% endif %};
+    --font-heading-transform: {% if settings.type_heading_lowercase %}lowercase{% elsif settings.type_heading_uppercase %}uppercase{% else %}none{% endif %};
     --font-display-size: {{ settings.type_display_base_size }}px;
     --font-display-transform: {% if settings.type_display_uppercase %}uppercase{% else %}none{% endif %};
     --font-subheading-size: {{ settings.type_subheading_scale | times: 0.01 }}rem;
