@@ -205,7 +205,7 @@ Permanent architecture:
 
 # PHASE 3 — COMMERCE COMPONENT LIBRARY
 
-## 3.1 Product card — COMPLETE FOR CURRENT SCOPE
+## 3.1 Product card — CORE COMPLETE / PHOTOGRAPHIC COLLECTION TREATMENT IN VISUAL QA
 - [x] Image, title, supporting copy and product type/eyebrow
 - [x] Price/compare-at handling
 - [x] Sale/sold-out architecture plus pre-order / coming-soon merchandising states
@@ -217,9 +217,9 @@ Permanent architecture:
 - [x] Restrained hover treatment
 - [x] Mobile + accessibility treatment
 - [x] Product-card background and product-image background exposed as independent Theme Settings after visual QA proved useful
-- [x] Current styling/swatches signed off
+- [x] Core styling/swatches signed off before photographic collection refinement
+- [~] Full-bleed photographic card media and bottom product-form CTA implemented after the live Collection use case proved their value; selected variant/price plus Add to cart / Pre-order / Coming soon / Sold out states are wired; visual QA pending
 - [ ] Judge.me rating/review integration — deliberately deferred until close to launch; do not hold Phase 3.1 open for this
-- [ ] Quick-add only if a later real storefront use case proves it valuable
 
 ## 3.2 Collection card — DEFERRED UNTIL PROVEN USE CASE
 A collection card is a navigational category tile, not a featured collection/product grid. Do not build it merely because it is next numerically. Build it when the homepage, a shop landing page or another real template actually needs category-level navigation.
@@ -279,8 +279,8 @@ Select only a small number:
 ---
 
 # PHASE 5 — COLLECTION EXPERIENCE — IN PROGRESS
-- [~] Collection hero/header — first implementation uses the collection title, optional Shopify collection description and optional collection image; visual QA pending
-- [~] Product grid using the signed-off shared product card — integrated into the real/default collection template; visual QA pending
+- [~] Collection hero/header — Shopify collection image now renders as a true full-bleed photographic hero above the collection title/description; visual QA pending
+- [~] Product grid using the shared product card — integrated into the real/default collection template and now refined to full-bleed photographic media with bottom product-form CTAs; visual QA pending
 - [~] Responsive columns — shopper-selectable 2 / 3 / 4-column desktop grid implemented, with 2 / 3 options on tablet and a fixed 2-column mobile treatment; each breakpoint remembers the shopper’s last compatible density; visual QA pending
 - [~] Sort, filters, active filters — Shopify-native sort options are now wired into a dedicated collection toolbar; filters and active-filter treatment remain next
 - [~] Collection toolbar — view-density controls left, live product count centred and Sort by right; Aster red/ivory/blush/wine master-palette treatment applied, final collection QA still pending
@@ -412,7 +412,7 @@ This ordering deliberately prioritises the core customer journey — **Browse �
 
 # CURRENT POSITION
 
-**Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar, Phase 2.2 Header and Phase 3.1 Product Card for its current launch scope. The product card includes variant swatches, paired variant hover imagery, non-swatch second-image hover, preloading of the newly selected swatch’s hover image, badges/state handling and independently configurable card/media backgrounds. Judge.me remains a deliberate pre-launch integration rather than unfinished Phase 3.1 work.
+**Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header. Phase 3.1 Product Card’s core architecture is complete: variant swatches, paired variant hover imagery, non-swatch second-image hover, hover preloading, badges/state handling and independently configurable card/media backgrounds remain established. The collection-specific photographic media/CTA refinement has reopened the visual treatment for QA rather than invalidating that core component work. Judge.me remains a deliberate pre-launch integration rather than unfinished core product-card work.
 
 **Brand system update:** The newly recovered Aster brand guidelines are now the canonical colour source. Ivory `#F8F6EB`, Aster red `#A52D34`, Wine `#6B2331` and Blush `#E8DAD2` are active; Blue `#3E6990` is recorded but deliberately withheld from the current storefront. Existing global schemes, header/footer balance, collection toolbar and product-card surfaces have been remapped accordingly. Visual QA of the new palette remains required before treating the recolour as signed off.
 
@@ -420,6 +420,6 @@ This ordering deliberately prioritises the core customer journey — **Browse �
 
 **Deferred, not forgotten:** Phase 3.2 Collection Card, Phase 3.3 Article Card and Phase 3.4 Editorial Card are intentionally postponed until their first real use case establishes the correct requirements.
 
-**In progress:** Phase 5 — Collection Experience. The real collection template now has the collection header, signed-off product-card grid, persistent shopper-selectable grid density on desktop/tablet, centred product count, Shopify-native sorting, Aster master-palette toolbar treatment, canonical spacing rhythm, empty-state treatment and styled native pagination. These remain partial until visual QA; filtering and active-filter treatment are still outstanding.
+**In progress:** Phase 5 — Collection Experience. The real collection template now has a full-bleed collection-image hero above the title/description, photographic full-bleed shared product-card media, variant-aware bottom product-form CTAs, persistent shopper-selectable grid density on desktop/tablet, centred product count, Shopify-native sorting, Aster master-palette toolbar treatment, canonical spacing rhythm, empty-state treatment and styled native pagination. These remain partial until visual QA; filtering and active-filter treatment are still outstanding.
 
-**Next verification:** Visually confirm the master-palette refresh across the red header/navigation, wine footer, ivory page canvas, blush product/media surfaces and red collection/CTA accents alongside the newly tightened desktop footer rhythm. Then finish collection visual QA across desktop/tablet/mobile. After that implement filters and active-filter behaviour, finish loading/pagination decisions and close Phase 5 only after visual sign-off. Then proceed to Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.
+**Next verification:** Visually confirm the new full-bleed collection hero and photographic product cards across desktop/tablet/mobile, including Add to cart / Pre-order / Coming soon / Sold out CTA states and swatch-driven variant/price changes. Also confirm the master-palette refresh and tightened desktop footer rhythm. After that implement filters and active-filter behaviour, finish loading/pagination decisions and close Phase 5 only after visual sign-off. Then proceed to Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.

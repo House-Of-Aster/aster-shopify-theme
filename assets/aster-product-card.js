@@ -1,6 +1,10 @@
 (() => {
   const hoverQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
 
+  function normaliseState(value = '') {
+    return value.toLowerCase().replace(/-/g, ' ').trim();
+  }
+
   function setPrice(card, swatch) {
     const price = card.querySelector('[data-card-price]');
     if (!price) return;
@@ -25,6 +29,18 @@
     let badge = card.querySelector('[data-card-badge]');
     const defaultText = card.dataset.defaultBadge || '';
     const defaultTone = card.dataset.defaultBadgeTone || 'merchandising';
+    const state = normaliseState(card.dataset.cardState);
+
+    if (state === 'coming soon') {
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.dataset.cardBadge = '';
+        card.querySelector('[data-card-media]')?.prepend(badge);
+      }
+      badge.className = `aster-product-card__badge aster-product-card__badge--${defaultTone}`;
+      badge.textContent = defaultText || 'Coming soon';
+      return;
+    }
 
     if (available === 'false') {
       if (!badge) {
@@ -50,6 +66,46 @@
 
     badge.className = `aster-product-card__badge aster-product-card__badge--${defaultTone}`;
     badge.textContent = defaultText;
+  }
+
+  function setAction(card, swatch) {
+    const variantInput = card.querySelector('[data-card-variant-input]');
+    const action = card.querySelector('[data-card-action]');
+    const label = card.querySelector('[data-card-action-label]');
+    const actionPrice = card.querySelector('[data-card-action-price]');
+    if (!action) return;
+
+    if (variantInput && swatch.dataset.variantId) {
+      variantInput.value = swatch.dataset.variantId;
+    }
+
+    if (actionPrice) {
+      actionPrice.textContent = swatch.dataset.price || '';
+    }
+
+    const state = normaliseState(card.dataset.cardState);
+    const available = swatch.dataset.available !== 'false';
+    let mode = 'add';
+    let text = 'Add to cart';
+    let disabled = false;
+
+    if (state === 'coming soon') {
+      mode = 'coming-soon';
+      text = 'Coming soon';
+      disabled = true;
+    } else if (!available) {
+      mode = 'sold-out';
+      text = 'Sold out';
+      disabled = true;
+    } else if (state === 'preorder' || state === 'pre order') {
+      mode = 'preorder';
+      text = 'Pre-order';
+    }
+
+    action.className = `aster-product-card__action aster-product-card__action--${mode}`;
+    action.dataset.actionMode = mode;
+    action.disabled = disabled;
+    if (label) label.textContent = text;
   }
 
   function resetSecondary(media) {
@@ -109,6 +165,7 @@
 
     setPrice(card, swatch);
     setBadge(card, swatch.dataset.available);
+    setAction(card, swatch);
   }
 
   document.addEventListener('click', (event) => {
