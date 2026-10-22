@@ -167,6 +167,23 @@
       letter-spacing: 0.08em;
     }
   }
+
+  @media (min-width: 750px) {
+    .aster-footer__inner {
+      --aster-footer-gap: clamp(22px, 2.5vw, 32px);
+      padding: var(--aster-footer-gap) 0;
+    }
+
+    .aster-footer__rule,
+    .aster-footer__navigation + .aster-footer__rule,
+    .aster-footer__utility + .aster-footer__rule {
+      margin: calc(var(--aster-footer-gap) / 2) 0;
+    }
+
+    .aster-footer__bottom {
+      gap: var(--aster-footer-gap);
+    }
+  }
 {% endstyle %}
 
 <script>

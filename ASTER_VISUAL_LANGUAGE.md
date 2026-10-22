@@ -93,6 +93,9 @@ Cards should feel editorial rather than boxed-in.
 
 Use a fixed design rhythm rather than exposing spacing controls throughout Theme Settings.
 
+- Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` on desktop/tablet and `18px` on mobile.
+- Use that adjacent-component gap for transactional/interface handoffs such as toolbar → grid, final grid row → section edge/footer handoff, and compact desktop-footer section transitions.
+- When hierarchy needs more room, use clean multiples of that gap rather than unrelated one-off values. The signed-off collection title zone uses `4×` the adjacent-component gap with the title vertically centred inside it.
 - Standard section spacing: `clamp(72px, 8vw, 120px)`.
 - Compact spacing: `clamp(48px, 5.5vw, 80px)`.
 - Generous/editorial spacing: `clamp(96px, 10vw, 160px)`.
@@ -104,7 +107,7 @@ Use a fixed design rhythm rather than exposing spacing controls throughout Theme
 - Circular/pill-shaped functional UI may use an intentional radius override.
 - Do not add spacing, radius or shadow Theme Settings unless a real component later proves a genuine need.
 
-The page should feel spacious and intentional, not padded for the sake of padding.
+The page should feel spacious and intentional, not padded for the sake of padding. Transactional gaps should remain rhythmically compact; section-level whitespace should be reserved for genuine editorial hierarchy.
 
 ## Typography
 
@@ -138,7 +141,7 @@ Buttons should be designed by Aster rather than exposed as a large configurable 
 
 - Keep the global Theme Setting lean.
 - Button colours inherit from the active colour scheme.
-- Button typography inherits from Typography > Buttons.
+- Button typography inherits from Typography → Buttons.
 - Standard buttons use the global Aster radius.
 - Avoid outlined secondary buttons as the default visual treatment.
 - Prefer clean filled actions and quieter secondary/text actions.
@@ -243,7 +246,7 @@ Shared across the store:
 
 - typography
 - colour schemes
-- spacing rhythm
+- spacing rhythm, including the canonical adjacent-component gap and its clean multiples
 - global 12px corner-radius token where rounded treatment is used
 - image treatment
 - clean surfaces
