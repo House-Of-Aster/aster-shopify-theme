@@ -65,7 +65,8 @@
   margin-bottom: clamp(22px, 2.5vw, 32px);
   padding: 8px 10px 8px 12px;
   border-radius: var(--aster-radius);
-  background: color-mix(in srgb, var(--color-foreground) 4%, var(--color-background));
+  background: #6c2330;
+  color: #e6d3bd;
 }
 
 .aster-collection__view-controls {
@@ -85,14 +86,15 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: inherit;
+  color: #e6d3bd;
   cursor: pointer;
-  opacity: 0.4;
-  transition: background-color 180ms ease, opacity 180ms ease, transform 180ms ease;
+  opacity: 1;
+  transition: background-color 180ms ease, color 180ms ease, transform 180ms ease;
 }
 
 .aster-collection__view-button.is-selected {
-  background: color-mix(in srgb, var(--color-foreground) 8%, transparent);
+  background: #e6d3bd;
+  color: #6c2330;
   opacity: 1;
 }
 
@@ -105,12 +107,13 @@
 .aster-collection__toolbar-count {
   justify-self: center;
   margin: 0;
+  color: #e6d3bd;
   font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.1em;
   line-height: 1.2;
   text-transform: uppercase;
-  opacity: 0.68;
+  opacity: 1;
   white-space: nowrap;
 }
 
@@ -122,16 +125,18 @@
   min-width: 0;
   padding: 5px 6px 5px 12px;
   border-radius: calc(var(--aster-radius) - 2px);
-  background: color-mix(in srgb, var(--color-foreground) 9%, var(--color-background));
+  background: #e6d3bd;
+  color: #6c2330;
 }
 
 .aster-collection__sort-label {
+  color: #6c2330;
   font-size: 11px;
   font-weight: 400;
   letter-spacing: 0.1em;
   line-height: 1.2;
   text-transform: uppercase;
-  opacity: 0.72;
+  opacity: 1;
   white-space: nowrap;
 }
 
@@ -147,12 +152,12 @@
   min-height: 40px;
   margin: 0;
   padding: 0 34px 0 12px;
-  border: 1px solid color-mix(in srgb, var(--color-foreground) 12%, transparent);
+  border: 1px solid color-mix(in srgb, #6c2330 14%, transparent);
   border-radius: 8px;
   outline: 0;
   appearance: none;
-  background: var(--color-background);
-  color: var(--color-foreground);
+  background: #f2e9de;
+  color: #6c2330;
   font-size: 13px;
   font-weight: 400;
   line-height: 1.2;
@@ -161,8 +166,8 @@
 }
 
 .aster-collection__sort select option {
-  background: var(--color-background);
-  color: var(--color-foreground);
+  background: #f2e9de;
+  color: #6c2330;
   font-weight: 400;
 }
 
@@ -182,7 +187,7 @@
   border-bottom: 1px solid currentColor;
   pointer-events: none;
   transform: translateY(-70%) rotate(45deg);
-  opacity: 0.62;
+  opacity: 0.78;
 }
 
 .aster-collection__grid {
@@ -270,18 +275,19 @@
 
 @media (hover: hover) and (pointer: fine) {
   .aster-collection__view-button:hover {
-    background: color-mix(in srgb, var(--color-foreground) 6%, transparent);
-    opacity: 0.78;
+    background: color-mix(in srgb, #e6d3bd 18%, transparent);
+    color: #e6d3bd;
     transform: translateY(-1px);
   }
 
   .aster-collection__view-button.is-selected:hover {
-    background: color-mix(in srgb, var(--color-foreground) 10%, transparent);
-    opacity: 1;
+    background: #e6d3bd;
+    color: #6c2330;
   }
 
   .aster-collection__sort select:hover {
-    border-color: color-mix(in srgb, var(--color-foreground) 24%, transparent);
+    border-color: color-mix(in srgb, #6c2330 30%, transparent);
+    background: color-mix(in srgb, #f2e9de 92%, #e6d3bd 8%);
   }
 
   .aster-collection__pagination a {
