@@ -261,14 +261,14 @@ Choose deliberately, not all at once:
 ---
 
 # PHASE 5 — COLLECTION EXPERIENCE — IN PROGRESS
-- [~] Collection intro rebuilt: capped full-bleed hero imagery is structurally isolated from the commerce UI; title/description use a responsive editorial layout with a 48ch desktop reading measure and clean mobile stacking; visual QA pending
+- [~] Collection intro follows the approved mock-up direction: the collection banner is a true full-width band directly beneath the header; title and description are stacked beneath it inside the canonical 1400px fixed-width content area; toolbar and product grid follow normally; visual QA pending
 - [~] Real/default collection uses the shared photographic product card; visual QA pending
 - [~] Shopper-selectable 2/3/4-column desktop grid, 2/3 tablet options and fixed 2-column mobile; compatible preference persists
 - [~] Collection toolbar: density controls left, product count centred, Sort by right
 - [~] Shopify-native sort options implemented
 - [ ] Filters and active-filter treatment — next functional collection task
 - [~] Toolbar uses Aster master palette
-- [~] Collection spacing rhythm: toolbar → grid and final row → collection edge use same canonical gap; title zone uses `4×` gap with vertically centred title
+- [~] Collection spacing rhythm: toolbar → grid and final row → collection edge use same canonical gap; title/description spacing now follows the approved stacked collection-intro composition
 - [~] Empty state and styled native pagination implemented; loading behaviour to be finalised with filters/pagination
 - [~] Colour-scheme support implemented; final QA pending
 - [x] Default/all-products collection is the immediate product-card/collection QA surface; no dedicated QA page required
@@ -404,7 +404,7 @@ This deliberately prioritises the core customer journey: **Browse → Product �
 
 **Product card:** Core architecture is complete. The live collection treatment now uses photographic full-bleed media, vertical swatches inside the image area, aligned bottom CTAs, variant-aware hover images and real Shopify product forms. The duplicate standalone price has been removed. Short card copy is merchant-editable through the pinned product metafield `aster.card_description`. Temporary review visuals remain QA-only until Judge.me is introduced near launch. Current Bouf-inspired styling remains in visual QA.
 
-**Collection:** Phase 5 is the active build phase. QA exposed that native collection descriptions and collection images were not being given a robust presentation, so the collection intro has been rebuilt: imagery is now a capped full-bleed hero isolated from the shopping controls/grid, while title and description use a responsive editorial layout with controlled reading width. Product grid, density controls, product count, sorting, spacing, empty state and pagination remain implemented. This intro treatment still requires explicit visual approval. **Filters and active-filter behaviour are the next outstanding functional task**, followed by cross-device visual QA and final Phase 5 sign-off.
+**Collection:** Phase 5 is the active build phase. The earlier two-column editorial collection-intro treatment was superseded after visual review. The agreed mock-up direction is now implemented: a true full-width collection banner sits directly beneath the header, then the collection title and description stack inside the canonical 1400px fixed-width content area, followed by the existing toolbar and product grid. Product grid, density controls, product count, sorting, spacing, empty state and pagination remain implemented. This revised intro treatment still requires explicit visual approval. **Filters and active-filter behaviour remain the next outstanding functional task**, followed by cross-device visual QA and final Phase 5 sign-off.
 
 **Deferred, not forgotten:** Collection Card, Article Card and Editorial Card remain deliberately deferred until a real surface proves the requirement.
 
