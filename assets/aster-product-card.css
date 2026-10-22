@@ -12,12 +12,38 @@
 .aster-product-card__media {
   position: relative;
   overflow: hidden;
+  isolation: isolate;
   aspect-ratio: 1 / 1;
-  background: var(--aster-product-media-bg, #E8DAD2);
+  background: color-mix(
+    in srgb,
+    var(--aster-product-media-bg, var(--aster-colour-blush)) 58%,
+    var(--aster-colour-ivory) 42%
+  );
+}
+
+.aster-product-card__media::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      color-mix(in srgb, var(--aster-colour-ivory) 44%, transparent) 0%,
+      transparent 62%
+    ),
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--aster-colour-ivory) 18%, transparent) 0%,
+      transparent 58%,
+      color-mix(in srgb, var(--aster-colour-wine) 4%, transparent) 100%
+    );
 }
 
 .aster-product-card__media-link {
   position: relative;
+  z-index: 1;
   display: block;
   width: 100%;
   height: 100%;
