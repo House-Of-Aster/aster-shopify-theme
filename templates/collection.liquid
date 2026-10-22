@@ -28,7 +28,7 @@
     {% endif %}
 
     <div class="aster-collection__content">
-      <header
+      <div
         class="aster-collection__header{% if has_collection_description %} aster-collection__header--with-description{% endif %}"
       >
         <div class="aster-collection__intro" data-aster-reveal="up">
@@ -40,7 +40,7 @@
             </div>
           {% endif %}
         </div>
-      </header>
+      </div>
 
       {% paginate collection.products by 20 %}
         {% if collection.products.size > 0 %}
