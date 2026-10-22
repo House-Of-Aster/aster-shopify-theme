@@ -51,6 +51,7 @@ Permanent architecture:
 ## Global design foundations
 - [x] Logo settings: one SVG, colour control, desktop/mobile width, favicon
 - [x] Typography roles: body, heading, display, subheading, navigation, buttons, product-card title
+- [x] Heading case controls support normal, uppercase and lowercase treatments
 - [x] Garet Book/Heavy registered as a real weight pair; no faux bold
 - [x] Global reusable colour schemes
 - [x] Master palette schemes: Ivory/light, Aster Red/brand, Blush/soft and Wine/deep; Blue reserved
