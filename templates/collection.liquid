@@ -39,7 +39,7 @@
 
   <main class="aster-collection full-width">
     {% if collection_image %}
-      <div class="aster-collection__hero-media">
+      <div class="aster-collection__hero-media" data-aster-reveal="media">
         {% render 'image',
           class: 'aster-collection__hero-image',
           image: collection_image,
@@ -54,11 +54,11 @@
       <div
         class="aster-collection__header{% if has_collection_description %} aster-collection__header--with-description{% endif %}"
       >
-        <div class="aster-collection__intro" data-aster-reveal="up">
-          <h1 class="aster-collection__title">{{ collection.title }}</h1>
+        <div class="aster-collection__intro">
+          <h1 class="aster-collection__title" data-aster-reveal="up">{{ collection.title }}</h1>
 
           {% if has_collection_description %}
-            <div class="aster-collection__description rte">
+            <div class="aster-collection__description rte" data-aster-reveal="up">
               {{ collection.description }}
             </div>
           {% endif %}
@@ -67,7 +67,7 @@
 
       {% paginate collection.products by 20 %}
         {% if collection.products.size > 0 %}
-          <div class="aster-collection__toolbar" data-aster-collection-toolbar>
+          <div class="aster-collection__toolbar" data-aster-collection-toolbar data-aster-reveal="up">
             <div class="aster-collection__view-controls" role="group" aria-label="Products per row">
               <button
                 class="aster-collection__view-button"
@@ -161,18 +161,20 @@
 
           <div class="aster-collection__grid" data-aster-collection-grid data-columns="4" data-aster-product-grid>
             {% for product in collection.products %}
-              {% render 'aster-product-card', product: product %}
+              <div class="aster-collection__card-reveal" data-aster-reveal="up">
+                {% render 'aster-product-card', product: product %}
+              </div>
             {% endfor %}
           </div>
         {% else %}
-          <div class="aster-collection__empty" role="status">
+          <div class="aster-collection__empty" role="status" data-aster-reveal="up">
             <h2 class="aster-collection__empty-title">Nothing here yet.</h2>
             <p class="aster-collection__empty-copy">This collection does not currently contain any products.</p>
           </div>
         {% endif %}
 
         {% if paginate.pages > 1 %}
-          <nav class="aster-collection__pagination" aria-label="Collection pagination">
+          <nav class="aster-collection__pagination" aria-label="Collection pagination" data-aster-reveal="fade">
             {{ paginate | default_pagination }}
           </nav>
         {% endif %}
