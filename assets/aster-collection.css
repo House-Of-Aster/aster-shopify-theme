@@ -1,4 +1,4 @@
-/* Aster collection toolbar — Shopify sync checkpoint 2 */
+/* Aster collection experience */
 .aster-collection {
   --aster-collection-gap: clamp(22px, 2.5vw, 32px);
   --aster-collection-title-zone: calc(var(--aster-collection-gap) * 4);
@@ -7,28 +7,56 @@
 }
 
 .aster-collection__header {
-  display: grid;
-  align-items: center;
-  gap: clamp(28px, 4vw, 56px);
-  min-height: var(--aster-collection-title-zone);
-  margin-bottom: 0;
-}
-
-.aster-collection__header--with-image {
+  position: relative;
   display: block;
-  min-height: 0;
+  width: 100%;
+  margin: 0;
 }
 
-.aster-collection__header--with-image .aster-collection__copy {
+.aster-collection__hero-media {
+  width: 100vw;
+  height: clamp(320px, 34vw, 560px);
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-background) 90%, var(--color-foreground) 10%);
+}
+
+.aster-collection__hero-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.aster-collection__hero-image > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.aster-collection__intro-shell {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  width: 100%;
   min-height: var(--aster-collection-title-zone);
-  padding-block: calc(var(--aster-collection-gap) * 1.5);
 }
 
-.aster-collection__copy {
-  max-width: 62ch;
+.aster-collection__header--with-description .aster-collection__intro-shell {
+  min-height: 0;
+  padding-block: calc(var(--aster-collection-gap) * 2);
+}
+
+.aster-collection__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
+  align-items: start;
+  gap: clamp(40px, 7vw, 110px);
+  width: 100%;
+}
+
+.aster-collection__intro--title-only {
+  display: block;
 }
 
 .aster-collection__title {
@@ -44,30 +72,25 @@
 }
 
 .aster-collection__description {
-  max-width: 62ch;
-  margin-top: clamp(18px, 2vw, 26px);
+  justify-self: end;
+  width: 100%;
+  max-width: 48ch;
+  margin: 0;
   color: color-mix(in srgb, var(--color-foreground) 76%, transparent);
   font-size: clamp(15px, 1.15vw, 18px);
-  line-height: 1.6;
+  line-height: 1.65;
+}
+
+.aster-collection__description > :first-child {
+  margin-top: 0;
+}
+
+.aster-collection__description > :last-child {
+  margin-bottom: 0;
 }
 
 .aster-collection__description > * + * {
   margin-top: 0.9em;
-}
-
-.aster-collection__hero-media {
-  width: 100vw;
-  min-height: 340px;
-  margin-left: calc(50% - 50vw);
-  overflow: hidden;
-  aspect-ratio: 16 / 7;
-  background: color-mix(in srgb, var(--color-background) 90%, var(--color-foreground) 10%);
-}
-
-.aster-collection__hero-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 .aster-collection__toolbar {
@@ -323,6 +346,18 @@
   }
 }
 
+@media (max-width: 899px) {
+  .aster-collection__intro {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--aster-collection-gap);
+  }
+
+  .aster-collection__description {
+    justify-self: start;
+    max-width: 62ch;
+  }
+}
+
 @media (max-width: 849px) {
   .aster-collection__sort-label {
     display: none;
@@ -335,24 +370,21 @@
     padding-block: 0 var(--aster-collection-gap);
   }
 
-  .aster-collection__header {
-    gap: 24px;
-    min-height: var(--aster-collection-title-zone);
-    margin-bottom: 0;
-  }
-
-  .aster-collection__header--with-image {
-    min-height: 0;
-  }
-
-  .aster-collection__header--with-image .aster-collection__copy {
-    min-height: var(--aster-collection-title-zone);
-    padding-block: calc(var(--aster-collection-gap) * 1.5);
-  }
-
   .aster-collection__hero-media {
+    height: clamp(260px, 72vw, 390px);
+  }
+
+  .aster-collection__intro-shell {
+    min-height: var(--aster-collection-title-zone);
+  }
+
+  .aster-collection__header--with-description .aster-collection__intro-shell {
     min-height: 0;
-    aspect-ratio: 4 / 3;
+    padding-block: calc(var(--aster-collection-gap) * 2);
+  }
+
+  .aster-collection__intro {
+    gap: 20px;
   }
 
   .aster-collection__title {
@@ -361,9 +393,9 @@
   }
 
   .aster-collection__description {
-    margin-top: 16px;
+    max-width: 100%;
     font-size: 14px;
-    line-height: 1.55;
+    line-height: 1.6;
   }
 
   .aster-collection__toolbar {
