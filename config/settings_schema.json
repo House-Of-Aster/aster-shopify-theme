@@ -275,6 +275,12 @@
         "default": false
       },
       {
+        "type": "checkbox",
+        "id": "type_heading_lowercase",
+        "label": "Lowercase headings",
+        "default": false
+      },
+      {
         "type": "header",
         "content": "Display headings"
       },
