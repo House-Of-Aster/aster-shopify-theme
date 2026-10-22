@@ -29,7 +29,8 @@
     "type_button_weight": "400",
     "type_button_letter_spacing": 10,
     "type_button_transform": "none",
-    "product_card_media_background": "#FBF8F5",
+    "product_card_background": "#F8F6EB",
+    "product_card_media_background": "#E8DAD2",
     "product_card_swatch_1_name": "Black",
     "product_card_swatch_1_colour": "#000000",
     "product_card_swatch_2_name": "Chocolate",
@@ -56,26 +57,50 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#e6d3bd",
+          "background": "#f8f6eb",
           "text": "#6b2331",
-          "accent": "#6b2331",
-          "border": "#6b2331",
-          "button": "#6b2331",
-          "button_label": "#e6d3bd",
-          "secondary_button": "#e6d3bd",
+          "accent": "#a52d34",
+          "border": "#e8dad2",
+          "button": "#a52d34",
+          "button_label": "#f8f6eb",
+          "secondary_button": "#e8dad2",
           "secondary_button_label": "#6b2331"
         }
       },
       "scheme-2": {
         "settings": {
-          "background": "#6b2331",
-          "text": "#e6d3bd",
-          "accent": "#e6d3bd",
-          "border": "#e6d3bd",
-          "button": "#e6d3bd",
-          "button_label": "#6b2331",
+          "background": "#a52d34",
+          "text": "#f8f6eb",
+          "accent": "#f8f6eb",
+          "border": "#e8dad2",
+          "button": "#f8f6eb",
+          "button_label": "#a52d34",
           "secondary_button": "#6b2331",
-          "secondary_button_label": "#e6d3bd"
+          "secondary_button_label": "#f8f6eb"
+        }
+      },
+      "scheme-3": {
+        "settings": {
+          "background": "#e8dad2",
+          "text": "#6b2331",
+          "accent": "#a52d34",
+          "border": "#a52d34",
+          "button": "#a52d34",
+          "button_label": "#f8f6eb",
+          "secondary_button": "#f8f6eb",
+          "secondary_button_label": "#6b2331"
+        }
+      },
+      "scheme-4": {
+        "settings": {
+          "background": "#6b2331",
+          "text": "#f8f6eb",
+          "accent": "#e8dad2",
+          "border": "#a52d34",
+          "button": "#a52d34",
+          "button_label": "#f8f6eb",
+          "secondary_button": "#f8f6eb",
+          "secondary_button_label": "#6b2331"
         }
       }
     }
