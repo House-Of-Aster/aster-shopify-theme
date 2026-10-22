@@ -15,6 +15,46 @@
 
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
+  const getStainSources = () => {
+    const sourceNode = document.getElementById('AsterPasswordStainSources');
+    if (!sourceNode) return [];
+
+    try {
+      const parsed = JSON.parse(sourceNode.textContent || '[]');
+      return Array.isArray(parsed) ? parsed.filter((source) => typeof source === 'string' && source.trim()) : [];
+    } catch (error) {
+      return [];
+    }
+  };
+
+  const mountRandomStain = () => {
+    if (!landing || landing.dataset.asterStainInitialised === 'true') return;
+
+    const stainSources = getStainSources();
+    if (!stainSources.length) return;
+
+    const layer = document.createElement('div');
+    const stain = document.createElement('img');
+    const x = 16 + Math.random() * 68;
+    const y = 12 + Math.random() * 76;
+    const source = stainSources[Math.floor(Math.random() * stainSources.length)];
+
+    layer.className = 'aster-password-stain-layer';
+    layer.setAttribute('aria-hidden', 'true');
+    layer.style.setProperty('--aster-password-stain-x', `${x.toFixed(2)}%`);
+    layer.style.setProperty('--aster-password-stain-y', `${y.toFixed(2)}%`);
+
+    stain.className = 'aster-password-stain';
+    stain.alt = '';
+    stain.src = source;
+    stain.loading = 'eager';
+    stain.decoding = 'async';
+
+    layer.appendChild(stain);
+    landing.appendChild(layer);
+    landing.dataset.asterStainInitialised = 'true';
+  };
+
   const setMotionVariables = () => {
     if (!landing) return;
 
@@ -97,6 +137,7 @@
 
     landing = nextLanding;
     landing.classList.add('aster-motion-ready');
+    mountRandomStain();
 
     if (reducedMotionQuery.matches) {
       landing.classList.add('aster-motion-reduced');
