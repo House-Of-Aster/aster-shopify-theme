@@ -1,4 +1,4 @@
-/* Aster collection experience — approved mock-up structure */
+/* Aster collection experience */
 .aster-collection {
   --aster-collection-gap: clamp(22px, 2.5vw, 32px);
   --aster-collection-title-zone: calc(var(--aster-collection-gap) * 4);
