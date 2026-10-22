@@ -176,7 +176,7 @@
   data-card-state="{{ state_value | escape }}"
   data-default-badge="{{ badge_text | escape }}"
   data-default-badge-tone="{{ badge_tone }}"
-  style="--aster-product-media-bg: var(--aster-product-card-media-background, #E8DAD2);"
+  style="--aster-product-media-bg: var(--aster-product-card-media-background, #A52D34);"
 >
   <div
     class="aster-product-card__media"
@@ -221,6 +221,113 @@
         data-card-secondary-image
       >
     </a>
+
+    {% if has_colour_swatches %}
+      <fieldset class="aster-product-card__swatches" aria-label="Choose {{ colour_option.name | escape }}">
+        <legend class="visually-hidden">{{ colour_option.name | escape }}</legend>
+
+        {% for option_value in colour_option.values %}
+          {% liquid
+            assign option_value_name = option_value.name | default: option_value
+            assign swatch_variant = nil
+
+            for variant in product.variants
+              assign variant_option_value = blank
+              case colour_option.position
+                when 1
+                  assign variant_option_value = variant.option1
+                when 2
+                  assign variant_option_value = variant.option2
+                when 3
+                  assign variant_option_value = variant.option3
+              endcase
+
+              if variant_option_value == option_value_name
+                if swatch_variant == nil or variant.available
+                  assign swatch_variant = variant
+                endif
+                if variant.available
+                  break
+                endif
+              endif
+            endfor
+
+            assign swatch_image = swatch_variant.featured_image | default: product.featured_image
+            assign hover_image = nil
+
+            if swatch_image
+              assign primary_src_clean = swatch_image.src | split: '?' | first
+              assign primary_filename = primary_src_clean | split: '/' | last | downcase
+              assign hover_filename = blank
+
+              if primary_filename contains '-a.'
+                assign hover_filename = primary_filename | replace: '-a.', '-b.'
+              elsif primary_filename contains '-a_'
+                assign hover_filename = primary_filename | replace: '-a_', '-b_'
+              endif
+
+              if hover_filename != blank
+                for media in product.media
+                  if media.media_type == 'image'
+                    assign candidate_src_clean = media.preview_image.src | split: '?' | first
+                    assign candidate_filename = candidate_src_clean | split: '/' | last | downcase
+                    if candidate_filename == hover_filename
+                      assign hover_image = media.preview_image
+                      break
+                    endif
+                  endif
+                endfor
+              endif
+            endif
+
+            assign swatch_colour = option_value.swatch.color
+            assign is_selected = false
+            case colour_option.position
+              when 1
+                if selected_variant.option1 == option_value_name
+                  assign is_selected = true
+                endif
+              when 2
+                if selected_variant.option2 == option_value_name
+                  assign is_selected = true
+                endif
+              when 3
+                if selected_variant.option3 == option_value_name
+                  assign is_selected = true
+                endif
+            endcase
+
+            assign swatch_variant_url = product.url | append: '?variant=' | append: swatch_variant.id
+          %}
+
+          {% if swatch_variant %}
+            <button
+              class="aster-product-card__swatch{% if is_selected %} is-selected{% endif %}{% unless swatch_variant.available %} is-unavailable{% endunless %}"
+              type="button"
+              aria-label="Select {{ option_value_name | escape }}"
+              aria-pressed="{% if is_selected %}true{% else %}false{% endif %}"
+              data-card-swatch
+              data-swatch-name="{{ option_value_name | handleize }}"
+              data-variant-id="{{ swatch_variant.id }}"
+              data-variant-url="{{ swatch_variant_url | escape }}"
+              data-price="{{ swatch_variant.price | money | escape }}"
+              data-compare-price="{% if swatch_variant.compare_at_price > swatch_variant.price %}{{ swatch_variant.compare_at_price | money | escape }}{% endif %}"
+              data-available="{{ swatch_variant.available }}"
+              {% if swatch_image %}
+                data-primary-src="{{ swatch_image | image_url: width: 900 }}"
+                data-primary-srcset="{{ swatch_image | image_url: width: 240 }} 240w, {{ swatch_image | image_url: width: 320 }} 320w, {{ swatch_image | image_url: width: 420 }} 420w, {{ swatch_image | image_url: width: 560 }} 560w, {{ swatch_image | image_url: width: 720 }} 720w, {{ swatch_image | image_url: width: 900 }} 900w"
+                data-primary-alt="{{ swatch_image.alt | default: product.title | escape }}"
+              {% endif %}
+              {% if hover_image %}data-hover-src="{{ hover_image | image_url: width: 900 }}"{% endif %}
+              style="{% if swatch_colour != blank %}--aster-swatch-colour: {{ swatch_colour }};{% endif %}"
+            >
+              <span class="aster-product-card__swatch-colour" aria-hidden="true"></span>
+              <span class="visually-hidden">{{ option_value_name | escape }}</span>
+            </button>
+          {% endif %}
+        {% endfor %}
+      </fieldset>
+    {% endif %}
   </div>
 
   <div class="aster-product-card__content">
@@ -248,115 +355,6 @@
         <span>{{ rating_value }} ({{ rating_count }} reviews)</span>
       </div>
     {% endif %}
-
-    <div class="aster-product-card__footer">
-      {% if has_colour_swatches %}
-        <fieldset class="aster-product-card__swatches" aria-label="Choose {{ colour_option.name | escape }}">
-          <legend class="visually-hidden">{{ colour_option.name | escape }}</legend>
-
-          {% for option_value in colour_option.values %}
-            {% liquid
-              assign option_value_name = option_value.name | default: option_value
-              assign swatch_variant = nil
-
-              for variant in product.variants
-                assign variant_option_value = blank
-                case colour_option.position
-                  when 1
-                    assign variant_option_value = variant.option1
-                  when 2
-                    assign variant_option_value = variant.option2
-                  when 3
-                    assign variant_option_value = variant.option3
-                endcase
-
-                if variant_option_value == option_value_name
-                  if swatch_variant == nil or variant.available
-                    assign swatch_variant = variant
-                  endif
-                  if variant.available
-                    break
-                  endif
-                endif
-              endfor
-
-              assign swatch_image = swatch_variant.featured_image | default: product.featured_image
-              assign hover_image = nil
-
-              if swatch_image
-                assign primary_src_clean = swatch_image.src | split: '?' | first
-                assign primary_filename = primary_src_clean | split: '/' | last | downcase
-                assign hover_filename = blank
-
-                if primary_filename contains '-a.'
-                  assign hover_filename = primary_filename | replace: '-a.', '-b.'
-                elsif primary_filename contains '-a_'
-                  assign hover_filename = primary_filename | replace: '-a_', '-b_'
-                endif
-
-                if hover_filename != blank
-                  for media in product.media
-                    if media.media_type == 'image'
-                      assign candidate_src_clean = media.preview_image.src | split: '?' | first
-                      assign candidate_filename = candidate_src_clean | split: '/' | last | downcase
-                      if candidate_filename == hover_filename
-                        assign hover_image = media.preview_image
-                        break
-                      endif
-                    endif
-                  endfor
-                endif
-              endif
-
-              assign swatch_colour = option_value.swatch.color
-              assign is_selected = false
-              case colour_option.position
-                when 1
-                  if selected_variant.option1 == option_value_name
-                    assign is_selected = true
-                  endif
-                when 2
-                  if selected_variant.option2 == option_value_name
-                    assign is_selected = true
-                  endif
-                when 3
-                  if selected_variant.option3 == option_value_name
-                    assign is_selected = true
-                  endif
-              endcase
-
-              assign swatch_variant_url = product.url | append: '?variant=' | append: swatch_variant.id
-            %}
-
-            {% if swatch_variant %}
-              <button
-                class="aster-product-card__swatch{% if is_selected %} is-selected{% endif %}{% unless swatch_variant.available %} is-unavailable{% endunless %}"
-                type="button"
-                aria-label="Select {{ option_value_name | escape }}"
-                aria-pressed="{% if is_selected %}true{% else %}false{% endif %}"
-                data-card-swatch
-                data-swatch-name="{{ option_value_name | handleize }}"
-                data-variant-id="{{ swatch_variant.id }}"
-                data-variant-url="{{ swatch_variant_url | escape }}"
-                data-price="{{ swatch_variant.price | money | escape }}"
-                data-compare-price="{% if swatch_variant.compare_at_price > swatch_variant.price %}{{ swatch_variant.compare_at_price | money | escape }}{% endif %}"
-                data-available="{{ swatch_variant.available }}"
-                {% if swatch_image %}
-                  data-primary-src="{{ swatch_image | image_url: width: 900 }}"
-                  data-primary-srcset="{{ swatch_image | image_url: width: 240 }} 240w, {{ swatch_image | image_url: width: 320 }} 320w, {{ swatch_image | image_url: width: 420 }} 420w, {{ swatch_image | image_url: width: 560 }} 560w, {{ swatch_image | image_url: width: 720 }} 720w, {{ swatch_image | image_url: width: 900 }} 900w"
-                  data-primary-alt="{{ swatch_image.alt | default: product.title | escape }}"
-                {% endif %}
-                {% if hover_image %}data-hover-src="{{ hover_image | image_url: width: 900 }}"{% endif %}
-                style="{% if swatch_colour != blank %}--aster-swatch-colour: {{ swatch_colour }};{% endif %}"
-              >
-                <span class="aster-product-card__swatch-colour" aria-hidden="true"></span>
-                <span class="visually-hidden">{{ option_value_name | escape }}</span>
-              </button>
-            {% endif %}
-          {% endfor %}
-        </fieldset>
-      {% endif %}
-    </div>
 
     {% form 'product', product, class: 'aster-product-card__form' %}
       <input type="hidden" name="id" value="{{ selected_variant.id }}" data-card-variant-input>
