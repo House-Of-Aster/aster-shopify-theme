@@ -16,6 +16,7 @@ Permanent architecture:
 - 1400px maximum content width
 - 20px desktop/tablet gutters
 - 15px mobile gutters
+- Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` desktop/tablet and `18px` mobile; use clean multiples where stronger hierarchy is needed
 - Wine `#6B2331` and cream `#E6D3BD` as the core palette
 - Global colour schemes are the single source of truth for storefront colour
 - Typography roles are explicit: Body is the default supporting/UI voice; Heading, Display, Subheading, Navigation, Button and Product-title roles are opt-in and must not leak through containers
@@ -89,6 +90,8 @@ Permanent architecture:
 - [x] No default shadows
 - [x] No decorative borders
 - [x] 12px media/image corner treatment where framing is wanted
+- [x] Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` desktop/tablet and `18px` mobile
+- [x] Stronger local hierarchy uses clean multiples of that adjacent-component gap rather than unrelated one-off values
 - [x] Standard section rhythm: `clamp(72px, 8vw, 120px)`
 - [x] Compact section rhythm: `clamp(48px, 5.5vw, 80px)`
 - [x] Generous/editorial rhythm: `clamp(96px, 10vw, 160px)`
@@ -194,6 +197,7 @@ Permanent architecture:
 - [x] Copyright
 - [x] 1400px alignment and shared page gutters
 - [x] Colour-scheme support
+- [~] Desktop vertical rhythm tightened to the canonical adjacent-component gap established during Collection visual QA; visual confirmation pending
 - [ ] Final explicit visual sign-off before marking Phase 2.4 complete
 
 ---
@@ -278,7 +282,8 @@ Select only a small number:
 - [~] Product grid using the signed-off shared product card — integrated into the real/default collection template; visual QA pending
 - [~] Responsive columns — shopper-selectable 2 / 3 / 4-column desktop grid implemented, with 2 / 3 options on tablet and a fixed 2-column mobile treatment; each breakpoint remembers the shopper’s last compatible density; visual QA pending
 - [~] Sort, filters, active filters — Shopify-native sort options are now wired into a dedicated collection toolbar; filters and active-filter treatment remain next
-- [~] Collection toolbar — view-density controls left, live product count centred and Sort by right, inspired by the Agende interaction but restyled to Aster’s scheme/typography; visual QA pending
+- [~] Collection toolbar — view-density controls left, live product count centred and Sort by right; burgundy/cream/f2e9de colour treatment and styling visually approved in principle, final collection QA still pending
+- [~] Collection spacing rhythm — toolbar → product grid and final product row → collection edge now use the same canonical adjacent-component gap; title zone uses exactly `4×` that gap with the title vertically centred; desktop visual QA is positive and the rule is now canonical site language
 - [~] Empty state and pagination/loading — empty state and styled native pagination implemented; loading treatment remains to be assessed when filtering/pagination behaviour is finalised
 - [~] Colour-scheme support — first pass consumes the active global colour scheme with no local colour controls; verify during visual QA
 - [~] Quiet motion and optional editorial support sections — collection header uses the existing restrained reveal foundation; further motion/editorial treatment remains deliberately minimal until visual QA
@@ -408,10 +413,10 @@ This ordering deliberately prioritises the core customer journey — **Browse �
 
 **Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar, Phase 2.2 Header and Phase 3.1 Product Card for its current launch scope. The product card includes variant swatches, paired variant hover imagery, non-swatch second-image hover, preloading of the newly selected swatch’s hover image, badges/state handling and independently configurable card/media backgrounds. Judge.me remains a deliberate pre-launch integration rather than unfinished Phase 3.1 work.
 
-**Built but not formally closed:** Phase 2.4 Footer is implemented and visually refined, but remains open until explicit final sign-off. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred until catalogue/menu structure proves the need.
+**Built but not formally closed:** Phase 2.4 Footer is implemented and visually refined, with its desktop spacing now tightened to the same canonical adjacent-component rhythm established during Collection QA; it remains open until explicit final sign-off. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred until catalogue/menu structure proves the need.
 
 **Deferred, not forgotten:** Phase 3.2 Collection Card, Phase 3.3 Article Card and Phase 3.4 Editorial Card are intentionally postponed until their first real use case establishes the correct requirements.
 
-**In progress:** Phase 5 — Collection Experience. The real collection template now has the collection header, signed-off product-card grid, persistent shopper-selectable grid density on desktop/tablet, centred product count, Shopify-native sorting, empty-state treatment and styled native pagination. These remain partial until visual QA; filtering and active-filter treatment are still outstanding.
+**In progress:** Phase 5 — Collection Experience. The real collection template now has the collection header, signed-off product-card grid, persistent shopper-selectable grid density on desktop/tablet, centred product count, Shopify-native sorting, Aster-specific toolbar colour treatment, canonical spacing rhythm, empty-state treatment and styled native pagination. These remain partial until visual QA; filtering and active-filter treatment are still outstanding.
 
-**Next verification:** Review the new collection toolbar and 2 / 3 / 4-column behaviour on desktop, then confirm the mobile/tablet treatment. After that implement filters and active-filter behaviour, finish loading/pagination decisions and close Phase 5 only after visual sign-off. Then proceed to Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.
+**Next verification:** Confirm the newly tightened desktop footer rhythm, then finish collection visual QA across desktop/tablet/mobile. After that implement filters and active-filter behaviour, finish loading/pagination decisions and close Phase 5 only after visual sign-off. Then proceed to Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.
