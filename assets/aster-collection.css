@@ -1,22 +1,15 @@
-/* Aster collection experience — hero/description rebuild */
+/* Aster collection experience */
 .aster-collection {
   --aster-collection-gap: clamp(22px, 2.5vw, 32px);
   --aster-collection-title-zone: calc(var(--aster-collection-gap) * 4);
   width: 100%;
-  padding-block: 0 var(--aster-collection-gap);
-}
-
-.aster-collection__header {
-  position: relative;
-  display: block;
-  width: 100%;
-  margin: 0;
+  padding-bottom: var(--aster-collection-gap);
 }
 
 .aster-collection__hero-media {
-  width: 100vw;
-  height: clamp(320px, 34vw, 560px);
-  margin-left: calc(50% - 50vw);
+  width: 100%;
+  height: clamp(300px, 31.5vw, 520px);
+  margin: 0;
   overflow: hidden;
   background: color-mix(in srgb, var(--color-background) 90%, var(--color-foreground) 10%);
 }
@@ -35,50 +28,46 @@
   object-position: center;
 }
 
-.aster-collection__intro-shell {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  min-height: var(--aster-collection-title-zone);
+.aster-collection__content {
+  width: var(--content-width, min(1400px, calc(100% - 40px)));
+  margin-inline: auto;
 }
 
-.aster-collection__header--with-description .aster-collection__intro-shell {
+.aster-collection__header {
+  display: flex;
+  align-items: center;
+  min-height: var(--aster-collection-title-zone);
+  margin: 0;
+}
+
+.aster-collection__header--with-description {
   min-height: 0;
-  padding-block: calc(var(--aster-collection-gap) * 2);
+  padding-block: calc(var(--aster-collection-gap) * 1.5) calc(var(--aster-collection-gap) * 1.25);
 }
 
 .aster-collection__intro {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
-  align-items: start;
-  gap: clamp(40px, 7vw, 110px);
   width: 100%;
 }
 
-.aster-collection__intro--title-only {
-  display: block;
-}
-
 .aster-collection__title {
-  max-width: 14ch;
+  max-width: 18ch;
   margin: 0;
   font-family: var(--font-heading--family);
   font-style: var(--font-heading--style);
   font-weight: var(--font-heading--weight);
-  font-size: clamp(36px, 4vw, 58px);
-  line-height: 1.02;
+  font-size: clamp(36px, 3.5vw, 50px);
+  line-height: 1.04;
   letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 .aster-collection__description {
-  justify-self: end;
   width: 100%;
-  max-width: 48ch;
-  margin: 0;
-  color: color-mix(in srgb, var(--color-foreground) 76%, transparent);
-  font-size: clamp(15px, 1.15vw, 18px);
-  line-height: 1.65;
+  max-width: 96ch;
+  margin-top: 18px;
+  color: color-mix(in srgb, var(--color-foreground) 82%, transparent);
+  font-size: clamp(15px, 1.05vw, 17px);
+  line-height: 1.48;
 }
 
 .aster-collection__description > :first-child {
@@ -346,18 +335,6 @@
   }
 }
 
-@media (max-width: 899px) {
-  .aster-collection__intro {
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--aster-collection-gap);
-  }
-
-  .aster-collection__description {
-    justify-self: start;
-    max-width: 62ch;
-  }
-}
-
 @media (max-width: 849px) {
   .aster-collection__sort-label {
     display: none;
@@ -367,35 +344,36 @@
 @media (max-width: 749px) {
   .aster-collection {
     --aster-collection-gap: 18px;
-    padding-block: 0 var(--aster-collection-gap);
+    padding-bottom: var(--aster-collection-gap);
+  }
+
+  .aster-collection__content {
+    width: var(--content-width, calc(100% - 30px));
   }
 
   .aster-collection__hero-media {
-    height: clamp(260px, 72vw, 390px);
+    height: clamp(220px, 56vw, 340px);
   }
 
-  .aster-collection__intro-shell {
+  .aster-collection__header {
     min-height: var(--aster-collection-title-zone);
   }
 
-  .aster-collection__header--with-description .aster-collection__intro-shell {
+  .aster-collection__header--with-description {
     min-height: 0;
-    padding-block: calc(var(--aster-collection-gap) * 2);
-  }
-
-  .aster-collection__intro {
-    gap: 20px;
+    padding-block: calc(var(--aster-collection-gap) * 1.5) calc(var(--aster-collection-gap) * 1.25);
   }
 
   .aster-collection__title {
-    max-width: 16ch;
+    max-width: 18ch;
     font-size: clamp(32px, 9vw, 44px);
   }
 
   .aster-collection__description {
     max-width: 100%;
+    margin-top: 14px;
     font-size: 14px;
-    line-height: 1.6;
+    line-height: 1.55;
   }
 
   .aster-collection__toolbar {
