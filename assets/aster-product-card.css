@@ -359,7 +359,7 @@
   }
 
   .aster-product-card__action {
-    min-height: 40px;
+    min-height: 44px;
     padding-inline: 8px;
     font-size: 9px;
     letter-spacing: var(--font-button-letter-spacing);
