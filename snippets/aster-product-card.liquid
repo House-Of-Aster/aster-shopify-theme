@@ -41,21 +41,21 @@
 
   assign badge_text = blank
   assign badge_tone = 'merchandising'
-  unless product.available
-    assign badge_text = 'Sold out'
-    assign badge_tone = 'unavailable'
-  else
-    case state_value
-      when 'preorder', 'pre-order'
-        assign badge_text = 'Pre-order'
-        assign badge_tone = 'operational'
-      when 'coming soon', 'coming-soon'
-        assign badge_text = 'Coming soon'
-        assign badge_tone = 'quiet'
+  case state_value
+    when 'preorder', 'pre-order'
+      assign badge_text = 'Pre-order'
+      assign badge_tone = 'operational'
+    when 'coming soon', 'coming-soon'
+      assign badge_text = 'Coming soon'
+      assign badge_tone = 'quiet'
+    else
+      unless product.available
+        assign badge_text = 'Sold out'
+        assign badge_tone = 'unavailable'
       else
         assign badge_text = merchandising_badge
-    endcase
-  endunless
+      endunless
+  endcase
 
   assign colour_option = nil
   for option in product.options_with_values
@@ -118,12 +118,39 @@
   endif
 
   assign selected_url = product.url | append: '?variant=' | append: selected_variant.id
+
+  assign action_mode = 'add'
+  assign action_label = 'Add to cart'
+  assign action_disabled = false
+
+  case state_value
+    when 'coming soon', 'coming-soon'
+      assign action_mode = 'coming-soon'
+      assign action_label = 'Coming soon'
+      assign action_disabled = true
+    when 'preorder', 'pre-order'
+      if selected_variant.available
+        assign action_mode = 'preorder'
+        assign action_label = 'Pre-order'
+      else
+        assign action_mode = 'sold-out'
+        assign action_label = 'Sold out'
+        assign action_disabled = true
+      endif
+    else
+      unless selected_variant.available
+        assign action_mode = 'sold-out'
+        assign action_label = 'Sold out'
+        assign action_disabled = true
+      endunless
+  endcase
 %}
 
 <article
   class="aster-product-card"
   data-aster-product-card
   data-product-id="{{ product.id }}"
+  data-card-state="{{ state_value | escape }}"
   data-default-badge="{{ badge_text | escape }}"
   data-default-badge-tone="{{ badge_tone }}"
   style="--aster-product-media-bg: var(--aster-product-card-media-background, #E8DAD2);"
@@ -318,5 +345,21 @@
         </fieldset>
       {% endif %}
     </div>
+
+    {% form 'product', product, class: 'aster-product-card__form' %}
+      <input type="hidden" name="id" value="{{ selected_variant.id }}" data-card-variant-input>
+      <input type="hidden" name="quantity" value="1">
+      <button
+        class="aster-product-card__action aster-product-card__action--{{ action_mode }}"
+        type="submit"
+        data-card-action
+        data-action-mode="{{ action_mode }}"
+        {% if action_disabled %}disabled{% endif %}
+      >
+        <span data-card-action-label>{{ action_label }}</span>
+        <span class="aster-product-card__action-separator" aria-hidden="true">—</span>
+        <span data-card-action-price>{{ selected_variant.price | money }}</span>
+      </button>
+    {% endform %}
   </div>
 </article>
