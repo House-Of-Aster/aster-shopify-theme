@@ -1,6 +1,29 @@
 {% comment %}Aster collection experience{% endcomment %}
 {{ 'aster-product-card.css' | asset_url | stylesheet_tag }}
 {{ 'aster-collection.css' | asset_url | stylesheet_tag }}
+
+<style>
+  @media screen and (max-width: 749px) {
+    .aster-collection__hero-media {
+      aspect-ratio: 2.2 / 1;
+    }
+
+    .aster-collection__hero-image,
+    .aster-collection__hero-image > img,
+    .aster-collection__hero-image img {
+      width: 100%;
+      height: 100%;
+    }
+
+    .aster-collection__hero-image,
+    .aster-collection__hero-image > img,
+    .aster-collection__hero-image img {
+      object-fit: cover;
+      object-position: center center;
+    }
+  }
+</style>
+
 <script src="{{ 'aster-product-card.js' | asset_url }}" defer></script>
 <script src="{{ 'aster-collection.js' | asset_url }}" defer></script>
 
