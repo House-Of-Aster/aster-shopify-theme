@@ -178,8 +178,11 @@
   document.addEventListener('pointerover', (event) => {
     if (!hoverQuery.matches) return;
 
-    const media = event.target.closest?.('[data-card-media]');
-    if (!media || media.contains(event.relatedTarget) || !media.dataset.hoverSrc) return;
+    const mediaLink = event.target.closest?.('.aster-product-card__media-link');
+    if (!mediaLink || mediaLink.contains(event.relatedTarget)) return;
+
+    const media = mediaLink.closest('[data-card-media]');
+    if (!media || !media.dataset.hoverSrc) return;
 
     const secondary = media.querySelector('[data-card-secondary-image]');
     if (!secondary) return;
@@ -199,8 +202,10 @@
   });
 
   document.addEventListener('pointerout', (event) => {
-    const media = event.target.closest?.('[data-card-media]');
-    if (!media || media.contains(event.relatedTarget)) return;
-    media.classList.remove('is-hovering');
+    const mediaLink = event.target.closest?.('.aster-product-card__media-link');
+    if (!mediaLink || mediaLink.contains(event.relatedTarget)) return;
+
+    const media = mediaLink.closest('[data-card-media]');
+    media?.classList.remove('is-hovering');
   });
 })();

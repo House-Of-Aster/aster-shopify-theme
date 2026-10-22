@@ -14,11 +14,7 @@
   overflow: hidden;
   isolation: isolate;
   aspect-ratio: 1 / 1;
-  background: color-mix(
-    in srgb,
-    var(--aster-product-media-bg, var(--aster-colour-blush)) 58%,
-    var(--aster-colour-ivory) 42%
-  );
+  background: var(--aster-product-media-bg, var(--aster-colour-red));
 }
 
 .aster-product-card__media::before {
@@ -29,15 +25,15 @@
   pointer-events: none;
   background:
     radial-gradient(
-      circle at 50% 42%,
-      color-mix(in srgb, var(--aster-colour-ivory) 44%, transparent) 0%,
-      transparent 62%
+      circle at 50% 44%,
+      color-mix(in srgb, var(--aster-colour-ivory) 15%, transparent) 0%,
+      transparent 58%
     ),
     linear-gradient(
       180deg,
-      color-mix(in srgb, var(--aster-colour-ivory) 18%, transparent) 0%,
-      transparent 58%,
-      color-mix(in srgb, var(--aster-colour-wine) 4%, transparent) 100%
+      color-mix(in srgb, var(--aster-colour-ivory) 4%, transparent) 0%,
+      transparent 64%,
+      color-mix(in srgb, var(--aster-colour-wine) 8%, transparent) 100%
     );
 }
 
@@ -87,12 +83,12 @@
 }
 
 .aster-product-card__placeholder {
-  background: color-mix(in srgb, var(--aster-product-media-bg, #E8DAD2) 90%, var(--aster-colour-wine) 10%);
+  background: color-mix(in srgb, var(--aster-product-media-bg, var(--aster-colour-red)) 88%, var(--aster-colour-wine) 12%);
 }
 
 .aster-product-card__badge {
   position: absolute;
-  z-index: 3;
+  z-index: 5;
   top: 12px;
   right: 12px;
   display: inline-flex;
@@ -110,13 +106,72 @@
 }
 
 .aster-product-card__badge--quiet {
-  background: color-mix(in srgb, var(--aster-colour-blush) 82%, var(--aster-colour-ivory) 18%);
+  background: color-mix(in srgb, var(--aster-colour-ivory) 88%, var(--aster-colour-blush) 12%);
   color: var(--aster-colour-wine);
 }
 
 .aster-product-card__badge--unavailable {
   background: color-mix(in srgb, var(--aster-colour-wine) 76%, var(--aster-colour-blush) 24%);
   color: var(--aster-colour-ivory);
+}
+
+.aster-product-card__swatches {
+  position: absolute;
+  z-index: 6;
+  right: 10px;
+  bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.aster-product-card__swatch {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--aster-colour-ivory) 14%, transparent);
+  color: var(--aster-colour-ivory);
+  cursor: pointer;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+.aster-product-card__swatch::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border: 1px solid color-mix(in srgb, var(--aster-colour-ivory) 58%, transparent);
+  border-radius: inherit;
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.aster-product-card__swatch-colour {
+  display: block;
+  width: 22px;
+  height: 22px;
+  border: 1px solid color-mix(in srgb, var(--aster-colour-ivory) 44%, var(--aster-colour-wine) 56%);
+  border-radius: 50%;
+  background: var(--aster-swatch-colour, color-mix(in srgb, var(--aster-colour-blush) 75%, var(--aster-colour-wine) 25%));
+}
+
+.aster-product-card__swatch.is-selected::after {
+  border-color: var(--aster-colour-ivory);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--aster-colour-wine) 72%, transparent);
+}
+
+.aster-product-card__swatch.is-unavailable {
+  opacity: 0.4;
 }
 
 .aster-product-card__content {
@@ -183,70 +238,9 @@
   letter-spacing: 0.04em;
 }
 
-.aster-product-card__footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 12px;
-  margin-top: auto;
-  padding-top: 5px;
-}
-
-.aster-product-card__swatches {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 7px;
-  min-width: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-.aster-product-card__swatch {
-  position: relative;
-  display: grid;
-  place-items: center;
-  width: 28px;
-  height: 28px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: inherit;
-  cursor: pointer;
-}
-
-.aster-product-card__swatch::after {
-  content: '';
-  position: absolute;
-  inset: 1px;
-  border: 1px solid transparent;
-  border-radius: inherit;
-  transition: border-color 180ms ease, transform 180ms ease;
-}
-
-.aster-product-card__swatch-colour {
-  display: block;
-  width: 20px;
-  height: 20px;
-  border: 1px solid color-mix(in srgb, var(--aster-colour-wine) 18%, transparent);
-  border-radius: 50%;
-  background: var(--aster-swatch-colour, color-mix(in srgb, var(--aster-colour-blush) 75%, var(--aster-colour-wine) 25%));
-}
-
-.aster-product-card__swatch.is-selected::after {
-  border-color: currentColor;
-}
-
-.aster-product-card__swatch.is-unavailable {
-  opacity: 0.35;
-}
-
 .aster-product-card__form {
-  margin-top: 6px;
+  margin-top: auto;
+  padding-top: 8px;
 }
 
 .aster-product-card__action {
@@ -301,7 +295,7 @@
   }
 
   .aster-product-card__swatch:hover::after {
-    border-color: color-mix(in srgb, currentColor 52%, transparent);
+    border-color: var(--aster-colour-ivory);
     transform: scale(1.06);
   }
 
@@ -318,6 +312,22 @@
     min-height: 25px;
     padding: 5px 8px;
     font-size: 10px;
+  }
+
+  .aster-product-card__swatches {
+    right: 7px;
+    bottom: 8px;
+    gap: 3px;
+  }
+
+  .aster-product-card__swatch {
+    width: 28px;
+    height: 28px;
+  }
+
+  .aster-product-card__swatch-colour {
+    width: 19px;
+    height: 19px;
   }
 
   .aster-product-card__content {
@@ -344,23 +354,8 @@
     font-size: 10px;
   }
 
-  .aster-product-card__footer {
-    align-items: flex-start;
-    gap: 7px;
-  }
-
-  .aster-product-card__swatches {
-    justify-content: flex-start;
-  }
-
-  .aster-product-card__swatch {
-    width: 26px;
-    height: 26px;
-  }
-
-  .aster-product-card__swatch-colour {
-    width: 18px;
-    height: 18px;
+  .aster-product-card__form {
+    padding-top: 6px;
   }
 
   .aster-product-card__action {
