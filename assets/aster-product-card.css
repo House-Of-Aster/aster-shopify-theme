@@ -257,7 +257,7 @@
   font-weight: var(--font-button-weight);
   letter-spacing: var(--font-button-letter-spacing);
   line-height: 1;
-  text-transform: var(--font-button-text-transform);
+  text-transform: var(--font-button-transform);
   cursor: pointer;
   transition: transform 180ms ease, opacity 180ms ease, background-color 180ms ease;
 }
@@ -362,7 +362,7 @@
     min-height: 40px;
     padding-inline: 8px;
     font-size: 9px;
-    letter-spacing: min(var(--font-button-letter-spacing), 0.06em);
+    letter-spacing: var(--font-button-letter-spacing);
   }
 
   .aster-product-card__image--secondary {
