@@ -1,11 +1,38 @@
 {% style %}
-  /* Phase 2.4 visual QA refinements: compact newsletter handoff, continuous field fill, balanced utility/footer rows, and global content alignment. */
+  /* Phase 2.4 visual QA refinements: compact newsletter handoff, continuous field fill, balanced utility/footer rows, global content alignment, and master-palette colour treatment. */
+  .aster-footer {
+    background: var(--aster-colour-red) !important;
+    color: var(--aster-colour-ivory) !important;
+  }
+
   .aster-footer__inner {
     width: min(1400px, calc(100% - 40px)) !important;
   }
 
   .aster-footer__eyebrow {
     display: none;
+  }
+
+  .aster-footer__tagline,
+  .aster-footer__newsletter-heading,
+  .aster-footer__group-heading-link,
+  .aster-footer__group-toggle,
+  .aster-footer__socials a,
+  .aster-footer__form-message {
+    color: var(--aster-colour-ivory) !important;
+  }
+
+  .aster-footer__brand-text,
+  .aster-footer__newsletter-text,
+  .aster-footer__group-links a,
+  .aster-footer__copyright,
+  .aster-footer__legal a {
+    color: var(--aster-colour-blush) !important;
+  }
+
+  .aster-footer__rule {
+    background: var(--aster-colour-blush) !important;
+    opacity: 0.46;
   }
 
   .aster-footer__newsletter-heading {
@@ -27,17 +54,23 @@
 
   .aster-footer__newsletter-control {
     min-height: 52px;
-    background: color-mix(in srgb, var(--color-foreground) 6%, var(--color-background));
+    background: var(--aster-colour-blush) !important;
   }
 
   .aster-footer__newsletter-input {
     min-height: 50px;
     background: transparent !important;
+    color: var(--aster-colour-wine) !important;
     border: 0 !important;
     border-radius: 0 !important;
     box-shadow: none !important;
     appearance: none;
     -webkit-appearance: none;
+  }
+
+  .aster-footer__newsletter-input::placeholder {
+    color: var(--aster-colour-wine) !important;
+    opacity: 0.64;
   }
 
   .aster-footer__newsletter-button {
@@ -46,6 +79,8 @@
     position: relative;
     z-index: 1;
     white-space: nowrap;
+    background: var(--aster-colour-wine) !important;
+    color: var(--aster-colour-ivory) !important;
   }
 
   .aster-footer__navigation + .aster-footer__rule {
@@ -82,6 +117,13 @@
     justify-self: end;
     justify-content: flex-end;
     max-width: 100%;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .aster-footer__newsletter-button:hover {
+      background: var(--aster-colour-ivory) !important;
+      color: var(--aster-colour-red) !important;
+    }
   }
 
   @media (max-width: 749px) {
