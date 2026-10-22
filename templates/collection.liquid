@@ -14,24 +14,24 @@
     assign current_sort_by = collection.sort_by | default: collection.default_sort_by
   %}
 
-  <main class="aster-collection">
-    <header
-      class="aster-collection__header{% if collection_image %} aster-collection__header--with-image{% endif %}{% if has_collection_description %} aster-collection__header--with-description{% endif %}"
-    >
-      {% if collection_image %}
-        <div class="aster-collection__hero-media">
-          {% render 'image',
-            class: 'aster-collection__hero-image',
-            image: collection_image,
-            width: 2400,
-            sizes: '100vw',
-            priority: true
-          %}
-        </div>
-      {% endif %}
+  <main class="aster-collection full-width">
+    {% if collection_image %}
+      <div class="aster-collection__hero-media">
+        {% render 'image',
+          class: 'aster-collection__hero-image',
+          image: collection_image,
+          width: 2400,
+          sizes: '100vw',
+          priority: true
+        %}
+      </div>
+    {% endif %}
 
-      <div class="aster-collection__intro-shell" data-aster-reveal="up">
-        <div class="aster-collection__intro{% unless has_collection_description %} aster-collection__intro--title-only{% endunless %}">
+    <div class="aster-collection__content">
+      <header
+        class="aster-collection__header{% if has_collection_description %} aster-collection__header--with-description{% endif %}"
+      >
+        <div class="aster-collection__intro" data-aster-reveal="up">
           <h1 class="aster-collection__title">{{ collection.title }}</h1>
 
           {% if has_collection_description %}
@@ -40,120 +40,120 @@
             </div>
           {% endif %}
         </div>
-      </div>
-    </header>
+      </header>
 
-    {% paginate collection.products by 20 %}
-      {% if collection.products.size > 0 %}
-        <div class="aster-collection__toolbar" data-aster-collection-toolbar>
-          <div class="aster-collection__view-controls" role="group" aria-label="Products per row">
-            <button
-              class="aster-collection__view-button"
-              type="button"
-              data-aster-grid-columns="2"
-              aria-label="Show 2 products per row"
-              aria-pressed="false"
-            >
-              <svg class="aster-collection__view-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-                <rect x="2" y="2" width="7" height="7" rx="1" />
-                <rect x="11" y="2" width="7" height="7" rx="1" />
-                <rect x="2" y="11" width="7" height="7" rx="1" />
-                <rect x="11" y="11" width="7" height="7" rx="1" />
-              </svg>
-            </button>
+      {% paginate collection.products by 20 %}
+        {% if collection.products.size > 0 %}
+          <div class="aster-collection__toolbar" data-aster-collection-toolbar>
+            <div class="aster-collection__view-controls" role="group" aria-label="Products per row">
+              <button
+                class="aster-collection__view-button"
+                type="button"
+                data-aster-grid-columns="2"
+                aria-label="Show 2 products per row"
+                aria-pressed="false"
+              >
+                <svg class="aster-collection__view-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                  <rect x="2" y="2" width="7" height="7" rx="1" />
+                  <rect x="11" y="2" width="7" height="7" rx="1" />
+                  <rect x="2" y="11" width="7" height="7" rx="1" />
+                  <rect x="11" y="11" width="7" height="7" rx="1" />
+                </svg>
+              </button>
 
-            <button
-              class="aster-collection__view-button"
-              type="button"
-              data-aster-grid-columns="3"
-              aria-label="Show 3 products per row"
-              aria-pressed="false"
-            >
-              <svg class="aster-collection__view-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-                <rect x="2" y="2" width="4" height="4" rx="0.7" />
-                <rect x="8" y="2" width="4" height="4" rx="0.7" />
-                <rect x="14" y="2" width="4" height="4" rx="0.7" />
-                <rect x="2" y="8" width="4" height="4" rx="0.7" />
-                <rect x="8" y="8" width="4" height="4" rx="0.7" />
-                <rect x="14" y="8" width="4" height="4" rx="0.7" />
-                <rect x="2" y="14" width="4" height="4" rx="0.7" />
-                <rect x="8" y="14" width="4" height="4" rx="0.7" />
-                <rect x="14" y="14" width="4" height="4" rx="0.7" />
-              </svg>
-            </button>
+              <button
+                class="aster-collection__view-button"
+                type="button"
+                data-aster-grid-columns="3"
+                aria-label="Show 3 products per row"
+                aria-pressed="false"
+              >
+                <svg class="aster-collection__view-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                  <rect x="2" y="2" width="4" height="4" rx="0.7" />
+                  <rect x="8" y="2" width="4" height="4" rx="0.7" />
+                  <rect x="14" y="2" width="4" height="4" rx="0.7" />
+                  <rect x="2" y="8" width="4" height="4" rx="0.7" />
+                  <rect x="8" y="8" width="4" height="4" rx="0.7" />
+                  <rect x="14" y="8" width="4" height="4" rx="0.7" />
+                  <rect x="2" y="14" width="4" height="4" rx="0.7" />
+                  <rect x="8" y="14" width="4" height="4" rx="0.7" />
+                  <rect x="14" y="14" width="4" height="4" rx="0.7" />
+                </svg>
+              </button>
 
-            <button
-              class="aster-collection__view-button"
-              type="button"
-              data-aster-grid-columns="4"
-              aria-label="Show 4 products per row"
-              aria-pressed="false"
-            >
-              <svg class="aster-collection__view-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
-                <rect x="2" y="2" width="3" height="3" rx="0.5" />
-                <rect x="6.5" y="2" width="3" height="3" rx="0.5" />
-                <rect x="11" y="2" width="3" height="3" rx="0.5" />
-                <rect x="15.5" y="2" width="3" height="3" rx="0.5" />
-                <rect x="2" y="6.5" width="3" height="3" rx="0.5" />
-                <rect x="6.5" y="6.5" width="3" height="3" rx="0.5" />
-                <rect x="11" y="6.5" width="3" height="3" rx="0.5" />
-                <rect x="15.5" y="6.5" width="3" height="3" rx="0.5" />
-                <rect x="2" y="11" width="3" height="3" rx="0.5" />
-                <rect x="6.5" y="11" width="3" height="3" rx="0.5" />
-                <rect x="11" y="11" width="3" height="3" rx="0.5" />
-                <rect x="15.5" y="11" width="3" height="3" rx="0.5" />
-                <rect x="2" y="15.5" width="3" height="3" rx="0.5" />
-                <rect x="6.5" y="15.5" width="3" height="3" rx="0.5" />
-                <rect x="11" y="15.5" width="3" height="3" rx="0.5" />
-                <rect x="15.5" y="15.5" width="3" height="3" rx="0.5" />
-              </svg>
-            </button>
+              <button
+                class="aster-collection__view-button"
+                type="button"
+                data-aster-grid-columns="4"
+                aria-label="Show 4 products per row"
+                aria-pressed="false"
+              >
+                <svg class="aster-collection__view-icon" viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+                  <rect x="2" y="2" width="3" height="3" rx="0.5" />
+                  <rect x="6.5" y="2" width="3" height="3" rx="0.5" />
+                  <rect x="11" y="2" width="3" height="3" rx="0.5" />
+                  <rect x="15.5" y="2" width="3" height="3" rx="0.5" />
+                  <rect x="2" y="6.5" width="3" height="3" rx="0.5" />
+                  <rect x="6.5" y="6.5" width="3" height="3" rx="0.5" />
+                  <rect x="11" y="6.5" width="3" height="3" rx="0.5" />
+                  <rect x="15.5" y="6.5" width="3" height="3" rx="0.5" />
+                  <rect x="2" y="11" width="3" height="3" rx="0.5" />
+                  <rect x="6.5" y="11" width="3" height="3" rx="0.5" />
+                  <rect x="11" y="11" width="3" height="3" rx="0.5" />
+                  <rect x="15.5" y="11" width="3" height="3" rx="0.5" />
+                  <rect x="2" y="15.5" width="3" height="3" rx="0.5" />
+                  <rect x="6.5" y="15.5" width="3" height="3" rx="0.5" />
+                  <rect x="11" y="15.5" width="3" height="3" rx="0.5" />
+                  <rect x="15.5" y="15.5" width="3" height="3" rx="0.5" />
+                </svg>
+              </button>
+            </div>
+
+            <p class="aster-collection__toolbar-count">
+              {{ paginate.items }} {% if paginate.items == 1 %}product{% else %}products{% endif %}
+            </p>
+
+            <form class="aster-collection__sort" action="{{ collection.url }}" method="get">
+              <label class="aster-collection__sort-label" for="AsterCollectionSort">Sort by</label>
+              <span class="aster-collection__sort-select-wrap">
+                <select id="AsterCollectionSort" name="sort_by" data-aster-collection-sort>
+                  {% for option in collection.sort_options %}
+                    <option
+                      value="{{ option.value | escape }}"
+                      {% if option.value == current_sort_by %}
+                        selected="selected"
+                      {% endif %}
+                    >
+                      {{ option.name | escape }}
+                    </option>
+                  {% endfor %}
+                </select>
+                <span class="aster-collection__sort-chevron" aria-hidden="true"></span>
+              </span>
+              <noscript>
+                <button class="button button--secondary" type="submit">Apply</button>
+              </noscript>
+            </form>
           </div>
 
-          <p class="aster-collection__toolbar-count">
-            {{ paginate.items }} {% if paginate.items == 1 %}product{% else %}products{% endif %}
-          </p>
+          <div class="aster-collection__grid" data-aster-collection-grid data-columns="4" data-aster-product-grid>
+            {% for product in collection.products %}
+              {% render 'aster-product-card', product: product %}
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="aster-collection__empty" role="status">
+            <h2 class="aster-collection__empty-title">Nothing here yet.</h2>
+            <p class="aster-collection__empty-copy">This collection does not currently contain any products.</p>
+          </div>
+        {% endif %}
 
-          <form class="aster-collection__sort" action="{{ collection.url }}" method="get">
-            <label class="aster-collection__sort-label" for="AsterCollectionSort">Sort by</label>
-            <span class="aster-collection__sort-select-wrap">
-              <select id="AsterCollectionSort" name="sort_by" data-aster-collection-sort>
-                {% for option in collection.sort_options %}
-                  <option
-                    value="{{ option.value | escape }}"
-                    {% if option.value == current_sort_by %}
-                      selected="selected"
-                    {% endif %}
-                  >
-                    {{ option.name | escape }}
-                  </option>
-                {% endfor %}
-              </select>
-              <span class="aster-collection__sort-chevron" aria-hidden="true"></span>
-            </span>
-            <noscript>
-              <button class="button button--secondary" type="submit">Apply</button>
-            </noscript>
-          </form>
-        </div>
-
-        <div class="aster-collection__grid" data-aster-collection-grid data-columns="4" data-aster-product-grid>
-          {% for product in collection.products %}
-            {% render 'aster-product-card', product: product %}
-          {% endfor %}
-        </div>
-      {% else %}
-        <div class="aster-collection__empty" role="status">
-          <h2 class="aster-collection__empty-title">Nothing here yet.</h2>
-          <p class="aster-collection__empty-copy">This collection does not currently contain any products.</p>
-        </div>
-      {% endif %}
-
-      {% if paginate.pages > 1 %}
-        <nav class="aster-collection__pagination" aria-label="Collection pagination">
-          {{ paginate | default_pagination }}
-        </nav>
-      {% endif %}
-    {% endpaginate %}
+        {% if paginate.pages > 1 %}
+          <nav class="aster-collection__pagination" aria-label="Collection pagination">
+            {{ paginate | default_pagination }}
+          </nav>
+        {% endif %}
+      {% endpaginate %}
+    </div>
   </main>
 {% endblock %}
