@@ -2,9 +2,25 @@
   Global Aster colour schemes.
   The first scheme becomes the store default via :root.
   Any section can opt into another scheme with class="color-{{ section.settings.color_scheme }}".
+
+  Canonical active brand palette:
+  - Ivory: #F8F6EB
+  - Aster red: #A52D34
+  - Wine: #6B2331
+  - Blush: #E8DAD2
+
+  Blue (#3E6990) is part of the wider brand palette but is intentionally reserved
+  and must not be used in the current storefront treatment unless explicitly reintroduced.
 {% endcomment %}
 
 {% style %}
+  :root {
+    --aster-colour-ivory: #f8f6eb;
+    --aster-colour-red: #a52d34;
+    --aster-colour-wine: #6b2331;
+    --aster-colour-blush: #e8dad2;
+  }
+
   {% for scheme in settings.color_schemes %}
     {% if forloop.first %}
       :root,
