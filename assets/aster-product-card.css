@@ -5,8 +5,8 @@
   height: 100%;
   overflow: hidden;
   border-radius: var(--aster-radius);
-  background: var(--aster-product-card-background, #F8F6EB);
-  color: var(--color-foreground);
+  background: var(--aster-colour-blush);
+  color: var(--aster-colour-wine);
 }
 
 .aster-product-card__media {
@@ -61,7 +61,7 @@
 }
 
 .aster-product-card__placeholder {
-  background: color-mix(in srgb, var(--aster-product-media-bg, #E8DAD2) 90%, var(--color-foreground) 10%);
+  background: color-mix(in srgb, var(--aster-product-media-bg, #E8DAD2) 90%, var(--aster-colour-wine) 10%);
 }
 
 .aster-product-card__badge {
@@ -75,8 +75,8 @@
   max-width: calc(100% - 24px);
   padding: 6px 11px;
   border-radius: 999px;
-  background: var(--color-button-background);
-  color: var(--color-button-text);
+  background: var(--aster-colour-wine);
+  color: var(--aster-colour-ivory);
   font-size: 12px;
   font-weight: 600;
   line-height: 1;
@@ -84,12 +84,13 @@
 }
 
 .aster-product-card__badge--quiet {
-  background: color-mix(in srgb, var(--aster-product-media-bg, #E8DAD2) 72%, var(--aster-colour-ivory) 28%);
-  color: var(--color-foreground);
+  background: color-mix(in srgb, var(--aster-colour-blush) 82%, var(--aster-colour-ivory) 18%);
+  color: var(--aster-colour-wine);
 }
 
 .aster-product-card__badge--unavailable {
-  background: color-mix(in srgb, var(--color-foreground) 68%, var(--color-background) 32%);
+  background: color-mix(in srgb, var(--aster-colour-wine) 76%, var(--aster-colour-blush) 24%);
+  color: var(--aster-colour-ivory);
 }
 
 .aster-product-card__content {
@@ -97,14 +98,15 @@
   flex: 1;
   flex-direction: column;
   gap: 7px;
-  padding: 14px 12px 12px;
+  padding: 15px 14px 12px;
+  background: var(--aster-colour-blush);
+  color: var(--aster-colour-wine);
 }
 
 .aster-product-card__eyebrow,
 .aster-product-card__title,
 .aster-product-card__description,
-.aster-product-card__reviews,
-.aster-product-card__price {
+.aster-product-card__reviews {
   margin: 0;
 }
 
@@ -121,7 +123,7 @@
   font-family: var(--font-product-card-title--family);
   font-size: var(--font-product-card-title-size);
   font-weight: var(--font-product-card-title-weight);
-  line-height: 1.2;
+  line-height: 1.16;
   text-transform: var(--font-product-card-title-transform);
 }
 
@@ -133,7 +135,7 @@
 .aster-product-card__description {
   display: -webkit-box;
   overflow: hidden;
-  color: color-mix(in srgb, var(--color-foreground) 76%, transparent);
+  color: color-mix(in srgb, var(--aster-colour-wine) 82%, transparent);
   font-size: 13px;
   line-height: 1.4;
   -webkit-box-orient: vertical;
@@ -145,48 +147,30 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 7px;
+  color: color-mix(in srgb, var(--aster-colour-wine) 88%, transparent);
   font-size: 12px;
   line-height: 1.2;
 }
 
 .aster-product-card__stars {
+  color: var(--aster-colour-red);
   letter-spacing: 0.04em;
 }
 
 .aster-product-card__footer {
   display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-start;
   gap: 12px;
   margin-top: auto;
-  padding-top: 4px;
-}
-
-.aster-product-card__price {
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 7px;
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.2;
-}
-
-.aster-product-card__price-current--sale {
-  color: var(--color-accent);
-}
-
-.aster-product-card__price-compare {
-  font-size: 12px;
-  font-weight: 400;
-  opacity: 0.58;
+  padding-top: 5px;
 }
 
 .aster-product-card__swatches {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   gap: 7px;
   min-width: 0;
   margin: 0;
@@ -222,9 +206,9 @@
   display: block;
   width: 20px;
   height: 20px;
-  border: 1px solid color-mix(in srgb, var(--color-foreground) 18%, transparent);
+  border: 1px solid color-mix(in srgb, var(--aster-colour-wine) 18%, transparent);
   border-radius: 50%;
-  background: var(--aster-swatch-colour, color-mix(in srgb, var(--color-background) 75%, var(--color-foreground) 25%));
+  background: var(--aster-swatch-colour, color-mix(in srgb, var(--aster-colour-blush) 75%, var(--aster-colour-wine) 25%));
 }
 
 .aster-product-card__swatch.is-selected::after {
@@ -250,8 +234,8 @@
   padding: 10px 14px;
   border: 0;
   border-radius: calc(var(--aster-radius) - 4px);
-  background: var(--color-button-background);
-  color: var(--color-button-text);
+  background: var(--aster-colour-red);
+  color: var(--aster-colour-ivory);
   font-family: var(--font-button--family);
   font-size: 11px;
   font-weight: var(--font-button-weight);
@@ -264,13 +248,13 @@
 
 .aster-product-card__action--coming-soon,
 .aster-product-card__action--sold-out {
-  background: color-mix(in srgb, var(--color-button-background) 62%, var(--aster-product-card-background, #F8F6EB) 38%);
-  color: color-mix(in srgb, var(--color-button-text) 88%, transparent);
+  background: color-mix(in srgb, var(--aster-colour-red) 58%, var(--aster-colour-blush) 42%);
+  color: var(--aster-colour-ivory);
   cursor: default;
 }
 
 .aster-product-card__action:disabled {
-  opacity: 0.78;
+  opacity: 0.84;
 }
 
 .aster-product-card__action-separator {
@@ -336,12 +320,7 @@
 
   .aster-product-card__footer {
     align-items: flex-start;
-    flex-direction: column;
     gap: 7px;
-  }
-
-  .aster-product-card__price {
-    font-size: 13px;
   }
 
   .aster-product-card__swatches {
