@@ -1,4 +1,4 @@
-{% comment %}Aster collection toolbar — Shopify sync checkpoint{% endcomment %}
+{% comment %}Aster collection experience{% endcomment %}
 {{ 'aster-product-card.css' | asset_url | stylesheet_tag }}
 {{ 'aster-collection.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'aster-product-card.js' | asset_url }}" defer></script>
@@ -7,13 +7,16 @@
 {% block 'container' %}
   {% liquid
     assign collection_image = collection.image
+    assign has_collection_description = false
+    if collection.description != blank
+      assign has_collection_description = true
+    endif
     assign current_sort_by = collection.sort_by | default: collection.default_sort_by
   %}
 
   <main class="aster-collection">
     <header
-      class="aster-collection__header{% if collection_image %} aster-collection__header--with-image{% endif %}"
-      data-aster-reveal="up"
+      class="aster-collection__header{% if collection_image %} aster-collection__header--with-image{% endif %}{% if has_collection_description %} aster-collection__header--with-description{% endif %}"
     >
       {% if collection_image %}
         <div class="aster-collection__hero-media">
@@ -27,14 +30,16 @@
         </div>
       {% endif %}
 
-      <div class="aster-collection__copy">
-        <h1 class="aster-collection__title">{{ collection.title }}</h1>
+      <div class="aster-collection__intro-shell" data-aster-reveal="up">
+        <div class="aster-collection__intro{% unless has_collection_description %} aster-collection__intro--title-only{% endunless %}">
+          <h1 class="aster-collection__title">{{ collection.title }}</h1>
 
-        {% if collection.description != blank %}
-          <div class="aster-collection__description rte">
-            {{ collection.description }}
-          </div>
-        {% endif %}
+          {% if has_collection_description %}
+            <div class="aster-collection__description rte">
+              {{ collection.description }}
+            </div>
+          {% endif %}
+        </div>
       </div>
     </header>
 
