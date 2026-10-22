@@ -30,12 +30,24 @@ The brand should feel composed, grown-up and distinctive rather than clinical, s
 
 ## Colour
 
-Core palette:
+Canonical Aster master palette:
 
-- Wine: `#6B2331`
-- Cream: `#E6D3BD`
+- Ivory: `#F8F6EB` — primary warm canvas and light surface.
+- Aster red: `#A52D34` — primary recognition/accent colour; use confidently for key brand surfaces, actions and active UI.
+- Wine: `#6B2331` — grounding dark for typography, deep surfaces and contrast.
+- Blush: `#E8DAD2` — soft secondary surface, especially useful around product/media presentation.
+- Blue: `#3E6990` — reserved brand colour. Do **not** use it in the current storefront treatment unless it is explicitly reintroduced later.
 
-Wine and cream should dominate.
+The active storefront palette is therefore Ivory + Aster red + Wine + Blush. Aster red should be more visibly present than in the original wine/cream implementation; wine should provide depth rather than monopolising every large brand surface.
+
+Do not substitute old or near-equivalent legacy colours such as `#E6D3BD`, `#F2E9DE` or ad-hoc burgundies where one of the master colours is appropriate.
+
+Current scheme intent:
+
+- Light/default: Ivory background, Wine text, Aster red accents/actions, Blush secondary surfaces.
+- Brand/red: Aster red background with Ivory text/actions.
+- Soft: Blush background, Wine text and Aster red actions.
+- Deep: Wine background, Ivory text and Aster red actions.
 
 Use colour blocks and contrast between schemes to create structure rather than decorative UI chrome.
 
@@ -48,9 +60,10 @@ Rules:
 - New sections and components must consume the active colour-scheme variables.
 - A section may expose a colour-scheme picker where a different scheme is useful.
 - Do not add individual background, text, button or accent colour pickers to normal sections.
-- Do not hard-code brand colours into reusable storefront components.
+- Do not hard-code brand colours into reusable storefront components; use the global scheme variables or canonical Aster brand tokens.
 - Component states should derive from the scheme wherever practical.
 - Add a new colour token to the global scheme only when the whole design system genuinely needs it.
+- The reserved blue must not appear simply because it exists in the wider brand guidelines.
 
 The objective is that a palette change can be made centrally and propagate across the storefront without hunting through individual sections.
 
@@ -245,7 +258,7 @@ The homepage can be more expressive, but every other page must feel like it came
 Shared across the store:
 
 - typography
-- colour schemes
+- colour schemes and the canonical master palette
 - spacing rhythm, including the canonical adjacent-component gap and its clean multiples
 - global 12px corner-radius token where rounded treatment is used
 - image treatment
