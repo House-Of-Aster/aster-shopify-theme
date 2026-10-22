@@ -2,7 +2,7 @@
 
 Canonical project tracker for the House of Aster Shopify theme.
 
-Read this before substantial Aster work. Update it after each completed milestone, verified sign-off, or agreed sequence change. Do not mark work complete without verification/sign-off, and do not build a speculative reusable component merely because it is numerically next if there is no proven storefront use case yet.
+Read this before substantial Aster work. Update it after every completed milestone, verified visual sign-off, meaningful implementation change or agreed sequence change. Do not rely on chat memory as the project ledger.
 
 Status: `[x]` complete · `[~]` in progress/partial · `[ ]` not started
 
@@ -16,22 +16,21 @@ Permanent architecture:
 - 1400px maximum content width
 - 20px desktop/tablet gutters
 - 15px mobile gutters
-- Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` desktop/tablet and `18px` mobile; use clean multiples where stronger hierarchy is needed
-- Master palette: Ivory `#F8F6EB`, Aster red `#A52D34`, Wine `#6B2331`, Blush `#E8DAD2`; Blue `#3E6990` is reserved and is not used in the current storefront treatment
-- Global colour schemes are the single source of truth for storefront colour
-- Typography roles are explicit: Body is the default supporting/UI voice; Heading, Display, Subheading, Navigation, Button and Product-title roles are opt-in and must not leak through containers
-- Custom fonts are registered centrally; Garet is one paired family with Book at 400 and Heavy at 700 so bold uses the real Heavy face
+- Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` desktop/tablet and `18px` mobile
+- Stronger hierarchy should use clean multiples of the canonical gap rather than unrelated one-off spacing values
+- Master palette: Ivory `#F8F6EB`, Aster Red `#A52D34`, Wine `#6B2331`, Blush `#E8DAD2`; Blue `#3E6990` is reserved and not currently used
+- Global colour schemes are the storefront colour source of truth
+- Typography roles are explicit: Body by default; Heading, Display, Subheading, Navigation, Button and Product-title are opt-in
 - Theme settings stay deliberately lean
 - No routine per-section colour pickers
-- No decorative border language
-- No default shadows
+- No decorative border language or default shadows
 - Motion is calm, editorial and purposeful
 - Respect `prefers-reduced-motion`
 - Build proven shared components first; defer speculative components until a real template/section needs them
-- Non-critical media is lazy by default
-- Genuine above-fold/LCP media is explicitly prioritised rather than inferred globally
+- Non-critical media is lazy by default; true above-fold/LCP media is explicitly prioritised
 - Responsive image sources and intrinsic dimensions are mandatory
-- Section/component JavaScript should load only where it is actually required
+- Section/component JavaScript should load only where required
+- Connected-theme work is not considered deployed until both GitHub `main` and the actual ASTER Shopify MAIN theme are verified in parity
 
 ---
 
@@ -39,18 +38,23 @@ Permanent architecture:
 
 ## Password / pre-launch
 - [x] Bespoke waiting-list page and countdown
-- [x] Bear silhouette V2, fixed sizing, bottom anchor, opacity and blur
+- [x] Aster Red `#A52D34` intro/fade transition
+- [x] Password-page headings explicitly use Poet / British Poems
+- [x] Bear silhouette V2 with bottom anchor, motion cadence and more frequent crossings
+- [x] Lando-inspired ambient motion layer: pointer depth, canopy/background breathing, logo mask reveal, light sweep and kinetic countdown treatment
+- [x] Motion calms around focused forms and respects reduced motion
 - [x] Mobile logo clipping fix
-- [x] British Poems WOFF2 and display-heading integration
+- [x] Eight Shopify Content stain assets (`Stain-1.webp` through `Stain-8.webp`) used as one random static stain per page load
+- [x] Random stain sits above the main background but below foreground/UI layers, uses `mix-blend-mode: multiply`, random fixed placement, one-third of the original rollout size and 37.5% opacity
+- [x] British Poems WOFF2/display-heading integration
 
 ## Global design foundations
 - [x] Logo settings: one SVG, colour control, desktop/mobile width, favicon
 - [x] Typography roles: body, heading, display, subheading, navigation, buttons, product-card title
-- [x] Typography role ownership contract: supporting/microcopy defaults to Body; specialist roles are explicitly scoped
-- [x] Garet Book/Heavy integrated as one real-weight family; no faux bold when Garet is used
+- [x] Garet Book/Heavy registered as a real weight pair; no faux bold
 - [x] Global reusable colour schemes
-- [x] Master palette schemes: Ivory/light, Aster red/brand, Blush/soft and Wine/deep; Blue reserved from current storefront use
-- [x] Existing header/footer, collection and product-card colour treatments remapped to the master palette without introducing per-section colour pickers
+- [x] Master palette schemes: Ivory/light, Aster Red/brand, Blush/soft and Wine/deep; Blue reserved
+- [x] Header/navigation, footer, collection and product-card treatments remapped to the master palette
 - [x] 1400px content architecture with fixed gutters
 - [x] Layout settings removed
 - [x] Aster visual-language document
@@ -65,10 +69,9 @@ Permanent architecture:
 - [x] Secondary text action
 - [x] Theme Settings → Buttons contains height only
 - [x] Default 48px height
-- [x] Colours inherit from active colour scheme
+- [x] Colours inherit from active scheme
 - [x] Typography inherits from Typography → Buttons
-- [x] No decorative borders or radius/padding/colour settings
-- [x] Subtle CSS hover lift + opacity shift
+- [x] Subtle hover lift/opacity shift
 - [x] Disabled, busy and keyboard-focus states
 - [x] Reduced-motion fallback
 
@@ -79,57 +82,46 @@ Permanent architecture:
 - [x] Checkbox and radio
 - [x] Labels, help text and message primitives
 - [x] Error, success-hook, focus and disabled states
-- [x] Responsive form rows/stacks
-- [x] Colours derive from active colour scheme
-- [x] No decorative field borders
-- [x] No Forms Theme Settings group
+- [x] Responsive rows/stacks
+- [x] Colours derive from active scheme
 - [x] Bespoke quantity stepper deferred until PDP/cart design
 
 ## 1.3 Surface + spacing language — COMPLETE
-- [x] Cards remain open compositions, not boxes
+- [x] Cards remain open compositions rather than default boxed UI
 - [x] Panels are exceptional rather than default
-- [x] No default shadows
-- [x] No decorative borders
-- [x] 12px media/image corner treatment where framing is wanted
+- [x] No default shadows or decorative borders
+- [x] 12px media/image radius where framing is intentional
 - [x] Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` desktop/tablet and `18px` mobile
-- [x] Stronger local hierarchy uses clean multiples of that adjacent-component gap rather than unrelated one-off values
+- [x] Stronger hierarchy uses clean multiples of that gap
 - [x] Standard section rhythm: `clamp(72px, 8vw, 120px)`
 - [x] Compact section rhythm: `clamp(48px, 5.5vw, 80px)`
 - [x] Generous/editorial rhythm: `clamp(96px, 10vw, 160px)`
 - [x] Standard editorial measure: 62ch
 - [x] Narrow editorial measure: 48ch
-- [x] No Surface/Layout Theme Settings added
 
 ## 1.4 Motion foundation — COMPLETE
-- [x] Aster timing, easing, distance and stagger tokens
-- [x] Reusable text/up reveal via `data-aster-reveal`
-- [x] Reusable fade reveal
-- [x] Reusable media/mask reveal
-- [x] Reusable stagger groups via `data-aster-stagger`
+- [x] Aster timing/easing/distance/stagger tokens
+- [x] Reusable text/up, fade and media/mask reveals
+- [x] Reusable stagger groups
 - [x] Native `IntersectionObserver` controller
 - [x] Reveal-once behaviour
 - [x] Shopify Theme Editor section-load support
 - [x] Reduced-motion fallback
-- [x] Transform/opacity/clip-path only: no layout-shifting motion
-- [x] Progressive enhancement: unhooked content remains static
-- [x] GSAP deliberately not loaded globally
-- [x] ScrollTrigger deliberately not loaded globally
-- [x] GSAP/ScrollTrigger will be introduced only where an approved component requires them
+- [x] Transform/opacity/clip-path-first motion; avoid layout-shifting animation
+- [x] GSAP/ScrollTrigger deliberately not loaded globally
+- [x] GSAP/ScrollTrigger introduced only where an approved component requires them
 
 ## 1.5 Pre-content performance foundation — COMPLETE
-- [x] Reusable image primitive is lazy by default
-- [x] Explicit `priority: true` path sets eager loading + high fetch priority for genuine LCP media
-- [x] Responsive `srcset`/`sizes` support through Shopify image rendering
-- [x] Intrinsic image dimensions retained to protect CLS
+- [x] Reusable image primitive lazy by default
+- [x] Explicit `priority: true` path for genuine LCP media
+- [x] Responsive `srcset`/`sizes`
+- [x] Intrinsic image dimensions retained
 - [x] Async image decoding
-- [x] Product template prioritises only the first product image; later gallery media stays lazy
-- [x] Article hero imagery uses the priority path
-- [x] Blog listing imagery stays lazy
-- [x] Future iframes are lazy by default
-- [x] Future video uses poster-first/conservative preload by default; autoplay only when art direction justifies it
-- [x] Future section/component scripts should be conditional rather than added to a monolithic global bundle
-- [x] GSAP/ScrollTrigger remain conditional, not global
-- [x] `content-visibility`/render deferral will be assessed once real section wrappers exist; do not apply blindly to sticky, measurement-driven or GSAP sections
+- [x] Product template prioritises only first product image
+- [x] Article hero uses priority path; blog listing stays lazy
+- [x] Future iframes lazy by default
+- [x] Future video poster-first/conservative preload by default
+- [x] Section/component scripts should remain conditional
 
 ---
 
@@ -138,130 +130,120 @@ Permanent architecture:
 ## 2.1 Announcement bar — COMPLETE
 - [x] Single-message static architecture
 - [x] Optional whole-bar link
-- [x] Global colour-scheme selector only; no local colour controls
+- [x] Colour-scheme selector only
 - [x] Responsive/mobile treatment
-- [x] Optional countdown timer
-- [x] Countdown date and time settings grouped in Theme Editor
-- [x] UK-time / daylight-saving-aware countdown logic
+- [x] Optional UK-time/DST-aware countdown
 - [x] Optional hide-on-complete behaviour
-- [x] Countdown JavaScript loads only when a configured countdown is present
-- [x] Announcement typography explicitly consumes Body rather than Navigation
-- [x] No rotating-slider machinery
+- [x] Countdown JS loads only when required
 
 ## 2.2 Header — COMPLETE
-- [x] Existing Skeleton header block retained and refactored rather than duplicated
-- [x] True-centred logo with permanent burger launcher left and utility actions right
-- [x] Header logo inherits active colour-scheme foreground colour
-- [x] Search route, account trigger when enabled, and cart count
-- [x] Sticky behaviour implemented with CSS only; announcement bar scrolls away above it
-- [x] Burger navigation is the same desktop/mobile interaction rather than separate header systems
-- [x] Header remains completely stationary when navigation opens; no duplicate menu topbar/logo
-- [x] Navigation measures the real header bottom edge so announcement-present and announcement-absent states are both respected
-- [x] Keyboard focus states and minimum 44px utility/menu targets
-- [x] Colour-scheme support with no local colour pickers
-- [x] Header JavaScript limited to menu lifecycle/geometry; no scroll listeners or navigation framework
-- [x] Transparent/overlay mode deliberately deferred until homepage hero art direction is approved
-- [x] Predictive/overlay search deliberately deferred to Phase 8
+- [x] Existing Skeleton header refactored rather than duplicated
+- [x] True-centred logo, burger left, utilities right
+- [x] Search/account/cart actions
+- [x] Sticky CSS behaviour
+- [x] Shared desktop/mobile burger navigation architecture
+- [x] Header remains stationary when navigation opens
+- [x] Keyboard focus and minimum 44px targets
+- [x] Colour-scheme support
+- [x] Header/menu currently use the brighter Aster Red `#A52D34` treatment
+- [x] Transparent/overlay header deferred until homepage hero art direction
+- [x] Predictive/overlay search deferred to Phase 8
 
 ## 2.3 Navigation / mega menu — VISUAL TREATMENT COMPLETE / IA DEFERRED
-- [x] One navigation tree rendered for desktop and mobile; no duplicated menu DOM
-- [x] Non-modal `<dialog>` navigation panel begins beneath the real header rather than replacing it
-- [x] Popular `jonsuh/hamburgers` Squeeze motion adapted locally under MIT licence; no package dependency
-- [x] Same header burger morphs into the close cross in place and reverses on close
-- [x] Escape close and focus return
-- [x] Covered page content becomes inert while the panel is open; visible header remains interactive
+- [x] One navigation tree for desktop/mobile
+- [x] Navigation panel begins beneath the real header
+- [x] Squeeze burger motion adapted locally
+- [x] Same burger morphs into close control
+- [x] Escape close/focus return/inert covered content
 - [x] Existing scroll-lock architecture reused
-- [x] Direct search form sits at the top of the menu; predictive search remains deferred to Phase 8
-- [x] Mobile menu account action uses the existing account SVG instead of a text footer link
-- [x] Redundant menu-level Search / Account text footer removed
-- [x] Current-page semantics and visible focus states
-- [x] First-level child links already supported
-- [x] Primary mega-menu labels consume Navigation typography; child links/popular searches/eyebrows consume Body
+- [x] Direct search form at top
+- [x] Mobile account action with icon
+- [x] Current-page semantics/focus states
+- [x] First-level child links supported
 - [x] Desktop mega-menu composition signed off
-- [x] Mobile composition signed off after device visual QA: search/account → first three popular searches → compact navigation → two editorial feature cards, with section separators and single-line child navigation
-- [x] Mobile search reuses the same configurable affirmation typewriter and reduced-motion behaviour as desktop
-- [x] Mobile navigation dialog remains vertically scrollable so the editorial cards naturally reward continued scrolling
-- [x] Restrained hover motion: textual menu links shift right and editorial feature media lifts; hover motion is disabled for reduced-motion users
-- [x] Reduced-motion fallback
-- [ ] Define final navigation information architecture once the actual menu/catalogue structure is locked
-- [ ] Refine deeper hierarchy/submenu behaviour only if the catalogue requires it
+- [x] Mobile composition signed off
+- [x] Restrained hover motion and reduced-motion fallback
+- [ ] Define final navigation IA once catalogue/menu structure is locked
+- [ ] Refine deeper hierarchy only if catalogue requires it
 
 ## 2.4 Footer — BUILT / FINAL EXPLICIT SIGN-OFF PENDING
 - [x] Scheme-aware footer architecture
-- [x] Brand mark/wordmark, “A calmer way forward” statement and supporting copy
-- [x] Newsletter / “A slower inbox” treatment
+- [x] Brand mark/wordmark, “A calmer way forward” and supporting copy
+- [x] “A slower inbox” newsletter treatment
 - [x] Nested Shopify footer menu with clickable top-level headings
-- [x] Desktop link-group treatment and mobile accordion behaviour
-- [x] Contact and social links
-- [x] Legal/policy links and configurable Cookies link
-- [x] Payment icons integrated into the lower utility row
-- [x] Copyright
-- [x] 1400px alignment and shared page gutters
-- [x] Colour-scheme support
-- [~] Desktop vertical rhythm tightened to the canonical adjacent-component gap established during Collection visual QA; visual confirmation pending
+- [x] Desktop links and mobile accordions
+- [x] Contact/social links
+- [x] Legal/policy/Cookies links
+- [x] Payment icons and copyright
+- [x] 1400px alignment/shared gutters
+- [x] Desktop vertical rhythm tightened to the canonical site spacing cadence
+- [x] Footer recoloured to the brighter Aster Red `#A52D34` treatment, with complementary Ivory/Wine/Blush values only from the master palette
 - [ ] Final explicit visual sign-off before marking Phase 2.4 complete
 
 ---
 
 # PHASE 3 — COMMERCE COMPONENT LIBRARY
 
-## 3.1 Product card — CORE COMPLETE / PHOTOGRAPHIC COLLECTION TREATMENT IN VISUAL QA
-- [x] Image, title, supporting copy and product type/eyebrow
+## 3.1 Product card — CORE COMPLETE / PHOTOGRAPHIC TREATMENT IN VISUAL QA
+- [x] Product image, title, short supporting copy and product type/eyebrow
+- [x] Product-card short description is editable product data via metafield definition `aster.card_description` (“Product card short description”), pinned for merchant editing
+- [x] Existing short descriptions migrated/recognised under the metafield definition
 - [x] Price/compare-at handling
-- [x] Sale/sold-out architecture plus pre-order / coming-soon merchandising states
-- [x] Desktop secondary-image hover for non-swatch products using the next product image
-- [x] Variant-aware A/B secondary-image hover for products with Colour/Color swatches
-- [x] Swatch selection updates variant, primary image, price/link and matching hover image
-- [x] Selected-swatch secondary image preloads stealthily on hover-capable devices
+- [x] Sale/sold-out plus pre-order/coming-soon states
+- [x] Desktop second-image hover for products without swatches
+- [x] Variant-aware A/B hover imagery for Colour/Color swatches
+- [x] Swatch selection updates variant, primary image, price/link and hover image
+- [x] Selected-swatch second image stealth-preloads on hover-capable devices
+- [x] Swatches moved vertically into the product-media area so CTA baselines align across products with and without swatches
 - [x] Badge support
 - [x] Restrained hover treatment
-- [x] Mobile + accessibility treatment
-- [x] Product-card background and product-image background exposed as independent Theme Settings after visual QA proved useful
-- [x] Core styling/swatches signed off before photographic collection refinement
-- [~] Full-bleed photographic card media and bottom product-form CTA implemented after the live Collection use case proved their value; selected variant/price plus Add to cart / Pre-order / Coming soon / Sold out states are wired; visual QA pending
-- [ ] Judge.me rating/review integration — deliberately deferred until close to launch; do not hold Phase 3.1 open for this
+- [x] Mobile/accessibility treatment
+- [x] Card background and product-media background exposed as independent Theme Settings
+- [x] Full-bleed photographic media treatment implemented for the live collection use case
+- [x] Bottom real Shopify product-form CTA wired to selected variant and price: Add to cart / Pre-order / Coming soon / Sold out
+- [x] Duplicate standalone bold price removed; price is carried by the CTA treatment
+- [x] Temporary/fake review presentation allowed only for QA/theme-editor visualisation when genuine review data is absent
+- [~] Current photographic/Bouf-inspired card art direction remains in visual QA
+- [ ] Judge.me rating/review integration deliberately deferred until close to launch
 
 ## 3.2 Collection card — DEFERRED UNTIL PROVEN USE CASE
-A collection card is a navigational category tile, not a featured collection/product grid. Do not build it merely because it is next numerically. Build it when the homepage, a shop landing page or another real template actually needs category-level navigation.
+Collection card = navigational category tile, not featured products.
 - [ ] Image, title, optional supporting copy
-- [ ] Hover + mobile treatment
-- [ ] Add settings only after sign-off
+- [ ] Hover/mobile treatment
+- [ ] Add settings only after real use case/sign-off
 
 ## 3.3 Article card — DEFERRED UNTIL PROVEN USE CASE
-Build when the Journal/blog index or another real content surface establishes the actual metadata and hierarchy required.
-- [ ] Image, title, metadata decision, hover
-- [ ] Add settings only after sign-off
+- [ ] Build when Journal/blog index establishes actual metadata/layout requirements
 
 ## 3.4 Editorial card — DEFERRED UNTIL PROVEN USE CASE
-Build when a homepage/content composition genuinely needs a reusable image + heading + copy + CTA card rather than designing it in isolation.
-- [ ] Reusable image + heading + copy + CTA composition
-- [ ] Colour-scheme support
+- [ ] Build only when a real homepage/content composition proves the need
 
 ### Phase 3 execution rule
-The product card was worth building early because it underpins collections, featured products, related products and search. Collection/article/editorial cards are not treated the same way: they remain recorded here so they are not forgotten, but they should be implemented at the moment a real template proves their need.
+The product card was worth building early because it underpins collections, featured products, related products and search. Collection/article/editorial cards remain recorded but are built only when a real surface proves their requirements.
 
 ---
 
 # PHASE 4 — HOMEPAGE + GSAP ART DIRECTION
 
-This phase remains important, but it now follows the core commerce/content journey rather than preceding it. Build the destination templates first so the homepage can link into real, finished experiences instead of speculative placeholders.
+Build after the core destination templates so the homepage links into real finished experiences.
 
 ## 4.1 Storyboard first
 - [ ] Agree narrative, hero, section order and motion/calm rhythm
+- [ ] Heavy inspiration: `landonorris.com`, translated into Aster’s calmer visual language rather than copied literally
 
 ## 4.2 Homepage build
 - [ ] Hero
 - [ ] Brand statement / manifesto
 - [ ] Featured products
-- [ ] Shop by ritual/moment/category — build a collection-card pattern here only if the actual IA needs it
+- [ ] Shop by ritual/moment/category; build Collection Card here only if IA needs it
 - [ ] Editorial image-text section
 - [ ] Product/ingredient/philosophy proof
 - [ ] Reviews/social proof if available
-- [ ] Journal teaser — build/reuse article cards here only after Journal requirements are known
+- [ ] Journal teaser
 - [ ] Newsletter/footer handoff
 
 ## 4.3 Signature motion
-Select only a small number:
+Choose deliberately, not all at once:
 - [ ] Masked image reveal
 - [ ] Editorial text reveal
 - [ ] Controlled scale/parallax
@@ -272,23 +254,25 @@ Select only a small number:
 ## 4.4 Homepage QA
 - [ ] Desktop/laptop/tablet/mobile
 - [ ] Reduced motion
-- [ ] Performance, CLS and scroll-jank
-- [ ] Verify only true LCP/above-fold media is eager
-- [ ] Verify below-fold media does not compete for initial bandwidth
+- [ ] Performance/CLS/scroll-jank
+- [ ] LCP/eager-loading audit
 
 ---
 
 # PHASE 5 — COLLECTION EXPERIENCE — IN PROGRESS
-- [~] Collection hero/header — Shopify collection image now renders as a true full-bleed photographic hero above the collection title/description; visual QA pending
-- [~] Product grid using the shared product card — integrated into the real/default collection template and now refined to full-bleed photographic media with bottom product-form CTAs; visual QA pending
-- [~] Responsive columns — shopper-selectable 2 / 3 / 4-column desktop grid implemented, with 2 / 3 options on tablet and a fixed 2-column mobile treatment; each breakpoint remembers the shopper’s last compatible density; visual QA pending
-- [~] Sort, filters, active filters — Shopify-native sort options are now wired into a dedicated collection toolbar; filters and active-filter treatment remain next
-- [~] Collection toolbar — view-density controls left, live product count centred and Sort by right; Aster red/ivory/blush/wine master-palette treatment applied, final collection QA still pending
-- [~] Collection spacing rhythm — toolbar → product grid and final product row → collection edge now use the same canonical adjacent-component gap; title zone uses exactly `4×` that gap with the title vertically centred; desktop visual QA is positive and the rule is now canonical site language
-- [~] Empty state and pagination/loading — empty state and styled native pagination implemented; loading treatment remains to be assessed when filtering/pagination behaviour is finalised
-- [~] Colour-scheme support — first pass consumes the active global colour scheme with no local colour controls; verify during visual QA
-- [~] Quiet motion and optional editorial support sections — collection header uses the existing restrained reveal foundation; further motion/editorial treatment remains deliberately minimal until visual QA
-- [x] Use Shopify’s default/all-products collection as the immediate visual QA surface; no dedicated product-card QA page is required
+- [~] Full-width collection-image hero above title/description implemented; visual QA pending
+- [~] Real/default collection uses the shared photographic product card; visual QA pending
+- [~] Shopper-selectable 2/3/4-column desktop grid, 2/3 tablet options and fixed 2-column mobile; compatible preference persists
+- [~] Collection toolbar: density controls left, product count centred, Sort by right
+- [~] Shopify-native sort options implemented
+- [ ] Filters and active-filter treatment — next functional collection task
+- [~] Toolbar uses Aster master palette
+- [~] Collection spacing rhythm: toolbar → grid and final row → collection edge use same canonical gap; title zone uses `4×` gap with vertically centred title
+- [~] Empty state and styled native pagination implemented; loading behaviour to be finalised with filters/pagination
+- [~] Colour-scheme support implemented; final QA pending
+- [x] Default/all-products collection is the immediate product-card/collection QA surface; no dedicated QA page required
+
+---
 
 # PHASE 6 — PRODUCT EXPERIENCE
 - [ ] Desktop/mobile media gallery
@@ -296,9 +280,9 @@ Select only a small number:
 - [ ] Dynamic checkout decision
 - [ ] Inventory/delivery/returns messaging
 - [ ] App/subscription compatibility if required
-- [ ] Description, ingredients/details, accordions where useful
-- [ ] Reviews, related products and rich storytelling sections
-- [ ] Judge.me integration when the account/app is actually introduced close to launch
+- [ ] Description/details/accordions
+- [ ] Reviews, related products and storytelling sections
+- [ ] Judge.me when account/app is introduced near launch
 - [ ] Full edge-case QA
 
 # PHASE 7 — CART
@@ -306,7 +290,7 @@ Select only a small number:
 - [ ] Lines, variants, quantity, remove, prices/savings
 - [ ] Empty state, subtotal, checkout, continue shopping
 - [ ] Upsell/progress only if commercially justified
-- [ ] Accessible drawer transition and focus management
+- [ ] Accessible drawer transition/focus management
 
 # PHASE 8 — SEARCH + DISCOVERY
 - [ ] Search overlay/drawer
@@ -321,8 +305,8 @@ Select only a small number:
 - [ ] Standard page foundation
 - [ ] About/brand story
 - [ ] Contact and FAQ
-- [ ] Blog index and article
-- [ ] Build/sign off article-card component here when real Journal metadata/layout requirements are known
+- [ ] Blog index/article
+- [ ] Article-card component when Journal requirements are known
 - [ ] Related editorial/product links
 - [ ] Branded 404
 
@@ -336,52 +320,51 @@ Build only what Aster actually uses.
 
 # PHASE 11 — OPTIONAL COMMERCE FEATURES
 Only after operational/catalogue need is proven.
-- [ ] PDP-level swatch refinements, size guide, back in stock, wishlist
+- [ ] PDP swatch refinements, size guide, back in stock, wishlist
 - [ ] Quick view/add, compare, bundles
 - [ ] Subscriptions, personalisation, cross-sells/upsells
 
 # PHASE 12 — THEME SETTINGS + CODE CLEAN-UP
 - [ ] Add component settings only where sign-off proves value
 - [ ] Remove remaining Skeleton/demo settings
-- [ ] Remove duplicate controls and dead variables
+- [ ] Remove duplicate controls/dead variables
 - [ ] Remove unused JS/CSS/assets
 - [ ] Confirm every Theme Setting has a visible purpose
 
 # PHASE 13 — ACCESSIBILITY
-- [ ] Heading hierarchy, keyboard navigation and focus
-- [ ] Drawers/modals and focus restoration
+- [ ] Heading hierarchy, keyboard navigation/focus
+- [ ] Drawers/modals/focus restoration
 - [ ] Contrast, labels/errors, alt behaviour
-- [ ] Reduced motion and touch targets
+- [ ] Reduced motion/touch targets
 
 # PHASE 14 — PERFORMANCE VALIDATION
-The architecture starts now; this phase is the final real-world audit once the store exists.
-- [ ] Set/validate performance budget against built templates
+- [ ] Set/validate performance budget against real templates
 - [ ] JS/CSS payload audit
-- [ ] Validate eager/lazy/fetch-priority decisions against real LCP candidates
-- [ ] Responsive media and `sizes` audit across breakpoints
-- [ ] Assess safe `content-visibility` candidates for static below-fold sections
+- [ ] Validate eager/lazy/fetch-priority decisions
+- [ ] Responsive media/`sizes` audit
+- [ ] Assess safe `content-visibility` candidates
 - [ ] Iframe/video loading audit
 - [ ] Font loading review
 - [ ] Confirm GSAP/ScrollTrigger only ship where required
 - [ ] Core Web Vitals / CLS / INP pass
-- [ ] Remove dead Skeleton code and unused assets
+- [ ] Remove dead Skeleton code/assets
 
 # PHASE 15 — SEO + STRUCTURED DATA
-- [ ] Semantic templates and headings
+- [ ] Semantic templates/headings
 - [ ] Product, organisation/site and article structured data
 - [ ] Breadcrumbs, canonicals, pagination/indexing
 - [ ] Social/meta output and internal-linking review
 
 # PHASE 16 — ANALYTICS + CONSENT
 - [ ] Shopify analytics baseline
-- [ ] GA/GTM and advertising integrations if required
-- [ ] Consent compatibility and ecommerce events
+- [ ] GA/GTM/advertising integrations if required
+- [ ] Consent compatibility/ecommerce events
 - [ ] Validate no duplicate tracking
 
 # PHASE 17 — CROSS-TEMPLATE ART-DIRECTION PASS
 - [ ] Homepage, product, collection, search, cart, content and utility templates
-- [ ] Optional branded internal-page transition: scheme-aware full-screen veil with centred Aster mark; progressive enhancement only, preserve native back/forward navigation and respect reduced motion
-- [ ] Final test: does every surface look like the same artist designed it?
+- [ ] Optional branded internal-page transition: scheme-aware full-screen veil with centred Aster mark; preserve native back/forward and reduced motion
+- [ ] Final coherence check: every surface should feel designed by the same artist
 
 # PHASE 18 — LAUNCH QA
 - [ ] Device/browser matrix
@@ -395,31 +378,35 @@ The architecture starts now; this phase is the final real-world audit once the s
 
 # AGREED IMPLEMENTATION ORDER FROM CURRENT POSITION
 
-The phase numbers remain stable so earlier references do not become confusing, but the execution order is now explicitly:
+Phase numbers remain stable for reference. Actual execution order is:
 
-1. **Phase 5 — Collection experience**
-2. **Phase 6 — Product experience**
+1. **Finish Phase 5 — Collection Experience**
+2. **Phase 6 — Product Experience**
 3. **Phase 7 — Cart**
-4. **Phase 8 — Search + discovery**
-5. **Phase 9 — Core page/content templates**
-6. **Phase 4 — Homepage + GSAP art direction**, once its destination pages/components are real
-7. Build **Phase 3.2 / 3.3 / 3.4** components on demand when one of those real surfaces proves the requirement
+4. **Phase 8 — Search + Discovery**
+5. **Phase 9 — Core Page/Content Templates**
+6. **Phase 4 — Homepage + GSAP Art Direction**, once destination pages/components are real
+7. Build **Phase 3.2 / 3.3 / 3.4** components on demand when a real surface proves the requirement
 8. Continue through utility, clean-up, accessibility, performance, SEO, analytics, cross-template art direction and launch QA
 
-This ordering deliberately prioritises the core customer journey — **Browse → Product → Cart → Checkout**, plus search and baseline content — before speculative navigational/editorial components.
+This deliberately prioritises the core customer journey: **Browse → Product → Cart → Checkout**, plus search and baseline content, before speculative navigational/editorial components.
 
 ---
 
-# CURRENT POSITION
+# CURRENT POSITION — 22 OCTOBER 2026
 
-**Completed:** Phase 0, Phase 1, Phase 2.1 Announcement bar and Phase 2.2 Header. Phase 3.1 Product Card’s core architecture is complete: variant swatches, paired variant hover imagery, non-swatch second-image hover, hover preloading, badges/state handling and independently configurable card/media backgrounds remain established. The collection-specific photographic media/CTA refinement has reopened the visual treatment for QA rather than invalidating that core component work. Judge.me remains a deliberate pre-launch integration rather than unfinished core product-card work.
+**Completed foundations:** Phase 0 and Phase 1 are complete. Phase 2.1 Announcement Bar and Phase 2.2 Header are complete. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred.
 
-**Brand system update:** The newly recovered Aster brand guidelines are now the canonical colour source. Ivory `#F8F6EB`, Aster red `#A52D34`, Wine `#6B2331` and Blush `#E8DAD2` are active; Blue `#3E6990` is recorded but deliberately withheld from the current storefront. Existing global schemes, header/footer balance, collection toolbar and product-card surfaces have been remapped accordingly. Visual QA of the new palette remains required before treating the recolour as signed off.
+**Password/pre-launch:** The waiting-list/countdown page now has the Aster Red intro, Poet headings, Lando-inspired ambient motion, more frequent bear crossings and a static random stain chosen from eight Shopify Content files. The stain implementation is complete at one-third of the original rollout size, 37.5% opacity and multiply blend mode.
 
-**Built but not formally closed:** Phase 2.4 Footer is implemented and visually refined, with its desktop spacing now tightened to the same canonical adjacent-component rhythm established during Collection QA; it remains open until explicit final sign-off. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred until catalogue/menu structure proves the need.
+**Footer:** The footer is fully built, uses the canonical spacing rhythm and has received the brighter Aster Red treatment requested to match the header/navigation, using only complementary colours from the approved Aster palette. It remains open solely for final explicit visual sign-off.
 
-**Deferred, not forgotten:** Phase 3.2 Collection Card, Phase 3.3 Article Card and Phase 3.4 Editorial Card are intentionally postponed until their first real use case establishes the correct requirements.
+**Product card:** Core architecture is complete. The live collection treatment now uses photographic full-bleed media, vertical swatches inside the image area, aligned bottom CTAs, variant-aware hover images and real Shopify product forms. The duplicate standalone price has been removed. Short card copy is merchant-editable through the pinned product metafield `aster.card_description`. Temporary review visuals remain QA-only until Judge.me is introduced near launch. Current Bouf-inspired styling remains in visual QA.
 
-**In progress:** Phase 5 — Collection Experience. The real collection template now has a full-bleed collection-image hero above the title/description, photographic full-bleed shared product-card media, variant-aware bottom product-form CTAs, persistent shopper-selectable grid density on desktop/tablet, centred product count, Shopify-native sorting, Aster master-palette toolbar treatment, canonical spacing rhythm, empty-state treatment and styled native pagination. These remain partial until visual QA; filtering and active-filter treatment are still outstanding.
+**Collection:** Phase 5 is the active build phase. Full-width collection hero, product grid, density controls, product count, sorting, spacing, empty state and pagination are implemented. **Filters and active-filter behaviour are the next outstanding functional task**, followed by cross-device visual QA and final Phase 5 sign-off.
 
-**Next verification:** Visually confirm the new full-bleed collection hero and photographic product cards across desktop/tablet/mobile, including Add to cart / Pre-order / Coming soon / Sold out CTA states and swatch-driven variant/price changes. Also confirm the master-palette refresh and tightened desktop footer rhythm. After that implement filters and active-filter behaviour, finish loading/pagination decisions and close Phase 5 only after visual sign-off. Then proceed to Product Experience → Cart → Search → Core Content Templates before the Homepage. The branded page-transition concept remains recorded for Phase 17.
+**Deferred, not forgotten:** Collection Card, Article Card and Editorial Card remain deliberately deferred until a real surface proves the requirement.
+
+**After Phase 5:** Product Experience → Cart → Search → Core Content Templates → Homepage/GSAP art direction.
+
+**Verification rule:** Before reporting connected-theme code as implemented, confirm the current GitHub `main` and the corresponding files on the actual ASTER Shopify MAIN theme are in parity.
