@@ -15,6 +15,18 @@
       class="aster-collection__header{% if collection_image %} aster-collection__header--with-image{% endif %}"
       data-aster-reveal="up"
     >
+      {% if collection_image %}
+        <div class="aster-collection__hero-media">
+          {% render 'image',
+            class: 'aster-collection__hero-image',
+            image: collection_image,
+            width: 2400,
+            sizes: '100vw',
+            priority: true
+          %}
+        </div>
+      {% endif %}
+
       <div class="aster-collection__copy">
         <h1 class="aster-collection__title">{{ collection.title }}</h1>
 
@@ -24,18 +36,6 @@
           </div>
         {% endif %}
       </div>
-
-      {% if collection_image %}
-        <div class="aster-collection__hero-media">
-          {% render 'image',
-            class: 'aster-collection__hero-image',
-            image: collection_image,
-            width: 1600,
-            sizes: '(min-width: 1100px) 52vw, (min-width: 850px) 44vw, calc(100vw - 30px)',
-            priority: true
-          %}
-        </div>
-      {% endif %}
     </header>
 
     {% paginate collection.products by 20 %}
