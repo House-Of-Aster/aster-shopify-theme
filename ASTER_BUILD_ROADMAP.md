@@ -261,7 +261,7 @@ Choose deliberately, not all at once:
 ---
 
 # PHASE 5 — COLLECTION EXPERIENCE — IN PROGRESS
-- [~] Full-width collection-image hero above title/description implemented; visual QA pending
+- [~] Collection intro rebuilt: capped full-bleed hero imagery is structurally isolated from the commerce UI; title/description use a responsive editorial layout with a 48ch desktop reading measure and clean mobile stacking; visual QA pending
 - [~] Real/default collection uses the shared photographic product card; visual QA pending
 - [~] Shopper-selectable 2/3/4-column desktop grid, 2/3 tablet options and fixed 2-column mobile; compatible preference persists
 - [~] Collection toolbar: density controls left, product count centred, Sort by right
@@ -404,7 +404,7 @@ This deliberately prioritises the core customer journey: **Browse → Product �
 
 **Product card:** Core architecture is complete. The live collection treatment now uses photographic full-bleed media, vertical swatches inside the image area, aligned bottom CTAs, variant-aware hover images and real Shopify product forms. The duplicate standalone price has been removed. Short card copy is merchant-editable through the pinned product metafield `aster.card_description`. Temporary review visuals remain QA-only until Judge.me is introduced near launch. Current Bouf-inspired styling remains in visual QA.
 
-**Collection:** Phase 5 is the active build phase. Full-width collection hero, product grid, density controls, product count, sorting, spacing, empty state and pagination are implemented. **Filters and active-filter behaviour are the next outstanding functional task**, followed by cross-device visual QA and final Phase 5 sign-off.
+**Collection:** Phase 5 is the active build phase. QA exposed that native collection descriptions and collection images were not being given a robust presentation, so the collection intro has been rebuilt: imagery is now a capped full-bleed hero isolated from the shopping controls/grid, while title and description use a responsive editorial layout with controlled reading width. Product grid, density controls, product count, sorting, spacing, empty state and pagination remain implemented. This intro treatment still requires explicit visual approval. **Filters and active-filter behaviour are the next outstanding functional task**, followed by cross-device visual QA and final Phase 5 sign-off.
 
 **Deferred, not forgotten:** Collection Card, Article Card and Editorial Card remain deliberately deferred until a real surface proves the requirement.
 
