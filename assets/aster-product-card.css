@@ -5,7 +5,7 @@
   height: 100%;
   overflow: hidden;
   border-radius: var(--aster-radius);
-  background: var(--aster-product-card-background, #F2E9DE);
+  background: var(--aster-product-card-background, #F8F6EB);
   color: var(--color-foreground);
 }
 
@@ -86,7 +86,7 @@
 }
 
 .aster-product-card__badge--quiet {
-  background: color-mix(in srgb, var(--aster-product-media-bg, #E8DAD2) 72%, white 28%);
+  background: color-mix(in srgb, var(--aster-product-media-bg, #E8DAD2) 72%, var(--aster-colour-ivory) 28%);
   color: var(--color-foreground);
 }
 
