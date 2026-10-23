@@ -433,3 +433,76 @@
     transform: none !important;
   }
 }
+
+/* Planner PDP visual-QA refinements: simplified hierarchy, stable quick-shop hover and canonical page width. */
+.aster-pdp__eyebrow,
+.aster-pdp__section-eyebrow {
+  display: none !important;
+}
+
+.aster-pdp__hero,
+.aster-pdp__content-section,
+.aster-pdp__related,
+.aster-pdp__story {
+  width: min(1400px, calc(100vw - 40px));
+}
+
+.aster-pdp__spec-peek .aster-product-card__media {
+  aspect-ratio: 1 / 1;
+}
+
+.aster-pdp__spec-peek .aster-product-card__image {
+  object-fit: contain;
+  padding: 14px;
+}
+
+.aster-pdp__faq-item summary {
+  transition: none;
+}
+
+.aster-pdp__faq-item summary:hover,
+.aster-pdp__faq-item summary:focus-visible {
+  color: var(--aster-pdp-wine);
+  padding-left: 0;
+}
+
+.aster-pdp__faq-item:not([open]) summary:hover .aster-pdp__faq-plus {
+  transform: none;
+}
+
+.aster-pdp__section-heading-row .aster-pdp__text-link {
+  transition: transform 180ms var(--motion-ease-soft, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .aster-pdp__spec-product::after {
+    content: '';
+    position: absolute;
+    z-index: 29;
+    top: 100%;
+    right: 0;
+    width: min(286px, calc(100vw - 48px));
+    height: 14px;
+  }
+
+  .aster-pdp__section-heading-row .aster-pdp__text-link:hover,
+  .aster-pdp__section-heading-row .aster-pdp__text-link:focus-visible {
+    transform: translateX(4px);
+  }
+}
+
+@media (max-width: 749px) {
+  .aster-pdp__hero,
+  .aster-pdp__content-section,
+  .aster-pdp__related,
+  .aster-pdp__story {
+    width: calc(100vw - 30px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aster-pdp__section-heading-row .aster-pdp__text-link {
+    transition: none !important;
+    transform: none !important;
+  }
+}
