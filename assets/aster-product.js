@@ -1,3 +1,4 @@
+// Aster PDP interaction controller · refined gallery, variants and FAQ motion.
 (() => {
   const roots = document.querySelectorAll('[data-aster-pdp]');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
