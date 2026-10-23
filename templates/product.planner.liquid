@@ -80,7 +80,22 @@
             <h2 class="aster-pdp__section-title">{{ details_section.heading.value | escape }}</h2>
             <dl class="aster-pdp__spec-list">
               {% for item in details_section.items.value %}
-                <div class="aster-pdp__spec-row"><dt>{{ item.title.value | escape }}</dt><dd>{{ item.value.value | default: item.body.value | escape }}</dd></div>
+                {% assign linked_product = item.linked_product.value %}
+                <div class="aster-pdp__spec-row">
+                  <dt>{{ item.title.value | escape }}</dt>
+                  <dd>
+                    {% if linked_product != blank %}
+                      <div class="aster-pdp__spec-product">
+                        <a class="aster-pdp__spec-product-link" href="{{ linked_product.url }}">{{ linked_product.title | escape }}</a>
+                        <div class="aster-pdp__spec-peek" role="region" aria-label="Quick shop {{ linked_product.title | escape }}">
+                          {% render 'aster-product-card', product: linked_product %}
+                        </div>
+                      </div>
+                    {% else %}
+                      {{ item.value.value | default: item.body.value | escape }}
+                    {% endif %}
+                  </dd>
+                </div>
               {% endfor %}
             </dl>
           </div>
