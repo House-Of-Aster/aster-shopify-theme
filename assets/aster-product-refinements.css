@@ -1,0 +1,151 @@
+/* Aster PDP refinement layer
+   Tightens the approved section rhythm and adds deliberate motion polish. */
+
+.aster-pdp {
+  --aster-pdp-section-space: clamp(48px, 5.5vw, 80px);
+}
+
+.aster-pdp__hero-image img {
+  transition:
+    opacity 220ms ease,
+    transform 520ms var(--motion-ease-soft, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.aster-pdp__hero-image.is-switching img {
+  opacity: 0.18;
+  transform: scale(1.012);
+}
+
+.aster-pdp__thumbnail:hover {
+  transform: translateY(-2px);
+}
+
+.aster-pdp__thumbnail.is-active {
+  transform: none;
+}
+
+/* Opening sequence: media first, then commerce controls, then reassurance/highlights. */
+.aster-motion-ready .aster-pdp__hero .aster-pdp__media-shell[data-aster-reveal] {
+  transition-delay: 90ms;
+}
+
+.aster-motion-ready .aster-pdp__hero .aster-pdp__buy-copy[data-aster-reveal] {
+  transition-delay: 240ms;
+}
+
+.aster-motion-ready .aster-pdp__hero .aster-pdp__options[data-aster-reveal] {
+  transition-delay: 340ms;
+}
+
+.aster-motion-ready .aster-pdp__hero .aster-pdp__purchase-row[data-aster-reveal] {
+  transition-delay: 440ms;
+}
+
+.aster-motion-ready .aster-pdp__hero .aster-pdp__reassurance[data-aster-reveal] {
+  transition-delay: 540ms;
+}
+
+.aster-motion-ready .aster-pdp__hero .aster-pdp__hero-highlights[data-aster-stagger] > * {
+  transition-delay: calc(620ms + (var(--aster-stagger-index, 0) * 70ms));
+}
+
+/* Give below-fold editorial media a slightly slower, more photographic entrance. */
+.aster-pdp__story-media[data-aster-reveal='media'] {
+  overflow: hidden;
+}
+
+.aster-pdp__story-media[data-aster-reveal='media'] .aster-pdp__story-image img {
+  transition: transform 1.1s var(--motion-ease-soft, cubic-bezier(0.16, 1, 0.3, 1));
+  transform: scale(1.025);
+}
+
+.aster-pdp__story-media[data-aster-reveal='media'].is-visible .aster-pdp__story-image img {
+  transform: scale(1);
+}
+
+.aster-pdp__section-lockup {
+  margin-bottom: 34px;
+}
+
+/* FAQ answers animate through JS rather than popping open/closed. */
+.aster-pdp__faq-answer {
+  max-width: none;
+  padding: 0;
+  overflow: hidden;
+  will-change: height, opacity, transform;
+}
+
+.aster-pdp__faq-answer-inner {
+  max-width: 58ch;
+  padding: 0 32px 18px 0;
+  color: color-mix(in srgb, var(--aster-pdp-wine) 76%, var(--aster-pdp-ivory));
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.aster-pdp__faq-item summary {
+  transition: color 180ms ease, padding-left 220ms var(--motion-ease-soft, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.aster-pdp__faq-item summary:hover,
+.aster-pdp__faq-item summary:focus-visible {
+  color: var(--aster-pdp-red);
+  padding-left: 6px;
+}
+
+.aster-pdp__faq-plus {
+  transition: transform 280ms var(--motion-ease-soft, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.aster-pdp__faq-item:not([open]) summary:hover .aster-pdp__faq-plus {
+  transform: rotate(90deg);
+}
+
+.aster-pdp__faq-item[open] .aster-pdp__faq-plus {
+  transform: rotate(45deg);
+}
+
+@media (max-width: 749px) {
+  .aster-pdp {
+    --aster-pdp-section-space: 48px;
+  }
+
+  .aster-pdp__section-lockup {
+    margin-bottom: 26px;
+  }
+
+  .aster-motion-ready .aster-pdp__hero .aster-pdp__media-shell[data-aster-reveal] {
+    transition-delay: 60ms;
+  }
+
+  .aster-motion-ready .aster-pdp__hero .aster-pdp__buy-copy[data-aster-reveal] {
+    transition-delay: 180ms;
+  }
+
+  .aster-motion-ready .aster-pdp__hero .aster-pdp__options[data-aster-reveal] {
+    transition-delay: 270ms;
+  }
+
+  .aster-motion-ready .aster-pdp__hero .aster-pdp__purchase-row[data-aster-reveal] {
+    transition-delay: 350ms;
+  }
+
+  .aster-motion-ready .aster-pdp__hero .aster-pdp__reassurance[data-aster-reveal] {
+    transition-delay: 430ms;
+  }
+
+  .aster-motion-ready .aster-pdp__hero .aster-pdp__hero-highlights[data-aster-stagger] > * {
+    transition-delay: calc(500ms + (var(--aster-stagger-index, 0) * 65ms));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aster-pdp__hero-image img,
+  .aster-pdp__thumbnail,
+  .aster-pdp__story-media[data-aster-reveal='media'] .aster-pdp__story-image img,
+  .aster-pdp__faq-item summary,
+  .aster-pdp__faq-plus {
+    transition: none !important;
+    transform: none !important;
+  }
+}
