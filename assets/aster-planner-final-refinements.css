@@ -1,0 +1,99 @@
+/* Aster Planner PDP final visual-QA layer.
+   Keep these overrides narrow until the Planner PDP is explicitly signed off. */
+
+/* Three simple steps: retain the numerals as the graphic device, but soften them. */
+.aster-pdp__steps-grid {
+  gap: clamp(34px, 4vw, 60px);
+}
+
+.aster-pdp__step-number {
+  margin-bottom: 16px;
+  color: color-mix(in srgb, var(--aster-pdp-wine) 72%, var(--aster-pdp-red));
+  font-family: "Garet", var(--font-body--family);
+  font-size: clamp(38px, 3.4vw, 52px);
+  font-weight: 400;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+}
+
+.aster-pdp__step h3 {
+  margin: 0;
+  color: var(--aster-pdp-wine);
+  font-family: "Garet", var(--font-body--family);
+  font-size: clamp(17px, 1.3vw, 20px);
+  font-weight: 400;
+  letter-spacing: -0.012em;
+  line-height: 1.25;
+}
+
+.aster-pdp__step p {
+  max-width: 35ch;
+  margin-top: 9px;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+/* Complete the ritual: with exactly two related products, make the intro/CTA
+   the deliberate first column instead of centring two cards in a vacant grid. */
+@media (min-width: 1000px) {
+  .aster-pdp__related:has(.aster-pdp__related-grid > .aster-product-card:nth-child(2):last-child) {
+    display: grid;
+    grid-template-columns: minmax(210px, 0.62fr) repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: var(--aster-pdp-gap);
+  }
+
+  .aster-pdp__related:has(.aster-pdp__related-grid > .aster-product-card:nth-child(2):last-child) > .aster-pdp__section-heading-row {
+    min-width: 0;
+    margin: 0;
+    padding: 6px clamp(8px, 1.2vw, 18px) 0 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 24px;
+  }
+
+  .aster-pdp__related:has(.aster-pdp__related-grid > .aster-product-card:nth-child(2):last-child) .aster-pdp__section-title {
+    max-width: 7ch;
+    font-size: clamp(38px, 3.6vw, 54px);
+  }
+
+  .aster-pdp__related:has(.aster-pdp__related-grid > .aster-product-card:nth-child(2):last-child) > .aster-pdp__related-grid {
+    display: contents;
+    width: auto;
+    margin: 0;
+  }
+
+  .aster-pdp__related:has(.aster-pdp__related-grid > .aster-product-card:nth-child(2):last-child) .aster-product-card {
+    min-width: 0;
+  }
+}
+
+/* Tablet keeps a conventional two-card row rather than compressing the editorial three-column treatment. */
+@media (min-width: 750px) and (max-width: 999px) {
+  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) {
+    width: 100%;
+    margin-inline: 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--aster-pdp-gap);
+  }
+}
+
+@media (max-width: 749px) {
+  .aster-pdp__step-number {
+    margin-bottom: 12px;
+    font-size: 40px;
+  }
+
+  .aster-pdp__step h3 {
+    font-size: 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aster-pdp__step-number {
+    transform: none !important;
+  }
+}
