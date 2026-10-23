@@ -167,7 +167,7 @@ Permanent architecture:
 - [ ] Define final navigation IA once catalogue/menu structure is locked
 - [ ] Refine deeper hierarchy only if catalogue requires it
 
-## 2.4 Footer — BUILT / FINAL EXPLICIT SIGN-OFF PENDING
+## 2.4 Footer — COMPLETE
 - [x] Scheme-aware footer architecture
 - [x] Brand mark/wordmark, “A calmer way forward” and supporting copy
 - [x] “A slower inbox” newsletter treatment
@@ -180,13 +180,13 @@ Permanent architecture:
 - [x] Desktop vertical rhythm tightened to the canonical site spacing cadence
 - [x] Footer recoloured to the brighter Aster Red `#A52D34` treatment, with complementary Ivory/Wine/Blush values only from the master palette
 - [x] Footer brand lock-up refined: supporting brand copy uses Body typography, logo/tagline spacing is tightened, and the footer logo receives a proportional optical left correction to compensate for transparent SVG bounds and align its visible artwork with the canonical content edge
-- [ ] Final explicit visual sign-off before marking Phase 2.4 complete
+- [x] Current footer visual treatment explicitly signed off; revisit only as part of pre-launch cross-template/launch QA
 
 ---
 
 # PHASE 3 — COMMERCE COMPONENT LIBRARY
 
-## 3.1 Product card — CORE COMPLETE / PHOTOGRAPHIC TREATMENT IN VISUAL QA
+## 3.1 Product card — COMPLETE / PRE-LAUNCH REVISIT
 - [x] Product image, title, short supporting copy and product type/eyebrow
 - [x] Product-card short description is editable product data via metafield definition `aster.card_description` (“Product card short description”), pinned for merchant editing
 - [x] Existing short descriptions migrated/recognised under the metafield definition
@@ -205,7 +205,7 @@ Permanent architecture:
 - [x] Bottom real Shopify product-form CTA wired to selected variant and price: Add to cart / Pre-order / Coming soon / Sold out
 - [x] Duplicate standalone bold price removed; price is carried by the CTA treatment
 - [x] Temporary/fake review presentation allowed only for QA/theme-editor visualisation when genuine review data is absent
-- [~] Current photographic/Bouf-inspired card art direction remains in visual QA
+- [x] Current photographic/Bouf-inspired card art direction signed off for the current build; revisit during pre-launch cross-template/launch QA if required
 - [ ] Judge.me rating/review integration deliberately deferred until close to launch
 
 ## 3.2 Collection card — DEFERRED UNTIL PROVEN USE CASE
@@ -262,9 +262,9 @@ Choose deliberately, not all at once:
 ---
 
 # PHASE 5 — COLLECTION EXPERIENCE — IN PROGRESS
-- [~] Collection intro follows the current mock-up direction: the collection banner sits directly beneath the header/navigation, constrained to the canonical 1400px content width; its top corners remain square against the navigation while the two bottom corners use the site-wide radius. Desktop preserves the uploaded image’s natural aspect ratio. On mobile (≤749px), the same collection image is reused inside a centred 2.2:1 crop using `object-fit: cover`, allowing one master artwork to serve both desktop and mobile when key subjects remain inside a central safe area. Title and description stack beneath it inside the same content width. The legacy global semantic `header { height: 5rem }` collision has been removed locally so the intro reserves its natural document height before the toolbar. Visual QA pending
-- [~] Collection motion-polish pass implemented using the existing Aster motion foundation: first-paint-safe masked/settled banner entrance, sequential title → description → toolbar reveal, and an initial-viewport card pass that makes any product cards already visible at load join the opening sequence automatically, even when only their tops are on-screen. Genuinely below-fold cards remain viewport-triggered, with pagination/empty-state reveals and `prefers-reduced-motion` fallback retained. No GSAP or additional dependency added; explicit visual sign-off pending
-- [~] Real/default collection uses the shared photographic product card; visual QA pending
+- [x] Collection intro follows the current mock-up direction: the collection banner sits directly beneath the header/navigation, constrained to the canonical 1400px content width; its top corners remain square against the navigation while the two bottom corners use the site-wide radius. Desktop preserves the uploaded image’s natural aspect ratio. On mobile (≤749px), the same collection image is reused inside a centred 2.2:1 crop using `object-fit: cover`, allowing one master artwork to serve both desktop and mobile when key subjects remain inside a central safe area. Title and description stack beneath it inside the same content width. The legacy global semantic `header { height: 5rem }` collision has been removed locally so the intro reserves its natural document height before the toolbar. Current visual treatment signed off; revisit during pre-launch QA if required
+- [x] Collection motion-polish pass implemented using the existing Aster motion foundation: first-paint-safe masked/settled banner entrance, sequential title → description → toolbar reveal, and an initial-viewport card pass that makes any product cards already visible at load join the opening sequence automatically, even when only their tops are on-screen. Genuinely below-fold cards remain viewport-triggered, with pagination/empty-state reveals and `prefers-reduced-motion` fallback retained. No GSAP or additional dependency added; current treatment signed off
+- [x] Real/default collection uses the shared photographic product card; current visual treatment signed off
 - [~] Shopper-selectable 2/3/4-column desktop grid, 2/3 tablet options and fixed 2-column mobile; compatible preference persists
 - [~] Collection toolbar: density controls left, product count centred, Sort by right
 - [~] Shopify-native sort options implemented
@@ -272,7 +272,7 @@ Choose deliberately, not all at once:
 - [~] Toolbar uses Aster master palette
 - [~] Collection spacing rhythm: toolbar → grid and final row → collection edge use same canonical gap; title/description spacing now follows the approved stacked collection-intro composition
 - [~] Empty state and styled native pagination implemented; loading behaviour to be finalised with filters/pagination
-- [~] Colour-scheme support implemented; final QA pending
+- [~] Colour-scheme support implemented; final functional/cross-device QA pending after filters
 - [x] Default/all-products collection is the immediate product-card/collection QA surface; no dedicated QA page required
 
 ---
@@ -398,15 +398,15 @@ This deliberately prioritises the core customer journey: **Browse → Product �
 
 # CURRENT POSITION — 23 OCTOBER 2026
 
-**Completed foundations:** Phase 0 and Phase 1 are complete. Phase 2.1 Announcement Bar and Phase 2.2 Header are complete. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred.
+**Completed foundations:** Phase 0 and Phase 1 are complete. Phase 2.1 Announcement Bar, Phase 2.2 Header and Phase 2.4 Footer are complete. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred.
 
 **Password/pre-launch:** The waiting-list/countdown page now has the Aster Red intro, Poet headings, Lando-inspired ambient motion, more frequent bear crossings and a static random stain chosen from eight Shopify Content files. The stain implementation is complete at one-third of the original rollout size, 37.5% opacity and multiply blend mode.
 
-**Footer:** The footer is fully built, uses the canonical spacing rhythm and the brighter Aster Red treatment requested to match the header/navigation, using only complementary colours from the approved Aster palette. Supporting brand copy now uses Body typography rather than Poet/Heading; the logo/tagline lock-up has been tightened and the SVG receives a small proportional optical correction so its visible artwork aligns to the canonical content edge despite transparent source bounds. It remains open solely for final explicit visual sign-off.
+**Footer:** The footer is fully built and visually signed off for the current build. It uses the canonical spacing rhythm and the brighter Aster Red treatment requested to match the header/navigation, using only complementary colours from the approved Aster palette. Supporting brand copy uses Body typography rather than Poet/Heading; the logo/tagline lock-up is tightened and the SVG receives a small proportional optical correction so its visible artwork aligns to the canonical content edge despite transparent source bounds. Any further adjustment is deferred to pre-launch cross-template/launch QA.
 
-**Product card:** Core architecture is complete. The live collection treatment now uses photographic full-bleed media, vertical swatches inside the image area, aligned bottom CTAs, variant-aware hover images and real Shopify product forms. The duplicate standalone price has been removed. Short card copy is merchant-editable through the pinned product metafield `aster.card_description`. Temporary review visuals remain QA-only until Judge.me is introduced near launch. Current Bouf-inspired styling remains in visual QA.
+**Product card:** Core architecture and current photographic/Bouf-inspired art direction are signed off for the current build. The live collection treatment uses photographic full-bleed media, vertical swatches inside the image area, aligned bottom CTAs, variant-aware hover images and real Shopify product forms. The duplicate standalone price has been removed. Short card copy is merchant-editable through the pinned product metafield `aster.card_description`. Temporary review visuals remain QA-only until Judge.me is introduced near launch. Revisit only during pre-launch cross-template/launch QA if required.
 
-**Collection:** Phase 5 is the active build phase. The earlier two-column editorial collection-intro treatment and subsequent viewport-wide banner treatment were superseded after visual review. The current mock-up direction is implemented: the collection banner sits immediately beneath the header/navigation but is constrained to the canonical 1400px page width, with square top corners and the site-wide radius on the two bottom corners. Desktop preserves the uploaded collection image’s natural aspect ratio. On mobile at 749px and below, the same uploaded collection image is displayed inside a centred 2.2:1 frame using `object-fit: cover`, deliberately cropping the expendable left/right bleed so one master Photoshop artwork can serve both desktop and mobile; important products/content should remain within the central mobile-safe area. The collection title and description stack beneath it inside the same content width, followed by the existing toolbar and product grid. A previous overlap bug was traced to the legacy global Skeleton rule `header { height: 5rem }`, which had constrained the collection intro because it used a semantic `<header>` wrapper; the intro now uses a neutral local wrapper and reserves its natural height. The restrained motion-polish pass now starts from a first-paint-safe hidden state so the banner entrance is visible from the beginning on refresh, then sequences banner → title → description → toolbar. Product cards whose bounds already intersect the initial viewport are explicitly folded into that opening sequence, including cases where only their tops are visible, so they no longer require a small scroll to begin; genuinely below-fold cards retain viewport-triggered reveals. No GSAP or extra runtime dependency was introduced, and reduced-motion remains respected. Product grid, density controls, product count, sorting, spacing, empty state and pagination remain implemented. The motion treatment still requires explicit visual approval. **Filters and active-filter behaviour remain the next outstanding functional task**, followed by cross-device visual QA and final Phase 5 sign-off.
+**Collection:** Phase 5 remains the active build phase, but its current visual treatment is signed off. The current collection banner, responsive mobile crop, title/description composition, motion treatment and shared photographic product-card presentation are accepted for the current build and should only be revisited during pre-launch QA if required. Product grid, density controls, product count, sorting, spacing, empty state and pagination remain implemented. **Filters and active-filter behaviour are now the next outstanding functional task.** Once filters are complete, run the remaining functional/cross-device QA and close Phase 5 before moving into Phase 6 Product Experience.
 
 **Deferred, not forgotten:** Collection Card, Article Card and Editorial Card remain deliberately deferred until a real surface proves the requirement.
 
