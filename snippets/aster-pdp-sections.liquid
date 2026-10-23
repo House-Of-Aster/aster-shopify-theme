@@ -1,15 +1,6 @@
 {% comment %}
-  Shared Aster PDP storytelling renderer.
+  Shared Aster PDP storytelling renderer. Parser-safe revision.
   Consumes aster.pdp_sections and keeps product-family content data-driven.
-
-  Supported Planner section types:
-  - story
-  - cards
-  - steps
-  - details
-  - faq
-
-  highlights is rendered in aster-pdp-hero.
 {% endcomment %}
 
 {% liquid
@@ -54,34 +45,20 @@
     <div class="aster-pdp__story-copy">
       {% if story_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ story_section.eyebrow.value | escape }}</p>{% endif %}
       <h2 class="aster-pdp__section-title">{{ story_section.heading.value | escape }}</h2>
-      {% if story_section.body.value != blank %}
-        <div class="aster-pdp__section-body">{{ story_section.body.value | escape | newline_to_br }}</div>
-      {% endif %}
-      {% if story_section.link_label.value != blank and story_section.link_url.value != blank %}
-        <a class="aster-pdp__text-link" href="{{ story_section.link_url.value }}">{{ story_section.link_label.value | escape }} <span aria-hidden="true">→</span></a>
-      {% endif %}
+      {% if story_section.body.value != blank %}<div class="aster-pdp__section-body">{{ story_section.body.value | escape | newline_to_br }}</div>{% endif %}
+      {% if story_section.link_label.value != blank and story_section.link_url.value != blank %}<a class="aster-pdp__text-link" href="{{ story_section.link_url.value }}">{{ story_section.link_label.value | escape }} <span aria-hidden="true">→</span></a>{% endif %}
     </div>
-    {% if story_image %}
-      <div class="aster-pdp__story-media">
-        {% render 'image', class: 'aster-pdp__story-image', image: story_image, width: 1600, sizes: '(min-width: 750px) 50vw, 100vw', priority: false %}
-      </div>
-    {% endif %}
+    {% if story_image %}<div class="aster-pdp__story-media">{% render 'image', class: 'aster-pdp__story-image', image: story_image, width: 1600, sizes: '(min-width: 750px) 50vw, 100vw', priority: false %}</div>{% endif %}
   </section>
 {% endif %}
 
 {% if cards_section != blank and cards_section.items.value != blank %}
   <section class="aster-pdp__content-section aster-pdp__content-section--cards" data-aster-reveal="up">
     <div class="aster-pdp__section-heading-row">
-      <div>
-        {% if cards_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ cards_section.eyebrow.value | escape }}</p>{% endif %}
-        <h2 class="aster-pdp__section-title">{{ cards_section.heading.value | escape }}</h2>
-      </div>
-      {% if cards_section.link_label.value != blank and cards_section.link_url.value != blank %}
-        <a class="aster-pdp__text-link" href="{{ cards_section.link_url.value }}">{{ cards_section.link_label.value | escape }} <span aria-hidden="true">→</span></a>
-      {% endif %}
+      <div>{% if cards_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ cards_section.eyebrow.value | escape }}</p>{% endif %}<h2 class="aster-pdp__section-title">{{ cards_section.heading.value | escape }}</h2></div>
+      {% if cards_section.link_label.value != blank and cards_section.link_url.value != blank %}<a class="aster-pdp__text-link" href="{{ cards_section.link_url.value }}">{{ cards_section.link_label.value | escape }} <span aria-hidden="true">→</span></a>{% endif %}
     </div>
     {% if cards_section.body.value != blank %}<div class="aster-pdp__section-body aster-pdp__section-intro">{{ cards_section.body.value | escape | newline_to_br }}</div>{% endif %}
-
     <div class="aster-pdp__cards-grid">
       {% for item in cards_section.items.value limit: 4 %}
         {% liquid
@@ -98,11 +75,7 @@
           endif
         %}
         <article class="aster-pdp__content-card">
-          {% if item_image %}
-            <div class="aster-pdp__content-card-media">
-              {% render 'image', class: 'aster-pdp__content-card-image', image: item_image, width: 900, sizes: '(min-width: 1000px) 25vw, (min-width: 600px) 50vw, 100vw', priority: false %}
-            </div>
-          {% endif %}
+          {% if item_image %}<div class="aster-pdp__content-card-media">{% render 'image', class: 'aster-pdp__content-card-image', image: item_image, width: 900, sizes: '(min-width: 1000px) 25vw, (min-width: 600px) 50vw, 100vw', priority: false %}</div>{% endif %}
           <h3>{{ item.title.value | escape }}</h3>
           {% if item.body.value != blank %}<p>{{ item.body.value | escape | newline_to_br }}</p>{% endif %}
         </article>
@@ -116,21 +89,13 @@
     {% if steps_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ steps_section.eyebrow.value | escape }}</p>{% endif %}
     <h2 class="aster-pdp__section-title">{{ steps_section.heading.value | escape }}</h2>
     {% if steps_section.body.value != blank %}<div class="aster-pdp__section-body aster-pdp__section-intro">{{ steps_section.body.value | escape | newline_to_br }}</div>{% endif %}
-
     <ol class="aster-pdp__steps-grid">
       {% for item in steps_section.items.value limit: 4 %}
+        {% assign step_icon = item.icon.value | downcase %}
         <li class="aster-pdp__step">
           <div class="aster-pdp__step-topline">
             <span class="aster-pdp__step-number">0{{ forloop.index }}</span>
-            <span class="aster-pdp__step-icon" aria-hidden="true">
-              {% case item.icon.value | downcase %}
-                {% when 'leaf' %}⌁
-                {% when 'heart' %}♡
-                {% when 'calendar' %}□
-                {% when 'book' %}▤
-                {% else %}○
-              {% endcase %}
-            </span>
+            <span class="aster-pdp__step-icon" aria-hidden="true">{% case step_icon %}{% when 'leaf' %}⌁{% when 'heart' %}♡{% when 'calendar' %}□{% when 'book' %}▤{% else %}○{% endcase %}</span>
           </div>
           <h3>{{ item.title.value | escape }}</h3>
           {% if item.body.value != blank %}<p>{{ item.body.value | escape | newline_to_br }}</p>{% endif %}
@@ -148,12 +113,7 @@
         <h2 class="aster-pdp__section-title">{{ details_section.heading.value | escape }}</h2>
         {% if details_section.body.value != blank %}<div class="aster-pdp__section-body">{{ details_section.body.value | escape | newline_to_br }}</div>{% endif %}
         <dl class="aster-pdp__spec-list">
-          {% for item in details_section.items.value %}
-            <div class="aster-pdp__spec-row">
-              <dt>{{ item.title.value | escape }}</dt>
-              <dd>{% if item.value.value != blank %}{{ item.value.value | escape }}{% else %}{{ item.body.value | escape }}{% endif %}</dd>
-            </div>
-          {% endfor %}
+          {% for item in details_section.items.value %}<div class="aster-pdp__spec-row"><dt>{{ item.title.value | escape }}</dt><dd>{% if item.value.value != blank %}{{ item.value.value | escape }}{% else %}{{ item.body.value | escape }}{% endif %}</dd></div>{% endfor %}
         </dl>
       </div>
     {% endif %}
@@ -164,15 +124,7 @@
         <h2 class="aster-pdp__section-title">{{ faq_section.heading.value | escape }}</h2>
         {% if faq_section.body.value != blank %}<div class="aster-pdp__section-body">{{ faq_section.body.value | escape | newline_to_br }}</div>{% endif %}
         <div class="aster-pdp__faq-list">
-          {% for item in faq_section.items.value %}
-            <details class="aster-pdp__faq-item">
-              <summary>
-                <span>{{ item.title.value | escape }}</span>
-                <span class="aster-pdp__faq-plus" aria-hidden="true">+</span>
-              </summary>
-              {% if item.body.value != blank %}<div class="aster-pdp__faq-answer">{{ item.body.value | escape | newline_to_br }}</div>{% endif %}
-            </details>
-          {% endfor %}
+          {% for item in faq_section.items.value %}<details class="aster-pdp__faq-item"><summary><span>{{ item.title.value | escape }}</span><span class="aster-pdp__faq-plus" aria-hidden="true">+</span></summary>{% if item.body.value != blank %}<div class="aster-pdp__faq-answer">{{ item.body.value | escape | newline_to_br }}</div>{% endif %}</details>{% endfor %}
         </div>
       </div>
     {% endif %}
