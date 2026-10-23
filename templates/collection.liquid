@@ -1,8 +1,33 @@
 {% comment %}Aster collection experience{% endcomment %}
+<script>document.documentElement.classList.add('aster-motion-ready');</script>
 {{ 'aster-product-card.css' | asset_url | stylesheet_tag }}
 {{ 'aster-collection.css' | asset_url | stylesheet_tag }}
 
 <style>
+  .aster-motion-ready .aster-collection__hero-media[data-aster-reveal='media'] {
+    transition-delay: 180ms;
+  }
+
+  .aster-motion-ready .aster-collection__hero-media[data-aster-reveal='media'] .aster-collection__hero-image img {
+    transition-delay: 180ms;
+  }
+
+  .aster-motion-ready .aster-collection__title[data-aster-reveal] {
+    transition-delay: 380ms;
+  }
+
+  .aster-motion-ready .aster-collection__description[data-aster-reveal] {
+    transition-delay: 470ms;
+  }
+
+  .aster-motion-ready .aster-collection__toolbar[data-aster-reveal] {
+    transition-delay: 570ms;
+  }
+
+  .aster-motion-ready .aster-collection__grid > .aster-collection__card-reveal.aster-collection__card-reveal--initial {
+    transition-delay: calc(820ms + (var(--aster-initial-card-index, 0) * 65ms));
+  }
+
   @media screen and (max-width: 749px) {
     .aster-collection__hero-media {
       aspect-ratio: 2.2 / 1;
@@ -20,6 +45,22 @@
     .aster-collection__hero-image img {
       object-fit: cover;
       object-position: center center;
+    }
+
+    .aster-motion-ready .aster-collection__title[data-aster-reveal] {
+      transition-delay: 340ms;
+    }
+
+    .aster-motion-ready .aster-collection__description[data-aster-reveal] {
+      transition-delay: 420ms;
+    }
+
+    .aster-motion-ready .aster-collection__toolbar[data-aster-reveal] {
+      transition-delay: 510ms;
+    }
+
+    .aster-motion-ready .aster-collection__grid > .aster-collection__card-reveal.aster-collection__card-reveal--initial {
+      transition-delay: calc(720ms + (var(--aster-initial-card-index, 0) * 70ms));
     }
   }
 </style>
