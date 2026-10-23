@@ -34,7 +34,7 @@ Permanent architecture:
 
 ---
 
-# PHASE 0 — FOUNDATION — COMPLETE
+# PHASE 0 — FOUNDATION — COMPLETE / PRE-LAUNCH REFRESH IN PROGRESS
 
 ## Password / pre-launch
 - [x] Bespoke waiting-list page and countdown
@@ -47,6 +47,9 @@ Permanent architecture:
 - [x] Eight Shopify Content stain assets (`Stain-1.webp` through `Stain-8.webp`) used as one random static stain per page load
 - [x] Random stain sits above the main background but below foreground/UI layers, uses `mix-blend-mode: multiply`, random fixed placement, one-third of the original rollout size and 37.5% opacity
 - [x] British Poems WOFF2/display-heading integration
+- [~] Cinematic pre-launch replacement implemented: Shopify-hosted desktop/mobile background videos, desktop right-side editorial lock-up, centred mobile lock-up, launch countdown and Store Access; visual/cross-device sign-off pending
+- [x] Cinematic password template verified on both GitHub `main` and the actual ASTER Shopify MAIN theme after a targeted connected-theme force-sync
+- [ ] Waiting-list signup form deliberately deferred until the week commencing 26 October 2026
 
 ## Global design foundations
 - [x] Logo settings: one SVG, colour control, desktop/mobile width, favicon
@@ -415,9 +418,9 @@ This deliberately prioritises the core customer journey: **Browse → Product �
 
 # CURRENT POSITION — 23 OCTOBER 2026
 
-**Completed foundations:** Phase 0 and Phase 1 are complete. Phase 2.1 Announcement Bar, Phase 2.2 Header and Phase 2.4 Footer are complete. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred.
+**Completed foundations:** Phase 0 and Phase 1 are complete apart from the current pre-launch password-page refresh. Phase 2.1 Announcement Bar, Phase 2.2 Header and Phase 2.4 Footer are complete. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred.
 
-**Password/pre-launch:** The waiting-list/countdown page now has the Aster Red intro, Poet headings, Lando-inspired ambient motion, more frequent bear crossings and a static random stain chosen from eight Shopify Content files. The stain implementation is complete at one-third of the original rollout size, 37.5% opacity and multiply blend mode.
+**Password/pre-launch:** The previous canopy/bear/stain waiting-list composition has been superseded on the rendered password template by a cinematic full-screen video treatment. Desktop uses the Shopify-hosted 16:9 video with the “THE HOUSE OF ASTER / For your eyes, mostly. / SOME THINGS ARE WORTH KEEPING TO YOURSELF.” lock-up positioned over the right-hand door area. Mobile switches to the dedicated 9:16 Shopify-hosted video and centres the same copy and countdown. The flip-style launch countdown remains targeted at 1 November 2026 at 09:00 UK time, Store Access remains available, and reduced-motion users receive a static first decoded video frame. The signup form is intentionally omitted until the week commencing 26 October 2026. GitHub `main` and the actual ASTER Shopify MAIN theme have been verified to contain the new cinematic section, layout and password-template structure after a targeted force-sync. Final desktop/mobile visual sign-off remains pending.
 
 **Footer:** The footer remains fully built. Its previously signed-off structure, spacing, palette, Body supporting copy, tightened logo/tagline lock-up and SVG optical correction remain intact. During the current Planner visual-QA pass, the desktop Aster wordmark has been enlarged to `clamp(245px, 21vw, 340px)` to follow the supplied footer comparison mock-up and fill the left-column void more confidently; that latest scale change is awaiting Dave’s visual confirmation.
 
