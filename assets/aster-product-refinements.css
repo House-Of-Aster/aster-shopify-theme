@@ -507,14 +507,19 @@
   }
 }
 
-/* Planner PDP visual-QA: use typography as the graphic device in the three-step section. */
+/* Planner PDP visual-QA: quiet, architectural three-step treatment. */
+.aster-pdp__steps-grid {
+  align-items: start;
+  gap: clamp(34px, 4.5vw, 68px);
+  margin-top: 30px;
+}
+
 .aster-pdp__step {
   min-width: 0;
 }
 
 .aster-pdp__step-topline {
   display: block;
-  overflow: hidden;
   color: var(--aster-pdp-red);
 }
 
@@ -524,103 +529,54 @@
 
 .aster-pdp__step-number {
   display: block;
-  margin: 0 0 22px;
-  color: color-mix(in srgb, var(--aster-pdp-red) 76%, var(--aster-pdp-blush));
-  font-family: var(--font-heading--family);
-  font-size: clamp(72px, 7.5vw, 116px);
-  font-weight: var(--font-heading--weight);
-  letter-spacing: -0.055em;
-  line-height: 0.78;
-  transform: translateX(-0.04em);
+  margin: 0 0 18px;
+  color: color-mix(in srgb, var(--aster-pdp-red) 82%, var(--aster-pdp-wine));
+  font-family: "Garet", var(--font-body--family);
+  font-size: clamp(46px, 4.6vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 0.88;
 }
 
 .aster-pdp__step h3 {
-  margin-top: 0;
-  font-size: clamp(24px, 2.1vw, 32px);
+  margin: 0;
+  font-family: "Garet", var(--font-body--family);
+  font-size: clamp(18px, 1.55vw, 23px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  text-transform: none;
 }
 
 .aster-pdp__step p {
-  max-width: 34ch;
-  font-size: 14px;
-  line-height: 1.6;
+  max-width: 33ch;
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.55;
 }
 
-/* Two related products become an editorial pair, not two oversized grid cards. */
+/* Two related products read as an intentional pair at the same scale as the signed-off product card. */
 .aster-pdp__related .aster-product-card__eyebrow {
   display: none;
 }
 
 @media (min-width: 750px) {
   .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) {
-    grid-template-columns: minmax(0, 1fr);
+    width: min(100%, 940px);
+    margin-inline: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--aster-pdp-gap);
-  }
-
-  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) > .aster-product-card {
-    display: grid;
-    grid-template-columns: minmax(230px, 35%) minmax(0, 1fr);
-    align-items: center;
-    min-height: 0;
-    overflow: visible;
-    border-radius: 0;
-    background: transparent;
-  }
-
-  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) .aster-product-card__media {
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border-radius: var(--aster-radius);
-  }
-
-  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) .aster-product-card__content {
-    justify-content: center;
-    gap: 11px;
-    padding: clamp(28px, 4.4vw, 64px);
-    background: transparent;
-  }
-
-  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) .aster-product-card__title {
-    font-size: clamp(28px, 3vw, 44px);
-    line-height: 1.02;
-  }
-
-  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) .aster-product-card__description {
-    display: block;
-    max-width: 56ch;
-    overflow: visible;
-    font-size: 14px;
-    line-height: 1.6;
-    -webkit-line-clamp: unset;
-  }
-
-  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) .aster-product-card__reviews {
-    margin-top: 2px;
-  }
-
-  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) .aster-product-card__form {
-    width: min(100%, 420px);
-    padding-top: 12px;
-  }
-
-  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) > .aster-product-card:nth-child(2) .aster-product-card__media {
-    grid-column: 2;
-    grid-row: 1;
-  }
-
-  .aster-pdp__related-grid:has(> .aster-product-card:nth-child(2):last-child) > .aster-product-card:nth-child(2) .aster-product-card__content {
-    grid-column: 1;
-    grid-row: 1;
   }
 }
 
 @media (max-width: 749px) {
   .aster-pdp__step-number {
-    margin-bottom: 16px;
-    font-size: clamp(62px, 21vw, 88px);
+    margin-bottom: 14px;
+    font-size: 48px;
   }
 
   .aster-pdp__step h3 {
-    font-size: clamp(23px, 7vw, 30px);
+    font-size: 19px;
   }
 }
 
