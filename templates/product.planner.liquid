@@ -7,7 +7,9 @@
   supplement templates can reuse the same data model with a different hierarchy.
 {% endcomment %}
 
+<script>document.documentElement.classList.add('aster-motion-ready');</script>
 {{ 'aster-product.css' | asset_url | stylesheet_tag }}
+{{ 'aster-product-refinements.css' | asset_url | stylesheet_tag }}
 {{ 'aster-product-card.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'aster-product.js' | asset_url }}" defer></script>
 <script src="{{ 'aster-product-card.js' | asset_url }}" defer></script>
@@ -38,14 +40,14 @@
     {% render 'aster-pdp-hero', product: product %}
 
     {% if story_section != blank %}
-      <section class="aster-pdp__story" data-aster-reveal="up">
-        <div class="aster-pdp__story-copy">
+      <section class="aster-pdp__story">
+        <div class="aster-pdp__story-copy" data-aster-reveal="up">
           {% if story_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ story_section.eyebrow.value | escape }}</p>{% endif %}
           <h2 class="aster-pdp__section-title">{{ story_section.heading.value | escape }}</h2>
           {% if story_section.body.value != blank %}<div class="aster-pdp__section-body">{{ story_section.body.value | escape | newline_to_br }}</div>{% endif %}
         </div>
         {% if product.featured_image %}
-          <div class="aster-pdp__story-media">
+          <div class="aster-pdp__story-media" data-aster-reveal="media">
             {% render 'image', class: 'aster-pdp__story-image', image: product.featured_image, width: 1600, sizes: '(min-width: 750px) 50vw, 100vw', priority: false %}
           </div>
         {% endif %}
@@ -53,10 +55,12 @@
     {% endif %}
 
     {% if steps_section != blank and steps_section.items.value != blank %}
-      <section class="aster-pdp__content-section aster-pdp__content-section--steps" data-aster-reveal="up">
-        {% if steps_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ steps_section.eyebrow.value | escape }}</p>{% endif %}
-        <h2 class="aster-pdp__section-title">{{ steps_section.heading.value | escape }}</h2>
-        <ol class="aster-pdp__steps-grid">
+      <section class="aster-pdp__content-section aster-pdp__content-section--steps">
+        <div class="aster-pdp__section-lockup" data-aster-reveal="up">
+          {% if steps_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ steps_section.eyebrow.value | escape }}</p>{% endif %}
+          <h2 class="aster-pdp__section-title">{{ steps_section.heading.value | escape }}</h2>
+        </div>
+        <ol class="aster-pdp__steps-grid" data-aster-stagger>
           {% for item in steps_section.items.value limit: 4 %}
             <li class="aster-pdp__step">
               <div class="aster-pdp__step-topline"><span class="aster-pdp__step-number">0{{ forloop.index }}</span><span class="aster-pdp__step-icon" aria-hidden="true">○</span></div>
@@ -69,7 +73,7 @@
     {% endif %}
 
     {% if details_section != blank or faq_section != blank %}
-      <section class="aster-pdp__content-section aster-pdp__detail-faq" data-aster-reveal="up">
+      <section class="aster-pdp__content-section aster-pdp__detail-faq" data-aster-stagger>
         {% if details_section != blank and details_section.items.value != blank %}
           <div class="aster-pdp__details-panel">
             {% if details_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ details_section.eyebrow.value | escape }}</p>{% endif %}
@@ -88,7 +92,14 @@
             <h2 class="aster-pdp__section-title">{{ faq_section.heading.value | escape }}</h2>
             <div class="aster-pdp__faq-list">
               {% for item in faq_section.items.value %}
-                <details class="aster-pdp__faq-item"><summary><span>{{ item.title.value | escape }}</span><span class="aster-pdp__faq-plus" aria-hidden="true">+</span></summary>{% if item.body.value != blank %}<div class="aster-pdp__faq-answer">{{ item.body.value | escape | newline_to_br }}</div>{% endif %}</details>
+                <details class="aster-pdp__faq-item">
+                  <summary><span>{{ item.title.value | escape }}</span><span class="aster-pdp__faq-plus" aria-hidden="true">+</span></summary>
+                  {% if item.body.value != blank %}
+                    <div class="aster-pdp__faq-answer" data-aster-faq-answer>
+                      <div class="aster-pdp__faq-answer-inner">{{ item.body.value | escape | newline_to_br }}</div>
+                    </div>
+                  {% endif %}
+                </details>
               {% endfor %}
             </div>
           </div>
@@ -98,12 +109,12 @@
 
     {% assign related_products = product.metafields.aster.pdp_related_products.value %}
     {% if related_products != blank %}
-      <section class="aster-pdp__related" data-aster-reveal="up">
-        <div class="aster-pdp__section-heading-row">
+      <section class="aster-pdp__related">
+        <div class="aster-pdp__section-heading-row" data-aster-reveal="up">
           <div><p class="aster-pdp__section-eyebrow">Pairs well with</p><h2 class="aster-pdp__section-title">complete the ritual</h2></div>
           <a class="aster-pdp__text-link" href="{{ routes.all_products_collection_url }}">Shop all products <span aria-hidden="true">→</span></a>
         </div>
-        <div class="aster-pdp__related-grid">{% for related_product in related_products limit: 3 %}{% render 'aster-product-card', product: related_product %}{% endfor %}</div>
+        <div class="aster-pdp__related-grid" data-aster-stagger>{% for related_product in related_products limit: 3 %}{% render 'aster-product-card', product: related_product %}{% endfor %}</div>
       </section>
     {% endif %}
   </main>
