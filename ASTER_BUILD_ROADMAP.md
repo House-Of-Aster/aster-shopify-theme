@@ -47,8 +47,8 @@ Permanent architecture:
 - [x] Eight Shopify Content stain assets (`Stain-1.webp` through `Stain-8.webp`) used as one random static stain per page load
 - [x] Random stain sits above the main background but below foreground/UI layers, uses `mix-blend-mode: multiply`, random fixed placement, one-third of the original rollout size and 37.5% opacity
 - [x] British Poems WOFF2/display-heading integration
-- [~] Cinematic pre-launch replacement implemented: Shopify-hosted desktop/mobile background videos, desktop right-side editorial lock-up, centred mobile lock-up, launch countdown and Store Access; visual/cross-device sign-off pending
-- [x] Cinematic password template verified on both GitHub `main` and the actual ASTER Shopify MAIN theme after a targeted connected-theme force-sync
+- [~] Cinematic pre-launch replacement implemented: one Shopify-hosted desktop background video is now reused responsively across desktop and mobile, with the desktop right-side editorial lock-up, centred mobile lock-up, the original signed-off FlipDown countdown restored 1:1 in the new composition, and Store Access; visual/cross-device sign-off pending
+- [x] Cinematic password template, shared desktop/mobile video source and restored FlipDown countdown verified in parity on both GitHub `main` and the actual ASTER Shopify MAIN theme
 - [ ] Waiting-list signup form deliberately deferred until the week commencing 26 October 2026
 
 ## Global design foundations
@@ -96,7 +96,7 @@ Permanent architecture:
 - [x] No default shadows or decorative borders
 - [x] 12px media/image radius where framing is intentional
 - [x] Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` desktop/tablet and `18px` mobile
-- [x] Stronger hierarchy uses clean multiples of that gap
+- [x] Stronger hierarchy uses clean multiples of the canonical gap
 - [x] Standard section rhythm: `clamp(72px, 8vw, 120px)`
 - [x] Compact section rhythm: `clamp(48px, 5.5vw, 80px)`
 - [x] Generous/editorial rhythm: `clamp(96px, 10vw, 160px)`
@@ -420,7 +420,7 @@ This deliberately prioritises the core customer journey: **Browse → Product �
 
 **Completed foundations:** Phase 0 and Phase 1 are complete apart from the current pre-launch password-page refresh. Phase 2.1 Announcement Bar, Phase 2.2 Header and Phase 2.4 Footer are complete. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred.
 
-**Password/pre-launch:** The previous canopy/bear/stain waiting-list composition has been superseded on the rendered password template by a cinematic full-screen video treatment. Desktop uses the Shopify-hosted 16:9 video with the “THE HOUSE OF ASTER / For your eyes, mostly. / SOME THINGS ARE WORTH KEEPING TO YOURSELF.” lock-up positioned over the right-hand door area. Mobile switches to the dedicated 9:16 Shopify-hosted video and centres the same copy and countdown. The flip-style launch countdown remains targeted at 1 November 2026 at 09:00 UK time, Store Access remains available, and reduced-motion users receive a static first decoded video frame. The signup form is intentionally omitted until the week commencing 26 October 2026. GitHub `main` and the actual ASTER Shopify MAIN theme have been verified to contain the new cinematic section, layout and password-template structure after a targeted force-sync. Final desktop/mobile visual sign-off remains pending.
+**Password/pre-launch:** The previous canopy/bear/stain waiting-list composition has been superseded on the rendered password template by a cinematic full-screen video treatment. The Shopify-hosted 16:9 desktop video is now deliberately reused on mobile as well because its motion treatment is preferred; desktop keeps the “THE HOUSE OF ASTER / For your eyes, mostly. / SOME THINGS ARE WORTH KEEPING TO YOURSELF.” lock-up over the right-hand door area while mobile centres the same copy over the responsive crop. The countdown is the original signed-off FlipDown implementation from the previous password page, with its original rotor markup, face geometry and 210ms/510ms animation sequence restored 1:1 and only repositioned inside the new composition. It remains targeted at 1 November 2026 at 09:00 UK time. Store Access remains available, and reduced-motion users receive a static first decoded video frame. The signup form is intentionally omitted until the week commencing 26 October 2026. GitHub `main` and the actual ASTER Shopify MAIN theme have been verified in parity for the shared video source and restored countdown. Final desktop/mobile visual sign-off remains pending.
 
 **Footer:** The footer remains fully built. Its previously signed-off structure, spacing, palette, Body supporting copy, tightened logo/tagline lock-up and SVG optical correction remain intact. During the current Planner visual-QA pass, the desktop Aster wordmark has been enlarged to `clamp(245px, 21vw, 340px)` to follow the supplied footer comparison mock-up and fill the left-column void more confidently; that latest scale change is awaiting Dave’s visual confirmation.
 
