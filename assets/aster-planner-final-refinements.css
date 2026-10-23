@@ -1,5 +1,6 @@
 /* Aster Planner PDP final visual-QA layer.
-   Keep these overrides narrow until the Planner PDP is explicitly signed off. */
+   Keep these overrides narrow until the Planner PDP is explicitly signed off.
+   Root-cause correction: this file is loaded after the Planner section styles. */
 
 /* Three simple steps: intentionally quiet. The script section heading is the expressive focal point. */
 .aster-pdp__steps-grid {
