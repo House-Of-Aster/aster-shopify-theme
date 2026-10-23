@@ -1,8 +1,13 @@
 /* Aster PDP refinement layer
-   Tightens the approved section rhythm and adds deliberate motion polish. */
+   Uses the signed-off collection cadence and adds deliberate commerce/motion polish. */
 
 .aster-pdp {
-  --aster-pdp-section-space: clamp(48px, 5.5vw, 80px);
+  /* Product sections now use the same canonical rhythm as the collection page. */
+  --aster-pdp-section-space: var(--aster-pdp-gap);
+}
+
+.aster-pdp__hero {
+  align-items: start;
 }
 
 .aster-pdp__hero-image img {
@@ -24,6 +29,80 @@
   transform: none;
 }
 
+/* Keep the buy column composed rather than forcing reassurance/highlights to the gallery floor. */
+.aster-pdp__hero-highlights {
+  margin-top: var(--aster-pdp-gap);
+  padding-top: 0;
+}
+
+/* Accelerated checkout stays available, but is treated as a compact secondary path.
+   Branded wallet colours are controlled by Shopify; supported geometry is Aster-controlled. */
+.aster-pdp__express {
+  display: grid;
+  gap: 10px;
+}
+
+.aster-pdp__express-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: color-mix(in srgb, var(--aster-pdp-wine) 62%, var(--aster-pdp-ivory));
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.aster-pdp__express-label::before,
+.aster-pdp__express-label::after {
+  content: '';
+  flex: 1 1 auto;
+  height: 1px;
+  background: color-mix(in srgb, var(--aster-pdp-wine) 16%, transparent);
+}
+
+.aster-pdp__express .shopify-payment-button,
+.aster-pdp__express shopify-accelerated-checkout {
+  width: 100%;
+  margin: 0;
+  --shopify-accelerated-checkout-button-block-size: 44px;
+  --shopify-accelerated-checkout-button-border-radius: 10px;
+  --shopify-accelerated-checkout-button-box-shadow: none;
+}
+
+.aster-pdp__express .shopify-payment-button__button {
+  min-height: 44px;
+  border-radius: 10px;
+}
+
+.aster-pdp__express .shopify-payment-button__more-options {
+  display: none !important;
+}
+
+/* Philosophy is a horizontal editorial beat, not a second hero. */
+.aster-pdp__story {
+  min-height: 0;
+  height: clamp(300px, 27vw, 390px);
+}
+
+.aster-pdp__story-copy {
+  padding: clamp(26px, 3.2vw, 46px);
+}
+
+.aster-pdp__story-media {
+  min-height: 0;
+}
+
+/* Bring the remaining content blocks onto the same collection-derived cadence. */
+.aster-pdp__content-section--steps {
+  padding: calc(var(--aster-pdp-gap) * 1.25);
+}
+
+.aster-pdp__section-lockup {
+  margin-bottom: var(--aster-pdp-gap);
+}
+
 /* Opening sequence: media first, then commerce controls, then reassurance/highlights. */
 .aster-motion-ready .aster-pdp__hero .aster-pdp__media-shell[data-aster-reveal] {
   transition-delay: 90ms;
@@ -41,12 +120,16 @@
   transition-delay: 440ms;
 }
 
+.aster-motion-ready .aster-pdp__hero .aster-pdp__express[data-aster-reveal] {
+  transition-delay: 500ms;
+}
+
 .aster-motion-ready .aster-pdp__hero .aster-pdp__reassurance[data-aster-reveal] {
-  transition-delay: 540ms;
+  transition-delay: 560ms;
 }
 
 .aster-motion-ready .aster-pdp__hero .aster-pdp__hero-highlights[data-aster-stagger] > * {
-  transition-delay: calc(620ms + (var(--aster-stagger-index, 0) * 70ms));
+  transition-delay: calc(630ms + (var(--aster-stagger-index, 0) * 70ms));
 }
 
 /* Give below-fold editorial media a slightly slower, more photographic entrance. */
@@ -63,8 +146,104 @@
   transform: scale(1);
 }
 
-.aster-pdp__section-lockup {
-  margin-bottom: 34px;
+/* Linked specification products: crawlable link + compact reusable product-card quick shop. */
+.aster-pdp__spec-row {
+  position: relative;
+}
+
+.aster-pdp__spec-product {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 100%;
+}
+
+.aster-pdp__spec-product-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 38%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition:
+    color 180ms ease,
+    text-decoration-color 180ms ease;
+}
+
+.aster-pdp__spec-product-link::after {
+  content: '↗';
+  font-size: 11px;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.aster-pdp__spec-product-link:hover,
+.aster-pdp__spec-product-link:focus-visible {
+  color: var(--aster-pdp-red);
+  text-decoration-color: currentColor;
+}
+
+.aster-pdp__spec-peek {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(286px, calc(100vw - 48px));
+  padding: 10px;
+  border-radius: 14px;
+  background: var(--aster-pdp-ivory);
+  box-shadow: 0 18px 48px rgba(107, 35, 49, 0.14);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px) scale(0.985);
+  transform-origin: top right;
+  transition:
+    opacity 180ms ease,
+    visibility 180ms ease,
+    transform 260ms var(--motion-ease-soft, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+.aster-pdp__spec-product:hover .aster-pdp__spec-peek,
+.aster-pdp__spec-product:focus-within .aster-pdp__spec-peek {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.aster-pdp__spec-peek .aster-product-card {
+  width: 100%;
+}
+
+.aster-pdp__spec-peek .aster-product-card__media {
+  aspect-ratio: 16 / 10;
+}
+
+.aster-pdp__spec-peek .aster-product-card__eyebrow,
+.aster-pdp__spec-peek .aster-product-card__reviews {
+  display: none;
+}
+
+.aster-pdp__spec-peek .aster-product-card__title {
+  font-size: clamp(18px, 1.7vw, 22px);
+}
+
+.aster-pdp__spec-peek .aster-product-card__description {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.aster-pdp__spec-peek .aster-product-card__action {
+  min-height: 42px;
+  font-size: 11px;
 }
 
 /* FAQ answers animate through JS rather than popping open/closed. */
@@ -107,11 +286,44 @@
 
 @media (max-width: 749px) {
   .aster-pdp {
-    --aster-pdp-section-space: 48px;
+    --aster-pdp-section-space: var(--aster-pdp-gap);
+  }
+
+  .aster-pdp__hero {
+    align-items: stretch;
+  }
+
+  .aster-pdp__hero-highlights {
+    margin-top: var(--aster-pdp-gap);
+  }
+
+  .aster-pdp__story {
+    height: auto;
+  }
+
+  .aster-pdp__story-copy {
+    padding: 26px 22px;
+  }
+
+  .aster-pdp__story-media {
+    min-height: 220px;
+    aspect-ratio: 16 / 10;
+  }
+
+  .aster-pdp__content-section--steps {
+    padding: 24px 20px;
   }
 
   .aster-pdp__section-lockup {
-    margin-bottom: 26px;
+    margin-bottom: var(--aster-pdp-gap);
+  }
+
+  .aster-pdp__spec-product {
+    display: block;
+  }
+
+  .aster-pdp__spec-peek {
+    display: none;
   }
 
   .aster-motion-ready .aster-pdp__hero .aster-pdp__media-shell[data-aster-reveal] {
@@ -130,12 +342,22 @@
     transition-delay: 350ms;
   }
 
+  .aster-motion-ready .aster-pdp__hero .aster-pdp__express[data-aster-reveal] {
+    transition-delay: 410ms;
+  }
+
   .aster-motion-ready .aster-pdp__hero .aster-pdp__reassurance[data-aster-reveal] {
-    transition-delay: 430ms;
+    transition-delay: 470ms;
   }
 
   .aster-motion-ready .aster-pdp__hero .aster-pdp__hero-highlights[data-aster-stagger] > * {
-    transition-delay: calc(500ms + (var(--aster-stagger-index, 0) * 65ms));
+    transition-delay: calc(540ms + (var(--aster-stagger-index, 0) * 65ms));
+  }
+}
+
+@media (hover: none) {
+  .aster-pdp__spec-peek {
+    display: none;
   }
 }
 
@@ -143,6 +365,8 @@
   .aster-pdp__hero-image img,
   .aster-pdp__thumbnail,
   .aster-pdp__story-media[data-aster-reveal='media'] .aster-pdp__story-image img,
+  .aster-pdp__spec-product-link,
+  .aster-pdp__spec-peek,
   .aster-pdp__faq-item summary,
   .aster-pdp__faq-plus {
     transition: none !important;
