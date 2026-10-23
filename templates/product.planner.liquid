@@ -1,0 +1,40 @@
+{% comment %}
+  Aster Planner PDP
+  First production template in the shared Product Experience system.
+
+  Product-family strategy:
+  - shared hero, commerce, media and content primitives
+  - Planner-specific storytelling order
+  - accessories and supplements will reuse the same data model with their own hierarchy
+{% endcomment %}
+
+{{ 'aster-product.css' | asset_url | stylesheet_tag }}
+{{ 'aster-product-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'aster-product.js' | asset_url }}" defer></script>
+<script src="{{ 'aster-product-card.js' | asset_url }}" defer></script>
+
+{% block 'container' %}
+  <main class="aster-pdp" data-aster-product-template="planner">
+    {% render 'aster-pdp-hero', product: product %}
+    {% render 'aster-pdp-sections', product: product %}
+
+    {% assign related_products = product.metafields.aster.pdp_related_products.value %}
+    {% if related_products != blank %}
+      <section class="aster-pdp__related" data-aster-reveal="up">
+        <div class="aster-pdp__section-heading-row">
+          <div>
+            <p class="aster-pdp__section-eyebrow">Pairs well with</p>
+            <h2 class="aster-pdp__section-title">complete the ritual</h2>
+          </div>
+          <a class="aster-pdp__text-link" href="{{ routes.all_products_collection_url }}">Shop all products <span aria-hidden="true">→</span></a>
+        </div>
+
+        <div class="aster-pdp__related-grid">
+          {% for related_product in related_products limit: 3 %}
+            {% render 'aster-product-card', product: related_product %}
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+  </main>
+{% endblock %}
