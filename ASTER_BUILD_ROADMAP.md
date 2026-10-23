@@ -261,18 +261,19 @@ Choose deliberately, not all at once:
 
 ---
 
-# PHASE 5 — COLLECTION EXPERIENCE — IN PROGRESS
+# PHASE 5 — COLLECTION EXPERIENCE — COMPLETE
 - [x] Collection intro follows the current mock-up direction: the collection banner sits directly beneath the header/navigation, constrained to the canonical 1400px content width; its top corners remain square against the navigation while the two bottom corners use the site-wide radius. Desktop preserves the uploaded image’s natural aspect ratio. On mobile (≤749px), the same collection image is reused inside a centred 2.2:1 crop using `object-fit: cover`, allowing one master artwork to serve both desktop and mobile when key subjects remain inside a central safe area. Title and description stack beneath it inside the same content width. The legacy global semantic `header { height: 5rem }` collision has been removed locally so the intro reserves its natural document height before the toolbar. Current visual treatment signed off; revisit during pre-launch QA if required
 - [x] Collection motion-polish pass implemented using the existing Aster motion foundation: first-paint-safe masked/settled banner entrance, sequential title → description → toolbar reveal, and an initial-viewport card pass that makes any product cards already visible at load join the opening sequence automatically, even when only their tops are on-screen. Genuinely below-fold cards remain viewport-triggered, with pagination/empty-state reveals and `prefers-reduced-motion` fallback retained. No GSAP or additional dependency added; current treatment signed off
 - [x] Real/default collection uses the shared photographic product card; current visual treatment signed off
-- [~] Shopper-selectable 2/3/4-column desktop grid, 2/3 tablet options and fixed 2-column mobile; compatible preference persists
-- [~] Collection toolbar: density controls left, product count centred, Sort by right
-- [~] Shopify-native sort options implemented
-- [ ] Filters and active-filter treatment — next functional collection task
-- [~] Toolbar uses Aster master palette
-- [~] Collection spacing rhythm: toolbar → grid and final row → collection edge use same canonical gap; title/description spacing now follows the approved stacked collection-intro composition
-- [~] Empty state and styled native pagination implemented; loading behaviour to be finalised with filters/pagination
-- [~] Colour-scheme support implemented; final functional/cross-device QA pending after filters
+- [x] Shopper-selectable 2/3/4-column desktop grid, 2/3 tablet options and fixed 2-column mobile; compatible preference persists
+- [x] Collection toolbar: density controls left, product count centred, Sort by right
+- [x] Shopify-native sort options implemented
+- [x] Filters and active-filter treatment deliberately omitted: Aster’s small, curated catalogue does not warrant filtering UI; reconsider only if the catalogue expands materially
+- [x] Toolbar uses Aster master palette
+- [x] Collection spacing rhythm: toolbar → grid and final row → collection edge use same canonical gap; title/description spacing follows the approved stacked collection-intro composition
+- [x] Empty state and styled native pagination implemented; current behaviour accepted for the catalogue size
+- [x] Colour-scheme support implemented
+- [x] Cross-device visual and functional QA explicitly signed off across desktop, tablet and mobile; revisit only during pre-launch QA if required
 - [x] Default/all-products collection is the immediate product-card/collection QA surface; no dedicated QA page required
 
 ---
@@ -383,14 +384,13 @@ Only after operational/catalogue need is proven.
 
 Phase numbers remain stable for reference. Actual execution order is:
 
-1. **Finish Phase 5 — Collection Experience**
-2. **Phase 6 — Product Experience**
-3. **Phase 7 — Cart**
-4. **Phase 8 — Search + Discovery**
-5. **Phase 9 — Core Page/Content Templates**
-6. **Phase 4 — Homepage + GSAP Art Direction**, once destination pages/components are real
-7. Build **Phase 3.2 / 3.3 / 3.4** components on demand when a real surface proves the requirement
-8. Continue through utility, clean-up, accessibility, performance, SEO, analytics, cross-template art direction and launch QA
+1. **Phase 6 — Product Experience**
+2. **Phase 7 — Cart**
+3. **Phase 8 — Search + Discovery**
+4. **Phase 9 — Core Page/Content Templates**
+5. **Phase 4 — Homepage + GSAP Art Direction**, once destination pages/components are real
+6. Build **Phase 3.2 / 3.3 / 3.4** components on demand when a real surface proves the requirement
+7. Continue through utility, clean-up, accessibility, performance, SEO, analytics, cross-template art direction and launch QA
 
 This deliberately prioritises the core customer journey: **Browse → Product → Cart → Checkout**, plus search and baseline content, before speculative navigational/editorial components.
 
@@ -406,10 +406,12 @@ This deliberately prioritises the core customer journey: **Browse → Product �
 
 **Product card:** Core architecture and current photographic/Bouf-inspired art direction are signed off for the current build. The live collection treatment uses photographic full-bleed media, vertical swatches inside the image area, aligned bottom CTAs, variant-aware hover images and real Shopify product forms. The duplicate standalone price has been removed. Short card copy is merchant-editable through the pinned product metafield `aster.card_description`. Temporary review visuals remain QA-only until Judge.me is introduced near launch. Revisit only during pre-launch cross-template/launch QA if required.
 
-**Collection:** Phase 5 remains the active build phase, but its current visual treatment is signed off. The current collection banner, responsive mobile crop, title/description composition, motion treatment and shared photographic product-card presentation are accepted for the current build and should only be revisited during pre-launch QA if required. Product grid, density controls, product count, sorting, spacing, empty state and pagination remain implemented. **Filters and active-filter behaviour are now the next outstanding functional task.** Once filters are complete, run the remaining functional/cross-device QA and close Phase 5 before moving into Phase 6 Product Experience.
+**Collection:** Phase 5 is complete. The collection banner, responsive mobile crop, title/description composition, motion treatment, shared photographic product-card presentation, grid-density controls, product count, sorting, spacing, empty state, pagination and colour-scheme handling are accepted across desktop, tablet and mobile. Filters are deliberately omitted because Aster’s catalogue is intentionally small and curated; adding filter UI would introduce complexity without solving a meaningful discovery problem. Reconsider filters only if the catalogue expands materially. The collection and product cards should now be revisited only during pre-launch cross-template/launch QA if required.
+
+**Active focus:** Phase 6 Product Experience. Build the actual product detail page: media gallery, product information, variants, quantity/Add to Cart, delivery/returns messaging, details/accordions, related products/storytelling and full edge-case QA. Judge.me remains deferred until close to launch.
 
 **Deferred, not forgotten:** Collection Card, Article Card and Editorial Card remain deliberately deferred until a real surface proves the requirement.
 
-**After Phase 5:** Product Experience → Cart → Search → Core Content Templates → Homepage/GSAP art direction.
+**After Phase 6:** Cart → Search → Core Content Templates → Homepage/GSAP art direction.
 
 **Verification rule:** Before reporting connected-theme code as implemented, confirm the current GitHub `main` and the corresponding files on the actual ASTER Shopify MAIN theme are in parity.
