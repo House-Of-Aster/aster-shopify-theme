@@ -179,6 +179,7 @@ Permanent architecture:
 - [x] 1400px alignment/shared gutters
 - [x] Desktop vertical rhythm tightened to the canonical site spacing cadence
 - [x] Footer recoloured to the brighter Aster Red `#A52D34` treatment, with complementary Ivory/Wine/Blush values only from the master palette
+- [x] Footer brand lock-up refined: supporting brand copy uses Body typography, logo/tagline spacing is tightened, and the footer logo receives a proportional optical left correction to compensate for transparent SVG bounds and align its visible artwork with the canonical content edge
 - [ ] Final explicit visual sign-off before marking Phase 2.4 complete
 
 ---
@@ -401,7 +402,7 @@ This deliberately prioritises the core customer journey: **Browse â†’ Product â†
 
 **Password/pre-launch:** The waiting-list/countdown page now has the Aster Red intro, Poet headings, Lando-inspired ambient motion, more frequent bear crossings and a static random stain chosen from eight Shopify Content files. The stain implementation is complete at one-third of the original rollout size, 37.5% opacity and multiply blend mode.
 
-**Footer:** The footer is fully built, uses the canonical spacing rhythm and has received the brighter Aster Red treatment requested to match the header/navigation, using only complementary colours from the approved Aster palette. It remains open solely for final explicit visual sign-off.
+**Footer:** The footer is fully built, uses the canonical spacing rhythm and the brighter Aster Red treatment requested to match the header/navigation, using only complementary colours from the approved Aster palette. Supporting brand copy now uses Body typography rather than Poet/Heading; the logo/tagline lock-up has been tightened and the SVG receives a small proportional optical correction so its visible artwork aligns to the canonical content edge despite transparent source bounds. It remains open solely for final explicit visual sign-off.
 
 **Product card:** Core architecture is complete. The live collection treatment now uses photographic full-bleed media, vertical swatches inside the image area, aligned bottom CTAs, variant-aware hover images and real Shopify product forms. The duplicate standalone price has been removed. Short card copy is merchant-editable through the pinned product metafield `aster.card_description`. Temporary review visuals remain QA-only until Judge.me is introduced near launch. Current Bouf-inspired styling remains in visual QA.
 
