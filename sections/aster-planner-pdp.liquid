@@ -1,0 +1,328 @@
+{% comment %}
+  Aster Planner PDP Theme Editor section.
+  Product-specific copy remains in the reusable Aster PDP metafield/metaobject model.
+  This section owns visual/editorial overrides that belong in theme art direction.
+{% endcomment %}
+
+<script>document.documentElement.classList.add('aster-motion-ready');</script>
+{{ 'aster-product.css' | asset_url | stylesheet_tag }}
+{{ 'aster-product-refinements.css' | asset_url | stylesheet_tag }}
+{{ 'aster-product-card.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'aster-product.js' | asset_url }}" defer></script>
+<script src="{{ 'aster-product-card.js' | asset_url }}" defer></script>
+
+{% liquid
+  assign pdp_sections = product.metafields.aster.pdp_sections.value
+  assign story_section = nil
+  assign steps_section = nil
+  assign details_section = nil
+  assign faq_section = nil
+  assign story_image = section.settings.philosophy_image | default: product.featured_image
+
+  for pdp_section in pdp_sections
+    assign pdp_section_type = pdp_section.section_type.value | downcase | strip
+    if pdp_section_type == 'story'
+      assign story_section = pdp_section
+    elsif pdp_section_type == 'steps'
+      assign steps_section = pdp_section
+    elsif pdp_section_type == 'details'
+      assign details_section = pdp_section
+    elsif pdp_section_type == 'faq'
+      assign faq_section = pdp_section
+    endif
+  endfor
+%}
+
+<main class="aster-pdp" data-aster-product-template="planner">
+  {% render 'aster-pdp-hero', product: product, pdp_settings: section.settings %}
+
+  {% if story_section != blank %}
+    <section class="aster-pdp__story">
+      <div class="aster-pdp__story-copy" data-aster-reveal="up">
+        {% if story_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ story_section.eyebrow.value | escape }}</p>{% endif %}
+        <h2 class="aster-pdp__section-title">{{ story_section.heading.value | escape }}</h2>
+        {% if story_section.body.value != blank %}<div class="aster-pdp__section-body">{{ story_section.body.value | escape | newline_to_br }}</div>{% endif %}
+      </div>
+      {% if story_image %}
+        <div class="aster-pdp__story-media" data-aster-reveal="media">
+          {% render 'image', class: 'aster-pdp__story-image', image: story_image, width: 1800, sizes: '(min-width: 750px) 54vw, 100vw', priority: false %}
+        </div>
+      {% endif %}
+    </section>
+  {% endif %}
+
+  {% if steps_section != blank and steps_section.items.value != blank %}
+    <section class="aster-pdp__content-section aster-pdp__content-section--steps">
+      <div class="aster-pdp__section-lockup" data-aster-reveal="up">
+        {% if steps_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ steps_section.eyebrow.value | escape }}</p>{% endif %}
+        <h2 class="aster-pdp__section-title">{{ steps_section.heading.value | escape }}</h2>
+      </div>
+      <ol class="aster-pdp__steps-grid" data-aster-stagger>
+        {% for item in steps_section.items.value limit: 4 %}
+          <li class="aster-pdp__step">
+            <div class="aster-pdp__step-topline"><span class="aster-pdp__step-number">0{{ forloop.index }}</span><span class="aster-pdp__step-icon" aria-hidden="true">○</span></div>
+            <h3>{{ item.title.value | escape }}</h3>
+            {% if item.body.value != blank %}<p>{{ item.body.value | escape | newline_to_br }}</p>{% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </section>
+  {% endif %}
+
+  {% if details_section != blank or faq_section != blank %}
+    <section class="aster-pdp__content-section aster-pdp__detail-faq" data-aster-stagger>
+      {% if details_section != blank and details_section.items.value != blank %}
+        <div class="aster-pdp__details-panel">
+          {% if details_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ details_section.eyebrow.value | escape }}</p>{% endif %}
+          <h2 class="aster-pdp__section-title">{{ details_section.heading.value | escape }}</h2>
+          <dl class="aster-pdp__spec-list">
+            {% for item in details_section.items.value %}
+              {% assign linked_product = item.linked_product.value %}
+              <div class="aster-pdp__spec-row">
+                <dt>{{ item.title.value | escape }}</dt>
+                <dd>
+                  {% if linked_product != blank %}
+                    <div class="aster-pdp__spec-product">
+                      <a class="aster-pdp__spec-product-link" href="{{ linked_product.url }}">{{ linked_product.title | escape }}</a>
+                      <div class="aster-pdp__spec-peek" role="region" aria-label="Quick shop {{ linked_product.title | escape }}">
+                        {% render 'aster-product-card', product: linked_product %}
+                      </div>
+                    </div>
+                  {% else %}
+                    {{ item.value.value | default: item.body.value | escape }}
+                  {% endif %}
+                </dd>
+              </div>
+            {% endfor %}
+          </dl>
+        </div>
+      {% endif %}
+
+      {% if faq_section != blank and faq_section.items.value != blank %}
+        <div class="aster-pdp__faq-panel">
+          {% if faq_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ faq_section.eyebrow.value | escape }}</p>{% endif %}
+          <h2 class="aster-pdp__section-title">{{ faq_section.heading.value | escape }}</h2>
+          <div class="aster-pdp__faq-list">
+            {% for item in faq_section.items.value %}
+              <details class="aster-pdp__faq-item">
+                <summary><span>{{ item.title.value | escape }}</span><span class="aster-pdp__faq-plus" aria-hidden="true">+</span></summary>
+                {% if item.body.value != blank %}
+                  <div class="aster-pdp__faq-answer" data-aster-faq-answer>
+                    <div class="aster-pdp__faq-answer-inner">{{ item.body.value | escape | newline_to_br }}</div>
+                  </div>
+                {% endif %}
+              </details>
+            {% endfor %}
+          </div>
+        </div>
+      {% endif %}
+    </section>
+  {% endif %}
+
+  {% assign related_products = product.metafields.aster.pdp_related_products.value %}
+  {% if related_products != blank %}
+    <section class="aster-pdp__related">
+      <div class="aster-pdp__section-heading-row" data-aster-reveal="up">
+        <div><p class="aster-pdp__section-eyebrow">Pairs well with</p><h2 class="aster-pdp__section-title">complete the ritual</h2></div>
+        <a class="aster-pdp__text-link" href="{{ routes.all_products_collection_url }}">Shop all products <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="aster-pdp__related-grid" data-aster-stagger>{% for related_product in related_products limit: 3 %}{% render 'aster-product-card', product: related_product %}{% endfor %}</div>
+    </section>
+  {% endif %}
+</main>
+
+{% schema %}
+{
+  "name": "Aster Planner PDP",
+  "tag": "section",
+  "class": "aster-planner-pdp-section",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Editorial imagery"
+    },
+    {
+      "type": "image_picker",
+      "id": "philosophy_image",
+      "label": "Our philosophy image"
+    },
+    {
+      "type": "paragraph",
+      "content": "Recommended: 1600 × 800 px (2:1). The image is contained inside the wide Philosophy band and crops responsively on smaller screens. Leave blank to fall back to the product featured image."
+    },
+    {
+      "type": "header",
+      "content": "Express checkout"
+    },
+    {
+      "type": "text",
+      "id": "express_label",
+      "label": "Button label",
+      "default": "Buy now"
+    },
+    {
+      "type": "header",
+      "content": "Reassurance icons"
+    },
+    {
+      "type": "select",
+      "id": "shipping_icon",
+      "label": "Shipping icon",
+      "default": "truck",
+      "options": [
+        { "value": "truck", "label": "Truck" },
+        { "value": "return", "label": "Return arrow" },
+        { "value": "shield", "label": "Shield + check" },
+        { "value": "gift", "label": "Gift" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "book", "label": "Book" },
+        { "value": "calendar", "label": "Calendar" },
+        { "value": "diamond", "label": "Diamond" },
+        { "value": "box", "label": "Parcel box" },
+        { "value": "clock", "label": "Clock" },
+        { "value": "check", "label": "Check circle" },
+        { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "shipping_icon_custom",
+      "label": "Shipping custom icon / SVG"
+    },
+    {
+      "type": "select",
+      "id": "returns_icon",
+      "label": "Returns icon",
+      "default": "return",
+      "options": [
+        { "value": "truck", "label": "Truck" },
+        { "value": "return", "label": "Return arrow" },
+        { "value": "shield", "label": "Shield + check" },
+        { "value": "gift", "label": "Gift" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "book", "label": "Book" },
+        { "value": "calendar", "label": "Calendar" },
+        { "value": "diamond", "label": "Diamond" },
+        { "value": "box", "label": "Parcel box" },
+        { "value": "clock", "label": "Clock" },
+        { "value": "check", "label": "Check circle" },
+        { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "returns_icon_custom",
+      "label": "Returns custom icon / SVG"
+    },
+    {
+      "type": "select",
+      "id": "secure_icon",
+      "label": "Secure checkout icon",
+      "default": "shield",
+      "options": [
+        { "value": "truck", "label": "Truck" },
+        { "value": "return", "label": "Return arrow" },
+        { "value": "shield", "label": "Shield + check" },
+        { "value": "gift", "label": "Gift" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "book", "label": "Book" },
+        { "value": "calendar", "label": "Calendar" },
+        { "value": "diamond", "label": "Diamond" },
+        { "value": "box", "label": "Parcel box" },
+        { "value": "clock", "label": "Clock" },
+        { "value": "check", "label": "Check circle" },
+        { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "secure_icon_custom",
+      "label": "Secure checkout custom icon / SVG"
+    },
+    {
+      "type": "select",
+      "id": "gift_icon",
+      "label": "Gifting icon",
+      "default": "gift",
+      "options": [
+        { "value": "truck", "label": "Truck" },
+        { "value": "return", "label": "Return arrow" },
+        { "value": "shield", "label": "Shield + check" },
+        { "value": "gift", "label": "Gift" },
+        { "value": "heart", "label": "Heart" },
+        { "value": "leaf", "label": "Leaf" },
+        { "value": "book", "label": "Book" },
+        { "value": "calendar", "label": "Calendar" },
+        { "value": "diamond", "label": "Diamond" },
+        { "value": "box", "label": "Parcel box" },
+        { "value": "clock", "label": "Clock" },
+        { "value": "check", "label": "Check circle" },
+        { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "gift_icon_custom",
+      "label": "Gifting custom icon / SVG"
+    },
+    {
+      "type": "paragraph",
+      "content": "Custom uploads override the dropdown choice. SVG, PNG or WebP work well; for raster icons use at least 96 × 96 px and keep artwork centred on a square canvas."
+    },
+    {
+      "type": "header",
+      "content": "Product highlight icons"
+    },
+    {
+      "type": "select",
+      "id": "highlight_1_icon",
+      "label": "Highlight 1 icon",
+      "default": "content",
+      "options": [
+        { "value": "content", "label": "Use product content icon" },
+        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    { "type": "image_picker", "id": "highlight_1_icon_custom", "label": "Highlight 1 custom icon / SVG" },
+    {
+      "type": "select",
+      "id": "highlight_2_icon",
+      "label": "Highlight 2 icon",
+      "default": "content",
+      "options": [
+        { "value": "content", "label": "Use product content icon" },
+        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    { "type": "image_picker", "id": "highlight_2_icon_custom", "label": "Highlight 2 custom icon / SVG" },
+    {
+      "type": "select",
+      "id": "highlight_3_icon",
+      "label": "Highlight 3 icon",
+      "default": "content",
+      "options": [
+        { "value": "content", "label": "Use product content icon" },
+        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    { "type": "image_picker", "id": "highlight_3_icon_custom", "label": "Highlight 3 custom icon / SVG" },
+    {
+      "type": "select",
+      "id": "highlight_4_icon",
+      "label": "Highlight 4 icon",
+      "default": "content",
+      "options": [
+        { "value": "content", "label": "Use product content icon" },
+        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    { "type": "image_picker", "id": "highlight_4_icon_custom", "label": "Highlight 4 custom icon / SVG" }
+  ]
+}
+{% endschema %}
