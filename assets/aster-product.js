@@ -1,4 +1,4 @@
-// Aster PDP interaction controller · refined gallery, variants and FAQ motion.
+// Aster PDP interaction controller · refined gallery, variants, direct checkout and FAQ motion.
 (() => {
   const roots = document.querySelectorAll('[data-aster-pdp]');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -15,12 +15,15 @@
       return;
     }
 
+    const form = root.querySelector('.aster-pdp__form');
     const optionButtons = Array.from(root.querySelectorAll('[data-aster-pdp-option]'));
     const variantInput = root.querySelector('[data-aster-pdp-variant-input]');
     const addButton = root.querySelector('[data-aster-pdp-add]');
     const addLabel = root.querySelector('[data-aster-pdp-add-label]');
     const addPrice = root.querySelector('[data-aster-pdp-add-price]');
     const dynamicCheckout = root.querySelector('[data-aster-pdp-dynamic-checkout]');
+    const buyNowButton = root.querySelector('[data-aster-pdp-buy-now]');
+    const buyNowLabel = root.querySelector('[data-aster-pdp-buy-now-label]');
     const heroImageFrame = root.querySelector('.aster-pdp__hero-image');
     const heroImage = heroImageFrame?.querySelector('img');
     const thumbnails = Array.from(root.querySelectorAll('[data-aster-pdp-thumbnail]'));
@@ -95,6 +98,7 @@
 
       if (variantInput) variantInput.value = variant.id;
       if (addButton) addButton.disabled = !variant.available;
+      if (buyNowButton) buyNowButton.disabled = !variant.available;
       if (addLabel) addLabel.textContent = variant.available ? 'Add to cart' : 'Sold out';
       if (dynamicCheckout) dynamicCheckout.hidden = !variant.available;
 
@@ -177,6 +181,40 @@
       quantityInput.addEventListener('change', () => {
         const value = Math.max(1, Number.parseInt(quantityInput.value || '1', 10) || 1);
         quantityInput.value = String(value);
+      });
+    }
+
+    if (buyNowButton && form) {
+      const originalBuyNowLabel = buyNowLabel?.textContent || 'Buy now';
+
+      buyNowButton.addEventListener('click', async () => {
+        if (buyNowButton.disabled || !variantInput?.value) return;
+
+        buyNowButton.disabled = true;
+        buyNowButton.setAttribute('aria-busy', 'true');
+        if (buyNowLabel) buyNowLabel.textContent = 'Taking you to checkout…';
+
+        try {
+          const rootPath = window.Shopify?.routes?.root || '/';
+          const response = await fetch(`${rootPath}cart/add.js`, {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+            body: new FormData(form)
+          });
+
+          if (!response.ok) throw new Error('Unable to add selected product to cart.');
+          window.location.assign(`${rootPath}checkout`);
+        } catch (error) {
+          console.warn('Aster PDP: express checkout could not start.', error);
+          buyNowButton.disabled = false;
+          buyNowButton.removeAttribute('aria-busy');
+          if (buyNowLabel) {
+            buyNowLabel.textContent = 'Try again';
+            window.setTimeout(() => {
+              buyNowLabel.textContent = originalBuyNowLabel;
+            }, 1800);
+          }
+        }
       });
     }
 
