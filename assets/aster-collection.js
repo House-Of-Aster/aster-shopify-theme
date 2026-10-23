@@ -6,6 +6,8 @@
 
   const columnButtons = Array.from(toolbar.querySelectorAll('[data-aster-grid-columns]'));
   const sortSelect = toolbar.querySelector('[data-aster-collection-sort]');
+  const cardReveals = Array.from(grid.querySelectorAll('.aster-collection__card-reveal[data-aster-reveal]'));
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const modeQueries = {
     mobile: window.matchMedia('(max-width: 749px)'),
     tablet: window.matchMedia('(min-width: 750px) and (max-width: 1099px)'),
@@ -65,6 +67,29 @@
     if (persist) writeStoredColumns(mode, resolved);
   };
 
+  const revealInitialViewportCards = () => {
+    if (reducedMotion.matches || cardReveals.length === 0) return;
+
+    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    const initiallyVisible = cardReveals.filter((card) => {
+      const rect = card.getBoundingClientRect();
+      return rect.top < viewportHeight && rect.bottom > 0;
+    });
+
+    initiallyVisible.forEach((card, index) => {
+      card.classList.add('aster-collection__card-reveal--initial');
+      card.style.setProperty('--aster-initial-card-index', String(index));
+    });
+
+    if (initiallyVisible.length === 0) return;
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        initiallyVisible.forEach((card) => card.classList.add('is-visible'));
+      });
+    });
+  };
+
   columnButtons.forEach((button) => {
     button.addEventListener('click', () => {
       applyColumns(Number.parseInt(button.dataset.asterGridColumns, 10), { persist: true });
@@ -91,4 +116,5 @@
   }
 
   applyColumns(readStoredColumns(currentMode()));
+  revealInitialViewportCards();
 })();
