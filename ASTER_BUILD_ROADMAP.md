@@ -278,16 +278,20 @@ Choose deliberately, not all at once:
 
 ---
 
-# PHASE 6 — PRODUCT EXPERIENCE
-- [ ] Desktop/mobile media gallery
-- [ ] Title, price, variants, quantity, add to cart
-- [ ] Dynamic checkout decision
-- [ ] Inventory/delivery/returns messaging
-- [ ] App/subscription compatibility if required
-- [ ] Description/details/accordions
-- [ ] Reviews, related products and storytelling sections
-- [ ] Judge.me when account/app is introduced near launch
-- [ ] Full edge-case QA
+# PHASE 6 — PRODUCT EXPERIENCE — IN PROGRESS
+- [x] Product-family architecture established: one shared Aster PDP system with dedicated Planner, future Insert/Accessory and future Supplement templates rather than one universal storytelling hierarchy
+- [~] Planner template built from the approved desktop mock-up and assigned to The Aster Planner; visual/cross-device QA and final sign-off pending
+- [x] Responsive media-gallery foundation: evenly distributed desktop thumbnail rail, mobile thumbnail strip, zoom/lightbox and variant-aware main image
+- [x] Product eyebrow/title, colour variants, quantity and Add to Cart implemented; standalone product price deliberately omitted and selected-variant price carried inside the CTA
+- [x] Dynamic checkout support retained beneath the primary CTA
+- [~] Shipping/returns/security/gifting reassurance treatment implemented; final wording/policy links remain subject to launch content review
+- [x] Future subscription integration anticipated with a reserved purchase-plan slot and variant-price event architecture; selling-plan service/UI deliberately deferred until a subscription provider is chosen
+- [x] Reusable PDP data model implemented with only four product-level fields: `aster.pdp_eyebrow`, `aster.pdp_intro`, `aster.pdp_sections` and `aster.pdp_related_products`
+- [x] Reusable `Aster PDP Section` and `Aster PDP Item` metaobjects created so planner features, future accessory information and future supplement ingredients/benefits can share structured content primitives rather than spawning one-off metafields
+- [~] Planner storytelling populated with substantiated content: highlights, philosophy, usage steps, known catalogue details, FAQs and curated related products; richer “what’s inside”/specification content waits for real page-layout, material and production data rather than fabricated mock-up values
+- [~] Related products use the curated product-reference metafield and the signed-off shared product card
+- [ ] Judge.me rating/review integration deliberately deferred until close to launch
+- [ ] Full desktop/tablet/mobile visual QA, commerce edge-case QA and explicit sign-off
 
 # PHASE 7 — CART
 - [ ] Cart drawer and full cart page
@@ -408,7 +412,7 @@ This deliberately prioritises the core customer journey: **Browse → Product �
 
 **Collection:** Phase 5 is complete. The collection banner, responsive mobile crop, title/description composition, motion treatment, shared photographic product-card presentation, grid-density controls, product count, sorting, spacing, empty state, pagination and colour-scheme handling are accepted across desktop, tablet and mobile. Filters are deliberately omitted because Aster’s catalogue is intentionally small and curated; adding filter UI would introduce complexity without solving a meaningful discovery problem. Reconsider filters only if the catalogue expands materially. The collection and product cards should now be revisited only during pre-launch cross-template/launch QA if required.
 
-**Active focus:** Phase 6 Product Experience. Build the actual product detail page: media gallery, product information, variants, quantity/Add to Cart, delivery/returns messaging, details/accordions, related products/storytelling and full edge-case QA. Judge.me remains deferred until close to launch.
+**Active focus:** Phase 6 Product Experience is now in progress. The first dedicated product-family template, `product.planner`, is built and assigned to The Aster Planner using the approved desktop mock-up as the target: evenly distributed desktop thumbnails, responsive gallery/lightbox, variant-aware colour selection, quantity, price-inside-CTA treatment, dynamic checkout, reassurance content, story/usage/details/FAQ composition and curated related products. A reserved purchase-plan slot and `aster:variant-change` event provide a clean future integration point for subscription pricing without redesigning the buy area. The content architecture is intentionally reusable: only four product-level PDP metafields are used, backed by generic `Aster PDP Section` and `Aster PDP Item` metaobjects that can later power Insert/Accessory and Supplement templates with different storytelling priorities. Current Planner content avoids invented page counts, materials or internal-layout claims; richer “what’s inside” content should be added when final product specifications and imagery are available. Visual/cross-device QA and explicit sign-off remain next.
 
 **Deferred, not forgotten:** Collection Card, Article Card and Editorial Card remain deliberately deferred until a real surface proves the requirement.
 
