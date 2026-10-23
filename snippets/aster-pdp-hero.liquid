@@ -1,6 +1,7 @@
 {% comment %}
   Shared Aster PDP hero / buy area.
   Reused by Planner and future accessory / supplement PDP templates.
+  Optional `pdp_settings` comes from the product-family Theme Editor section.
 {% endcomment %}
 
 {% liquid
@@ -12,6 +13,18 @@
   assign highlight_section = nil
   assign colour_option = nil
   assign colour_option_index = nil
+
+  assign shipping_icon_choice = pdp_settings.shipping_icon | default: 'truck'
+  assign returns_icon_choice = pdp_settings.returns_icon | default: 'return'
+  assign secure_icon_choice = pdp_settings.secure_icon | default: 'shield'
+  assign gift_icon_choice = pdp_settings.gift_icon | default: 'gift'
+  assign shipping_label = pdp_settings.shipping_label | default: 'Shipping details'
+  assign returns_label = pdp_settings.returns_label | default: 'Returns information'
+  assign secure_label = pdp_settings.secure_label | default: 'Secure checkout'
+  assign gift_label = pdp_settings.gift_label | default: 'Made for gifting'
+  assign shipping_link = pdp_settings.shipping_link | default: shop.shipping_policy.url | default: routes.root_url
+  assign returns_link = pdp_settings.returns_link | default: shop.refund_policy.url | default: routes.root_url
+  assign express_label = pdp_settings.express_label | default: 'Buy now'
 
   for pdp_section in pdp_sections
     assign section_type = pdp_section.section_type.value | downcase | strip
@@ -166,24 +179,87 @@
 
       <div class="aster-pdp__express" data-aster-pdp-dynamic-checkout data-aster-reveal="fade" {% unless current_variant.available %}hidden{% endunless %}>
         <div class="aster-pdp__express-label"><span>Express checkout</span></div>
-        {{ form | payment_button }}
+        <button class="aster-pdp__buy-now" type="button" data-aster-pdp-buy-now {% unless current_variant.available %}disabled{% endunless %}>
+          <span data-aster-pdp-buy-now-label>{{ express_label | escape }}</span>
+          <span aria-hidden="true">→</span>
+        </button>
       </div>
     {% endform %}
 
     <div class="aster-pdp__reassurance" aria-label="Shopping information" data-aster-reveal="up">
-      <a href="{{ shop.shipping_policy.url | default: routes.root_url }}"><span aria-hidden="true">↗</span><span>Shipping details</span></a>
-      <a href="{{ shop.refund_policy.url | default: routes.root_url }}"><span aria-hidden="true">↺</span><span>Returns information</span></a>
-      <span><span aria-hidden="true">◇</span><span>Secure checkout</span></span>
-      <span><span aria-hidden="true">♡</span><span>Made for gifting</span></span>
+      <a href="{{ shipping_link }}">
+        <span class="aster-pdp__reassurance-icon" aria-hidden="true">
+          {% if pdp_settings.shipping_icon_custom != blank %}
+            {{ pdp_settings.shipping_icon_custom | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+          {% else %}
+            {% render 'aster-pdp-icon', icon: shipping_icon_choice %}
+          {% endif %}
+        </span>
+        <span>{{ shipping_label | escape }}</span>
+      </a>
+      <a href="{{ returns_link }}">
+        <span class="aster-pdp__reassurance-icon" aria-hidden="true">
+          {% if pdp_settings.returns_icon_custom != blank %}
+            {{ pdp_settings.returns_icon_custom | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+          {% else %}
+            {% render 'aster-pdp-icon', icon: returns_icon_choice %}
+          {% endif %}
+        </span>
+        <span>{{ returns_label | escape }}</span>
+      </a>
+      <span>
+        <span class="aster-pdp__reassurance-icon" aria-hidden="true">
+          {% if pdp_settings.secure_icon_custom != blank %}
+            {{ pdp_settings.secure_icon_custom | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+          {% else %}
+            {% render 'aster-pdp-icon', icon: secure_icon_choice %}
+          {% endif %}
+        </span>
+        <span>{{ secure_label | escape }}</span>
+      </span>
+      <span>
+        <span class="aster-pdp__reassurance-icon" aria-hidden="true">
+          {% if pdp_settings.gift_icon_custom != blank %}
+            {{ pdp_settings.gift_icon_custom | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+          {% else %}
+            {% render 'aster-pdp-icon', icon: gift_icon_choice %}
+          {% endif %}
+        </span>
+        <span>{{ gift_label | escape }}</span>
+      </span>
     </div>
 
     {% if highlight_section != blank and highlight_section.items.value != blank %}
       <div class="aster-pdp__hero-highlights" data-aster-stagger>
         {% for item in highlight_section.items.value limit: 4 %}
-          {% assign highlight_icon = item.icon.value | downcase %}
+          {% liquid
+            assign highlight_icon = item.icon.value | default: 'sparkle' | downcase
+            assign highlight_custom_icon = blank
+            case forloop.index
+              when 1
+                assign highlight_icon_override = pdp_settings.highlight_1_icon
+                assign highlight_custom_icon = pdp_settings.highlight_1_icon_custom
+              when 2
+                assign highlight_icon_override = pdp_settings.highlight_2_icon
+                assign highlight_custom_icon = pdp_settings.highlight_2_icon_custom
+              when 3
+                assign highlight_icon_override = pdp_settings.highlight_3_icon
+                assign highlight_custom_icon = pdp_settings.highlight_3_icon_custom
+              when 4
+                assign highlight_icon_override = pdp_settings.highlight_4_icon
+                assign highlight_custom_icon = pdp_settings.highlight_4_icon_custom
+            endcase
+            if highlight_icon_override != blank and highlight_icon_override != 'content'
+              assign highlight_icon = highlight_icon_override
+            endif
+          %}
           <div class="aster-pdp__hero-highlight">
             <span class="aster-pdp__highlight-mark" aria-hidden="true">
-              {% case highlight_icon %}{% when 'leaf' %}⌁{% when 'heart' %}♡{% when 'diamond' %}◇{% when 'book' %}▤{% when 'gift' %}⌑{% when 'calendar' %}□{% else %}○{% endcase %}
+              {% if highlight_custom_icon != blank %}
+                {{ highlight_custom_icon | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+              {% else %}
+                {% render 'aster-pdp-icon', icon: highlight_icon %}
+              {% endif %}
             </span>
             <div><p>{{ item.title.value | escape }}</p>{% if item.body.value != blank %}<span>{{ item.body.value | escape }}</span>{% endif %}</div>
           </div>
