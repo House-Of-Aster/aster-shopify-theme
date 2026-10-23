@@ -2,7 +2,6 @@
    Uses the signed-off collection cadence and adds deliberate commerce/motion polish. */
 
 .aster-pdp {
-  /* Product sections now use the same canonical rhythm as the collection page. */
   --aster-pdp-section-space: var(--aster-pdp-gap);
 }
 
@@ -29,14 +28,12 @@
   transform: none;
 }
 
-/* Keep the buy column composed rather than forcing reassurance/highlights to the gallery floor. */
 .aster-pdp__hero-highlights {
   margin-top: var(--aster-pdp-gap);
   padding-top: 0;
 }
 
-/* Accelerated checkout stays available, but is treated as a compact secondary path.
-   Branded wallet colours are controlled by Shopify; supported geometry is Aster-controlled. */
+/* Aster-controlled direct express checkout. The branded wallet choice remains at checkout. */
 .aster-pdp__express {
   display: grid;
   gap: 10px;
@@ -62,25 +59,51 @@
   background: color-mix(in srgb, var(--aster-pdp-wine) 16%, transparent);
 }
 
-.aster-pdp__express .shopify-payment-button,
-.aster-pdp__express shopify-accelerated-checkout {
+.aster-pdp__buy-now {
+  display: inline-flex;
   width: 100%;
-  margin: 0;
-  --shopify-accelerated-checkout-button-block-size: 44px;
-  --shopify-accelerated-checkout-button-border-radius: 10px;
-  --shopify-accelerated-checkout-button-box-shadow: none;
-}
-
-.aster-pdp__express .shopify-payment-button__button {
   min-height: 44px;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  padding: 0 22px;
+  border: 1px solid var(--aster-pdp-wine);
   border-radius: 10px;
+  background: var(--aster-pdp-wine);
+  color: var(--aster-pdp-ivory);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
 }
 
-.aster-pdp__express .shopify-payment-button__more-options {
-  display: none !important;
+.aster-pdp__buy-now:hover:not(:disabled) {
+  background: var(--aster-pdp-red);
+  border-color: var(--aster-pdp-red);
+  transform: translateY(-1px);
 }
 
-/* Philosophy is a horizontal editorial beat, not a second hero. */
+.aster-pdp__buy-now:focus-visible {
+  outline: 2px solid var(--aster-pdp-red);
+  outline-offset: 3px;
+}
+
+.aster-pdp__buy-now:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.aster-pdp__buy-now[aria-busy='true'] {
+  cursor: progress;
+}
+
+/* Philosophy is a compact horizontal editorial beat with strictly contained media. */
 .aster-pdp__story {
   min-height: 0;
   height: clamp(300px, 27vw, 390px);
@@ -91,10 +114,51 @@
 }
 
 .aster-pdp__story-media {
+  min-width: 0;
   min-height: 0;
+  height: 100%;
+  overflow: hidden;
 }
 
-/* Bring the remaining content blocks onto the same collection-derived cadence. */
+.aster-pdp__story-image {
+  width: 100%;
+  height: 100%;
+}
+
+.aster-pdp__story-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Theme-editor icon system. */
+.aster-pdp-icon,
+.aster-pdp__reassurance-icon img,
+.aster-pdp__highlight-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.aster-pdp__reassurance-icon {
+  display: grid;
+  width: 25px;
+  height: 25px;
+  place-items: center;
+  color: var(--aster-pdp-red);
+}
+
+.aster-pdp__reassurance-icon img,
+.aster-pdp__highlight-mark img {
+  object-fit: contain;
+}
+
+.aster-pdp__highlight-mark {
+  width: 32px;
+  height: 32px;
+}
+
 .aster-pdp__content-section--steps {
   padding: calc(var(--aster-pdp-gap) * 1.25);
 }
@@ -130,11 +194,6 @@
 
 .aster-motion-ready .aster-pdp__hero .aster-pdp__hero-highlights[data-aster-stagger] > * {
   transition-delay: calc(630ms + (var(--aster-stagger-index, 0) * 70ms));
-}
-
-/* Give below-fold editorial media a slightly slower, more photographic entrance. */
-.aster-pdp__story-media[data-aster-reveal='media'] {
-  overflow: hidden;
 }
 
 .aster-pdp__story-media[data-aster-reveal='media'] .aster-pdp__story-image img {
@@ -364,6 +423,7 @@
 @media (prefers-reduced-motion: reduce) {
   .aster-pdp__hero-image img,
   .aster-pdp__thumbnail,
+  .aster-pdp__buy-now,
   .aster-pdp__story-media[data-aster-reveal='media'] .aster-pdp__story-image img,
   .aster-pdp__spec-product-link,
   .aster-pdp__spec-peek,
