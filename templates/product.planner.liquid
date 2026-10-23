@@ -3,8 +3,8 @@
   Visual/editorial controls live in the static Aster Planner PDP section so they
   are available in the Theme Editor; product-specific content remains structured
   in the shared Aster PDP metafield/metaobject model.
-  Final visual-QA layer loaded below.
+  Final visual-QA layer intentionally loads after the section so it wins the cascade.
 {% endcomment %}
 
-{{ 'aster-planner-final-refinements.css' | asset_url | stylesheet_tag }}
 {% section 'aster-planner-pdp' %}
+{{ 'aster-planner-final-refinements.css' | asset_url | stylesheet_tag }}
