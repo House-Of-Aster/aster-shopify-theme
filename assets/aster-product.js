@@ -20,6 +20,7 @@
     const addButton = root.querySelector('[data-aster-pdp-add]');
     const addLabel = root.querySelector('[data-aster-pdp-add-label]');
     const addPrice = root.querySelector('[data-aster-pdp-add-price]');
+    const dynamicCheckout = root.querySelector('[data-aster-pdp-dynamic-checkout]');
     const heroImageFrame = root.querySelector('.aster-pdp__hero-image');
     const heroImage = heroImageFrame?.querySelector('img');
     const thumbnails = Array.from(root.querySelectorAll('[data-aster-pdp-thumbnail]'));
@@ -95,6 +96,7 @@
       if (variantInput) variantInput.value = variant.id;
       if (addButton) addButton.disabled = !variant.available;
       if (addLabel) addLabel.textContent = variant.available ? 'Add to cart' : 'Sold out';
+      if (dynamicCheckout) dynamicCheckout.hidden = !variant.available;
 
       if (addPrice) {
         addPrice.textContent = variant.available ? variant.price : '';
