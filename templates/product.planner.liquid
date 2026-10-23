@@ -1,7 +1,10 @@
 {% comment %}
-  Aster Planner PDP.
+  Aster Planner PDP
+  First production template in the shared Product Experience system.
+
   Shared commerce/media lives in aster-pdp-hero.
-  Planner storytelling order is owned by this template.
+  Planner-specific storytelling order remains here so future accessory and
+  supplement templates can reuse the same data model with a different hierarchy.
 {% endcomment %}
 
 {{ 'aster-product.css' | asset_url | stylesheet_tag }}
@@ -42,63 +45,53 @@
           {% if story_section.body.value != blank %}<div class="aster-pdp__section-body">{{ story_section.body.value | escape | newline_to_br }}</div>{% endif %}
         </div>
         {% if product.featured_image %}
-          <div class="aster-pdp__story-media">{% render 'image', class: 'aster-pdp__story-image', image: product.featured_image, width: 1600, sizes: '(min-width: 750px) 50vw, 100vw', priority: false %}</div>
+          <div class="aster-pdp__story-media">
+            {% render 'image', class: 'aster-pdp__story-image', image: product.featured_image, width: 1600, sizes: '(min-width: 750px) 50vw, 100vw', priority: false %}
+          </div>
         {% endif %}
       </section>
     {% endif %}
 
-    {% if steps_section != blank %}
-      {% if steps_section.items.value != blank %}
-        <section class="aster-pdp__content-section aster-pdp__content-section--steps" data-aster-reveal="up">
-          {% if steps_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ steps_section.eyebrow.value | escape }}</p>{% endif %}
-          <h2 class="aster-pdp__section-title">{{ steps_section.heading.value | escape }}</h2>
-          <ol class="aster-pdp__steps-grid">
-            {% for item in steps_section.items.value limit: 4 %}
-              <li class="aster-pdp__step">
-                <div class="aster-pdp__step-topline"><span class="aster-pdp__step-number">0{{ forloop.index }}</span><span class="aster-pdp__step-icon" aria-hidden="true">○</span></div>
-                <h3>{{ item.title.value | escape }}</h3>
-                {% if item.body.value != blank %}<p>{{ item.body.value | escape | newline_to_br }}</p>{% endif %}
-              </li>
-            {% endfor %}
-          </ol>
-        </section>
-      {% endif %}
+    {% if steps_section != blank and steps_section.items.value != blank %}
+      <section class="aster-pdp__content-section aster-pdp__content-section--steps" data-aster-reveal="up">
+        {% if steps_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ steps_section.eyebrow.value | escape }}</p>{% endif %}
+        <h2 class="aster-pdp__section-title">{{ steps_section.heading.value | escape }}</h2>
+        <ol class="aster-pdp__steps-grid">
+          {% for item in steps_section.items.value limit: 4 %}
+            <li class="aster-pdp__step">
+              <div class="aster-pdp__step-topline"><span class="aster-pdp__step-number">0{{ forloop.index }}</span><span class="aster-pdp__step-icon" aria-hidden="true">○</span></div>
+              <h3>{{ item.title.value | escape }}</h3>
+              {% if item.body.value != blank %}<p>{{ item.body.value | escape | newline_to_br }}</p>{% endif %}
+            </li>
+          {% endfor %}
+        </ol>
+      </section>
     {% endif %}
 
     {% if details_section != blank or faq_section != blank %}
       <section class="aster-pdp__content-section aster-pdp__detail-faq" data-aster-reveal="up">
-        {% if details_section != blank %}
-          {% if details_section.items.value != blank %}
-            <div class="aster-pdp__details-panel">
-              {% if details_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ details_section.eyebrow.value | escape }}</p>{% endif %}
-              <h2 class="aster-pdp__section-title">{{ details_section.heading.value | escape }}</h2>
-              <dl class="aster-pdp__spec-list">
-                {% for item in details_section.items.value %}
-                  <div class="aster-pdp__spec-row">
-                    <dt>{{ item.title.value | escape }}</dt>
-                    <dd>{% if item.value.value != blank %}{{ item.value.value | escape }}{% else %}{{ item.body.value | escape }}{% endif %}</dd>
-                  </div>
-                {% endfor %}
-              </dl>
-            </div>
-          {% endif %}
+        {% if details_section != blank and details_section.items.value != blank %}
+          <div class="aster-pdp__details-panel">
+            {% if details_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ details_section.eyebrow.value | escape }}</p>{% endif %}
+            <h2 class="aster-pdp__section-title">{{ details_section.heading.value | escape }}</h2>
+            <dl class="aster-pdp__spec-list">
+              {% for item in details_section.items.value %}
+                <div class="aster-pdp__spec-row"><dt>{{ item.title.value | escape }}</dt><dd>{{ item.value.value | default: item.body.value | escape }}</dd></div>
+              {% endfor %}
+            </dl>
+          </div>
         {% endif %}
 
-        {% if faq_section != blank %}
-          {% if faq_section.items.value != blank %}
-            <div class="aster-pdp__faq-panel">
-              {% if faq_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ faq_section.eyebrow.value | escape }}</p>{% endif %}
-              <h2 class="aster-pdp__section-title">{{ faq_section.heading.value | escape }}</h2>
-              <div class="aster-pdp__faq-list">
-                {% for item in faq_section.items.value %}
-                  <details class="aster-pdp__faq-item">
-                    <summary><span>{{ item.title.value | escape }}</span><span class="aster-pdp__faq-plus" aria-hidden="true">+</span></summary>
-                    {% if item.body.value != blank %}<div class="aster-pdp__faq-answer">{{ item.body.value | escape | newline_to_br }}</div>{% endif %}
-                  </details>
-                {% endfor %}
-              </div>
+        {% if faq_section != blank and faq_section.items.value != blank %}
+          <div class="aster-pdp__faq-panel">
+            {% if faq_section.eyebrow.value != blank %}<p class="aster-pdp__section-eyebrow">{{ faq_section.eyebrow.value | escape }}</p>{% endif %}
+            <h2 class="aster-pdp__section-title">{{ faq_section.heading.value | escape }}</h2>
+            <div class="aster-pdp__faq-list">
+              {% for item in faq_section.items.value %}
+                <details class="aster-pdp__faq-item"><summary><span>{{ item.title.value | escape }}</span><span class="aster-pdp__faq-plus" aria-hidden="true">+</span></summary>{% if item.body.value != blank %}<div class="aster-pdp__faq-answer">{{ item.body.value | escape | newline_to_br }}</div>{% endif %}</details>
+              {% endfor %}
             </div>
-          {% endif %}
+          </div>
         {% endif %}
       </section>
     {% endif %}
@@ -110,9 +103,7 @@
           <div><p class="aster-pdp__section-eyebrow">Pairs well with</p><h2 class="aster-pdp__section-title">complete the ritual</h2></div>
           <a class="aster-pdp__text-link" href="{{ routes.all_products_collection_url }}">Shop all products <span aria-hidden="true">→</span></a>
         </div>
-        <div class="aster-pdp__related-grid">
-          {% for related_product in related_products limit: 3 %}{% render 'aster-product-card', product: related_product %}{% endfor %}
-        </div>
+        <div class="aster-pdp__related-grid">{% for related_product in related_products limit: 3 %}{% render 'aster-product-card', product: related_product %}{% endfor %}</div>
       </section>
     {% endif %}
   </main>
