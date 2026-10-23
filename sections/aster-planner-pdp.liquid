@@ -59,8 +59,38 @@
       </div>
       <ol class="aster-pdp__steps-grid" data-aster-stagger>
         {% for item in steps_section.items.value limit: 4 %}
+          {% liquid
+            assign step_icon = item.icon.value | default: 'sparkle' | downcase
+            assign step_custom_icon = blank
+            case forloop.index
+              when 1
+                assign step_icon_override = section.settings.step_1_icon
+                assign step_custom_icon = section.settings.step_1_icon_custom
+              when 2
+                assign step_icon_override = section.settings.step_2_icon
+                assign step_custom_icon = section.settings.step_2_icon_custom
+              when 3
+                assign step_icon_override = section.settings.step_3_icon
+                assign step_custom_icon = section.settings.step_3_icon_custom
+              when 4
+                assign step_icon_override = section.settings.step_4_icon
+                assign step_custom_icon = section.settings.step_4_icon_custom
+            endcase
+            if step_icon_override != blank and step_icon_override != 'content'
+              assign step_icon = step_icon_override
+            endif
+          %}
           <li class="aster-pdp__step">
-            <div class="aster-pdp__step-topline"><span class="aster-pdp__step-number">0{{ forloop.index }}</span><span class="aster-pdp__step-icon" aria-hidden="true">○</span></div>
+            <div class="aster-pdp__step-topline">
+              <span class="aster-pdp__step-number">0{{ forloop.index }}</span>
+              <span class="aster-pdp__step-icon" aria-hidden="true">
+                {% if step_custom_icon != blank %}
+                  {{ step_custom_icon | image_url: width: 96 | image_tag: loading: 'lazy', alt: '' }}
+                {% else %}
+                  {% render 'aster-pdp-icon', icon: step_icon %}
+                {% endif %}
+              </span>
+            </div>
             <h3>{{ item.title.value | escape }}</h3>
             {% if item.body.value != blank %}<p>{{ item.body.value | escape | newline_to_br }}</p>{% endif %}
           </li>
@@ -173,108 +203,88 @@
       "label": "Shipping icon",
       "default": "truck",
       "options": [
-        { "value": "truck", "label": "Truck" },
-        { "value": "return", "label": "Return arrow" },
-        { "value": "shield", "label": "Shield + check" },
-        { "value": "gift", "label": "Gift" },
-        { "value": "heart", "label": "Heart" },
-        { "value": "leaf", "label": "Leaf" },
-        { "value": "book", "label": "Book" },
-        { "value": "calendar", "label": "Calendar" },
-        { "value": "diamond", "label": "Diamond" },
-        { "value": "box", "label": "Parcel box" },
-        { "value": "clock", "label": "Clock" },
-        { "value": "check", "label": "Check circle" },
-        { "value": "sparkle", "label": "Sparkle" }
+        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
       ]
     },
-    {
-      "type": "image_picker",
-      "id": "shipping_icon_custom",
-      "label": "Shipping custom icon / SVG"
-    },
+    { "type": "image_picker", "id": "shipping_icon_custom", "label": "Shipping custom icon / SVG" },
     {
       "type": "select",
       "id": "returns_icon",
       "label": "Returns icon",
       "default": "return",
       "options": [
-        { "value": "truck", "label": "Truck" },
-        { "value": "return", "label": "Return arrow" },
-        { "value": "shield", "label": "Shield + check" },
-        { "value": "gift", "label": "Gift" },
-        { "value": "heart", "label": "Heart" },
-        { "value": "leaf", "label": "Leaf" },
-        { "value": "book", "label": "Book" },
-        { "value": "calendar", "label": "Calendar" },
-        { "value": "diamond", "label": "Diamond" },
-        { "value": "box", "label": "Parcel box" },
-        { "value": "clock", "label": "Clock" },
-        { "value": "check", "label": "Check circle" },
-        { "value": "sparkle", "label": "Sparkle" }
+        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
       ]
     },
-    {
-      "type": "image_picker",
-      "id": "returns_icon_custom",
-      "label": "Returns custom icon / SVG"
-    },
+    { "type": "image_picker", "id": "returns_icon_custom", "label": "Returns custom icon / SVG" },
     {
       "type": "select",
       "id": "secure_icon",
       "label": "Secure checkout icon",
       "default": "shield",
       "options": [
-        { "value": "truck", "label": "Truck" },
-        { "value": "return", "label": "Return arrow" },
-        { "value": "shield", "label": "Shield + check" },
-        { "value": "gift", "label": "Gift" },
-        { "value": "heart", "label": "Heart" },
-        { "value": "leaf", "label": "Leaf" },
-        { "value": "book", "label": "Book" },
-        { "value": "calendar", "label": "Calendar" },
-        { "value": "diamond", "label": "Diamond" },
-        { "value": "box", "label": "Parcel box" },
-        { "value": "clock", "label": "Clock" },
-        { "value": "check", "label": "Check circle" },
-        { "value": "sparkle", "label": "Sparkle" }
+        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
       ]
     },
-    {
-      "type": "image_picker",
-      "id": "secure_icon_custom",
-      "label": "Secure checkout custom icon / SVG"
-    },
+    { "type": "image_picker", "id": "secure_icon_custom", "label": "Secure checkout custom icon / SVG" },
     {
       "type": "select",
       "id": "gift_icon",
       "label": "Gifting icon",
       "default": "gift",
       "options": [
-        { "value": "truck", "label": "Truck" },
-        { "value": "return", "label": "Return arrow" },
-        { "value": "shield", "label": "Shield + check" },
-        { "value": "gift", "label": "Gift" },
-        { "value": "heart", "label": "Heart" },
-        { "value": "leaf", "label": "Leaf" },
-        { "value": "book", "label": "Book" },
-        { "value": "calendar", "label": "Calendar" },
-        { "value": "diamond", "label": "Diamond" },
-        { "value": "box", "label": "Parcel box" },
-        { "value": "clock", "label": "Clock" },
-        { "value": "check", "label": "Check circle" },
-        { "value": "sparkle", "label": "Sparkle" }
+        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
       ]
     },
-    {
-      "type": "image_picker",
-      "id": "gift_icon_custom",
-      "label": "Gifting custom icon / SVG"
-    },
+    { "type": "image_picker", "id": "gift_icon_custom", "label": "Gifting custom icon / SVG" },
     {
       "type": "paragraph",
       "content": "Custom uploads override the dropdown choice. SVG, PNG or WebP work well; for raster icons use at least 96 × 96 px and keep artwork centred on a square canvas."
     },
+    {
+      "type": "header",
+      "content": "How to use it icons"
+    },
+    {
+      "type": "select",
+      "id": "step_1_icon",
+      "label": "Step 1 icon",
+      "default": "content",
+      "options": [
+        { "value": "content", "label": "Use product content icon" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    { "type": "image_picker", "id": "step_1_icon_custom", "label": "Step 1 custom icon / SVG" },
+    {
+      "type": "select",
+      "id": "step_2_icon",
+      "label": "Step 2 icon",
+      "default": "content",
+      "options": [
+        { "value": "content", "label": "Use product content icon" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    { "type": "image_picker", "id": "step_2_icon_custom", "label": "Step 2 custom icon / SVG" },
+    {
+      "type": "select",
+      "id": "step_3_icon",
+      "label": "Step 3 icon",
+      "default": "content",
+      "options": [
+        { "value": "content", "label": "Use product content icon" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    { "type": "image_picker", "id": "step_3_icon_custom", "label": "Step 3 custom icon / SVG" },
+    {
+      "type": "select",
+      "id": "step_4_icon",
+      "label": "Step 4 icon",
+      "default": "content",
+      "options": [
+        { "value": "content", "label": "Use product content icon" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+      ]
+    },
+    { "type": "image_picker", "id": "step_4_icon_custom", "label": "Step 4 custom icon / SVG" },
     {
       "type": "header",
       "content": "Product highlight icons"
@@ -285,8 +295,7 @@
       "label": "Highlight 1 icon",
       "default": "content",
       "options": [
-        { "value": "content", "label": "Use product content icon" },
-        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+        { "value": "content", "label": "Use product content icon" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
       ]
     },
     { "type": "image_picker", "id": "highlight_1_icon_custom", "label": "Highlight 1 custom icon / SVG" },
@@ -296,8 +305,7 @@
       "label": "Highlight 2 icon",
       "default": "content",
       "options": [
-        { "value": "content", "label": "Use product content icon" },
-        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+        { "value": "content", "label": "Use product content icon" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
       ]
     },
     { "type": "image_picker", "id": "highlight_2_icon_custom", "label": "Highlight 2 custom icon / SVG" },
@@ -307,8 +315,7 @@
       "label": "Highlight 3 icon",
       "default": "content",
       "options": [
-        { "value": "content", "label": "Use product content icon" },
-        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+        { "value": "content", "label": "Use product content icon" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
       ]
     },
     { "type": "image_picker", "id": "highlight_3_icon_custom", "label": "Highlight 3 custom icon / SVG" },
@@ -318,8 +325,7 @@
       "label": "Highlight 4 icon",
       "default": "content",
       "options": [
-        { "value": "content", "label": "Use product content icon" },
-        { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
+        { "value": "content", "label": "Use product content icon" }, { "value": "truck", "label": "Truck" }, { "value": "return", "label": "Return arrow" }, { "value": "shield", "label": "Shield + check" }, { "value": "gift", "label": "Gift" }, { "value": "heart", "label": "Heart" }, { "value": "leaf", "label": "Leaf" }, { "value": "book", "label": "Book" }, { "value": "calendar", "label": "Calendar" }, { "value": "diamond", "label": "Diamond" }, { "value": "box", "label": "Parcel box" }, { "value": "clock", "label": "Clock" }, { "value": "check", "label": "Check circle" }, { "value": "sparkle", "label": "Sparkle" }
       ]
     },
     { "type": "image_picker", "id": "highlight_4_icon_custom", "label": "Highlight 4 custom icon / SVG" }
