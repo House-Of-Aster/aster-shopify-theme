@@ -1,5 +1,5 @@
 {% comment %}
-  Shared Aster PDP hero / buy area. Parser-safe revision.
+  Shared Aster PDP hero / buy area.
   Reused by Planner and future accessory / supplement PDP templates.
 {% endcomment %}
 
@@ -10,11 +10,22 @@
   assign pdp_intro = product.metafields.aster.pdp_intro.value | default: product.metafields.aster.card_description.value
   assign pdp_sections = product.metafields.aster.pdp_sections.value
   assign highlight_section = nil
+  assign colour_option = nil
+  assign colour_option_index = nil
 
   for pdp_section in pdp_sections
     assign section_type = pdp_section.section_type.value | downcase | strip
     if section_type == 'highlights'
       assign highlight_section = pdp_section
+      break
+    endif
+  endfor
+
+  for option in product.options_with_values
+    assign option_name_downcase = option.name | downcase
+    if option_name_downcase == 'colour' or option_name_downcase == 'color'
+      assign colour_option = option
+      assign colour_option_index = forloop.index0
       break
     endif
   endfor
@@ -26,10 +37,25 @@
 %}
 
 <section class="aster-pdp__hero" data-aster-pdp data-product-url="{{ product.url }}">
-  <div class="aster-pdp__media-shell">
+  <div class="aster-pdp__media-shell" data-aster-reveal="media">
     {% if product.images.size > 1 %}
       <div class="aster-pdp__thumbnail-rail" style="--aster-pdp-thumbnail-count: {{ thumbnail_count }};" aria-label="Product images">
         {% for image in product.images limit: 6 %}
+          {% liquid
+            assign thumbnail_colour_value = blank
+            assign image_filename = image.src | split: '/' | last | downcase
+
+            if colour_option != blank
+              for colour_value in colour_option.values
+                assign colour_value_name = colour_value.name | default: colour_value
+                assign colour_value_handle = colour_value_name | handleize
+                if image_filename contains colour_value_handle
+                  assign thumbnail_colour_value = colour_value_name
+                  break
+                endif
+              endfor
+            endif
+          %}
           <button
             class="aster-pdp__thumbnail{% if hero_image and image.id == hero_image.id %} is-active{% endif %}"
             type="button"
@@ -39,6 +65,10 @@
             data-image-id="{{ image.id }}"
             data-image-src="{{ image | image_url: width: 1600 }}"
             data-image-alt="{{ image.alt | default: product.title | escape }}"
+            {% if thumbnail_colour_value != blank %}
+              data-colour-value="{{ thumbnail_colour_value | escape }}"
+              data-colour-option-index="{{ colour_option_index }}"
+            {% endif %}
           >
             {% render 'image', class: 'aster-pdp__thumbnail-image', image: image, width: 240, sizes: '96px', priority: false %}
           </button>
@@ -59,7 +89,7 @@
   </div>
 
   <div class="aster-pdp__buy-panel">
-    <div class="aster-pdp__buy-copy">
+    <div class="aster-pdp__buy-copy" data-aster-reveal="up">
       {% if pdp_eyebrow != blank %}<p class="aster-pdp__eyebrow">{{ pdp_eyebrow | escape }}</p>{% endif %}
       <h1 class="aster-pdp__title">{{ product.title | escape }}</h1>
       <div class="aster-pdp__reviews-slot" data-aster-pdp-reviews-summary hidden></div>
@@ -70,7 +100,7 @@
       <input type="hidden" name="id" value="{{ current_variant.id }}" data-aster-pdp-variant-input>
 
       {% unless product.has_only_default_variant %}
-        <div class="aster-pdp__options" data-aster-pdp-options>
+        <div class="aster-pdp__options" data-aster-pdp-options data-aster-reveal="fade">
           {% for option in product.options_with_values %}
             {% liquid
               assign option_index = forloop.index0
@@ -122,7 +152,7 @@
 
       <div class="aster-pdp__purchase-plan-slot" data-aster-purchase-plan-slot hidden></div>
 
-      <div class="aster-pdp__purchase-row">
+      <div class="aster-pdp__purchase-row" data-aster-reveal="up">
         <div class="aster-pdp__quantity" data-aster-pdp-quantity>
           <button type="button" aria-label="Decrease quantity" data-aster-quantity-change="-1">−</button>
           <input id="AsterPdpQuantity" type="number" name="quantity" min="1" step="1" value="1" inputmode="numeric" aria-label="Quantity" data-aster-quantity-input>
@@ -133,11 +163,9 @@
           {% if current_variant.available %}<span class="aster-pdp__add-separator" aria-hidden="true">·</span><span data-aster-pdp-add-price>{{ current_variant.price | money }}</span>{% endif %}
         </button>
       </div>
-
-      {% if current_variant.available %}<div class="aster-pdp__dynamic-checkout" data-aster-pdp-dynamic-checkout>{{ form | payment_button }}</div>{% endif %}
     {% endform %}
 
-    <div class="aster-pdp__reassurance" aria-label="Shopping information">
+    <div class="aster-pdp__reassurance" aria-label="Shopping information" data-aster-reveal="up">
       <a href="{{ shop.shipping_policy.url | default: routes.root_url }}"><span aria-hidden="true">↗</span><span>Shipping details</span></a>
       <a href="{{ shop.refund_policy.url | default: routes.root_url }}"><span aria-hidden="true">↺</span><span>Returns information</span></a>
       <span><span aria-hidden="true">◇</span><span>Secure checkout</span></span>
@@ -145,7 +173,7 @@
     </div>
 
     {% if highlight_section != blank and highlight_section.items.value != blank %}
-      <div class="aster-pdp__hero-highlights">
+      <div class="aster-pdp__hero-highlights" data-aster-stagger>
         {% for item in highlight_section.items.value limit: 4 %}
           {% assign highlight_icon = item.icon.value | downcase %}
           <div class="aster-pdp__hero-highlight">
