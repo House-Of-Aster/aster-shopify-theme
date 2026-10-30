@@ -42,4 +42,38 @@
       color: var(--color-foreground);
     }
   {% endfor %}
+
+  /* Password page: compact mobile Klaviyo grid. Kept here so Theme Editor cannot overwrite it. */
+  @media screen and (max-width: 749px) {
+    #AsterPasswordPage .aster-cinematic-password__signup form[data-testid^='klaviyo-form-'] > div:first-of-type {
+      grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+      grid-template-rows: auto auto auto !important;
+      gap: 7px 6px !important;
+    }
+
+    #AsterPasswordPage .aster-cinematic-password__signup form[data-testid^='klaviyo-form-'] > div:first-of-type > [data-testid='form-row']:nth-of-type(1) {
+      grid-column: 1 / span 3 !important;
+      grid-row: 1 !important;
+    }
+
+    #AsterPasswordPage .aster-cinematic-password__signup form[data-testid^='klaviyo-form-'] > div:first-of-type > [data-testid='form-row']:nth-of-type(2) {
+      grid-column: 4 / span 3 !important;
+      grid-row: 1 !important;
+    }
+
+    #AsterPasswordPage .aster-cinematic-password__signup form[data-testid^='klaviyo-form-'] > div:first-of-type > [data-testid='form-row']:nth-of-type(3) {
+      grid-column: 1 / span 4 !important;
+      grid-row: 2 !important;
+    }
+
+    #AsterPasswordPage .aster-cinematic-password__signup form[data-testid^='klaviyo-form-'] > div:first-of-type > [data-testid='form-row']:nth-of-type(5) {
+      grid-column: 5 / span 2 !important;
+      grid-row: 2 !important;
+    }
+
+    #AsterPasswordPage .aster-cinematic-password__signup form[data-testid^='klaviyo-form-'] > div:first-of-type > [data-testid='form-row']:nth-of-type(4) {
+      grid-column: 1 / -1 !important;
+      grid-row: 3 !important;
+    }
+  }
 {% endstyle %}
