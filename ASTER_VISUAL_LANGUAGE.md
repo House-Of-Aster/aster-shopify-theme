@@ -1,282 +1,241 @@
-# ASTER Visual Language
+# ASTER 0.2 — Visual Language & Motion Principles
 
-Canonical art-direction companion to `ASTER_BUILD_ROADMAP.md`.
+**Effective:** 11 November 2026  
+**Status:** Active 0.2 creative brief. Supersedes the original \`ASTER_VISUAL_LANGUAGE.md\` (archived unchanged at \`archive/ASTER_VISUAL_LANGUAGE_V0_1.md\`).  
+**Canonical execution tracker:** \`ASTER_BUILD_ROADMAP.md\`. Record **all work status, approval and launch exceptions there**, not here.
 
-This file records the visual rules that should govern every Aster storefront component and template.
+## 1. The House of Aster: brand proposition
 
-## Core direction
+Aster is a **luxury lifestyle house**, beginning with journals/planners and accessories and extending later to supplements. It is not primarily a wellness shop with premium styling.
 
-Aster should feel like an editorial lifestyle brand that happens to sell wellness products, not a conventional supplement store.
+The storefront should feel like **gaining entry to an exclusive private club**: an assured, almost private world, beautifully art-directed, occasionally unexpected and effortless to explore.
 
-The visual language is:
+The audience is affluent, socially connected, style-conscious women who value beautifully made things, quality, discretion, individuality and exclusive experiences. Relevant cultural cues are British private members' clubs, country-house weekends, elegant race-day hospitality and the Grand National social milieu, fashion editorials, fine personal stationery, richly material interiors and considered luxury retail. **"Ladies who lunch, with money" is the internal shorthand, not public-facing copy.**
 
-- premium
-- editorial
-- warm
-- European café influenced
-- restrained
-- cinematic where motion is used
-- commercially clear without looking templated
+Do **not** interpret this literally as a horse-racing, heritage-hotel or aristocratic parody. No default crowns, polo players, horses, champagne silhouettes or unnecessary gilded embellishments. Aster must be aspirational yet inviting, exclusive without false claims of membership or a manufactured history.
 
-The brand should feel composed, grown-up and distinctive rather than clinical, spa-like, maximalist or generic DTC.
+**Retired direction:** European café culture, ordinary everyday ritual and "generic calm wellness" are no longer core creative drivers. An existing café image may still be retained if the *specific composition* meets the new brief; it should not define the design system.
 
-## Brand hierarchy
+### Brand character
 
-- Ritual before function.
-- Experience before ingredient-first messaging.
-- Photography before decoration.
-- Editorial composition before ecommerce furniture.
-- Product remains commercially clear, but the store should feel designed rather than assembled.
+- Sophisticated, self-assured, quietly provocative and occasionally mischievous.
+- Opulent where the imagery earns it; never vulgar or visually busy just to demonstrate wealth.
+- Intimate, tactile, elegant, slightly theatrical and subtly mysterious.
+- Warm and human rather than distant, preachy or clinically instructional.
+- Editorial rather than assembled from familiar Shopify section blocks.
+- Commercially excellent: essential shopping functions are immediately understandable.
 
-## Colour
+**Core statement:** *The House of Aster is a world of considered luxury, not simply an online shop.*
 
-Canonical Aster master palette:
+## 2. Brand references and what they teach us
 
-- Ivory: `#F8F6EB` — primary warm canvas and light surface.
-- Aster red: `#A52D34` — primary recognition/accent colour; use confidently for key brand surfaces, actions and active UI.
-- Wine: `#6B2331` — grounding dark for typography, deep surfaces and contrast.
-- Blush: `#E8DAD2` — soft secondary surface, especially useful around product/media presentation.
-- Blue: `#3E6990` — reserved brand colour. Do **not** use it in the current storefront treatment unless it is explicitly reintroduced later.
+The supplied Aster imagery includes physical secret-message/ticket printing, handwritten notes and personal correspondence, intimate editorial treatments, tactile paper and metal, witty printed statements, crafted interiors and suggestive atmospheres.
 
-The active storefront palette is therefore Ivory + Aster red + Wine + Blush. Aster red should be more visibly present than in the original wine/cream implementation; wine should provide depth rather than monopolising every large brand surface.
+These are **ways of thinking**, not universal decorative patterns.
 
-Do not substitute old or near-equivalent legacy colours such as `#E6D3BD`, `#F2E9DE` or ad-hoc burgundies where one of the master colours is appropriate.
+- **Intrigue:** a private invitation, something discovered, a message intended for the visitor.
+- **Physicality:** paper, textile, metal, velvet, leather, marble, shadow, imperfect reflections and dimensional photography.
+- **Editorial wit:** knowing messages with personality and intelligence; no vapid inspirational slogans.
+- **Discretion:** elegant restraint, negative space and confident imagery.
+- **Occasion:** fashion, social lives, private settings and unhurried luxury.
+- **Modernity:** sophisticated interactive execution rather than a faux-vintage website.
 
-Current scheme intent:
+Bear artwork is a quiet signature, **never an animated mascot, omnipresent icon or gimmick**.
 
-- Light/default: Ivory background, Wine text, Aster red accents/actions, Blush secondary surfaces.
-- Brand/red: Aster red background with Ivory text/actions.
-- Soft: Blush background, Wine text and Aster red actions.
-- Deep: Wine background, Ivory text and Aster red actions.
+## 3. Colour and material direction
 
-Use colour blocks and contrast between schemes to create structure rather than decorative UI chrome.
+Retain the existing core palette until a newly approved central palette replaces it:
 
-### Colour governance
+| Colour | Hex | Intent |
+| --- | --- | --- |
+| Ivory | \`#F8F6EB\` | Warm editorial canvas and breathable contrast |
+| Aster Red | \`#A52D34\` | The clearest brand recognition, dramatic brand surfaces |
+| Wine | \`#6B2331\` | Deep quiet confidence, rich contrast and text |
+| Blush | \`#E8DAD2\` | Soft tonal relief and restrained product support |
+| Blue | \`#3E6990\` | **Reserved**, not part of active storefront unless approved |
 
-The global **Theme settings → Colours** scheme system is the single source of truth for storefront colour.
+Physical luxury materials may supply *photographic* colour outside the tokens: copper, bronze, rich brown wood, warm light, muted brass, black shadow, textured burgundy textiles. These do **not** authorise random gold gradients or ad hoc CTA colours.
 
-Rules:
+### Global colour governance
 
-- New sections and components must consume the active colour-scheme variables.
-- A section may expose a colour-scheme picker where a different scheme is useful.
-- Do not add individual background, text, button or accent colour pickers to normal sections.
-- Do not hard-code brand colours into reusable storefront components; use the global scheme variables or canonical Aster brand tokens.
-- Component states should derive from the scheme wherever practical.
-- Add a new colour token to the global scheme only when the whole design system genuinely needs it.
-- The reserved blue must not appear simply because it exists in the wider brand guidelines.
+- Shopify **Theme Settings → Colours / colour schemes** remain the global source of truth.
+- Normal components consume schemes/tokens, not local hard-coded colours or a stack of per-section colour pickers.
+- Use Aster Red confidently but with carefully choreographed changes to ivory/wine scenes.
+- Treat colour changes as part of editorial direction and motion.
+- Avoid decorative frames, default shadow-heavy cards and generic rounded rectangles.
+- The old colour/spacing system is a **working baseline**, not an unchangeable 0.2 design decree.
 
-The objective is that a palette change can be made centrally and propagate across the storefront without hunting through individual sections.
+## 4. Typography
 
-## Borders
+Typography helps create private-club authority, personality and scale.
 
-Aster does **not** use borders as a decorative design language.
+- Elegant editorial serif headings with confident display moments.
+- Crisp contemporary type for utility, body text, buttons and commerce.
+- Sparing handwritten/lettering touches for genuine intimate notes or distinctive hero copy.
+- Large/oversized statements and strong scale contrasts when appropriate; restrained type where shopping clarity needs it.
+- Avoid pseudo-heritage overload, all-caps in every component and illegible animated body copy.
 
-Rules:
+Preserve the existing global typography role architecture:
 
-- No bordered cards.
-- No outlined panels purely for separation.
-- No section boxes created by borders.
-- No default outlined secondary buttons.
-- Avoid divider lines unless there is a genuine functional/accessibility reason.
-- Form-control borders may be used only where required for usability and clarity, and should remain extremely restrained.
+- **Body** for normal content, metadata, supporting navigation and microcopy.
+- **Heading** for semantic titles.
+- **Display** for selected art-directed editorial moments only.
+- **Subheading** for deliberate supporting hierarchy.
+- **Navigation** for primary top-level menu labels only; do not style whole \`nav\` ancestors with it.
+- **Button** for actual controls.
+- **Product Card Title** for shared commerce cards.
 
-Separation should come from:
+Existing fonts remain available: Garet Book (400), Garet Heavy (700) as real weights, Rufina Bold and British Poems. **Do not hard-code these into normal components** when role tokens suffice. A new handwriting/lettering treatment requires brand approval and appropriate font rights.
 
-- whitespace
-- scale
-- typography
-- background colour changes
-- image composition
-- spacing rhythm
+Every animation of text must be accessible and preserve a readable, unanimated fallback.
 
-The target is a super-clean storefront.
+## 5. Photography, film and physical art direction
 
-## Surfaces and cards
+- Premium photography with cinematic lighting, nuanced shadow and confident art-directed crops.
+- Architectural atmosphere, private environments, interior richness, editorial portraiture and polished still-life.
+- Tactile product imagery: paper grain, edges, binding, inserts, personal objects and materials.
+- Use original or appropriately licensed imagery, never lifted assets from inspiration sites.
+- Allow occasional full-bleed cinematic scenes to escape the normal content container.
+- Build separate **responsive crops/safe zones** for desktop and mobile rather than blindly shrinking assets.
+- Product photographs must also remain clear enough to support price/variant/purchasing decisions.
+- Subtle visual imperfections can signal physicality; avoid low-quality images, unreadable type or busy visual noise.
+- Photography drives style; vector ornaments should not be needed to manufacture luxury.
 
-Cards should feel editorial rather than boxed-in.
+For each visual-heavy section, specify original/source asset, rights, aspect ratio, intended viewport, mobile crop, alt behaviour, file-weight budget and fallback. **Do not generate/upload unsanctioned images.**
 
-- Prefer open layouts.
-- Avoid visible containers unless the composition truly requires one.
-- Keep shadows absent by default.
-- Tonal panels are exceptional, not the default structure.
-- Let imagery, whitespace and typography define the component.
-- Product cards should not resemble generic Shopify tiles.
+## 6. Page composition: immersive, not a long white sheet
 
-## Spacing, measure and media
-
-Use a fixed design rhythm rather than exposing spacing controls throughout Theme Settings.
+Aster is neither a typical endless vertical ecommerce column nor a wall of motion effects.
 
-- Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` on desktop/tablet and `18px` on mobile.
-- Use that adjacent-component gap for transactional/interface handoffs such as toolbar → grid, final grid row → section edge/footer handoff, and compact desktop-footer section transitions.
-- When hierarchy needs more room, use clean multiples of that gap rather than unrelated one-off values. The signed-off collection title zone uses `4×` the adjacent-component gap with the title vertically centred inside it.
-- Standard section spacing: `clamp(72px, 8vw, 120px)`.
-- Compact spacing: `clamp(48px, 5.5vw, 80px)`.
-- Generous/editorial spacing: `clamp(96px, 10vw, 160px)`.
-- Standard editorial copy measure: 62ch.
-- Narrow editorial copy measure: 48ch.
-- Global Aster corner radius: `--aster-radius: 12px`.
-- Form controls, buttons, cards/tonal surfaces and framed media should use the global radius rather than one-off corner values.
-- Full-bleed or deliberately art-directed imagery may remain square where the composition clearly calls for it.
-- Circular/pill-shaped functional UI may use an intentional radius override.
-- Do not add spacing, radius or shadow Theme Settings unless a real component later proves a genuine need.
+Use a rhythm of:
+- Bold scene openings, sometimes edge-to-edge.
+- Informed editorial layout with considered negative space.
+- Layering, interesting crops, purposeful asymmetry and scale changes.
+- Selected pinned or horizontally progressing storytelling where it improves narrative.
+- Moments of near-stillness and beautifully composed static photography.
+- Commerce moments that reset visual complexity and provide confident clarity.
 
-The page should feel spacious and intentional, not padded for the sake of padding. Transactional gaps should remain rhythmically compact; section-level whitespace should be reserved for genuine editorial hierarchy.
+The existing layout baseline remains available:
+- Maximum conventional content width **1400px**.
+- Desktop/tablet gutters **20px**, mobile **15px**.
+- Existing adjacent-component gaps \`clamp(22px, 2.5vw, 32px)\` and \`18px\` mobile.
+- Existing frame-radius token \`--aster-radius: 12px\`.
 
-## Typography
+Those are **defaults for interface/transactional areas**, not universal cages for immersive scenes. Full-screen experiences may intentionally go beyond 1400px and use art-directed edge treatments. Do not replace thoughtful layout with dozens of independent spacing and radius settings.
 
-Typography should carry a significant share of the art direction, but every component must consume the correct global role rather than borrowing a convenient font token.
+Avoid excessive borders, ornamental rules, generic cards, default shadows and heavy outlined secondary buttons. Functional borders, focus rings and legible inputs remain valid.
 
-Global role contract:
+## 7. GSAP and immersive motion: sitewide grammar
 
-- **Body** is the default storefront voice for paragraphs, supporting links, microcopy, form copy, announcements, popular searches, secondary navigation links and supporting UI text.
-- **Headings** are for semantic content headings and component titles.
-- **Display headings** are an explicit editorial treatment only; never inherit them accidentally from a container.
-- **Subheadings** are for deliberately styled subheads/eyebrows where the component genuinely calls for that role.
-- **Navigation** is reserved for primary navigation labels. Never apply Navigation typography to a `<nav>` container because that leaks the role into child/supporting links.
-- **Buttons** are for interactive CTA/button labels.
-- **Product card titles** are isolated to that commerce role.
+**Primary interactive experience inspiration:** \`landonorris.com\` — take cues from the immersive quality, transitions, layering, scrolling as storytelling, responsiveness and coherence. Do **not** clone its visual identity, assets or exact scene choreography.
 
-Additional rules:
+**The homepage is intentionally deferred.** It will eventually receive Aster's strongest GSAP sequence after the internal-page motion grammar and real assets are established.
 
-- Components should inherit Body by default and opt into another typography role explicitly.
-- Do not hard-code British Poems, Rufina, Garet or a Shopify font into normal reusable components; consume the appropriate role token instead.
-- The header mega-menu primary labels use Navigation. Its child links, popular searches and feature eyebrows use Body. Feature headings use Heading; feature CTAs use Button.
-- The announcement bar uses Body.
-- British Poems remains available as an editorial/display voice rather than a transactional default.
-- Garet is registered as one paired family: `Garet-Book.woff2` at weight 400 and `Garet-Heavy.woff2` at weight 700. When Garet text is bold, the real Heavy face must be used; do not faux-bold Book.
-- Rufina Bold is a true 700-weight custom option.
-- Use large editorial headings selectively and allow generous negative space around important statements.
-- Avoid overusing display typography in transactional UI.
+Our active interior-page motion language may include:
+- Masked image reveals and confident but controlled scale changes.
+- Composed typography transitions, intelligent stagger and soft visual depth.
+- Editorial images that subtly respond to pointer/scroll or change crop.
+- Selected horizontal and pinned storytelling on appropriate product or editorial pages.
+- Interaction feedback for menu, cards, galleries, filters/search and cart.
+- Scene colour/background transitions where they support story and contrast.
+- Page-to-page visual continuity with a consistent **Aster Veil** transition concept.
 
-## Buttons
+### Motion quality rules
 
-Buttons should be designed by Aster rather than exposed as a large configurable system.
+- Rich motion can be daring, **but should feel expensive**, not frantic, bouncy, cartoonish or exhausting.
+- Purpose, timing and spatial continuity matter more than number of effects.
+- Essential content must never be inaccessible until a scroll animation completes.
+- Native scrolling is the baseline; **no forced scroll-jacking**.
+- Preserve stable layout; prefer transforms, opacity and selective clip-path, with measured exceptions.
+- Be mindful of motion on mobile, touch and slower hardware; adapt the narrative, not just its scale.
+- Reduce or eliminate movement for \`prefers-reduced-motion\`, with complete content still visible.
+- Focus/keyboard/a11y must survive any animated DOM/route transition.
+- Use GSAP/ScrollTrigger and optional heavier tools **only in approved components**, with proper lifecycle cleanup.
+- No global performance penalty from loading a heavy library on every template unnecessarily.
+- ScrollTrigger and responsive resize logic must clean up correctly on Theme Editor load/unload.
 
-- Keep the global Theme Setting lean.
-- Button colours inherit from the active colour scheme.
-- Button typography inherits from Typography → Buttons.
-- Standard buttons use the global Aster radius.
-- Avoid outlined secondary buttons as the default visual treatment.
-- Prefer clean filled actions and quieter secondary/text actions.
-- Hover motion should be subtle and polished.
-- Mobile touch targets remain accessible.
+## 8. Signature internal navigation: The Aster Veil (candidate concept)
 
-## Forms
+Intended feeling: a page changes **within the same House**, rather than abruptly ending and reloading into a disconnected store.
 
-The password-page waiting-list form is the visual reference for the global Aster form language, but storefront forms should be simplified into reusable primitives rather than copying its section-specific treatment.
+Story direction:
+1. Intentional internal link activation.
+2. Controlled outgoing veil/architectural or editorial mask in Aster Red/Wine.
+3. Short branded transition moment.
+4. The destination is revealed as a continuation of that visual language.
+5. Focus, browser history and scroll are correct when the transition finishes.
 
-Rules:
+**This is a prototype proposal, not yet signed off.** The Aster Veil must be mock-up approved and tested before adoption.
 
-- Use soft tonal fields derived from the active colour scheme.
-- Standard text controls use a 52px minimum height and the global Aster radius.
-- Use generous internal padding and restrained placeholder contrast.
-- Do not use decorative field borders.
-- Functional focus/error indicators are allowed where required for usability and accessibility.
-- Checkbox/radio accents inherit from the active colour scheme.
-- Form feedback uses scheme colours rather than hard-coded semantic colours.
-- Do not add a global Forms Theme Settings group unless a genuinely useful control emerges later.
-- Keep native browser affordances where they improve usability, especially quantity/date inputs, unless a later component provides a better accessible replacement.
+Implementation safeguards:
+- Use real links and normal direct URLs.
+- Handle browser back/forward, refresh, deep links, hash navigation, anchor semantics, keyboard and accessibility.
+- Provide sensible fallbacks for unexpected network delays, cancelled navigation, repeated clicks and reduced motion.
+- Avoid intercepting Shopify checkout, third-party, customer account, payment, downloads, new-tab or external links unless technically justified and safe.
+- Do not promise a true seamless app transition if the Liquid architecture requires a safe native page load; use a reliable transition veil rather than a fragile faux-SPA.
+- Preserve analytics, consent, SEO, Theme Editor and app behaviour.
 
-The result should feel related to the signed-off password signup panel: calm, soft, minimal and unmistakably Aster.
+## 9. Page family art direction
 
-## Photography
+### Header/navigation
+An invitation into the House. Distinctive full-screen or spatial menu treatment, cinematic opening and beautiful type. Must remain intuitive, accessible and clear about categories, search, accounts and basket.
 
-Photography should feel aspirational but natural, grounded in café culture, daily ritual, travel and ordinary life.
+### Footer
+The closing scene of the publication. Heroic brand identity, intentional colour, an elevated newsletter invitation and polished social/legal links. Never an abandoned standard multi-column footer.
 
-- Strong crops.
-- Large images where appropriate.
-- Lifestyle context over sterile product-only presentation.
-- Product packshots should still be premium and commercially clear.
-- Avoid gratuitous decorative imagery.
+### Collection/merchandising
+Products are curated objects, not anonymous store tiles. Editorial prelude, strong cards, occasional dramatic compositions and precise commerce information. Sorting and purchasing remain understandable.
 
-## The bear
+### Planner PDP
+The physical product is the hero. Excellent buying interface, galleries and variant fidelity above the fold; immersive material, use and emotional storytelling below. No mandatory animation between shopper and Add to Cart.
 
-The bear is a brand signature, not a mascot.
+### Refill/accessory PDP
+Same visual House, a lighter but still elevated narrative; reuse the common commerce contract, no needless duplicate layouts.
 
-Before launch it can carry campaign storytelling.
+### Future supplements
+Fit seamlessly into the luxury House. Clear, substantiated ingredient/benefit information and regulated presentation when real SKUs exist; never clinical-template drift or exaggerated claims.
 
-After launch:
+### Cart, search and utility
+Quieter echoes of the rich visual system. These pages are for action and recovery from errors, not long cinematic delays.
 
-- it becomes a whisper, not a headline
-- use sparingly
-- no cartoon treatment
-- no dancing/animated mascot behaviour
-- no bear cursor
-- no bear badges across the UI
-- no repeated explanation of the concept
+### Editorial/content
+Pages read like carefully produced fashion/lifestyle publications. Consistent typography, strong photography, thoughtful navigation and curated cross-links.
 
-It should remain a recognition detail for people who understand the story.
+### Homepage
+**Not to be storyboarded or built yet.** Eventually the most immersive, GSAP-led brand experience, composed once interior pages, actual imagery and transitions establish the language. Do not invent the homepage as a dependency for work on interior pages.
 
-## Motion / GSAP
+## 10. Commerce, accessibility, performance and credibility
 
-Motion should support the brand idea of slowing down.
+A luxury experience must also function flawlessly:
+- Real correct product variant, price, stock, quantity and currency.
+- Clear checkout, shipping, returns, policies, account and contact routes.
+- Working cart/search across refresh, keyboard, screen readers and mobile.
+- Stable page composition, sensible image budgets, good Core Web Vitals and progressive enhancement.
+- SEO-crawlable text, links, product data and proper heading hierarchy.
+- No fake ratings, false prestige claims, invented availability, speculative product data or hidden legal information.
+- Appropriate UK compliance and future supplement substantiation; operational tasks tracked in the roadmap.
+- Any Shopify-owned checkout/account surface should be branded **within supported platform constraints**, not hacked into an unreliable experience.
 
-Use GSAP with restraint.
+## 11. Creative review test
 
-Good Aster motion:
+A concept is not approved just because it looks premium as a screenshot.
 
-- masked image reveals
-- gentle text reveals
-- subtle tracking/opacity transitions
-- restrained parallax
-- slow image scale
-- considered stagger
-- occasional pinned editorial storytelling
-- section colour transitions where appropriate
+Ask:
+1. Would this feel credible for a well-established luxury House without pretending to have an invented history?
+2. Does it have meaningful spatial/interaction design, or is it simply another long set of stacked sections?
+3. Does it feel distinctive and editorial instead of a generic Shopify luxury theme?
+4. Do the Planner and future supplements both belong here?
+5. Is it inviting rather than alienating or theatrical to the point of inconvenience?
+6. Can a customer use it with keyboard, mobile, reduced motion and imperfect connectivity?
+7. Does it look like the **same artist** designed header, footer, collection, PDP, search, cart and the future homepage?
 
-Avoid:
+If not, iterate mock-ups before introducing implementation complexity.
 
-- bouncy animation
-- frantic motion
-- constant movement
-- novelty interactions
-- motion that delays shopping
-- scroll effects on transactional content
+## 12. Approval and working discipline
 
-The homepage gets the strongest choreography. Product, collection, search, cart and content pages use quieter echoes of the same motion language.
-
-Always respect `prefers-reduced-motion` and avoid CLS-inducing animation.
-
-## Section composition
-
-Aster sections should be composed, not boxed.
-
-Use:
-
-- generous whitespace
-- strong editorial alignment
-- asymmetric layouts where useful
-- image/text splits
-- full-bleed colour fields where appropriate
-- open product/editorial groupings
-- selective use of the recurring vertical-line motif from the brand decks, but only when it adds identity rather than decoration
-
-## Cross-template consistency
-
-The homepage can be more expressive, but every other page must feel like it came from the same artist.
-
-Shared across the store:
-
-- typography
-- colour schemes and the canonical master palette
-- spacing rhythm, including the canonical adjacent-component gap and its clean multiples
-- global 12px corner-radius token where rounded treatment is used
-- image treatment
-- clean surfaces
-- button language
-- motion easing/timing
-- content width/gutters
-
-Product, collection, page, search, article and cart templates should be quieter versions of the homepage, not separate visual systems.
-
-## Decision test
-
-Before adding a visual treatment, ask:
-
-1. Does it make Aster feel more editorial or more like generic ecommerce?
-2. Is it helping hierarchy or merely decorating the page?
-3. Can whitespace, typography or colour solve the problem more cleanly?
-4. Does it support the calm/ritual-led brand idea?
-5. Would the same artist plausibly have designed this and the homepage?
-
-If the treatment adds furniture without adding meaning, remove it.
+- Build **navigation/header first**, then footer, collections/cards, PDPs, cart, search, content/utility, checkout handoff and finally homepage.
+- Each section: review existing implementation, produce 0.2 desktop/mobile visual mock-ups and key interaction states, get user sign-off, storyboard motion, implement in controlled units and verify.
+- Keep **all** progress, completed checks, decisions and launch exceptions in \`ASTER_BUILD_ROADMAP.md\`.
+- Do not treat 0.1 approvals as 0.2 approvals.
+- Preserve existing Shopify functionality and source content unless a change is explicitly agreed.
+- No live-store publication or admin setting changes merely because a mock-up or design brief is approved.
