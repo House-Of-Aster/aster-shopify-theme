@@ -1,440 +1,486 @@
-# ASTER Store Build Roadmap
+# ASTER 0.2 — Master Build, Rebrand and Launch Roadmap
 
-Canonical project tracker for the House of Aster Shopify theme.
+**Status:** ACTIVE MASTER PLAN — reset for Aster 0.2 on 11 November 2026  
+**Project:** The House of Aster · Shopify Online Store 2.0 · \`House-Of-Aster/aster-shopify-theme\` · \`main\`  
+**Owner/sign-off:** Dave · **Current workstream:** 0.2 design system → navigation/header mock-ups  
+**Change policy:** This document is the **single source of truth** for implementation sequence, status, sign-offs, exceptions and launch readiness. Update it on every completed/verified unit and every approved scope change. The companion \`ASTER_VISUAL_LANGUAGE.md\` contains 0.2 art direction and design rules, not a second task list.
 
-Read this before substantial Aster work. Update it after every completed milestone, verified visual sign-off, meaningful implementation change or agreed sequence change. Do not rely on chat memory as the project ledger.
+## The 0.2 reset — what changes and what stays
 
-Status: `[x]` complete · `[~]` in progress/partial · `[ ]` not started
+**0.1 was the foundational build.** Its header/menu, footer, collection, product cards, dedicated Planner PDP and motion primitives contain valuable reusable code, but **their earlier design approvals do not constitute 0.2 design approvals**. This is a rebrand of the rebrand, not a clean-slate rebuild.
 
-Art direction is governed by `ASTER_VISUAL_LANGUAGE.md`.
+**0.2 objective:** A memorable, refined and genuinely immersive luxury ecommerce experience resembling entry into an exclusive private club. The target is affluent, socially connected, style-conscious women; inspiration includes private members' clubs, elegant country-house and race-day hospitality, discreet British high society, premium stationery and fashion editorial. This is **not** a European café theme, generic wellness shop, country-club parody or literal replica of another website. The journal/planner and later supplements must inhabit **one coherent House of Aster world**.
 
-## North star
+**Experience objective:** Cinematic and tactile GSAP-driven storytelling, immersive scenes, elegant shared transitions between internal pages, rich photographic and typographic direction, refined interaction feedback and exceptional shopping usability. \`landonorris.com\` is an experience/motion reference, not a source of code/assets to copy. Homepage receives the most ambitious choreography, but the rest of the site must already have compelling, coherent motion.
 
-Build Aster as one coherent visual system from homepage through product, collection, cart, search and content pages. The homepage gets the strongest GSAP choreography, while every other template should feel like a quieter work by the same artist.
+**Explicit sequencing decision:** **DO NOT design, generate homepage mock-ups for, or implement the homepage yet.** Complete navigation, footer, collections, product families, cart, search and core pages, plus enough approved imagery and shared interaction language, **before** starting its storyboard. This overrides the old phase-number implementation sequence.
 
-Permanent architecture:
-- 1400px maximum content width
-- 20px desktop/tablet gutters
-- 15px mobile gutters
-- Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` desktop/tablet and `18px` mobile
-- Stronger hierarchy should use clean multiples of the canonical gap rather than unrelated one-off spacing values
-- Master palette: Ivory `#F8F6EB`, Aster Red `#A52D34`, Wine `#6B2331`, Blush `#E8DAD2`; Blue `#3E6990` is reserved and not currently used
-- Global colour schemes are the storefront colour source of truth
-- Typography roles are explicit: Body by default; Heading, Display, Subheading, Navigation, Button and Product-title are opt-in
-- Theme settings stay deliberately lean
-- No routine per-section colour pickers
-- No decorative border language or default shadows
-- Motion is calm, editorial and purposeful
-- Respect `prefers-reduced-motion`
-- Build proven shared components first; defer speculative components until a real template/section needs them
-- Non-critical media is lazy by default; true above-fold/LCP media is explicitly prioritised
-- Responsive image sources and intrinsic dimensions are mandatory
-- Section/component JavaScript should load only where required
-- Connected-theme work is not considered deployed until both GitHub `main` and the actual ASTER Shopify MAIN theme are verified in parity
+**Launch scope decision:** Launch with the real, available journal/planner/accessory catalogue. Future Aster supplements are a **separate conditional release gate** and must not delay launch unless the commercial launch scope is explicitly changed. Do not invent supplement formulations, ingredients, claims, stock or regulatory approvals.
 
----
+### How statuses work
 
-# PHASE 0 — FOUNDATION — COMPLETE / PRE-LAUNCH REFRESH IN PROGRESS
+- \`[x]\` **0.2 complete**: implemented or documented, tested where relevant, evidence recorded, and approved against the **new** brief.
+- \`[~]\` **in progress**: partial, awaiting sign-off or carried-over foundation not yet accepted in 0.2. **Never counts as launched/complete.**
+- \`[ ]\` **open**: not started, unverified or a required decision not made.
+- **N/A** only after a conscious, recorded decision with reason; never silently skip a row.
+- **Blocker** is a task that must be resolved before launch; **Deferred** is an explicitly permitted post-launch task with owner and condition.
+- Do not mark a task complete because its template/file exists, because 0.1 signed it off, or because GitHub changed. Require the relevant 0.2 acceptance evidence.
 
-## Password / pre-launch
-- [x] Bespoke waiting-list page and countdown
-- [x] Aster Red `#A52D34` intro/fade transition
-- [x] Password-page headings explicitly use Poet / British Poems
-- [x] Bear silhouette V2 with bottom anchor, motion cadence and more frequent crossings
-- [x] Lando-inspired ambient motion layer: pointer depth, canopy/background breathing, logo mask reveal, light sweep and kinetic countdown treatment
-- [x] Motion calms around focused forms and respects reduced motion
-- [x] Mobile logo clipping fix
-- [x] Eight Shopify Content stain assets (`Stain-1.webp` through `Stain-8.webp`) used as one random static stain per page load
-- [x] Random stain sits above the main background but below foreground/UI layers, uses `mix-blend-mode: multiply`, random fixed placement, one-third of the original rollout size and 37.5% opacity
-- [x] British Poems WOFF2/display-heading integration
-- [~] Cinematic pre-launch replacement implemented: the password page now supports optional Theme Editor desktop and mobile static background images, each filling the viewport with `object-fit: cover` and taking precedence over the existing Shopify-hosted background video on its matching breakpoint. Leaving an image blank preserves the current shared-video fallback. The desktop right-side editorial lock-up, centred mobile lock-up, original signed-off FlipDown countdown, scheduled Klaviyo signup handoff and Store Access remain unchanged; final static-image visual/cross-device sign-off pending
-- [x] Cinematic password template, shared desktop/mobile video fallback, mobile video crop control and restored FlipDown countdown verified in parity on both GitHub `main` and the actual ASTER Shopify MAIN theme before the later static-image override addition
-- [~] Desktop/mobile static background image override controls are implemented on GitHub `main`; images are responsive, intrinsic dimensions are retained, the relevant image suppresses video playback for that breakpoint, and the existing video remains the fallback when no image is selected. Theme Editor upload/render QA and final ASTER Shopify MAIN parity verification pending
-- [~] Klaviyo signup handoff implemented in GitHub: the cinematic password section accepts a merchant-supplied Klaviyo embed DIV, an editor-only preview switch can force it visible before launch without exposing it publicly, and the live countdown hands over automatically at 09:00 UK time on 1 November 2026 once a real embed is configured. The real first-name / last-name / email form, validation styling and post-submit success state have now been visually integrated; final returning-subscriber behaviour and final live-state QA remain pending
+### Source-of-truth and safe-change rules
 
-## Global design foundations
-- [x] Logo settings: one SVG, colour control, desktop/mobile width, favicon
-- [x] Typography roles: body, heading, display, subheading, navigation, buttons, product-card title
-- [x] Heading case controls support normal, uppercase and lowercase treatments
-- [x] Garet Book/Heavy registered as a real weight pair; no faux bold
-- [x] Global reusable colour schemes
-- [x] Master palette schemes: Ivory/light, Aster Red/brand, Blush/soft and Wine/deep; Blue reserved
-- [x] Header/navigation, footer, collection and product-card treatments remapped to the master palette
-- [x] 1400px content architecture with fixed gutters
-- [x] Layout settings removed
-- [x] Aster visual-language document
-- [x] Global colour-governance rule
+- Reuse the existing Skeleton-based theme architecture, Shopify data and correctly working ecommerce behaviour wherever possible; visual mock-ups do not authorise unreviewed rebuilds.
+- **Mock-up → approve desktop/mobile/state variants → interaction storyboard → implement in controlled units → test/verify → record sign-off.** For each workstream, deliver one coherent unit rather than modifying unrelated parts of the store.
+- Preserve \`ASTER_BUILD_ROADMAP.md\` path and update this checklist **after each verified milestone** with date, change/commit, testing performed, limitations and immediate next action.
+- Prior 0.1 records are preserved *verbatim* in \`archive/ASTER_BUILD_ROADMAP_V0_1.md\` and \`archive/ASTER_VISUAL_LANGUAGE_V0_1.md\`. Do **not** lose prior architecture, feature decisions, known pitfalls or historical sign-offs; refer to the archive when implementing.
+- The current working files are on GitHub \`main\`. Treat Shopify ASTER MAIN / live-theme parity as **unverified** until explicitly checked against the correct Aster shop. Do not assume a connected Shopify account points to Aster.
+- Never alter the femme or Una stores by mistake. Do not update Shopify production settings or publish the theme without explicit authorisation.
+- Use British English; do not duplicate independent brand colours/typography controls across sections.
+- User-provided brand images and mock-up references remain creative inputs, not permission to replace existing product photography or create new storefront assets without approval.
 
 ---
 
-# PHASE 1 — DESIGN SYSTEM + PRE-CONTENT PERFORMANCE — COMPLETE
+# 0.2 LAUNCH COVERAGE MATRIX
 
-## 1.1 Buttons — COMPLETE
-- [x] Primary filled action
-- [x] Secondary text action
-- [x] Theme Settings → Buttons contains height only
-- [x] Default 48px height
-- [x] Colours inherit from active scheme
-- [x] Typography inherits from Typography → Buttons
-- [x] Subtle hover lift/opacity shift
-- [x] Disabled, busy and keyboard-focus states
-- [x] Reduced-motion fallback
+The matrix is an index: every row is a required review of the feature, an approved exclusion or a conditional gate. **No row may be left unresolved at launch.**
 
-## 1.2 Form controls — COMPLETE
-- [x] Password-page signup form adopted as visual reference
-- [x] Text/email/search/password/tel/url/date/number inputs
-- [x] Textarea and select
-- [x] Checkbox and radio
-- [x] Labels, help text and message primitives
-- [x] Error, success-hook, focus and disabled states
-- [x] Responsive rows/stacks
-- [x] Colours derive from active scheme
-- [x] Bespoke quantity stepper deferred until PDP/cart design
-
-## 1.3 Surface + spacing language — COMPLETE
-- [x] Cards remain open compositions rather than default boxed UI
-- [x] Panels are exceptional rather than default
-- [x] No default shadows or decorative borders
-- [x] 12px media/image radius where framing is intentional
-- [x] Canonical adjacent-component gap: `clamp(22px, 2.5vw, 32px)` desktop/tablet and `18px` mobile
-- [x] Stronger hierarchy uses clean multiples of the canonical gap
-- [x] Standard section rhythm: `clamp(72px, 8vw, 120px)`
-- [x] Compact section rhythm: `clamp(48px, 5.5vw, 80px)`
-- [x] Generous/editorial rhythm: `clamp(96px, 10vw, 160px)`
-- [x] Standard editorial measure: 62ch
-- [x] Narrow editorial measure: 48ch
-
-## 1.4 Motion foundation — COMPLETE
-- [x] Aster timing/easing/distance/stagger tokens
-- [x] Reusable text/up, fade and media/mask reveals
-- [x] Reusable stagger groups
-- [x] Native `IntersectionObserver` controller
-- [x] Reveal-once behaviour
-- [x] Shopify Theme Editor section-load support
-- [x] Reduced-motion fallback
-- [x] Transform/opacity/clip-path-first motion; avoid layout-shifting animation
-- [x] GSAP/ScrollTrigger deliberately not loaded globally
-- [x] GSAP/ScrollTrigger introduced only where an approved component requires them
-
-## 1.5 Pre-content performance foundation — COMPLETE
-- [x] Reusable image primitive lazy by default
-- [x] Explicit `priority: true` path for genuine LCP media
-- [x] Responsive `srcset`/`sizes`
-- [x] Intrinsic image dimensions retained
-- [x] Async image decoding
-- [x] Product template prioritises only first product image
-- [x] Article hero uses priority path; blog listing stays lazy
-- [x] Future iframes lazy by default
-- [x] Future video poster-first/conservative preload by default
-- [x] Section/component scripts should remain conditional
+| Surface / area | Current 0.1 baseline | 0.2 acceptance | Workstream |
+| --- | --- | --- | --- |
+| Brand / assets / motion system | Foundations exist | [~] Direction agreed; full system not signed off | A |
+| Announcement / header / navigation | Built | [ ] New brand and interaction sign-off | B |
+| Footer / newsletter / global closing scene | Built | [ ] Redesign and functional sign-off | C |
+| Shared product / category cards | Product card built | [ ] Redesign and integration sign-off | D |
+| Collection / collection listing | Collection built; listing generic | [ ] Both reviewed and signed off | D |
+| Planner PDP | Bespoke partial PDP | [ ] New design and commerce sign-off | E |
+| Standard / accessories / refill PDP | Generic template currently exists | [ ] Correct family layouts and states | E |
+| Supplements PDP | No verified launch content | [ ] Scoped for future; not accidentally displayed/sold | E / R |
+| Cart drawer + full cart | Reference only / basic template | [ ] Complete purchase journey | F |
+| Search overlay + full search results | Basic template | [ ] Search, no results, keyboard UX | G |
+| Standard pages / About / FAQ / Contact | Basic template | [ ] Required content and forms | H |
+| Journal/blog listing + article | Basic templates | [ ] Editorial experience and linking | I |
+| Policy pages / 404 / challenge / utility | Basic templates/platform | [ ] All appropriate states checked | J |
+| Customer accounts / gift cards | Platform/basic template | [ ] Enabled properly or explicit N/A | J |
+| Checkout / thank-you / order status | Shopify-hosted | [ ] Brand-compatible, functional, compliant | K |
+| Homepage | Minimal template, deliberately deferred | [ ] Last major creative build | L |
+| Password / coming soon / pre-launch | Cinematic partial | [ ] Transition to live store planned | M |
+| SEO / accessibility / performance / analytics | Partial foundations | [ ] Verified cross-template | N |
+| Catalogue / offers / app integrations | Partial product infrastructure | [ ] Valid launch configuration | O |
+| Shopify admin / payments / shipping / legal | Not audited for Aster | [ ] All launch settings confirmed | P |
+| End-to-end launch QA / cutover | Not performed | [ ] Go/no-go gates pass | Q |
+| First-week monitoring and rollback | Not specified | [ ] Ready and owned | Q |
+| Future supplement release | Separate programme | [ ] Conditional readiness before selling | R |
 
 ---
 
-# PHASE 2 — GLOBAL CHROME
+# A — 0.2 CREATIVE FOUNDATION, ASSETS AND INTERACTION SYSTEM
 
-## 2.1 Announcement bar — COMPLETE
-- [x] Single-message static architecture
-- [x] Optional whole-bar link
-- [x] Colour-scheme selector only
-- [x] Responsive/mobile treatment
-- [x] Optional UK-time/DST-aware countdown
-- [x] Optional hide-on-complete behaviour
-- [x] Countdown JS loads only when required
+**Gate A:** Approved visual language and interaction prototypes suitable for all interior pages. No homepage build.
 
-## 2.2 Header — COMPLETE
-- [x] Existing Skeleton header refactored rather than duplicated
-- [x] True-centred logo, burger left, utilities right
-- [x] Search/account/cart actions
-- [x] Sticky CSS behaviour
-- [x] Shared desktop/mobile burger navigation architecture
-- [x] Header remains stationary when navigation opens
-- [x] Keyboard focus and minimum 44px targets
-- [x] Colour-scheme support
-- [x] Header/menu currently use the brighter Aster Red `#A52D34` treatment
-- [x] Transparent/overlay header deferred until homepage hero art direction
-- [x] Predictive/overlay search deferred to Phase 8
+## A1. Brand strategy and asset inventory
+- [x] Adopt Aster 0.2 positioning: exclusive House of Aster, affluent private-club audience, journal first and supplements later.
+- [x] Explicitly retire **European café culture** as a defining creative direction; avoid stereotypical equestrian/racing motifs and obvious wealth clichés.
+- [x] Set Lando Norris experience as an **interaction quality reference**, not an asset/code-copying brief.
+- [x] Archive the exact 0.1 roadmap and visual language before resetting.
+- [ ] Audit all supplied references, current Shopify image library, actual products, video, branded SVGs and existing campaign art into an asset-use matrix: approved / usable with crop / replace / not suitable; do not overwrite or invent images.
+- [ ] Confirm which Aster wordmarks, signature bear usage, typography treatments, physical materials and campaign devices are approved at launch.
+- [ ] Establish clear photographic art direction for desktop/mobile: lifestyle, architecture, editorial still life, product detail, cut-out, portrait and optional motion backgrounds.
+- [ ] Create named asset requirements per **real template and breakpoint**, with aspect ratio, crop-safe zone, resolution, alt-text purpose, source/rights and sign-off.
+- [ ] Agree 0.2 copywriting voice and shared UI vocabulary: exclusive but inviting; polished, witty and intimate, never snobbish or medically overclaiming.
+- [ ] Identify missing imagery/video; production and selection **must precede relevant page build**. Never generate/upload unsolicited blog/product photos.
 
-## 2.3 Navigation / mega menu — VISUAL TREATMENT COMPLETE / IA DEFERRED
-- [x] One navigation tree for desktop/mobile
-- [x] Navigation panel begins beneath the real header
-- [x] Squeeze burger motion adapted locally
-- [x] Same burger morphs into close control
-- [x] Escape close/focus return/inert covered content
-- [x] Existing scroll-lock architecture reused
-- [x] Direct search form at top
-- [x] Mobile account action with icon
-- [x] Current-page semantics/focus states
-- [x] First-level child links supported
-- [x] Desktop mega-menu composition signed off
-- [x] Mobile composition signed off
-- [x] Restrained hover motion and reduced-motion fallback
-- [ ] Define final navigation IA once catalogue/menu structure is locked
-- [ ] Refine deeper hierarchy only if catalogue requires it
+## A2. Design tokens and component library
+- [~] Reuse known 0.1 palette: Ivory \`#F8F6EB\`, Aster Red \`#A52D34\`, Wine \`#6B2331\`, Blush \`#E8DAD2\`; Blue \`#3E6990\` stays reserved pending explicit approval.
+- [~] Reuse global scheme/typography roles, Garet Book + Heavy, Rufina, British Poems, responsive image primitive, 1400px content maximum and 20px/15px gutters. **0.2 presentation requires renewed approval.**
+- [ ] Sign off the 0.2 usage of display/body/navigation/button/product fonts, dynamic type scales and editorial/handwritten accents.
+- [ ] Sign off media treatments: edge-to-edge scenes versus contained images, bespoke crops, texture/lighting, corners, spacing and chapter transitions. Do not force every scene into the 0.1 rectangular grid.
+- [ ] Build 0.2 reference components/states: links, filled/text buttons, inputs, select, checkbox, quantity, variant swatch, badge, price, accordion, loading/error/success and modal.
+- [ ] Define desktop, tablet, mobile and touch rules, with safe areas around browser controls and no hover-only essential information.
+- [ ] Prevent duplicated settings: scheme tokens as source of truth; sensible shared defaults, not endless customiser controls.
+- [ ] Approve accessibility behaviour for dynamic type, contrast, focus indicators, controls and text over images.
 
-## 2.4 Footer — COMPLETE
-- [x] Scheme-aware footer architecture
-- [x] Brand mark/wordmark, “A calmer way forward” and supporting copy
-- [x] “A slower inbox” newsletter treatment
-- [x] Nested Shopify footer menu with clickable top-level headings
-- [x] Desktop links and mobile accordions
-- [x] Contact/social links
-- [x] Legal/policy/Cookies links
-- [x] Payment icons and copyright
-- [x] 1400px alignment/shared gutters
-- [x] Desktop vertical rhythm tightened to the canonical site spacing cadence
-- [x] Footer recoloured to the brighter Aster Red `#A52D34` treatment, with complementary Ivory/Wine/Blush values only from the master palette
-- [x] Footer brand lock-up refined: supporting brand copy uses Body typography, logo/tagline spacing is tightened, and the footer logo receives a small proportional optical correction so its visible artwork aligns to the canonical content edge despite transparent source bounds
-- [~] Latest desktop brand-mark scale refinement increases the Aster wordmark to `clamp(245px, 21vw, 340px)` to better occupy the left-column void shown in the approved comparison mock-up; visual confirmation pending
-- [x] Current footer visual treatment explicitly signed off before the latest brand-mark scale refinement; broader revisit remains part of pre-launch cross-template/launch QA
+## A3. Signature GSAP and page-transition system
+- [~] Existing \`aster-motion.js\` reveal foundation and reduced-motion support are reusable; not yet the approved 0.2 experience.
+- [ ] Storyboard **The Aster Veil** or another signature internal-page transition: outgoing scene, brand moment, incoming reveal, timings, loading/failure state.
+- [ ] Prototype internal navigation transitions without breaking real URLs, browser back/forward, hash links, open-in-new-tab, refresh or direct entry.
+- [ ] Exclude/bypass where necessary: external links, downloads, checkout/payment provider, third-party apps and controls that need native navigation.
+- [ ] Define how transitions interact with Shopify Theme Editor, popstate, BFCache, focus restoration, scroll restoration, modals, announcements and screen readers.
+- [ ] Establish reusable GSAP timelines, ScrollTrigger lifecycle, cleanup, breakpoint reinitialisation, rapid-click cancellation and on-demand library loading.
+- [ ] Selectively prototype masked reveals, image scale/crop, page-to-page shared-element *illusion*, pointer depth, typography transitions and perhaps pinned/horizontal sequences.
+- [ ] Validate performance and accessibility on real mid-range phones; no forced smooth-scrolling, scroll-jacking or essential animation-dependent interaction.
+- [ ] Complete \`prefers-reduced-motion\` and non-JS fallbacks for all visual transitions.
+- [ ] Obtain 0.2 **motion-system and page-transition approval**, documented with prototype evidence.
 
 ---
 
-# PHASE 3 — COMMERCE COMPONENT LIBRARY
+# B — HEADER, ANNOUNCEMENT AND IMMERSIVE NAVIGATION
 
-## 3.1 Product card — COMPLETE / PRE-LAUNCH REVISIT
-- [x] Product image, title, short supporting copy and product type/eyebrow
-- [x] Product-card short description is editable product data via metafield definition `aster.card_description` (“Product card short description”), pinned for merchant editing
-- [x] Existing short descriptions migrated/recognised under the metafield definition
-- [x] Price/compare-at handling
-- [x] Sale/sold-out plus pre-order/coming-soon states
-- [x] Desktop second-image hover for products without swatches
-- [x] Variant-aware A/B hover imagery for Colour/Color swatches
-- [x] Swatch selection updates variant, primary image, price/link and hover image
-- [x] Selected-swatch second image stealth-preloads on hover-capable devices
-- [x] Swatches moved vertically into the product-media area so CTA baselines align across products with and without swatches
-- [x] Badge support
-- [x] Restrained hover treatment
-- [x] Mobile/accessibility treatment
-- [x] Card background and product-media background exposed as independent Theme Settings
-- [x] Full-bleed photographic media treatment implemented for the live collection use case
-- [x] Bottom real Shopify product-form CTA wired to selected variant and price: Add to cart / Pre-order / Coming soon / Sold out
-- [x] Duplicate standalone bold price removed; price is carried by the CTA treatment
-- [x] Temporary/fake review presentation allowed only for QA/theme-editor visualisation when genuine review data is absent
-- [x] Current photographic/Bouf-inspired card art direction signed off for the current build; revisit during pre-launch cross-template/launch QA if required
-- [ ] Judge.me rating/review integration deliberately deferred until close to launch
+**First mock-up/build target. Gate B:** Entire navigation and search entry work on desktop, mobile and keyboard.
+- [ ] Capture current 0.1 header/mega-menu screenshots and important interactions as the technical baseline.
+- [ ] Create **desktop and mobile mock-ups**: closed header, open navigation, submenu/featured area, search entry, account and cart indicators.
+- [ ] Approve the private-members-directory concept, content hierarchy, typography and imagery.
+- [ ] Storyboard and approve menu opening, content choreography, close, hover/focus and overlay transitions.
+- [ ] Decide sticky versus overlay/transparent header behaviour across different page hero contexts.
+- [ ] Rework existing single-tree responsive navigation without losing accessibility, escape-to-close, focus return or scroll lock.
+- [ ] Finalise actual Shopify menu handles/URLs and navigation information architecture; remove any 0.1 placeholder feature links and product claims.
+- [ ] Validate announcement bar: actual copy, optional countdown/date, link destinations, mobile layout, dismiss/complete logic.
+- [ ] Re-test account, search and basket utilities (including count), narrow layouts, zoom, touch and reduced motion.
+- [ ] Record signed-off screenshots and function/keyboard checks for B.
 
-## 3.2 Collection card — DEFERRED UNTIL PROVEN USE CASE
-Collection card = navigational category tile, not featured products.
-- [ ] Image, title, optional supporting copy
-- [ ] Hover/mobile treatment
-- [ ] Add settings only after real use case/sign-off
+# C — SIGNATURE FOOTER AND NEWSLETTER
 
-## 3.3 Article card — DEFERRED UNTIL PROVEN USE CASE
-- [ ] Build when Journal/blog index establishes actual metadata/layout requirements
+**Gate C:** Complete, memorable footer for every page, including legal routes and signup.
+- [ ] Capture 0.1 footer baseline and preserve working links/accordion behaviour.
+- [ ] Create and approve desktop/mobile **final scene** mock-ups, including one or more rich colour/typographic treatments.
+- [ ] Storyboard approach-to-footer, final brand reveal, newsletter handoff and reduced-motion equivalent.
+- [ ] Rework wordmark scale, tagline, restrained bear use, brand line, menu composition and contact/social hierarchy against 0.2 copy.
+- [ ] Implement and verify newsletter signup integration, consent wording, errors, success state and email destination; avoid false success.
+- [ ] Confirm legal links, policies, social destinations, payment icons and accessibility of mobile accordions.
+- [ ] Test footer at the end of a short page, a long collection, a product page and the homepage later; no overlap or blank scroll artefacts.
+- [ ] Record signed-off screenshots, functional checks and version evidence for C.
 
-## 3.4 Editorial card — DEFERRED UNTIL PROVEN USE CASE
-- [ ] Build only when a real homepage/content composition proves the need
+# D — COLLECTIONS, PRODUCT CARDS AND MERCHANDISING
 
-### Phase 3 execution rule
-The product card was worth building early because it underpins collections, featured products, related products and search. Collection/article/editorial cards remain recorded but are built only when a real surface proves their requirements.
+**Gate D:** Browsing feels curated and cinematic while products remain clear and easy to buy.
+- [ ] Create desktop/mobile collection mock-ups: hero/opening scene, editorial introduction, product grid rhythm, sorting and pagination.
+- [ ] Decide where photography/typography can break the conventional banner → toolbar → grid structure without damaging navigation and SEO.
+- [ ] Define collection types: all products, actual named/range collections, empty collection and optional curated editorial collection.
+- [ ] Inventory real catalogue, collection membership, collection handles, collection descriptions and artwork requirements.
+- [ ] Rework shared **product card** in mock-ups with real products and realistic long titles/prices: planner, refill/insert, pouch/accessory and future states.
+- [ ] Preserve and re-test \`aster.card_description\`, product links, swatches, variant-dependent imagery/price, hover image, single badge priority and bottom CTA.
+- [ ] Confirm how sale/compare-at, unavailable, coming-soon and pre-order behave; avoid invented fake ratings.
+- [ ] Decide if collection/category cards are required for \`list-collections\` and navigation, then design/build only approved types.
+- [ ] Retest shopper-selectable 2/3/4-column desktop, tablet/mobile density, sorting, product count and preferences.
+- [ ] Explicitly decide filters: the 0.1 catalogue omitted them; retain omission only if the real launch catalogue and user journey still justify it.
+- [ ] Implement opening and below-fold interactions, hover/touch/reduced-motion states, empty state and pagination/infinite loading **decision**.
+- [ ] Test actual Shopify collection data, direct links, SEO text and correct semantics; prevent visual-only product lists.
+- [ ] Record signed-off collection/product-card screenshots and full cross-device checks for D.
 
----
+# E — PRODUCT DETAIL EXPERIENCES (ALL PRODUCT FAMILIES)
 
-# PHASE 4 — HOMEPAGE + GSAP ART DIRECTION
+**Gate E:** Every sellable product has the correct, approved template, content and functioning purchase flow.
 
-Build after the core destination templates so the homepage links into real finished experiences.
+## E1. Shared commerce contract
+- [ ] Approve common 0.2 PDP visual system: gallery/media, identity, copy, price presentation, options, quantity, primary CTA, reassurance, payment, delivery/returns and related products.
+- [ ] Keep Shopify variant IDs and prices authoritative; retain 0.1 metafields/metaobjects \`aster.pdp_eyebrow\`, \`aster.pdp_intro\`, \`aster.pdp_sections\`, \`aster.pdp_related_products\` and Aster PDP Section/Item definitions.
+- [ ] Test gallery thumbnails, lightbox, image alt, variant-specific imagery and mobile swipe/touch without broken states.
+- [ ] Confirm price, tax display, discounts, compare-at, out-of-stock/coming-soon/pre-order states, quantity limits and availability copy.
+- [ ] Add to cart and Buy now must take exact selected variant/quantity; no accidental checkout bypass, duplicate submission or silent failure.
+- [ ] Use Shopify-supported payment methods and checkout rather than replacing gateway-branded experiences with misleading representations.
+- [ ] Validate delivery/returns/policy links, stock expectations, gifting and accessibility.
+- [ ] Test related products, quick-shop hover/focus bridge and touch fallback; avoid generic irrelevant recommendations.
 
-## 4.1 Storyboard first
-- [ ] Agree narrative, hero, section order and motion/calm rhythm
-- [ ] Heavy inspiration: `landonorris.com`, translated into Aster’s calmer visual language rather than copied literally
+## E2. Planner flagship PDP
+- [~] Dedicated \`product.planner.liquid\` + \`sections/aster-planner-pdp.liquid\` and media/form/metaobjects exist from 0.1; **visual and complete commerce sign-off are reopened**.
+- [ ] Build new desktop/mobile Planner mock-ups for hero, purchase interaction and full lower-page editorial narrative.
+- [ ] Storyboard approved GSAP/scene behaviour around physical materials, usage and emotional value; keep purchasing stable.
+- [ ] Reassess the 0.1 philosophy band, three-step story, highlights, specifications, FAQs and related-products grid for 0.2 aesthetics.
+- [ ] Preserve real product information and Theme Editor asset controls; do not invent planner manufacturing specifications or product imagery.
+- [ ] Complete responsive, inventory/variant, modal/keyboard, purchase and visual sign-off.
 
-## 4.2 Homepage build
-- [ ] Hero
-- [ ] Brand statement / manifesto
-- [ ] Featured products
-- [ ] Shop by ritual/moment/category; build Collection Card here only if IA needs it
-- [ ] Editorial image-text section
-- [ ] Product/ingredient/philosophy proof
-- [ ] Reviews/social proof if available
-- [ ] Journal teaser
-- [ ] Newsletter/footer handoff
+## E3. Refill/insert and accessory PDPs
+- [ ] Confirm product-family mapping and whether existing generic \`product.liquid\` must become a real 0.2 shared template.
+- [ ] Create approved mock-ups for refill/insert and pouch/accessory with deliberately lighter storytelling than the Planner.
+- [ ] Implement reusable layouts and content fields rather than duplicating an entire product template for each SKU.
+- [ ] Test direct product links, purchase/add-to-cart, colours/quantities, related items, stock and responsive states.
 
-## 4.3 Signature motion
-Choose deliberately, not all at once:
-- [ ] Masked image reveal
-- [ ] Editorial text reveal
-- [ ] Controlled scale/parallax
-- [ ] Optional pinned story moment
-- [ ] Optional section colour transition
-- [ ] CTA/card micro-interactions
+## E4. Supplements — future release compatibility
+- [ ] Design a **compatible family architecture** for later supplements, but do not publish speculative product pages at journal launch.
+- [ ] Decide future one-off vs Appstle subscriptions, selling-plan slots, pricing and replenishment UX when real products are specified.
+- [ ] Mark actual supplement product templates, substantiated ingredients/claims, legal approvals and stock **future-gated** under R; not a journal-launch blocker if entirely excluded from sale.
 
-## 4.4 Homepage QA
-- [ ] Desktop/laptop/tablet/mobile
-- [ ] Reduced motion
-- [ ] Performance/CLS/scroll-jank
-- [ ] LCP/eager-loading audit
+# F — CART DRAWER AND FULL CART
 
----
+**Gate F:** Every basket state works and the path to checkout is dependable.
+- [ ] Reconfirm architectural reference in \`ASTER_CART_DRAWER_REFERENCE.md\` (Fashe interaction patterns only; do not transplant branding/code blindly).
+- [ ] Create desktop/mobile mock-ups for cart opening, cart with multiple lines, empty cart, discounts, updating and error/stock changes.
+- [ ] Storyboard cart transition and integration with the common Aster motion system.
+- [ ] Build accessible AJAX cart drawer plus \`cart.liquid\` full-page fallback; drawer and page must show the same authoritative Shopify cart.
+- [ ] Verify variants, images, title, unit/line price, compare-at/savings, quantity limits, remove, subtotal and discounts.
+- [ ] Verify rapid repeat clicks, failed request/retry, empty state, sold-out/changed inventory and cart persistence across navigation/refresh.
+- [ ] Confirm delivery messaging only once configured in admin; upsell/free-shipping thresholds only if commercially justified.
+- [ ] Verify checkout, continue shopping, focus trap/return, Escape, mobile safe areas and reduced motion.
+- [ ] Record signed-off design and full journey tests.
 
-# PHASE 5 — COLLECTION EXPERIENCE — COMPLETE
-- [x] Collection intro follows the current mock-up direction: the collection banner sits directly beneath the header/navigation, constrained to the canonical 1400px content width; its top corners remain square against the navigation while the two bottom corners use the site-wide radius. Desktop preserves the uploaded image’s natural aspect ratio. On mobile (≤749px), the same collection image is reused inside a centred 2.2:1 crop using `object-fit: cover`, allowing one master artwork to serve both desktop and mobile when key subjects remain inside a central safe area. Title and description stack beneath it inside the same content width. The legacy global semantic `header { height: 5rem }` collision has been removed locally so the intro reserves its natural document height before the toolbar. Current visual treatment signed off; revisit during pre-launch QA if required
-- [x] Collection motion-polish pass implemented using the existing Aster motion foundation: first-paint-safe masked/settled banner entrance, sequential title → description → toolbar reveal, and an initial-viewport card pass that makes any product cards already visible at load join the opening sequence automatically, even when only their tops are on-screen. Genuinely below-fold cards remain viewport-triggered, with pagination/empty-state reveals and `prefers-reduced-motion` fallback retained. No GSAP or additional dependency added; current treatment signed off
-- [x] Real/default collection uses the shared photographic product card; current visual treatment signed off
-- [x] Shopper-selectable 2/3/4-column desktop grid, 2/3 tablet options and fixed 2-column mobile; compatible preference persists
-- [x] Collection toolbar: density controls left, product count centred, Sort by right
-- [x] Shopify-native sort options implemented
-- [x] Filters and active-filter treatment deliberately omitted: Aster’s small, curated catalogue does not warrant filtering UI; reconsider only if the catalogue expands materially
-- [x] Toolbar uses Aster master palette
-- [x] Collection spacing rhythm: toolbar → grid and final row → collection edge use same canonical gap; title/description spacing follows the approved stacked collection-intro composition
-- [x] Empty state and styled native pagination implemented; current behaviour accepted for the catalogue size
-- [x] Colour-scheme support implemented
-- [x] Cross-device visual and functional QA explicitly signed off across desktop, tablet and mobile; revisit only during pre-launch QA if required
-- [x] Default/all-products collection is the immediate product-card/collection QA surface; no dedicated QA page required
+# G — SEARCH AND DISCOVERY
 
----
+**Gate G:** Search works beyond the header entry field, even when there are no results.
+- [ ] Approve overlay/search drawer desktop/mobile mock-ups and interaction prototype.
+- [ ] Implement predictive search using correct Shopify endpoint/API and accessible keyboard/focus behaviour where feasible.
+- [ ] Design/implement \`search.liquid\`: product results, possible pages/articles, counts, query retention, loading and no-results state.
+- [ ] Handle escaped queries, misspellings/empty query, no inventory, keyboard selection and touch dismissal.
+- [ ] Confirm result card behaviour, working product links, sorting/pagination as appropriate and no unsupported claims.
+- [ ] Test reduced motion and browser history/back from search results.
 
-# PHASE 6 — PRODUCT EXPERIENCE — IN PROGRESS
-- [x] Product-family architecture established: one shared Aster PDP system with dedicated Planner, future Insert/Accessory and future Supplement templates rather than one universal storytelling hierarchy
-- [~] Planner template built from the approved desktop mock-up and assigned to The Aster Planner; visual/cross-device QA and final sign-off pending
-- [x] Responsive media-gallery foundation: evenly distributed desktop thumbnail rail, mobile thumbnail strip, zoom/lightbox and variant-aware main image
-- [x] Planner gallery/variant linkage refined after first visual QA: swatches now change the actual rendered hero `<img>` and selected thumbnail, while colour-specific thumbnails update the selected colour variant and preserve the exact clicked A/B image
-- [x] Product title, colour variants, quantity and Add to Cart implemented; standalone product price deliberately omitted and selected-variant price carried inside the CTA. Planner/section eyebrow labels are now deliberately removed across the PDP hierarchy after visual QA
-- [x] Shopify’s branded Shop Pay surface is deliberately not restyled because branded accelerated-checkout colours are provider-controlled. The Planner PDP instead uses an Aster-controlled Wine `Buy now` express action beneath the “Express checkout” divider; it adds the currently selected variant/quantity and hands the customer directly to Shopify Checkout, where eligible accelerated payment methods can still be offered
-- [~] Shipping/returns/security/gifting reassurance treatment implemented; final wording/policy links remain subject to launch content review
-- [x] Future subscription integration anticipated with a reserved purchase-plan slot and variant-price event architecture; selling-plan service/UI deliberately deferred until a subscription provider is chosen
-- [x] Reusable PDP data model implemented with only four product-level fields: `aster.pdp_eyebrow`, `aster.pdp_intro`, `aster.pdp_sections` and `aster.pdp_related_products`
-- [x] Reusable `Aster PDP Section` and `Aster PDP Item` metaobjects created so planner features, future accessory information and future supplement ingredients/benefits can share structured content primitives rather than spawning one-off metafields
-- [x] `Aster PDP Item` supports an optional `linked_product` product reference so specification rows can resolve to real Shopify products without duplicated product data
-- [x] Planner template now routes through a dedicated static `Aster Planner PDP` Theme Editor section. Product-specific copy remains in the reusable metafield/metaobject model; visual/editorial assets and presentation overrides are editable without code
-- [x] “Our philosophy” has a Theme Editor image picker with explicit 1600 × 800px (2:1) guidance. Its image wrapper and rendered image are constrained to the editorial band with responsive `object-fit: cover`, preventing media from overflowing the section
-- [x] Reassurance icons and all four product-highlight icon positions expose the reusable Aster line-icon library plus custom image/SVG upload overrides in the Theme Editor. Built-in options include truck, return, shield/check, gift, heart, leaf, book, calendar, diamond, parcel, clock, check-circle and sparkle; custom SVG/PNG/WebP uploads override the library choice
-- [~] Planner “Three simple steps” remains in visual refinement: decorative step SVGs are removed, the script section heading remains, and the `01` / `02` / `03` numerals plus step titles now use a quieter Garet Book/400 treatment rather than Garet Heavy. Desktop numerals are restrained to `clamp(38px, 3.4vw, 52px)` and titles to `clamp(17px, 1.3vw, 20px)`. Legacy step-icon editor controls remain dormant until Phase 12 clean-up. Visual sign-off pending
-- [~] Planner storytelling populated with substantiated content: highlights, philosophy, usage steps, known catalogue details, FAQs and curated related products; richer “what’s inside”/specification content waits for real page-layout, material and production data rather than fabricated mock-up values
-- [x] Planner section rhythm follows the signed-off collection cadence directly: `clamp(22px, 2.5vw, 32px)` desktop/tablet and `18px` mobile
-- [x] Planner PDP surfaces are explicitly re-anchored to the canonical viewport column: maximum 1400px content width with 20px desktop/tablet and 15px mobile gutters, avoiding double-inset alignment from an ancestor wrapper
-- [x] Planner “Our philosophy” uses compact horizontal editorial proportions rather than second-hero proportions: 300–390px desktop with tighter internal padding and natural auto-height stacking on mobile
-- [x] Planner details/specifications turn linked products into crawlable internal product links plus desktop hover/focus quick-shop previews. The desktop preview now has a hover bridge so the pointer can move from the product link into the quick-shop without collapsing it; its media is square with the product image contained/reduced to suit tall products. Touch/no-hover devices expose only the direct product URL. The Planner Refill Pack and Aster Pouch are wired as the first live examples
-- [x] Planner motion refinement pass implemented with the existing Aster motion foundation: composed above-fold media → copy → variants → purchase → express checkout → reassurance → highlights entrance, split story copy/media reveal, staggered usage/details/related content, animated FAQ open/close and reduced-motion fallbacks. FAQ heading text no longer shifts horizontally or performs a hover-only plus rotation; the existing opening/closing animation is retained. The related-products “Shop all products” text link now uses the standard restrained horizontal slide on hover/focus. No new motion dependency added
-- [~] Related products use the curated product-reference metafield and signed-off shared product card. With exactly two related products, desktop ≥1000px now uses a deliberate three-part composition: “complete the ritual” + Shop all products form the first editorial column and the two standard product cards occupy columns two and three. Tablet 750–999px keeps a conventional two-card row, mobile retains the compact card treatment, and a future third product naturally restores the standard grid. Visual sign-off pending
-- [ ] Judge.me rating/review integration deliberately deferred until close to launch
-- [ ] Full desktop/tablet/mobile visual QA, commerce edge-case QA and explicit sign-off
+# H — CORE CONTENT PAGES AND CONTACT
 
-# PHASE 7 — CART
-- [x] Implementation reference recorded in `ASTER_CART_DRAWER_REFERENCE.md`: ColorlibHQ/Fashe is the agreed cart-drawer UX/interaction reference. Relevant architecture includes `sections/cart-drawer.liquid`, `snippets/cart-items.liquid`, `snippets/cart-summary.liquid`, the `CartDrawer` custom element in `assets/theme.js`, and the header drawer trigger. Rebuild into Aster’s design/accessibility system rather than transplanting Fashe styling
-- [ ] Cart drawer and full cart page
-- [ ] Lines, variants, quantity, remove, prices/savings
-- [ ] Empty state, subtotal, checkout, continue shopping
-- [ ] Upsell/progress only if commercially justified
-- [ ] Accessible drawer transition/focus management
+**Gate H:** All required brand/service pages exist in approved templates and are linked.
+- [ ] Design reusable \`page.liquid\` foundations: narrow reading layout, editorial rich-media page, split content and full-screen chapter option.
+- [ ] Create/approve **About / The House of Aster** page, brand story and truthful positioning; no unsubstantiated heritage claims.
+- [ ] Create/approve **Contact** page with form, validation, bot protection and routing to a monitored inbox.
+- [ ] Create/approve **FAQ / Help** including ordering, dispatch, delivery, returns, products, gifting and how to contact support.
+- [ ] Decide whether a **Journal/Planner guides**, gifting or wholesale enquiry page is needed; create only if genuine launch scope and assigned content exist.
+- [ ] Check any other Shopify-created Pages in Admin for an appropriate template, owner, working link, index/noindex status and no unstyled leftovers.
+- [ ] Validate SEO, headings, contact message success/failure, responsive typography, legal links and content accessibility.
+- [ ] Record approved page list and explicit sign-offs.
 
-# PHASE 8 — SEARCH + DISCOVERY
-- [ ] Search overlay/drawer
-- [ ] Predictive search
-- [ ] Product/content results
-- [ ] No-results state
-- [ ] Keyboard controls
-- [ ] Search results template
-- [ ] Filtering/sorting/pagination where useful
+# I — JOURNAL / EDITORIAL SYSTEM
 
-# PHASE 9 — CONTENT TEMPLATES
-- [ ] Standard page foundation
-- [ ] About/brand story
-- [ ] Contact and FAQ
-- [ ] Blog index/article
-- [ ] Article-card component when Journal requirements are known
-- [ ] Related editorial/product links
-- [ ] Branded 404
+**Gate I:** Blog/index and articles feel like the same luxury publication, if editorial content is live.
+- [ ] Decide whether Journal/blog is in launch navigation; if omitted, mark with reason and remove all dead references.
+- [ ] Design \`blog.liquid\` index and shared article card with featured imagery, date/author policy and curated hierarchy.
+- [ ] Design \`article.liquid\` reading experience, image/caption system, typographic rhythm, related articles/products and appropriate sharing.
+- [ ] Confirm categories/tags, canonical URLs, editorial authorship, publishing workflow and existing posts.
+- [ ] Decide comments: enable and moderate intentionally, or disable deliberately; avoid an unmoderated default.
+- [ ] Verify responsive typography, accessibility, schema/canonicals and graceful no-articles/empty states.
+- [ ] Test all editorial links and featured content against real products/pages.
 
-# PHASE 10 — CUSTOMER + UTILITY
-Build only what Aster actually uses.
-- [ ] Customer account treatment if enabled
-- [ ] Gift card visual pass
-- [ ] Password-page launch transition
-- [ ] Policy typography
-- [ ] Challenge/captcha compatibility
+# J — UTILITY, ACCOUNT AND PLATFORM TEMPLATES
 
-# PHASE 11 — OPTIONAL COMMERCE FEATURES
-Only after operational/catalogue need is proven.
-- [ ] PDP swatch refinements, size guide, back in stock, wishlist
-- [ ] Quick view/add, compare, bundles
-- [ ] Subscriptions, personalisation, cross-sells/upsells
+**Gate J:** No obscure or low-traffic route exposes broken Skeleton styling or dead ends.
+- [ ] Design/verify \`404.liquid\` with helpful return/search/navigation and branded art direction.
+- [ ] Design/verify \`list-collections.liquid\` including empty/one/multiple collection states.
+- [ ] Design/verify \`gift_card.liquid\`, recipient/claim journey and email only **if gift cards will be offered**; otherwise record N/A and prevent orphan gift-card links.
+- [ ] Decide customer accounts (Shopify customer accounts vs guest-only) and configure corresponding sign-in, profile, order history and login route; do not build legacy account templates for an unused account system.
+- [ ] Check Shopify-hosted challenge/captcha and other platform-created utility screens for acceptable branding and functionality within platform limits.
+- [ ] Check policy templates and all default system links, including search, customer login, contact, gift cards, password and error states.
+- [ ] Remove/hide \`page.product-card-qa.json\`, \`sections/aster-product-card-qa.liquid\`, demo/sample content and prototype routes from public navigation/indexing.
+- [ ] Confirm favicon, social sharing/default Open Graph image, browser title and mobile icon treatment.
+- [ ] Verify empty/error/loading states, direct deep links and noindex decisions for utility pages.
 
-# PHASE 12 — THEME SETTINGS + CODE CLEAN-UP
-- [ ] Add component settings only where sign-off proves value
-- [ ] Remove remaining Skeleton/demo settings
-- [ ] Remove duplicate controls/dead variables
-- [ ] Remove unused JS/CSS/assets
-- [ ] Confirm every Theme Setting has a visible purpose
+# K — CHECKOUT, POST-PURCHASE AND CUSTOMER COMMUNICATIONS
 
-# PHASE 13 — ACCESSIBILITY
-- [ ] Heading hierarchy, keyboard navigation/focus
-- [ ] Drawers/modals/focus restoration
-- [ ] Contrast, labels/errors, alt behaviour
-- [ ] Reduced motion/touch targets
+**Gate K:** Shopify checkout is correct and feels consistent within plan/platform constraints.
+- [ ] Audit checkout identity (logo, colours, fonts and supported editor options), express methods and contact preference.
+- [ ] Decide guest/account checkout, email/SMS marketing consent and required order/customer fields.
+- [ ] Verify discount, gift-card, shipping, tax, currency and address behaviour at checkout for enabled markets.
+- [ ] Review thank-you page and order-status page; use platform-supported customisation and avoid unsupported checkout scripts.
+- [ ] Draft/style/test transactional notifications: confirmation, fulfilment/tracking, cancellation, refund, contact, abandoned checkout where enabled, and gift-card messages if applicable.
+- [ ] Verify sender email authentication/deliverability, customer service replies and unsubscribe/consent behaviour for promotional messages.
+- [ ] Ensure a customer can find order status, return/help instructions and contact details after ordering.
+- [ ] Confirm screenshot/real-test evidence for guest, account (if enabled), failed transaction, refunded and fulfilled order.
 
-# PHASE 14 — PERFORMANCE VALIDATION
-- [ ] Set/validate performance budget against real templates
-- [ ] JS/CSS payload audit
-- [ ] Validate eager/lazy/fetch-priority decisions
-- [ ] Responsive media/`sizes` audit
-- [ ] Assess safe `content-visibility` candidates
-- [ ] Iframe/video loading audit
-- [ ] Font loading review
-- [ ] Confirm GSAP/ScrollTrigger only ship where required
-- [ ] Core Web Vitals / CLS / INP pass
-- [ ] Remove dead Skeleton code/assets
+# L — HOMEPAGE (DELIBERATELY LAST CREATIVE BUILD)
 
-# PHASE 15 — SEO + STRUCTURED DATA
-- [ ] Semantic templates/headings
-- [ ] Product, organisation/site and article structured data
-- [ ] Breadcrumbs, canonicals, pagination/indexing
-- [ ] Social/meta output and internal-linking review
+**BLOCKED until B–K core directions are approved and A has sufficient real art-directed assets.** Do not create homepage mock-ups earlier.
 
-# PHASE 16 — ANALYTICS + CONSENT
-- [ ] Shopify analytics baseline
-- [ ] GA/GTM/advertising integrations if required
-- [ ] Consent compatibility/ecommerce events
-- [ ] Validate no duplicate tracking
+- [ ] Formal homepage start approval: asset inventory complete enough, header/footer/product/collection motion language proven, real linked pages exist.
+- [ ] Write homepage narrative architecture and chapter storyboard: invitation → House identity → flagship journal → exploration/collections → brand personality → future-proofed world → finale.
+- [ ] Define the high-impact Lando-inspired GSAP treatment as original Aster scenes, not a copied implementation.
+- [ ] Create and approve desktop/mobile full-length visual mock-ups **and** representative keyframes/interaction states.
+- [ ] Produce mobile-specific motion plan; avoid merely shrinking desktop pinned scenes.
+- [ ] Implement \`index.liquid\` and supporting Theme Editor sections with true page-to-page continuity.
+- [ ] Connect actual products, collections, editorial pages, CTAs and newsletter destinations.
+- [ ] Verify motion pacing, scroll/pin/horizontal behaviour, focus/keyboard, reduced-motion/low-power and deep links.
+- [ ] Audit homepage payload, LCP, CLS, INP, responsiveness, SEO semantics and cross-browser presentation.
+- [ ] Obtain final homepage visual, motion and functional sign-off.
 
-# PHASE 17 — CROSS-TEMPLATE ART-DIRECTION PASS
-- [ ] Homepage, product, collection, search, cart, content and utility templates
-- [ ] Optional branded internal-page transition: scheme-aware full-screen veil with centred Aster mark; preserve native back/forward and reduced motion
-- [ ] Final coherence check: every surface should feel designed by the same artist
+# M — PRE-LAUNCH / PASSWORD EXPERIENCE
 
-# PHASE 18 — LAUNCH QA
-- [ ] Device/browser matrix
-- [ ] Navigation, forms, variants, cart, checkout handoff, search
-- [ ] Empty/error states
-- [ ] Accessibility, performance, SEO and analytics audits
-- [ ] Password removal / launch procedure
-- [ ] Post-launch monitoring plan
+**Gate M:** Password/launch experience is intentional; no old dated countdown is displayed.
+- [~] 0.1 cinematic password page, responsive still/video overrides and Klaviyo handoff exist; final parity and all live-state tests were unresolved in old ledger.
+- [ ] Review password page against Aster 0.2 positioning and decide whether visual updates are required.
+- [ ] Audit **expired 1 November 2026** countdown/handoff logic, missing form embeds, editor preview flags and returning-subscriber behaviour.
+- [ ] Verify desktop/mobile static image overrides, hosted video fallbacks, signup success/double-opt-in and real Shopify store access.
+- [ ] Decide preview/staging access method for stakeholder testing without exposing an incomplete store.
+- [ ] Document password removal/launch transition and post-launch disposition of pre-launch assets and scripts.
+- [ ] Confirm no public access bypass or broken signup/checkout deep link before go-live.
+
+# N — TECHNICAL HARDENING, ACCESSIBILITY, SEO AND PERFORMANCE
+
+**Gate N:** Quality is measured on **all** relevant template families, not just homepage.
+- [ ] Audit global \`layout/theme.liquid\`, \`config/settings_schema.json\`, \`settings_data.json\`, theme/app embeds and reusable blocks/sections for missing, dead or Skeleton/demo functionality.
+- [ ] Audit \`layout/password.liquid\`, locale labels, image helper, JS/CSS load order, event cleanup and Shopify editor section-load/unload.
+- [ ] Ensure all new reusable components load only needed assets and avoid global GSAP on templates that do not use it.
+- [ ] Cross-browser/device matrix: current Chrome, Safari, Firefox and Edge; iOS Safari and Android Chrome; laptop, desktop, tablet and narrow mobile.
+- [ ] Keyboard-only, screen reader, focus management, landmarks/headings, labels, contrast, zoom 200%/400%, touch target, no hidden content or pointer-only discovery.
+- [ ] Check reduced motion and JS-disabled resilience including loading, route transitions and purchasing.
+- [ ] Performance budgets and measurement for LCP, INP, CLS, image/video size, font loading, JS execution, scroll jank and transition cancellation.
+- [ ] Responsive image/sizes/priority, lazy below-fold media, video posters, compression, optional prefetch and no content shift.
+- [ ] Crawlability and SEO: titles/meta descriptions, H1 hierarchy, canonicals, pagination, internal links, product/collection/article schema, organisation/site info, OG image and redirects.
+- [ ] Check robots/noindex, \`sitemap.xml\`, broken links, duplicate pages, filter/query URLs, 404/soft 404 and policy indexing decisions.
+- [ ] Add cookie/consent management that respects applicable marketing/analytics permissions; avoid firing restricted tags first.
+- [ ] Verify analytics ecommerce events once configured, without duplicates from custom navigation.
+- [ ] Perform accessibility, technical SEO, structured-data and speed regression tests again after the homepage is built.
+- [ ] Remove unused demo/test assets, unnecessary dependencies, redundant CSS patches and old visual tokens only after safe regression checks.
+- [ ] Document evidence and any approved exceptions with owner/fix date.
+
+# O — PRODUCT DATA, CONTENT, COMMERCIAL OFFERS AND APPS
+
+**Gate O:** Everything shown is real, intentional and ready to trade.
+- [ ] Audit product catalogue at launch: IDs, handles, titles, descriptions, product type/vendor, media, variants, SKUs, barcodes where applicable, dimensions/weight and status.
+- [ ] Audit all Aster product/collection metafields and metaobjects against actual current records; no invented or blank content on live templates.
+- [ ] Confirm journal, refill and accessory stock/availability, pricing, compare-at, pre-order policy and unlisted/unpublished items.
+- [ ] Verify each product assigned to correct collection, storefront/market, related products and recommendation/cross-sell.
+- [ ] Confirm photography and asset rights, image crops, alt text, naming and accessibility.
+- [ ] Decide and configure launch offers/discount codes, combinations, exclusions, gift cards and minimum orders if used; test price arithmetic.
+- [ ] Confirm app inventory/permissions, required integrations and any billing/trial state; remove unused Skeleton/demo integrations.
+- [ ] Decide reviews provider (0.1 reserved Judge.me), import authenticity, moderation and whether reviews are included at launch; no fake review data.
+- [ ] Decide Klaviyo/newsletter marketing flows, compliant consent, welcome/signup and source attribution.
+- [ ] Confirm the future supplements are absent from public sale until R is fully approved.
 
 ---
 
-# AGREED IMPLEMENTATION ORDER FROM CURRENT POSITION
+# P — SHOPIFY ADMIN AND BUSINESS LAUNCH CONFIGURATION (AFTER CREATIVE BUILD)
 
-Phase numbers remain stable for reference. Actual execution order is:
+**These tasks are essential launch blockers but deliberately sit near the end.** The connected Shopify tool currently **has not established access to Aster**, so do not infer any of them is already configured. Owner to confirm each in the correct Aster Admin.
 
-1. **Phase 6 — Product Experience**
-2. **Phase 7 — Cart**
-3. **Phase 8 — Search + Discovery**
-4. **Phase 9 — Core Page/Content Templates**
-5. **Phase 4 — Homepage + GSAP Art Direction**, once destination pages/components are real
-6. Build **Phase 3.2 / 3.3 / 3.4** components on demand when a real surface proves the requirement
-7. Continue through utility, clean-up, accessibility, performance, SEO, analytics, cross-template art direction and launch QA
+## P1. Identity, ownership, security and domains
+- [ ] Confirm correct Shopify store/admin, plan, billing method, store legal name, business/trading address, contact details, currency and time zone.
+- [ ] Review primary domain \`houseofaster.co.uk\` and intended \`www\` routing, DNS, TLS, redirects, renewal ownership and any email-domain records.
+- [ ] Check sender email and SPF/DKIM/DMARC or Shopify-required email authentication; send and receive real tests.
+- [ ] Staff/collaborator permissions, 2FA, admin access, app scopes and recovery contacts; remove stale access.
+- [ ] Record production theme ID, backup/rollback theme and exactly how GitHub changes sync into the Aster Shopify theme.
+- [ ] Verify billing and Shopify plan features needed for launch (avoid assuming Plus/headless).
 
-This deliberately prioritises the core customer journey: **Browse → Product → Cart → Checkout**, plus search and baseline content, before speculative navigational/editorial components.
+## P2. Payments, fraud and checkout
+- [ ] Configure/verify Shopify Payments or chosen provider, payout identity/bank, enabled cards/wallets and fraud settings.
+- [ ] Decide payment capture and refund procedures; test authorise/capture if applicable.
+- [ ] Confirm checkout fields, address validation, customer account/guest policies, marketing opt-ins and order status.
+- [ ] Verify any gift-card, discount stacking or future instalment features against the actual plan/provider.
+- [ ] Turn **off** payment test mode before accepting real orders; verify a real transaction if commercially approved.
+
+## P3. Shipping, delivery and fulfilment
+- [ ] Agree fulfilment origin and stock-holding locations, dispatch cut-off, working days, handling time and internal owner.
+- [ ] Decide shipping markets and exclusions first (UK only or UK plus other locations); don't enable countries without fulfilment/pricing capability.
+- [ ] Configure shipping profiles/zones, rates, free-shipping thresholds (if any), parcel weights/dimensions and exceptional oversize products.
+- [ ] Choose carrier/service tiers, tracking, insurance, packaging and label purchasing; test real destination postcodes.
+- [ ] Decide delivery to PO boxes, Northern Ireland, Highlands/islands, Channel Islands, BFPO and international addresses; record applicable exclusions/rates.
+- [ ] Configure local pickup/delivery **only if offered**, or explicitly N/A.
+- [ ] Confirm packaging, printed inserts, discreet delivery requirements if any, return address, damaged/lost parcel escalation and customer-support SLA.
+- [ ] Verify inventory reservation/fulfilment workflow and who marks orders fulfilled, sends tracking and handles partial fulfilment.
+- [ ] Create clear customer-facing shipping policy matching **actual** configured Shopify rates, dispatch estimates and delivery claims.
+
+## P4. VAT, markets, pricing and international operations
+- [ ] Confirm UK VAT registration/tax treatment with accountant and Shopify Admin tax settings; test tax-inclusive display and any rate/override.
+- [ ] Review VAT treatment per product classification rather than applying an assumed universal rate.
+- [ ] Configure Shopify Markets, currencies and regional price/availability only for supported selling territories.
+- [ ] If exporting, settle export VAT/tax registration, customs data, origin/HS codes, duties/taxes approach and customer delivery terms before enabling markets.
+- [ ] Test taxes and shipping together on representative UK and enabled international addresses.
+
+## P5. Policies, compliance and customer protection
+- [ ] Legal review and publish Terms of Service, Privacy Policy, Refund/Returns Policy, Shipping/Delivery Policy, Cookies Policy and required business/trading disclosures.
+- [ ] Check UK consumer-rights, cancellation/return information, product warranty, customer service and refund timeframes against actual business operations.
+- [ ] Verify privacy notice, data processors, tracking consent, GDPR/PECR compliance, age/marketing preferences and cookie controls.
+- [ ] Confirm product claims, advertising copy, price/discount representations and endorsements meet relevant UK advertising/consumer requirements.
+- [ ] Confirm accessibility obligations/statement decision and clear contact channels.
+- [ ] Confirm marketing photographs/fonts/assets have usage rights and no copied site assets or third-party animations have been transplanted.
+
+## P6. Catalogue, inventory and daily operations
+- [ ] Confirm supplier/warehouse/stock process, stock synchronisation, backorders, product lead times and low-stock alerts.
+- [ ] Verify products published to correct Online Store/market channels, collection membership, stock locations and delivery eligibility.
+- [ ] Decide whether product reviews, returns portal, inventory/ERP, support desk or subscriptions are needed at journal launch; explicitly mark unused functions N/A.
+- [ ] Confirm returns handling/refund permissions, damaged item procedures, customer-support inbox and escalation owner.
+- [ ] Verify order notifications, packing slip/label appearance and order archiving/cancellation responsibilities.
+- [ ] Document test orders and day-one order handling checklist.
+
+## P7. Analytics, SEO, email and channel readiness
+- [ ] Configure GA4/GTM and consent where used, Shopify analytics, ecommerce event tracking and campaign UTMs without duplicate purchase events.
+- [ ] Verify Google Search Console ownership, primary domain, indexing/sitemap, Merchant Center/product feed **if in launch scope**, social profiles/pixels and consent settings.
+- [ ] Finalise homepage and core-page meta content, share previews, search indexing timing, redirects from any earlier Aster URLs and favicon.
+- [ ] Verify Klaviyo integration and signup forms in production, transactional email independence and suppression/consent handling.
+- [ ] Review launch communications, email list readiness and any announcement/countdown feature; no outdated pre-launch copy after opening.
 
 ---
 
-# CURRENT POSITION — 30 OCTOBER 2026
+# Q — END-TO-END ACCEPTANCE, LAUNCH AND AFTERCARE
 
-**Completed foundations:** Phase 0 and Phase 1 are complete apart from the current pre-launch password-page refresh. Phase 2.1 Announcement Bar, Phase 2.2 Header and Phase 2.4 Footer are complete. Phase 2.3 navigation’s visual treatment is signed off; final information architecture/deeper hierarchy remains deferred.
+**There is no launch unless all mandatory boxes in A–Q are complete or explicitly signed-off N/A/deferred.** Homepage must be built and signed off before launch. Supplement gate R applies only when supplements are sold.
 
-**Password/pre-launch:** The previous canopy/bear/stain waiting-list composition has been superseded on the rendered password template by the current cinematic composition. The page now supports optional **Desktop background image** and **Mobile background image** Theme Editor uploads. Each selected image fills the viewport and takes precedence over the Shopify-hosted video on its matching breakpoint; leaving either picker blank keeps the existing video fallback for that size. This lets the launch treatment move to static imagery without deleting the working video implementation. The desktop right-side editorial composition remains. On mobile the eyebrow, script heading, divider and tagline are hidden, and the countdown and signup have independent lower-viewport position controls in Theme Editor. The countdown is the original signed-off FlipDown implementation from the previous password page and remains targeted at 1 November 2026 at 09:00 UK time. Store Access remains available. The Klaviyo signup form is integrated and styled for first name, last name and email capture (compact two-row mobile grid) and validation messaging. Its post-submit state is detected from the known Klaviyo success DOM using section CSS and displays an Aster-authored accessible heading, subheading and double-opt-in instruction with bold “Confirm”, without mutating the provider form; the underlying Klaviyo success copy should also be aligned in Klaviyo if it is subsequently edited or the rich-text IDs change. The password layout now preloads Garet Book (400) and Heavy (700) WOFF2 before rendering styles to reduce font swapping in the confirmation. On desktop only, the post-submit confirmation now has a 46px gap above it (24px more than the previous 22px) and a 22px heading; mobile positioning and typography remain unchanged. The editor-only signup preview toggle remains available, and the live countdown handover target is 1 November 2026 09:00 UK time. Returning-subscriber behaviour remains to be observed after double opt-in before deciding whether Aster needs a bespoke return state. GitHub `main` contains the image-override implementation; final Theme Editor upload/render QA and ASTER Shopify MAIN parity verification remain pending.
+## Q1. Required route/experience matrix
+- [ ] **Navigation**: all primary/child menu links, search, account (if enabled), basket, social, footer/legal, announcement, desktop/mobile/keyboard.
+- [ ] **Collections**: all-products, each named collection, list-collections, empty and sold-out states, density, sort, pagination and responsive cards.
+- [ ] **Products**: Planner, every insert/refill/accessory template, multiple variants, 1/multiple quantity, add-to-cart, Buy now, out-of-stock, discounts, recommendations and direct URLs.
+- [ ] **Cart**: empty/multiple/updated/removed items, refresh, invalid stock, discount, drawer/full-cart, checkout handoff.
+- [ ] **Search**: predictive and full results; article/page results if enabled, no-results and mobile keyboard.
+- [ ] **Content**: About, Contact form, FAQ/help, standard pages, Journal/blog/article (if enabled), policy pages, 404, gift card/customer account if offered.
+- [ ] **Platform**: checkout, confirmation, order status, emails, password/unlock, captcha/challenge, customer account, back/forward, hard refresh, deep links.
+- [ ] **Page transitions**: internal click, back/forward, rapid repeat click, long pages, short pages, absent GSAP, slow network, reduced motion and focus restoration.
+- [ ] **Shopify editor**: changing image/text/section settings does not break content, and editor preview doesn't trigger misleading public animations or forms.
+- [ ] **Browser/device**: supported desktop browsers, actual iOS/Android, touch, keyboard, narrow portrait, tablet, landscape, zoom and reduced motion.
+- [ ] **Commerce scenarios**: successful order, declined payment, address/rate mismatch, tax, delivery threshold, guest/account, discount, cancel/refund, fulfil/partial fulfil, notifications.
+- [ ] **Technical**: SEO/schema, canonical/redirects, analytics, consent, speed/Core Web Vitals, asset licensing and accessibility checks.
+- [ ] **Operations**: staff can receive, pick, dispatch, track, refund and answer a real order.
 
-**Footer:** The footer remains fully built. Its previously signed-off structure, spacing, palette, Body supporting copy, tightened logo/tagline lock-up and SVG optical correction remain intact. During the current Planner visual-QA pass, the desktop Aster wordmark has been enlarged to `clamp(245px, 21vw, 340px)` to follow the supplied footer comparison mock-up and fill the left-column void more confidently; that latest scale change is awaiting Dave’s visual confirmation.
+## Q2. Formal go/no-go checklist
+- [ ] Every row in the launch coverage matrix is \`[x]\` or a formally approved N/A/deferral; **no unowned blocker**.
+- [ ] Stakeholder design approval for the brand system, desktop/mobile key templates and key motion sequences.
+- [ ] Trading, catalogue, payment, shipping, tax, legal and support owners approve their respective configuration.
+- [ ] Review all remaining placeholders, dead links, unpublished product exposure, theme-test pages, dated countdowns and third-party app trials.
+- [ ] Place and verify representative test orders against checkout, email, inventory, fulfilment, taxes and refunds. Shopify requires testing of checkout/operations before opening.
+- [ ] Confirm GitHub \`main\` vs correct **ASTER** production theme parity and backup rollback theme; deploy only after explicit authorisation.
+- [ ] Final SEO/indexing/redirect, accessibility, analytics and responsive visual audit complete.
+- [ ] Confirm payment test mode is disabled and live capture/payout enabled.
+- [ ] Approve exact launch window, operator and rollback criteria; remove storefront password **only when ready**.
+- [ ] Verify live homepage, product, collection, cart, checkout, forms, emails and route transitions immediately after opening.
 
-**Product card:** Core architecture and current photographic/Bouf-inspired art direction are signed off for the current build. The live collection treatment uses photographic full-bleed media, vertical swatches inside the image area, aligned bottom CTAs, variant-aware hover images and real Shopify product forms. The duplicate standalone price has been removed. Short card copy is merchant-editable through the pinned product metafield `aster.card_description`. Temporary review visuals remain QA-only until Judge.me is introduced near launch. Revisit only during pre-launch cross-template/launch QA if required.
+## Q3. First week after launch
+- [ ] Monitor checkouts/conversion, payment failures, fulfilment errors, support mail, form deliveries, stock discrepancies and order emails.
+- [ ] Monitor browser/JS errors, transition failures, Core Web Vitals, mobile sessions and accessibility regressions.
+- [ ] Monitor Google indexing/crawl, sitemap, redirects, 404s, analytics events and feed rejection if applicable.
+- [ ] Prioritise verified defects, keep a changelog and rollback plan, and avoid ad-hoc cross-theme changes.
+- [ ] Close the launch milestone with date, evidence, outstanding low-priority exceptions and named operational owners.
 
-**Collection:** Phase 5 is complete. The collection banner, responsive mobile crop, title/description composition, motion treatment, shared photographic product-card presentation, grid-density controls, product count, sorting, spacing, empty state, pagination and colour-scheme handling are accepted across desktop, tablet and mobile. Filters are deliberately omitted because Aster’s catalogue is intentionally small and curated; adding filter UI would introduce complexity without solving a meaningful discovery problem. Reconsider filters only if the catalogue expands materially. The collection and product cards should now be revisited only during pre-launch cross-template/launch QA if required.
+---
 
-**Active focus:** Phase 6 Product Experience remains in visual refinement. The dedicated `product.planner` template is assigned to The Aster Planner and routes through an editable `Aster Planner PDP` Theme Editor section. Product-specific copy remains in the reusable metafield/metaobject model, while visual art direction is editable in the theme: the Philosophy image has a 1600 × 800px upload target and is contained inside the compact editorial band; reassurance/highlight icons retain the Aster SVG/custom-upload system. The three-step section now keeps only the script section heading as the decorative voice while `01` / `02` / `03` and their step titles use quieter Garet Book/400 typography. Exactly two “Complete the ritual” products now form an intentional desktop three-column composition with the heading/CTA as column one and the two signed-off product cards as columns two/three; tablet keeps a normal two-card row and mobile remains compact. The provider-branded purple Shop Pay surface remains replaced by an Aster Wine `Buy now` express action that takes the selected variant/quantity straight to Shopify Checkout, where eligible accelerated payment methods remain available. The next planned task after this visual pass is a deliberate current-build-versus-original-Planner-mock-up comparison to identify any drift before broader cross-device QA and final sign-off.
+# R — FUTURE SUPPLEMENT RELEASE GATE (NOT A JOURNAL-LAUNCH REQUIREMENT)
 
-**Phase 7 reference:** The requested ColorlibHQ/Fashe cart drawer reference is recorded in `ASTER_CART_DRAWER_REFERENCE.md`. Fashe’s native-dialog/AJAX/custom-element architecture will be used as an interaction reference when Cart begins, then rebuilt into Aster’s own visual, motion and accessibility system.
+**Separate release.** The shared brand and ecommerce architecture must accommodate it, but do not imply products or legal approvals already exist.
 
-**Deferred, not forgotten:** Collection Card, Article Card and Editorial Card remain deliberately deferred until a real surface proves the requirement.
+- [ ] Confirm actual product formulation, supplier/manufacturer, ingredients, variants, SKUs, weights, shelf-life, storage and stock/lot traceability.
+- [ ] Complete regulatory/legal review for each product category, UK food-supplement labelling and safety requirements and substantiated advertising/health claims.
+- [ ] Obtain approved pack photography, ingredients/nutrition, allergens/warnings, directions and approved UK product-copy/SEO assets.
+- [ ] Sign off supplement-specific PDP, product cards, FAQs, related products and subscription/one-off purchase UX.
+- [ ] Configure any Appstle selling plans only with real prices, cadence, terms, cancellation/returns and customer notices; test renewals and failures.
+- [ ] Validate shipping restrictions/packaging and destination regulations for supplement products.
+- [ ] Complete supplement-specific checkout, warehouse, lot/expiry, returns, operational and cross-device release testing.
+- [ ] Explicitly approve supplement release separately from the original Aster 0.2 storefront launch.
 
-**After Phase 6:** Cart → Search → Core Content Templates → Homepage/GSAP art direction.
+---
 
-**Verification rule:** Before reporting connected-theme code as implemented, confirm the current GitHub `main` and the corresponding files on the actual ASTER Shopify MAIN theme are in parity.
+# IMPLEMENTATION ORDER — LOCKED UNTIL CHANGED IN THIS FILE
+
+1. **A: Creative foundations / 0.2 art direction** — establish asset matrix and common motion/transition concept; iterate when each real template exposes a need.
+2. **B: Navigation and header** — first mock-ups, sign-off, controlled build and verification.
+3. **C: Footer and newsletter** — mock-ups, sign-off, controlled build and verification.
+4. **D: Product cards, collections and list-collections** — realistic real-product mock-ups, sign-off and verification.
+5. **E: Planner then refill/accessory PDPs** — full purchase journey and storytelling, sign-off and verification.
+6. **F: Cart drawer/full cart** — complete transactional handoff.
+7. **G: Search and discovery** — search from entry to results.
+8. **H, I, J, K: Core pages, Journal, utility/account and checkout/post-purchase design** — no blank Shopify corners.
+9. **L: Homepage only now** — large-scale GSAP storyboard and asset-rich mock-ups, then implementation.
+10. **M, N, O: Password/launch transition, technical hardening and real catalogue/app integration** — work incrementally during earlier phases; final audit after homepage.
+11. **P: Shopify Admin, shipping, payments, taxes, policies, fulfilment and operations** — late formal launch configuration as requested; any prerequisite (e.g., truthful shipping copy) can be identified earlier.
+12. **Q: Full launch matrix, go/no-go, production deployment and first-week aftercare**.
+13. **R: Future supplements** — separate release gate.
+
+### Mandatory per-workstream sign-off record
+After every approved build, record the following under **Progress ledger**:
+- Workstream/section and **what changed**.
+- Mock-up image(s) and stakeholder approval reference.
+- Implementation commit/Shopify theme ID and parity result.
+- Desktop/mobile/tablet/keyboard/reduced-motion tests and actual commerce checks where relevant.
+- Issues/exceptions and explicit N/A or deferred decision.
+- Next exact unit of work.
+
+### Progress ledger
+
+| Date | Milestone | Evidence / status | Next |
+| --- | --- | --- | --- |
+| 30 Oct 2026 | Aster 0.1 implementation state | Preserved in \`archive/ASTER_BUILD_ROADMAP_V0_1.md\`; many elements were signed off **against the old creative direction**. | Reframe for 0.2 |
+| 11 Nov 2026 | Aster 0.2 rebrand direction | Private-club / affluent audience agreed; page transitions and ambitious GSAP experience requested; homepage deliberately deferred. | New master roadmap |
+| 11 Nov 2026 | 0.1 documentation archived | Exact copies of old roadmap and old visual language retained in \`archive/\`; no storefront code or Shopify settings changed. | Create first navigation mock-ups |
+| 11 Nov 2026 | Aster 0.2 master roadmap | All Shopify template families, commerce journeys, creative phases, admin, launch/QA and future supplement gate now inventoried. **Roadmap created; none of the 0.2 redesign work is falsely marked complete.** | **B1: Capture current navigation/header baseline and make the first 0.2 desktop/mobile mock-ups** |
+
+### Open decisions / controlled exceptions
+
+| Item | Status / required decision | Launch impact |
+| --- | --- | --- |
+| Correct Aster Shopify Admin and MAIN theme ID | Not verified via current Shopify connection; obtain safe Aster-specific confirmation before any store action | Blocks production parity and launch |
+| Exact launch geography, shipping rates, thresholds and carriers | Open; settle in P, before publishing delivery promises | Blocks trade |
+| Real product catalogue / stock / price approval | Audit in O and P | Blocks trade |
+| Guest accounts, gift cards, reviews, editorial publication, social/marketing channels | Explicit yes/no per feature; document N/A when excluded | No hidden broken features |
+| Countdown target 1 Nov 2026 | Historical date has passed; audit M before any live campaign | Blocks stale pre-launch experience |
+| Future supplements / subscriptions | Separate R gate; not required to launch journals/accessories unless scope changes | Does not block initial launch |
+| Homepage concept and mock-ups | **Intentionally deferred** until interior pages, content assets and motion grammar exist | Required before launch, not before foundation |
+| Production theme publishing | Explicit user go-live decision only; never implied by design approval | Protected |
+
+**Exact next action:** Produce new **Aster 0.2 navigation/header desktop and mobile mock-ups**, including open/closed states and the proposed transition choreography. Review and approve images before editing existing navigation code.
