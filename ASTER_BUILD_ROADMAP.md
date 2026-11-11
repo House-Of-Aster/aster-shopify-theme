@@ -141,6 +141,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 
 **Gate D:** Browsing feels curated and cinematic while products remain clear and easy to buy.
 - [ ] Create desktop/mobile collection mock-ups: hero/opening scene, editorial introduction, product grid rhythm, sorting and pagination.
+- [ ] Review the actual `templates/collection.liquid` and `assets/aster-collection.css`/JS against the 0.2 artwork, keeping real Liquid product pagination and SEO content intact.
 - [ ] Decide where photography/typography can break the conventional banner → toolbar → grid structure without damaging navigation and SEO.
 - [ ] Define collection types: all products, actual named/range collections, empty collection and optional curated editorial collection.
 - [ ] Inventory real catalogue, collection membership, collection handles, collection descriptions and artwork requirements.
