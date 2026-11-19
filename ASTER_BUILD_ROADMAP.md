@@ -2,7 +2,8 @@
 
 **Status:** ACTIVE MASTER PLAN — reset for Aster 0.2 on 11 November 2026  
 **Project:** The House of Aster · Shopify Online Store 2.0 · \`House-Of-Aster/aster-shopify-theme\` · \`main\`  
-**Owner/sign-off:** Dave · **Current workstream:** 0.2 design system → navigation/header mock-ups  
+**Owner/sign-off:** Dave · **Current workstream:** D — collection/product-card finish; B/C implemented in part, final sign-offs pending  
+**Theme implementation:** `Dave-Minall/aster-shopify-v02` · `aster-v02` · unpublished Aster 0.2 (Dawn 16.1.1). This House-Of-Aster repository on `main` remains the canonical documentation/roadmap ledger.  
 **Change policy:** This document is the **single source of truth** for implementation sequence, status, sign-offs, exceptions and launch readiness. Update it on every completed/verified unit and every approved scope change. The companion \`ASTER_VISUAL_LANGUAGE.md\` contains 0.2 art direction and design rules, not a second task list.
 
 ## The 0.2 reset — what changes and what stays
@@ -28,11 +29,11 @@
 
 ### Source-of-truth and safe-change rules
 
-- Reuse the existing Skeleton-based theme architecture, Shopify data and correctly working ecommerce behaviour wherever possible; visual mock-ups do not authorise unreviewed rebuilds.
+- Reuse the current Aster 0.2 Dawn theme architecture, Shopify data and correctly working ecommerce behaviour wherever possible; the earlier 0.1 Skeleton work remains an archived reference, not the active implementation. Visual mock-ups do not authorise unreviewed rebuilds.
 - **Mock-up → approve desktop/mobile/state variants → interaction storyboard → implement in controlled units → test/verify → record sign-off.** For each workstream, deliver one coherent unit rather than modifying unrelated parts of the store.
 - Preserve \`ASTER_BUILD_ROADMAP.md\` path and update this checklist **after each verified milestone** with date, change/commit, testing performed, limitations and immediate next action.
 - Prior 0.1 records are preserved *verbatim* in \`archive/ASTER_BUILD_ROADMAP_V0_1.md\` and \`archive/ASTER_VISUAL_LANGUAGE_V0_1.md\`. Do **not** lose prior architecture, feature decisions, known pitfalls or historical sign-offs; refer to the archive when implementing.
-- The current working files are on GitHub \`main\`. Treat Shopify ASTER MAIN / live-theme parity as **unverified** until explicitly checked against the correct Aster shop. Do not assume a connected Shopify account points to Aster.
+- The active 0.2 theme code is in `Dave-Minall/aster-shopify-v02` on `aster-v02`; the canonical roadmap and visual language are in `House-Of-Aster/aster-shopify-theme` on `main`. Specific V2 changes have been previewed in the unpublished Aster theme, but Shopify ASTER MAIN / published-theme parity remains **unverified**. Do not assume a connected Shopify account points to Aster.
 - Never alter the femme or Una stores by mistake. Do not update Shopify production settings or publish the theme without explicit authorisation.
 - Use British English; do not duplicate independent brand colours/typography controls across sections.
 - User-provided brand images and mock-up references remain creative inputs, not permission to replace existing product photography or create new storefront assets without approval.
@@ -46,10 +47,10 @@ The matrix is an index: every row is a required review of the feature, an approv
 | Surface / area | Current 0.1 baseline | 0.2 acceptance | Workstream |
 | --- | --- | --- | --- |
 | Brand / assets / motion system | Foundations exist | [~] Direction agreed; full system not signed off | A |
-| Announcement / header / navigation | Built | [ ] New brand and interaction sign-off | B |
-| Footer / newsletter / global closing scene | Built | [ ] Redesign and functional sign-off | C |
-| Shared product / category cards | Product card built | [ ] Redesign and integration sign-off | D |
-| Collection / collection listing | Collection built; listing generic | [ ] Both reviewed and signed off | D |
+| Announcement / header / navigation | Built | [~] 0.2 copper header/nav implemented; full functional and cross-device sign-off outstanding | B |
+| Footer / newsletter / global closing scene | Built | [~] Editorial footer implemented; full form/keyboard/responsive sign-off outstanding | C |
+| Shared product / category cards | Product card built | [~] Redesigned cards and working Choose options modal; swatches and full QA outstanding | D |
+| Collection / collection listing | Collection built; listing generic | [~] Main collection redesigned; list-collections and full D sign-off outstanding | D |
 | Planner PDP | Bespoke partial PDP | [ ] New design and commerce sign-off | E |
 | Standard / accessories / refill PDP | Generic template currently exists | [ ] Correct family layouts and states | E |
 | Supplements PDP | No verified launch content | [ ] Scoped for future; not accidentally displayed/sold | E / R |
@@ -464,12 +465,18 @@ After every approved build, record the following under **Progress ledger**:
 
 ### Progress ledger
 
+The 12–19 November entries below reconcile V2 with the working code and remembered preview checks. They are **partial implementation checkpoints**, not blanket `[x]` acceptance or proof of Shopify production parity.
+
 | Date | Milestone | Evidence / status | Next |
 | --- | --- | --- | --- |
 | 30 Oct 2026 | Aster 0.1 implementation state | Preserved in \`archive/ASTER_BUILD_ROADMAP_V0_1.md\`; many elements were signed off **against the old creative direction**. | Reframe for 0.2 |
 | 11 Nov 2026 | Aster 0.2 rebrand direction | Private-club / affluent audience agreed; page transitions and ambitious GSAP experience requested; homepage deliberately deferred. | New master roadmap |
 | 11 Nov 2026 | 0.1 documentation archived | Exact copies of old roadmap and old visual language retained in \`archive/\`; no storefront code or Shopify settings changed. | Create first navigation mock-ups |
-| 11 Nov 2026 | Aster 0.2 master roadmap | All Shopify template families, commerce journeys, creative phases, admin, launch/QA and future supplement gate now inventoried. **Roadmap created; none of the 0.2 redesign work is falsely marked complete.** | **B1: Capture current navigation/header baseline and make the first 0.2 desktop/mobile mock-ups** |
+| 11 Nov 2026 | Aster 0.2 master roadmap | All Shopify template families, commerce journeys, creative phases, admin, launch/QA and future supplement gate now inventoried. **Roadmap created; none of the 0.2 redesign work is falsely marked complete.** | B: Header/nav |
+| 12–18 Nov 2026 | B: Header/navigation — V2 recovery checkpoint | Copper header, Aster branding, slide-down navigation, backdrop treatment, search-entry animation and responsive interaction iterated on unpublished Dawn 0.2. User soft-approved navigation presentation; final keyboard/zoom/reduced-motion and all-state sign-off unrecorded. | Retain and regression-test during D/E |
+| 12–18 Nov 2026 | C/A2: Footer and global controls — V2 recovery checkpoint | Editorial footer with “A slower inbox”, newsletter, menu/social links and stripped-back payment icons implemented; global typography/colour controls centralised in Theme Settings. Some footer preview/code/Theme Check evidence reported in V2. Full consent/form/mobile/keyboard testing and formal sign-off remain outstanding. | Retain and regression-test during D/E |
+| 18 Nov 2026 | D: Collection redesign — V2 recovery checkpoint | Bespoke desktop/mobile hero artwork, toned-down overlay, editorial chapter with arched portrait, “The Aster Memoir” copy, layered/parallax depth, independent GSAP grid entrance, 1600px content limit and selectable 4/3/2-column merchandising. Collection template and styles are on `aster-v02`; full variants/sorting/empty/accessibility/list-collections QA outstanding. | Finish product-card details |
+| 19 Nov 2026 | D: Product cards and Choose options | Duplicate title over thumbnail removed; button stroke removed and CTA text bold; price/CTA alignment retained. Dawn standard quick-add modal and CSS z-index interception fix exist in `snippets/card-product.liquid`, `sections/main-collection-product-grid.liquid` and `assets/aster-house-collection.css` on `aster-v02`. V2 recorded a successful click test and desktop/mobile rendering check in unpublished theme. **End-to-end selected-variant/cart testing not yet signed off.** | Add colour/material swatches over thumbnails; then verify variant/image/price/cart/keyboard/touch behaviour |
 
 ### Open decisions / controlled exceptions
 
@@ -484,4 +491,4 @@ After every approved build, record the following under **Progress ledger**:
 | Homepage concept and mock-ups | **Intentionally deferred** until interior pages, content assets and motion grammar exist | Required before launch, not before foundation |
 | Production theme publishing | Explicit user go-live decision only; never implied by design approval | Protected |
 
-**Exact next action:** Produce new **Aster 0.2 navigation/header desktop and mobile mock-ups**, including open/closed states and the proposed transition choreography. Review and approve images before editing existing navigation code.
+**Exact next action (19 Nov 2026):** Continue D with **colour/material swatches over collection product thumbnails**. Preserve the functioning Choose options quick-add modal, the full-card product link, and current visual treatment. Map swatches to real Shopify variants, test image/price/availability responses and click/tap/keyboard behaviour, and complete cross-device and cart verification before D sign-off. Do not start the homepage or redesign previously accepted B/C work.
