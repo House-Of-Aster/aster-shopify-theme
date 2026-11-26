@@ -523,3 +523,5 @@ The 12–19 November entries below reconcile V2 with the working code and rememb
 
 ### 26 November 2026 — Collection arch parallax finish
 - [~] Desktop editorial arch photograph now uses `power2.out` easing, retaining the existing scroll-linked endpoint at the viewport top. Mobile parallax remains unchanged. Updated unpublished Shopify **Aster 0.2** theme (theme commit `540813647ad7fce917362f4a23adcef46547e350`) and implementation GitHub `aster-v02` (`8ad9b8688e336a1f2b942f86e1786aa51af05a9f`). Shopify save confirmed; browser visual QA and final sign-off pending.
+
+- [~] Follow-up 26 November: user reported image-only easing did not resolve abrupt layer stop. Restored original portrait ease; desktop whole-layer approach now uses a 160px scroll-linked polynomial offset before native sticky engagement. Shopify save `2cd3dadc1f5573dd5ef23268e224bdb6656a6130`; GitHub `7f99ca7351a9703be018391008a8f4d01c1a3f6f`. Visual sign-off remains pending.
