@@ -2,7 +2,7 @@
 
 **Status:** ACTIVE MASTER PLAN — reset for Aster 0.2 on 11 November 2026  
 **Project:** The House of Aster · Shopify Online Store 2.0 · \`House-Of-Aster/aster-shopify-theme\` · \`main\`  
-**Owner/sign-off:** Dave · **Current workstream:** D — collection/product-card finish; B/C implemented in part, final sign-offs pending  
+**Owner/sign-off:** Dave · **Current workstream:** D/E flagship collection and Planner visually established; shared surfaces refined; next eligible work is rendered/commerce QA and remaining core surfaces. Accessory family work deferred pending catalogue decisions; supplements gated for mid-2027.  
 **Theme implementation:** `Dave-Minall/aster-shopify-v02` · `aster-v02` · unpublished Aster 0.2 (Dawn 16.1.1). This House-Of-Aster repository on `main` remains the canonical documentation/roadmap ledger.  
 **Change policy:** This document is the **single source of truth** for implementation sequence, status, sign-offs, exceptions and launch readiness. Update it on every completed/verified unit and every approved scope change. The companion \`ASTER_VISUAL_LANGUAGE.md\` contains 0.2 art direction and design rules, not a second task list.
 
@@ -16,7 +16,18 @@
 
 **Explicit sequencing decision:** **DO NOT design, generate homepage mock-ups for, or implement the homepage yet.** Complete navigation, footer, collections, product families, cart, search and core pages, plus enough approved imagery and shared interaction language, **before** starting its storyboard. This overrides the old phase-number implementation sequence.
 
-**Launch scope decision:** Launch with the real, available journal/planner/accessory catalogue. Future Aster supplements are a **separate conditional release gate** and must not delay launch unless the commercial launch scope is explicitly changed. Do not invent supplement formulations, ingredients, claims, stock or regulatory approvals.
+**Launch scope decision:** Launch with the real, available journal/planner/accessory catalogue. Future Aster supplements are a **separate conditional release gate**, expected mid-2027, and must not delay launch unless the commercial launch scope is explicitly changed. Do not invent supplement formulations, ingredients, claims, stock or regulatory approvals.
+
+## Current owner checkpoint — 27 November 2026
+
+- **Non-negotiable global width contract: 1600 CSS px maximum on desktop.** All header/menu/footer content, page content rails, editorial objects, product/gallery/card grids, controls, buttons and other foreground content must remain within the centred global rail, including padding and responsive states. Respect Shopify `--page-width` with an absolute 1600px ceiling; reuse the approved collection/PDP inset and gutters rather than inventing independent widths. Full-bleed background materials and photographic scene surfaces may extend to viewport edges; this does not permit foreground content to escape the rail. Explicitly verify at widths above 1600px, desktop zoom and mobile before declaring any layout unit complete. This rule takes precedence over historical 0.1/1400px references and any older guidance permitting unconstrained content. Do not require the owner to repeat it.
+- **Planner:** The Aster Memoir (`/products/the-aster-planner`, template suffix `planner`, `templates/product.planner.json`) is visually signed off, including desktop/mobile motion. Preserve it; remaining purchase, content and rendered accessibility QA is separate.
+- **Current collection:** `templates/collection.json` is the default and presently presents the Planner ecosystem (Memoir and future add-ons), including Planner-specific copy and imagery. The existing look and motion are accepted for the current stage. Retain this temporarily; it is not an agreed universal collection design for supplements or a mixed catalogue.
+- **Other product templates:** defer refill/insert and accessory layouts until actual Planner add-ons are confirmed. Do not invent product types, specifications or assets. Revisit before selling those products; do not treat catalogue uncertainty as approval to launch unfinished sellable PDPs.
+- **Supplements:** defer dedicated product and collection templates to the mid-2027 programme, subject to real product scope and regulatory approval. Not an original Planner launch blocker.
+- **Collection architecture decision (open):** before non-Planner products join the store, agree a scalable family strategy. Candidate, not approved implementation: preserve the existing Planner editorial design as an alternate Planner collection template, use a genuinely category-neutral default/all-products experience, and introduce a supplements-specific template only when needed. Audit actual collection membership, handles, navigation, SEO URLs, data and shared grid/filter/quick-shop before migration. Do not change routes, assignments, navigation or content now.
+- **Presentation homepage:** temporary paper two-link section is in place, with 1600px rule applied; permanent homepage remains intentionally deferred. Remove/replace temporary section only during approved homepage build.
+- **Current verification boundary:** source saves/readbacks and implementation GitHub parity recorded in ledger; contrast source audit and four authorised corrections completed, paper banner replacement accepted visually. Rendered cross-device/interactive accessibility and end-to-end commerce remain outstanding. Standard pages remain deferred for now. No new storefront changes authorised by this documentation update.
 
 ### How statuses work
 
@@ -51,10 +62,10 @@ The matrix is an index: every row is a required review of the feature, an approv
 | Announcement / header / navigation | Built | [~] 0.2 copper header/nav implemented; full functional and cross-device sign-off outstanding | B |
 | Footer / newsletter / global closing scene | Built | [~] Editorial footer implemented; full form/keyboard/responsive sign-off outstanding | C |
 | Shared product / category cards | Product card built | [~] Redesigned cards and working Choose options modal; swatches and full QA outstanding | D |
-| Collection / collection listing | Collection built; listing generic | [~] Main collection redesigned; list-collections and full D sign-off outstanding | D |
-| Planner PDP | Bespoke partial PDP | [ ] New design and commerce sign-off | E |
-| Standard / accessories / refill PDP | Generic template currently exists | [ ] Correct family layouts and states | E |
-| Supplements PDP | No verified launch content | [ ] Scoped for future; not accidentally displayed/sold | E / R |
+| Collection / collection listing | Collection built; listing generic | [~] Planner-oriented default collection visually established; future family/default architecture decision, listing and full D QA outstanding | D |
+| Planner PDP | Bespoke partial PDP | [~] 0.2 visual and motion signed off; content, commerce and rendered accessibility QA outstanding | E |
+| Standard / accessories / refill PDP | Generic template currently exists | [ ] Deferred until actual Planner add-ons confirmed; required before those SKUs are sold | E |
+| Supplements PDP | No verified launch content | [ ] Deferred to mid-2027 conditional release; not accidentally displayed/sold | E / R |
 | Cart drawer + full cart | Reference only / basic template | [ ] Complete purchase journey | F |
 | Search overlay + full search results | Basic template | [ ] Search, no results, keyboard UX | G |
 | Standard pages / About / FAQ / Contact | Basic template | [ ] Required content and forms | H |
@@ -62,7 +73,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 | Policy pages / 404 / challenge / utility | Basic templates/platform | [ ] All appropriate states checked | J |
 | Customer accounts / gift cards | Platform/basic template | [ ] Enabled properly or explicit N/A | J |
 | Checkout / thank-you / order status | Shopify-hosted | [ ] Brand-compatible, functional, compliant | K |
-| Homepage | Minimal template, deliberately deferred | [ ] Last major creative build | L |
+| Homepage | Temporary two-link presentation section | [ ] Permanent homepage deliberately deferred; last major creative build | L |
 | Password / coming soon / pre-launch | Cinematic partial | [ ] Transition to live store planned | M |
 | SEO / accessibility / performance / analytics | Partial foundations | [ ] Verified cross-template | N |
 | Catalogue / offers / app integrations | Partial product infrastructure | [ ] Valid launch configuration | O |
@@ -91,7 +102,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 
 ## A2. Design tokens and component library
 - [x] Official four-colour palette reconfirmed 27 November 2026: Ivory `#F8F6EB`, Aster Red `#A52D34`, Wine `#6B2331`, Blush `#E8DAD2`. No brighter red `#D05259` or active blue. Preserve existing `#401923` supporting material/overlay/shadow/ink treatment; rendered accessibility sign-off remains separate.
-- [~] Reuse global scheme/typography roles, Garet Book + Heavy, Rufina, British Poems, responsive image primitive, 1400px content maximum and 20px/15px gutters. **0.2 presentation requires renewed approval.**
+- [~] Reuse global scheme/typography roles, Garet Book + Heavy, Rufina, British Poems and responsive image primitive. **Mandatory global desktop maximum 1600 CSS px**, with the approved shared content rail/insets and mobile-safe gutters; no wider local content rails. Full-bleed scenery/backgrounds alone may exceed the rail. Verify width on every implementation milestone. Other 0.2 presentation details require renewed approval.
 - [ ] Sign off the 0.2 usage of display/body/navigation/button/product fonts, dynamic type scales and editorial/handwritten accents.
 - [ ] Sign off media treatments: edge-to-edge scenes versus contained images, bespoke crops, texture/lighting, corners, spacing and chapter transitions. Do not force every scene into the 0.1 rectangular grid.
 - [ ] Build 0.2 reference components/states: links, filled/text buttons, inputs, select, checkbox, quantity, variant swatch, badge, price, accordion, loading/error/success and modal.
@@ -145,7 +156,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 - [ ] Create desktop/mobile collection mock-ups: hero/opening scene, editorial introduction, product grid rhythm, sorting and pagination.
 - [ ] Review the actual `templates/collection.liquid` and `assets/aster-collection.css`/JS against the 0.2 artwork, keeping real Liquid product pagination and SEO content intact.
 - [ ] Decide where photography/typography can break the conventional banner → toolbar → grid structure without damaging navigation and SEO.
-- [ ] Define collection types: all products, actual named/range collections, empty collection and optional curated editorial collection.
+- [ ] Define collection types before adding non-Planner products: current default is Planner-oriented; assess a dedicated Planner alternate template, neutral default/all-products and later supplement family template. Candidate only, no migration or assignment changes approved; confirm actual collection membership, handles and shared commerce requirements first.
 - [ ] Inventory real catalogue, collection membership, collection handles, collection descriptions and artwork requirements.
 - [ ] Rework shared **product card** in mock-ups with real products and realistic long titles/prices: planner, refill/insert, pouch/accessory and future states.
 - [ ] Preserve and re-test \`aster.card_description\`, product links, swatches, variant-dependent imagery/price, hover image, single badge priority and bottom CTA.
@@ -172,7 +183,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 - [ ] Test related products, quick-shop hover/focus bridge and touch fallback; avoid generic irrelevant recommendations.
 
 ## E2. Planner flagship PDP
-- [~] Dedicated \`product.planner.liquid\` + \`sections/aster-planner-pdp.liquid\` and media/form/metaobjects exist from 0.1; **visual and complete commerce sign-off are reopened**.
+- [x] Current 0.2 Planner uses `templates/product.planner.json` (Memoir template suffix `planner`); owner visually signed off desktop/mobile design and motion on 27 November 2026. Freeze approved layout/choreography. Complete commerce, product content and rendered accessibility sign-off remains open.
 - [ ] Build new desktop/mobile Planner mock-ups for hero, purchase interaction and full lower-page editorial narrative.
 - [ ] Storyboard approved GSAP/scene behaviour around physical materials, usage and emotional value; keep purchasing stable.
 - [ ] Reassess the 0.1 philosophy band, three-step story, highlights, specifications, FAQs and related-products grid for 0.2 aesthetics.
@@ -180,12 +191,14 @@ The matrix is an index: every row is a required review of the feature, an approv
 - [ ] Complete responsive, inventory/variant, modal/keyboard, purchase and visual sign-off.
 
 ## E3. Refill/insert and accessory PDPs
+**Deferred by owner on 27 November 2026 until real Planner add-ons are confirmed.** Resume with product-family mapping when catalogue decisions are made; mandatory before any affected SKU is sold. Do not build speculative templates now.
 - [ ] Confirm product-family mapping and whether existing generic \`product.liquid\` must become a real 0.2 shared template.
 - [ ] Create approved mock-ups for refill/insert and pouch/accessory with deliberately lighter storytelling than the Planner.
 - [ ] Implement reusable layouts and content fields rather than duplicating an entire product template for each SKU.
 - [ ] Test direct product links, purchase/add-to-cart, colours/quantities, related items, stock and responsive states.
 
 ## E4. Supplements — future release compatibility
+**Deferred to the mid-2027 programme.** Real product-specific design, claims and purchase decisions are gated under R. Keep architecture compatible but do not implement speculative supplement templates now.
 - [ ] Design a **compatible family architecture** for later supplements, but do not publish speculative product pages at journal launch.
 - [ ] Decide future one-off vs Appstle subscriptions, selling-plan slots, pricing and replenishment UX when real products are specified.
 - [ ] Mark actual supplement product templates, substantiated ingredients/claims, legal approvals and stock **future-gated** under R; not a journal-launch blocker if entirely excluded from sale.
@@ -426,7 +439,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 
 # R — FUTURE SUPPLEMENT RELEASE GATE (NOT A JOURNAL-LAUNCH REQUIREMENT)
 
-**Separate release.** The shared brand and ecommerce architecture must accommodate it, but do not imply products or legal approvals already exist.
+**Separate release, anticipated mid-2027.** The shared brand and ecommerce architecture must accommodate it, but do not imply products or legal approvals already exist. Resolve the collection family/default architecture before adding supplements to the catalogue.
 
 - [ ] Confirm actual product formulation, supplier/manufacturer, ingredients, variants, SKUs, weights, shelf-life, storage and stock/lot traceability.
 - [ ] Complete regulatory/legal review for each product category, UK food-supplement labelling and safety requirements and substantiated advertising/health claims.
@@ -445,7 +458,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 2. **B: Navigation and header** — first mock-ups, sign-off, controlled build and verification.
 3. **C: Footer and newsletter** — mock-ups, sign-off, controlled build and verification.
 4. **D: Product cards, collections and list-collections** — realistic real-product mock-ups, sign-off and verification.
-5. **E: Planner then refill/accessory PDPs** — full purchase journey and storytelling, sign-off and verification.
+5. **E: Planner then refill/accessory PDPs** — Planner visual work signed off; complete purchase QA. Refill/accessory template work is deferred until catalogue confirmation; progress other independent work in the meantime.
 6. **F: Cart drawer/full cart** — complete transactional handoff.
 7. **G: Search and discovery** — search from entry to results.
 8. **H, I, J, K: Core pages, Journal, utility/account and checkout/post-purchase design** — no blank Shopify corners.
@@ -460,7 +473,7 @@ After every approved build, record the following under **Progress ledger**:
 - Workstream/section and **what changed**.
 - Mock-up image(s) and stakeholder approval reference.
 - Implementation commit/Shopify theme ID and parity result.
-- Desktop/mobile/tablet/keyboard/reduced-motion tests and actual commerce checks where relevant.
+- Desktop/mobile/tablet/keyboard/reduced-motion tests and actual commerce checks where relevant. **Mandatory 1600px rail check** at desktop widths above 1600px, including foreground elements, gutters, shadows/overlaps, zoom and responsive overflow; document any intentional full-bleed background-only treatment.
 - Issues/exceptions and explicit N/A or deferred decision.
 - Next exact unit of work.
 
@@ -715,3 +728,7 @@ The 12–19 November entries below reconcile V2 with the working code and rememb
 - [x] Owner requested two simple homepage links for the 14:00 presentation. Added a removable Custom Liquid section at the top of `templates/index.json` in unpublished Aster 0.2 (205224673544): The Aster Memoir links to /products/the-aster-planner (verified planner template assignment), The Collection links to /collections/all via Shopify's collection route. Two equal clickable paper cards on desktop, stacked on mobile, existing paper material, brand colours, typography and shadow, visible keyboard focus. Existing disabled image banner and featured collection retained unchanged. No new section files, product or collection edits, or live theme changes. Direct Admin save/readback and exact GitHub parity verified, file SHA 509f0f6b75a6f8f6e433be267e3bce79a38a0f2c. Temporary presentation navigation only; homepage design remains deferred. Remove/replace the Custom Liquid section when the permanent homepage is built. Rendered preview/links still require visual click-through confirmation.
 
 - [x] Presentation navigation refinement: applied existing Paper-Texture.webp at full strength, 400px repeat, to the entire background behind the two clickable cards. Confirmed global page_width setting is 1600; constrained desktop section to the same inset rail as collection pages (global width minus 6.4rem, hard ceiling 1600px, 5rem internal gutters). Mobile retains stacked links. Only presentation Custom Liquid changed in templates/index.json; direct Admin save/readback and GitHub exact parity verified, file SHA 4258a9eb9f238b425280dd97d80cf3eb201b7205. Live theme unchanged; rendered preview confirmation outstanding.
+
+### 27 November 2026 — Owner checkpoint: width contract and deferred product families
+- [x] Owner reconfirmed 1600px as a mandatory, site-wide maximum for foreground content; corrected superseded 1400px active guidance and elevated the width check into the master acceptance rules. Existing full-width background scenes retained. Updated matrix, workstream E, collection architecture decision and sequence to reflect actual build state.
+- [x] Planner PDP visually signed off; existing default collection is Planner/add-on specific and can remain temporarily. Defer additional Planner product family templates until real add-ons are confirmed; defer supplement PDP/collection work until mid-2027. Collection strategy unresolved: candidate alternate Planner template plus neutral default and future supplement family, subject to owner approval. No template, collection, navigation or store changes made. Remaining rendered accessibility, commerce and standard/core page QA still open. Presentation homepage is temporary; permanent homepage remains deferred.
