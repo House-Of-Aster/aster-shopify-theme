@@ -44,7 +44,7 @@ Bear artwork is a quiet signature, **never an animated mascot, omnipresent icon 
 
 ## 3. Colour and material direction
 
-Retain the existing core palette until a newly approved central palette replaces it:
+The four colours below are the official Aster brand palette, explicitly reconfirmed by the owner on 27 November 2026:
 
 | Colour | Hex | Intent |
 | --- | --- | --- |
@@ -52,7 +52,6 @@ Retain the existing core palette until a newly approved central palette replaces
 | Aster Red | \`#A52D34\` | The clearest brand recognition, dramatic brand surfaces |
 | Wine | \`#6B2331\` | Deep quiet confidence, rich contrast and text |
 | Blush | \`#E8DAD2\` | Soft tonal relief and restrained product support |
-| Blue | \`#3E6990\` | **Reserved**, not part of active storefront unless approved |
 
 Physical luxury materials may supply *photographic* colour outside the tokens: copper, bronze, rich brown wood, warm light, muted brass, black shadow, textured burgundy textiles. These do **not** authorise random gold gradients or ad hoc CTA colours.
 
@@ -60,7 +59,9 @@ Physical luxury materials may supply *photographic* colour outside the tokens: c
 
 - Shopify **Theme Settings → Colours / colour schemes** remain the global source of truth.
 - Normal components consume schemes/tokens, not local hard-coded colours or a stack of per-section colour pickers.
-- Use Aster Red confidently but with carefully choreographed changes to ivory/wine scenes.
+- Use Aster Red confidently on light grounds or with ivory foregrounds; do not use it for small text on dark suede. The rejected brighter red `#D05259` is off-brand and must not be reintroduced. Blush is the approved palette choice for accent roles on dark suede (footer directory headings, social icons and divider); ivory remains the principal reading colour.
+- Existing deeper burgundy `#401923` remains a supporting material/overlay/shadow and ink treatment, not a fifth brand colour. Preserve the signed-off suede, paper, header/cart overlays and photography. Blue is not an active brand token.
+- Solid-pair contrast: ivory/red 6.40:1, blush/red 5.09:1, ivory/wine 10.14:1, blush/wine 8.06:1. Use a light foreground on red and a dark foreground on blush/ivory. Red/wine is only 1.58:1; neither is suitable as small text on the other. Validate rendered texture, interaction states and control boundaries separately.
 - Treat colour changes as part of editorial direction and motion.
 - Avoid decorative frames, default shadow-heavy cards and generic rounded rectangles.
 - The old colour/spacing system is a **working baseline**, not an unchangeable 0.2 design decree.
