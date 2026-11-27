@@ -66,7 +66,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 | Planner PDP | Bespoke partial PDP | [~] 0.2 visual and motion signed off; content, commerce and rendered accessibility QA outstanding | E |
 | Standard / accessories / refill PDP | Generic template currently exists | [ ] Deferred until actual Planner add-ons confirmed; required before those SKUs are sold | E |
 | Supplements PDP | No verified launch content | [ ] Deferred to mid-2027 conditional release; not accidentally displayed/sold | E / R |
-| Cart drawer + full cart | Reference only / basic template | [ ] Complete purchase journey | F |
+| Cart drawer + native fallback | Aster drawer implemented | [~] Drawer-only architecture implemented; browser/commerce QA outstanding; exclusive add-ons deferred | F |
 | Search overlay + full search results | Basic template | [ ] Search, no results, keyboard UX | G |
 | Standard pages / About / FAQ / Contact | Basic template | [ ] Required content and forms | H |
 | Journal/blog listing + article | Basic templates | [ ] Editorial experience and linking | I |
@@ -203,13 +203,16 @@ The matrix is an index: every row is a required review of the feature, an approv
 - [ ] Decide future one-off vs Appstle subscriptions, selling-plan slots, pricing and replenishment UX when real products are specified.
 - [ ] Mark actual supplement product templates, substantiated ingredients/claims, legal approvals and stock **future-gated** under R; not a journal-launch blocker if entirely excluded from sale.
 
-# F — CART DRAWER AND FULL CART
+# F — CART DRAWER ONLY (NATIVE CART FALLBACK)
 
-**Gate F:** Every basket state works and the path to checkout is dependable.
+**Gate F:** Drawer-only customer journey; every basket state works and the path to checkout is dependable.
+**Owner decision, 27 November 2026:** Do not design or expose a standalone cart page in normal browsing. Divert `/cart` to the previous safe storefront page and open Aster's existing cart drawer, matching femme. Keep the native Shopify template solely as a no-script/error fallback and for Theme Editor access. This supersedes prior full-cart design requirements.
 - [ ] Reconfirm architectural reference in \`ASTER_CART_DRAWER_REFERENCE.md\` (Fashe interaction patterns only; do not transplant branding/code blindly).
 - [ ] Create desktop/mobile mock-ups for cart opening, cart with multiple lines, empty cart, discounts, updating and error/stock changes.
 - [ ] Storyboard cart transition and integration with the common Aster motion system.
-- [ ] Build accessible AJAX cart drawer plus \`cart.liquid\` full-page fallback; drawer and page must show the same authoritative Shopify cart.
+- [x] Existing accessible AJAX drawer retained; cart-page divert implemented in draft `layout/theme.liquid` based on identical femme `sections/femme-cart-divert.liquid` V1 from themes A and B. Same-store referrer / recent tab storefront / homepage fallback, locale and preview parameters, automatic native drawer opening, loop protection and URL flag cleanup. No cart item, checkout, Buy Now add request, motion or layout changes. Native cart template retained only as a safety fallback.
+- [ ] Verify actual preview journey: direct cart visit, product/collection return, checkout return, empty and populated cart, both Buy Now routes, back/refresh, mobile and keyboard. Check drawer focus and fresh cart data. Source save/readback, syntax and GitHub parity verified; browser behaviour not yet verified.
+- [ ] Deferred: cart-exclusive add-ons (initial example: hat) offered within cart drawer only when another qualifying item is in the basket. Confirm actual SKU, eligibility, availability, pricing, stock, quantity/removal rules and enforcement against direct purchase before implementation. Do not create or expose speculative products. No add-on changes authorised now.
 - [ ] Verify variants, images, title, unit/line price, compare-at/savings, quantity limits, remove, subtotal and discounts.
 - [ ] Verify rapid repeat clicks, failed request/retry, empty state, sold-out/changed inventory and cart persistence across navigation/refresh.
 - [ ] Confirm delivery messaging only once configured in admin; upsell/free-shipping thresholds only if commercially justified.
@@ -459,7 +462,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 3. **C: Footer and newsletter** — mock-ups, sign-off, controlled build and verification.
 4. **D: Product cards, collections and list-collections** — realistic real-product mock-ups, sign-off and verification.
 5. **E: Planner then refill/accessory PDPs** — Planner visual work signed off; complete purchase QA. Refill/accessory template work is deferred until catalogue confirmation; progress other independent work in the meantime.
-6. **F: Cart drawer/full cart** — complete transactional handoff.
+6. **F: Cart drawer only** — cart divert implemented; verify checkout and drawer journey. No standalone cart design. Exclusive add-ons deferred.
 7. **G: Search and discovery** — search from entry to results.
 8. **H, I, J, K: Core pages, Journal, utility/account and checkout/post-purchase design** — no blank Shopify corners.
 9. **L: Homepage only now** — large-scale GSAP storyboard and asset-rich mock-ups, then implementation.
@@ -742,3 +745,6 @@ The 12–19 November entries below reconcile V2 with the working code and rememb
 - [x] Planner gallery outside-tap dismissal: click/tap anywhere outside enlarged frame and thumbnail navigation returns to original hero using existing dismissal/blur transition and resets selected thumbnail. Does not block other controls or steal focus; pending image decode cancelled; lifecycle-bound listener. Existing close, Escape and thumbnail switching retained. JS syntax check and Shopify save/readback plus exact GitHub parity verified; assets/aster-memoir-hero.js SHA 68364a1c077f1ff3264844874963d977ac9968b7. No layout/1600px or live theme change; interactive preview check outstanding.
 
 - [x] Planner detail icon: replaced ambiguous circular arrow with a simple open ring-bound planner SVG using two stylised binding rings. Retained existing 32×32 viewBox, currentColor, stroke weight, dimensions and accessibility treatment; no other icons, content, geometry or live theme changes. Draft Shopify save/readback and exact GitHub parity verified; sections/aster-pdp-chapters.liquid SHA 7beb58e1ceaeb5db61ff9ecfb5d7fbe7a0035b17. Rendered visual check outstanding.
+
+### 27 November 2026 — Cart drawer-only customer journey
+- [x] Owner approved blocking the standalone cart page in normal browsing, returning users to the previous safe storefront page and automatically opening the drawer. Inspected the actual identical femme A/B Cart divert V1 section; adapted its principles to Dawn/Aster native `cart-drawer.open()`. Saved only draft Aster 0.2 `layout/theme.liquid`, Shopify readback, JS syntax and exact GitHub parity verified (file SHA 5ba02f49ba1eca9f95578f160decafc89d27a395). Prioritise safe same-origin referrer, then recent session storefront, then homepage; preserve preview parameters and remove one-time URL marker after drawer open. No changes to checkout, cart data, Buy Now add handlers, live theme, femme or 1600px layout. Native cart remains as no-JS/error and design-mode fallback. Browser simulation unavailable (tool runtime lacks URL), so actual click-through verification remains outstanding. F's design scope is now drawer only; no standalone page redesign. Record future cart-exclusive hat/add-ons as deferred, contingent on another qualifying item and real product rules; no implementation yet.
