@@ -116,13 +116,15 @@ Use a rhythm of:
 - Moments of near-stillness and beautifully composed static photography.
 - Commerce moments that reset visual complexity and provide confident clarity.
 
-The existing layout baseline remains available:
-- Maximum conventional content width **1400px**.
-- Desktop/tablet gutters **20px**, mobile **15px**.
-- Existing adjacent-component gaps \`clamp(22px, 2.5vw, 32px)\` and \`18px\` mobile.
-- Existing frame-radius token \`--aster-radius: 12px\`.
+### Mandatory global layout contract — 1600px
 
-Those are **defaults for interface/transactional areas**, not universal cages for immersive scenes. Full-screen experiences may intentionally go beyond 1400px and use art-directed edge treatments. Do not replace thoughtful layout with dozens of independent spacing and radius settings.
+- **1600 CSS px is the hard maximum desktop foreground content width across Aster.** Use the shared Shopify `--page-width` (configured at 1600px), centred and capped at 1600px, with border-box sizing and the approved common rail/insets.
+- Match the established collection/PDP desktop inset (global width minus 6.4rem with the existing 5rem internal gutters where those rails apply); use responsive, mobile-safe gutters. Do not invent wider local rails or let nested grids, controls, text, cards or editorial objects exceed the shared limit.
+- Full-bleed scene photography, paper/suede materials and background surfaces may span the viewport. Foreground content, including header/menu/footer and interactive controls, stays within the rail. Vertical layering can remain as approved; it must not create horizontal overflow.
+- Check desktop widths above 1600px, zoom, tablet and mobile for alignment and overflow on every layout change. This is an acceptance requirement, not an optional aesthetic preference.
+- Global commercial corners remain square. Preserve the approved material treatments and shadows; no arbitrary local overrides.
+
+This contract supersedes the former 1400px baseline and any earlier permission for foreground content to exceed the rail. Immersive scenes remain possible through full-bleed backgrounds and approved motion, not unconstrained content.
 
 Avoid excessive borders, ornamental rules, generic cards, default shadows and heavy outlined secondary buttons. Functional borders, focus rings and legible inputs remain valid.
 
@@ -130,7 +132,7 @@ Avoid excessive borders, ornamental rules, generic cards, default shadows and he
 
 **Primary interactive experience inspiration:** \`landonorris.com\` — take cues from the immersive quality, transitions, layering, scrolling as storytelling, responsiveness and coherence. Do **not** clone its visual identity, assets or exact scene choreography.
 
-**The homepage is intentionally deferred.** It will eventually receive Aster's strongest GSAP sequence after the internal-page motion grammar and real assets are established.
+**The homepage is intentionally deferred.** It will eventually receive Aster's strongest GSAP sequence after the internal-page motion grammar and real assets are established. The temporary two-link presentation section is an explicitly approved exception, not the permanent homepage design.
 
 Our active interior-page motion language may include:
 - Masked image reveals and confident but controlled scale changes.
@@ -185,7 +187,7 @@ An invitation into the House. Distinctive full-screen or spatial menu treatment,
 The closing scene of the publication. Heroic brand identity, intentional colour, an elevated newsletter invitation and polished social/legal links. Never an abandoned standard multi-column footer.
 
 ### Collection/merchandising
-Products are curated objects, not anonymous store tiles. Editorial prelude, strong cards, occasional dramatic compositions and precise commerce information. Sorting and purchasing remain understandable.
+Products are curated objects, not anonymous store tiles. Editorial prelude, strong cards, occasional dramatic compositions and precise commerce information. Sorting and purchasing remain understandable. The present default collection is Planner-oriented; keep it for now. A dedicated Planner collection, category-neutral default and later supplement family are candidate architecture only, pending approval. Do not apply Planner-specific artwork or copy indiscriminately to future supplements.
 
 ### Planner PDP
 The physical product is the hero. Excellent buying interface, galleries and variant fidelity above the fold; immersive material, use and emotional storytelling below. No mandatory animation between shopper and Add to Cart.
