@@ -2,7 +2,7 @@
 
 **Status:** ACTIVE MASTER PLAN — reset for Aster 0.2 on 11 November 2026  
 **Project:** The House of Aster · Shopify Online Store 2.0 · \`House-Of-Aster/aster-shopify-theme\` · \`main\`  
-**Owner/sign-off:** Dave · **Current workstream:** D/E flagship collection and Planner visually established; shared surfaces refined; next eligible work is rendered/commerce QA and remaining core surfaces. Accessory family work deferred pending catalogue decisions; supplements gated for mid-2027.  
+**Owner/sign-off:** Dave · **Current workstream:** G — search results and predictive discovery implemented, awaiting preview/functional QA and owner sign-off. D/E flagship visual design and F drawer-only architecture established. Accessory families deferred pending catalogue decisions; supplements mid-2027.  
 **Theme implementation:** `Dave-Minall/aster-shopify-v02` · `aster-v02` · unpublished Aster 0.2 (Dawn 16.1.1). This House-Of-Aster repository on `main` remains the canonical documentation/roadmap ledger.  
 **Change policy:** This document is the **single source of truth** for implementation sequence, status, sign-offs, exceptions and launch readiness. Update it on every completed/verified unit and every approved scope change. The companion \`ASTER_VISUAL_LANGUAGE.md\` contains 0.2 art direction and design rules, not a second task list.
 
@@ -67,7 +67,7 @@ The matrix is an index: every row is a required review of the feature, an approv
 | Standard / accessories / refill PDP | Generic template currently exists | [ ] Deferred until actual Planner add-ons confirmed; required before those SKUs are sold | E |
 | Supplements PDP | No verified launch content | [ ] Deferred to mid-2027 conditional release; not accidentally displayed/sold | E / R |
 | Cart drawer + native fallback | Aster drawer implemented | [~] Drawer-only architecture implemented; browser/commerce QA outstanding; exclusive add-ons deferred | F |
-| Search overlay + full search results | Basic template | [ ] Search, no results, keyboard UX | G |
+| Search overlay + full search results | Aster search and live suggestions implemented | [~] Rendered/functional QA and owner sign-off outstanding | G |
 | Standard pages / About / FAQ / Contact | Basic template | [ ] Required content and forms | H |
 | Journal/blog listing + article | Basic templates | [ ] Editorial experience and linking | I |
 | Policy pages / 404 / challenge / utility | Basic templates/platform | [ ] All appropriate states checked | J |
@@ -222,12 +222,12 @@ The matrix is an index: every row is a required review of the feature, an approv
 # G — SEARCH AND DISCOVERY
 
 **Gate G:** Search works beyond the header entry field, even when there are no results.
-- [ ] Approve overlay/search drawer desktop/mobile mock-ups and interaction prototype.
-- [ ] Implement predictive search using correct Shopify endpoint/API and accessible keyboard/focus behaviour where feasible.
-- [ ] Design/implement \`search.liquid\`: product results, possible pages/articles, counts, query retention, loading and no-results state.
-- [ ] Handle escaped queries, misspellings/empty query, no inventory, keyboard selection and touch dismissal.
-- [ ] Confirm result card behaviour, working product links, sorting/pagination as appropriate and no unsupported claims.
-- [ ] Test reduced motion and browser history/back from search results.
+- [~] Existing approved navigation presentation retained; added compact paper-toned suggestions without replacing menu, affirmation placeholder, motion or scroll lock. Live Shopify JSON suggestions for products, collections, pages and articles; max six, query debounce, cancel stale requests, loading/empty/error state, real safe same-store links, View all results, arrow/Tab/Enter and Escape handling. Actual keyboard/mobile QA outstanding.
+- [x] Dedicated search page built in `sections/main-search.liquid` and `templates/search.json`: paper opening, retained query, suede results surface, three equal desktop columns by default, two mobile columns, shared existing product cards, portrait media, secondary images, product quick-add/Choose Options, native search facets and pagination. Page/Journal results use labelled paper editorial links, not purchase cards. Search/no-results/empty state links to collection; no fabricated content. Mandatory 1600px ceiling and shared desktop rail/insets. Existing collection and Planner visual templates unchanged.
+- [x] Reused shared card snippet with search context retained in analytics; enabled its existing Aster quick-shop treatment for search. Existing native cart drawer and cart diversion retained.
+- [x] Search source hardening: URL-encode filter-reset queries, escape displayed user terms, cancel outdated predictive requests and reject stale results, literal search-term replacement instead of RegExp, focus-aware dismissal, independent form inputs, reduced-motion mobile focus. Source saved/read back, schema/JS syntax checked and exact GitHub parity confirmed.
+- [ ] Browser QA: search for Planner/Memoir and partial names, misspellings, punctuation, empty/no-match, keyboard/screen-reader/touch, availability, filters/sort, pagination, back/forward, real quick-shop/cart adds, desktop above 1600px/zoom and mobile. Verify actual rendered contrast and suggestion endpoint behaviour. User visual sign-off pending. Preview screenshot requests provided no inspectable pixels; no claim of full functional completion.
+- [ ] Revisit relevance, Journal/page discovery and category handling once real launch content and add-on catalogue are populated.
 
 # H — CORE CONTENT PAGES AND CONTACT
 
@@ -748,3 +748,7 @@ The 12–19 November entries below reconcile V2 with the working code and rememb
 
 ### 27 November 2026 — Cart drawer-only customer journey
 - [x] Owner approved blocking the standalone cart page in normal browsing, returning users to the previous safe storefront page and automatically opening the drawer. Inspected the actual identical femme A/B Cart divert V1 section; adapted its principles to Dawn/Aster native `cart-drawer.open()`. Saved only draft Aster 0.2 `layout/theme.liquid`, Shopify readback, JS syntax and exact GitHub parity verified (file SHA 5ba02f49ba1eca9f95578f160decafc89d27a395). Prioritise safe same-origin referrer, then recent session storefront, then homepage; preserve preview parameters and remove one-time URL marker after drawer open. No changes to checkout, cart data, Buy Now add handlers, live theme, femme or 1600px layout. Native cart remains as no-JS/error and design-mode fallback. Browser simulation unavailable (tool runtime lacks URL), so actual click-through verification remains outstanding. F's design scope is now drawer only; no standalone page redesign. Record future cart-exclusive hat/add-ons as deferred, contingent on another qualifying item and real product rules; no implementation yet.
+
+### 27 November 2026 — Workstream G: Search and Discovery build
+- [x] Owner authorised using existing product/collection templates as design reference. Built dedicated search opening and native results grid, using existing material assets, shared collection CSS and commerce controls, three-column default, explicit 1600px maximum and collection inset, simple static composition (no new GSAP), query retention, sorting/filtering, pagination, empty/no-match recovery, and future page/Journal cards. Added compact Shopify live suggestions to existing navigation after finding that prior animation was placeholder-only. Preserved navigation/header design, collection, Planner, checkout, cart diversion and live theme.
+- [x] Verified direct Admin save/readback and implementation branch exact parity for ten distinct files: sections/main-search.liquid f8cee267675b7b3c5004263f463d8232036e8096; templates/search.json c0ea5bd9a4cf56e7ed8a7d7036d10c3f9d70121e; snippets/card-product.liquid d7bafedc8b31de6d3239a46b438078a3e249f98b; sections/aster-club-header.liquid 0e734bf61406f92ad35c208e8923268f7fd01461; assets/aster-club-navigation.css ed5d85e21e53c052a367219099366511d3f3829e; assets/aster-club-navigation.js 501eadaba763cad2ab4d648b3621845f48942dfd; assets/predictive-search.js 8b43c157b2e3126fbe4dfa5f8633a8785617a34a; assets/main-search.js 5ba87ea0d7b18bec181d4e52ecbe960d4b334409; snippets/facets.liquid 9f00c5315736721e9f9d6e9eb928c2b6083f6b22; sections/predictive-search.liquid f6ab30fe93d5ad328c4cc5c5eea734c59641f0ff. JSON preflight showed header-comment-only difference for search template; semantic equality confirmed; post-write exact parity verified. JS syntax and search schema JSON validated. No live theme changes. Desktop matching-search and mobile no-match screenshot requests did not return inspectable pixels; rendered and functional QA remains mandatory. Next exact action: user preview review of /search?q=planner and no-match search, then review live suggestions, quick-shop and filters before visual sign-off or progressing to H.
